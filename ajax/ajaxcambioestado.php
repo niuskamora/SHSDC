@@ -1,12 +1,10 @@
 <?php
 
 $idarea = $_POST['idarea'];
-include("../recursos/funciones.php");
-require_once('../lib/class.wsdlcache.php');
-require_once('../core/class.inputfilter.php');
+require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
-require_once('../lib/nusoap.php');
+require_once("../core/Crypt/AES.php");
 try {
     $client = new SOAPClient($wsdl_sdc);
     $client->decode_utf8 = false;

@@ -2,12 +2,10 @@
 
 session_start();
 try {
-include("../recursos/funciones.php");
-require_once('../lib/class.wsdlcache.php');
-require_once('../core/class.inputfilter.php');
+require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
-require_once('../lib/nusoap.php');
+require_once("../core/Crypt/AES.php");
         $client = new SOAPClient($wsdl_sdc);
     $client->decode_utf8 = false;
     $UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
