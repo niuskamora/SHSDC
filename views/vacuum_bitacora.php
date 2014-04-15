@@ -1,7 +1,7 @@
 <?php
-if ($usuarioBitacora == "") {
+/*if ($usuarioBitacora == "") {
     echo '<script language="javascript"> window.location = "../pages/inbox.php"; </script>';
-}
+}*/
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -87,7 +87,7 @@ if ($usuarioBitacora == "") {
                         <div class="tab-content" id="bandeja">
                             <?php
                             //Verificando que este vacio o sea null
-                            if (!isset($resultadoListaBitacora->return)) {
+                            if (!isset($resultadoListaBitacora)) {
                                 echo '<div class="alert alert-block" align="center">';
                                 echo '<h2 style="color:rgb(255,255,255)" align="center">Atención</h2>';
                                 echo '<h4 align="center">No Existen Registros en Bitácora</h4>';
@@ -98,7 +98,7 @@ if ($usuarioBitacora == "") {
                                 ?>
                                 <form class="form-search" id="formulario" method="post">                   
                                     <strong> <h2 align="center">Bitácora</h2> </strong>
-                                    <table class='footable table table-striped table-bordered'  data-page-size=$itemsByPage>
+                                    <table class='footable table table-striped table-bordered' data-page-size=<?php echo $itemsByPage ?>>
                                         <thead bgcolor='#FF0000'>
                                             <tr>
                                                 <th style="text-align:center">Nro de Bitácora</th>
@@ -114,36 +114,39 @@ if ($usuarioBitacora == "") {
                                                 for ($i = 0; $i < $bitacora; $i++) {
                                                     ?>
                                                     <tr>
-                                                        <td style="text-align:center"><?php echo $resultadoListaBitacora->return[$i]->idbit ?></td>
-                                                        <td style="text-align:center"><?php echo $resultadoListaBitacora->return[$i]->accionbit ?></td>
-                                                        <?php $fecha[$i] = FechaHora($resultadoListaBitacora->return[$i]->fechabit); ?>
-                                                        <td style="text-align:center"><?php echo $fecha[$i] ?></td>
-                                                        <td style="text-align:center"><?php echo $resultadoListaBitacora->return[$i]->observacionbit ?></td>
-                                                        <td style="text-align:center"><?php echo $resultadoListaBitacora->return[$i]->idusu->nombreusu . ' ' . $resultadoListaBitacora->return[$i]->idusu->apellidousu ?></td>
+                                                        <td style="text-align:center"><?php echo $resultadoListaBitacora[$i]['idbit'] ?></td>
+                                                        <td style="text-align:center"><?php echo utf8_encode($resultadoListaBitacora[$i]['accionbit']) ?></td>
+                                                        <?php //$fecha[$i] = FechaHora($resultadoListaBitacora[$i]['fechabit']); ?>
+                                                        <td style="text-align:center"><?php echo "" ?></td>
+                                                        <td style="text-align:center"><?php echo utf8_encode($resultadoListaBitacora[$i]['observacionbit']) ?></td>
+                                                        <td style="text-align:center"><?php echo utf8_encode($resultadoListaBitacora[$i]['idusu']['nombreusu']) . ' ' . utf8_encode($resultadoListaBitacora[$i]['idusu']['apellidousu']) ?></td>
                                                     </tr>
                                                     <?php
                                                 }
-                                            } else {
-                                                ?>
-                                                <tr>
-                                                    <td style="text-align:center"><?php echo $resultadoListaBitacora->return->idbit ?></td>
-                                                    <td style="text-align:center"><?php echo $resultadoListaBitacora->return->accionbit ?></td>
-                                                    <?php $fecha = FechaHora($resultadoListaBitacora->return->fechabit); ?>
-                                                    <td style="text-align:center"><?php echo $fecha ?></td>
-                                                    <td style="text-align:center"><?php echo $resultadoListaBitacora->return->observacionbit ?></td>
-                                                    <td style="text-align:center"><?php echo $resultadoListaBitacora->return->idusu->nombreusu . ' ' . $resultadoListaBitacora->return->idusu->apellidousu ?></td>
-                                                </tr>
-                                            <?php } ?>                                    
+											} else{
+												?>
+                                                    <tr>
+                                                        <td style="text-align:center"><?php echo $resultadoListaBitacora['idbit'] ?></td>
+                                                        <td style="text-align:center"><?php echo utf8_encode($resultadoListaBitacora['accionbit']) ?></td>
+                                                        <?php //$fecha = FechaHora($resultadoListaBitacora['fechabit']); ?>
+                                                        <td style="text-align:center"><?php echo "" ?></td>
+                                                        <td style="text-align:center"><?php echo utf8_encode($resultadoListaBitacora['observacionbit']) ?></td>
+                                                        <td style="text-align:center"><?php echo utf8_encode($resultadoListaBitacora['idusu']['nombreusu']) . ' ' . utf8_encode($resultadoListaBitacora['idusu']['apellidousu']) ?></td>
+                                                    </tr>
+                                                    <?php
+											}
+											?>
+                                                                              
                                         </tbody>
                                     </table>                            
                                     <ul id="pagination" class="footable-nav"><span>Pag:</span></ul>
                                     <br>
-                                    <?php if ($_SESSION["Usuario"]->return->tipousu == "2") { ?>
+                                    <?php //if ($_SESSION["Usuario"]->return->tipousu == "2") { ?>
                                         <div align="right">                      
                                             <button type="submit" class="btn" id="vaciar" name="vaciar" onclick="return confirm('¿Esta seguro que desea vaciar la Bitacora?')">Vaciar Bitácora</button>
 
                                         </div>
-                                    <?php } ?>
+                                    <?php //} ?>
                                 </form>
                             <?php } ?>
                         </div>

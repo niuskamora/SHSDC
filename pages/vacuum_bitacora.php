@@ -1,12 +1,13 @@
 <?php
 
 session_start();
+include("../recursos/funciones.php");
 require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
 
-if (!isset($_SESSION["Usuario"])) {
+/*if (!isset($_SESSION["Usuario"])) {
     iraURL("../index.php");
 } elseif (!usuarioCreado()) {
     iraURL("../pages/create_user.php");
@@ -25,37 +26,40 @@ if (isset($SedeRol->return)) {
 }
 
 $usuarioBitacora = $_SESSION["Usuario"]->return->idusu;
-$sede = $_SESSION["Sede"]->return->idsed;
+$sede = $_SESSION["Sede"]->return->idsed;*/
 
-try {
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
-    $resultadoListaBitacora = $client->listarBitacora();
-
-    if (!isset($resultadoListaBitacora->return)) {
-        $bitacora = 0;
-    } else {
-        $bitacora = count($resultadoListaBitacora->return);
-    }
-
+try {	
+	$usuario = new nusoap_client($wsdl_sdc, 'wsdl');
+	$userResp = $usuario->call("listarBitacora");
+	
+	if($userResp != ""){
+		$resultadoListaBitacora = $userResp['return'];
+		if(isset($resultadoListaBitacora[0])){
+			$bitacora = count($resultadoListaBitacora);
+		}
+		else{
+			$bitacora = 1;
+		}
+	}
+	
     if (isset($_POST["vaciar"])) {
+		
+		$usuario = new nusoap_client($wsdl_sdc, 'wsdl');
+		$userResp = $usuario->call("vaciarBitacora");
+		$resultadoVacioBitacora = $userResp['return'];
 
-$client = new SOAPClient($wsdl_sdc);
-        $client->decode_utf8 = false;
-        $resultadoVacioBitacora = $client->vaciarBitacora();
-
-        if (isset($resultadoVacioBitacora->return) == 1) {
+        if (isset($resultadoVacioBitacora) == 1) {
             javaalert('Bitacora Vaciada');
-            llenarLog(8, "Vacio de Bitácora", $usuarioBitacora, $sede);
-            iraURL('../pages/administration.php');
+            //llenarLog(8, "Vacio de Bitácora", $usuarioBitacora, $sede);
+            //iraURL('../pages/administration.php');
         } else {
             javaalert('Bitacora No Vaciada');
-            iraURL('../pages/administration.php');
+            //iraURL('../pages/administration.php');
         }
     }
     include("../views/vacuum_bitacora.php");
 } catch (Exception $e) {
     javaalert('Lo sentimos no hay conexion');
-    iraURL('../pages/administration.php');
+    //iraURL('../pages/administration.php');
 }
 ?>
