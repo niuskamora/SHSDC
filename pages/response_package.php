@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+include("../recursos/funciones.php");
 require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
