@@ -84,7 +84,7 @@
                         </ul>
                     </div>
                     <div class="span10">
-                        <div class="tab-content" id="bandeja">
+                        <div class="tab-content"  id="bandeja">
                             <?php
                             //Verificando que este vacio o sea null
                             if (!isset($resultadoListaBitacora)) {
