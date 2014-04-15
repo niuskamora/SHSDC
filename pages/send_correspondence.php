@@ -14,24 +14,35 @@ require_once("../core/Crypt/AES.php");
 }*/
 //try {
     $client = new nusoap_client($wsdl_sdc, 'wsdl');
-    $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"], 'sede' => $_SESSION["Sede"]["nombresed"]);
-    $SedeRol = $client->consultarSedeRol($UsuarioRol);
+   // $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"], 'sede' => $_SESSION["Sede"]["nombresed"]);
+	$UsuarioRol["idusu"] = $_SESSION["Usuario"]["idusu"];
+	$UsuarioRol["sede"] = $_SESSION["Sede"]["nombresed"];
+    $consumo = $client->call("consultarSedeRol",$UsuarioRol);
+    $SedeRol = $consumo['return'];
+	//$SedeRol = $client->consultarSedeRol($UsuarioRol);
 	$consumo = $client->call("listarSedes");
     $Sedes = $consumo['return'];
+   
+
    // $Sedes = $client->listarSedes();
-    $usu = array('idusu' => $_SESSION["Usuario"]->return->idusu);
+  /*  $usu = array('idusu' => $_SESSION["Usuario"]->return->idusu);
     $sede = array('idsed' => $_SESSION["Sede"]->return->idsed);
     $param = array('registroUsuario' => $usu,
         'registroSede' => $sede);
-
+*/
    // $rowDocumentos = $client->listarDocumentos();
     $consumo = $client->call("listarDocumentos");
     $rowDocumentos = $consumo['return'];
+		
 	//$rowPrioridad = $client->listarPrioridad();
 	$consumo = $client->call("listarPrioridad");
     $rowPrioridad = $consumo['return'];
-	$origenbuz = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'idsede' => $_SESSION["Sede"]->return->idsed);
-    $propioBuzon = $client->consultarBuzonXUsuarioSede($origenbuz);
+	//echo '<pre>';print_r($rowPrioridad);
+	//$origenbuz = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'idsede' => $_SESSION["Sede"]->return->idsed);
+    $buzonxUS['idusu'] = $_SESSION["Usuario"]["idusu"];
+	$buzonxUS['idsede'] = $_SESSION["Sede"]["idsed"];
+	$consumo = $client->call("consultarBuzonXUsuarioSede",$buzonxUS);
+    $propioBuzon = $consumo['return'];
 /*	if (!isset($propioBuzon->return)) {
         javaalert("Lo sentimos no se puede enviar correspondencia porque no tiene el buzon creado,Consulte con el Administrador");
         iraURL('../pages/inbox.php');
