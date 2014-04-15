@@ -30,10 +30,12 @@ require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
     $aux = $_POST['idban'];
-        $client = new SOAPClient($wsdl_sdc);
+    $client = new SOAPClient($wsdl_sdc);
     $client->decode_utf8 = false;
-    $Usuario = array('user' => $_SESSION["Usuario"]->return->idusu, 'ban' => $aux);
-    $Bandeja = $client->consultarPaquetesXBandeja($Usuario);
+	$Usuario['user'] = $_SESSION["Usuario"]->return->idusu;
+	$Usuario['ban'] =$aux;
+	$Bandeja == $client->call("consultarPaquetesXBandeja",$Usuario);
+   
     $reg = 0;
     if (isset($Bandeja->return)) {
         $reg = count($Bandeja->return);
