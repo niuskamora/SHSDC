@@ -90,7 +90,7 @@ if (!isset($SedeRol->return)) {
                                             ?>
 
                                             <h2>Envio de Correspondencia Externa</h2>
-                                            <table class='footable table table-striped table-bordered'  data-page-size=$itemsByPage>    
+                                            <table class='footable table table-striped table-bordered'  data-page-size=<?php echo $itemsByPage ?>>    
                                                 <thead bgcolor='#FF0000'>
                                                     <tr>	
                                                         <th style='width:7%; text-align:center'>Origen</th>

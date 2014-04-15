@@ -98,7 +98,7 @@ if ($nomUsuario == "") {
                                 ?>
                                 <form class="form-search" id="formulario" method="post">                   
                                     <strong> <h2 align="center">Comprobante de Correspondencia Confirmada</h2> </strong>
-                                    <table class='footable table table-striped table-bordered'  data-page-size=$itemsByPage>
+                                    <table class='footable table table-striped table-bordered'  data-page-size=<?php echo $itemsByPage ?>>
                                         <thead bgcolor='#FF0000'>
                                             <tr>
                                                 <th style="text-align:center">Nro de Paquete</th>

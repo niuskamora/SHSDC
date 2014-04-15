@@ -31,6 +31,7 @@
 
     <?php
     session_start();
+include("../recursos/funciones.php");
 require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
@@ -56,7 +57,7 @@ require_once("../core/Crypt/AES.php");
     if ($reg != 0) {
         echo "<form method='post'>		 
        <br>";
-        echo "<table class='footable table table-striped table-bordered' align='center'  data-page-size=$itemsByPage>
+        echo "<table class='footable table table-striped table-bordered' align='center'  data-page-size=".$itemsByPage.">
     	 <thead bgcolor='#FF0000'>		
                                 <tr>
                                     <th style='width:20%; text-align:center' >Origen</th>

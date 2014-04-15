@@ -15,7 +15,7 @@ try {
 }
 echo "<h2> <strong>Sedes</strong> </h2>";
 echo "<br>";
-echo "<table class='footable table table-striped table-bordered' align='center'  data-page-size=$itemsByPage>
+echo "<table class='footable table table-striped table-bordered' align='center'  data-page-size=".$itemsByPage.">
     	 <thead bgcolor='#ff0000'>
                                     <tr>";
 echo "<th  style='width:10%; text-align:center' >Id</th>";

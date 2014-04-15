@@ -91,7 +91,7 @@ if (!isset($SedeRol->return)) {
                                 if (isset($ValijasOrigen->return) || isset($ValijasDestino->return)) {
                                     echo "<br>";
                                     ?>
-                                    <table class='footable table table-striped table-bordered'  data-page-size=$itemsByPage>    
+                                    <table class='footable table table-striped table-bordered' data-page-size=<?php echo $itemsByPage ?>>    
                                         <thead bgcolor='#FF0000'>
                                             <tr>	
                                                 <th style='width:7%; text-align:center' data-sort-ignore="true">Código</th>

@@ -20,7 +20,7 @@ echo " <a href='../pages/disable_area.php'> <button class='btn primary''>
                                 <span class='icon-backward'>Regresar</span>
                  </button> </a>";
 echo "<br><br>";
-echo "<table class='footable table table-striped table-bordered' align='center'  data-page-size=$itemsByPage>
+echo "<table class='footable table table-striped table-bordered' align='center'  data-page-size=".$itemsByPage.">
     	 <thead bgcolor='#ff0000'>
                                     <tr>";
 echo "<th  style='width:10%; text-align:center' >Id</th>";

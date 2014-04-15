@@ -2,31 +2,37 @@
 
 session_start();
 
+include("../recursos/funciones.php");
 require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
-if (!isset($_SESSION["Usuario"])) {
+/*if (!isset($_SESSION["Usuario"])) {
     iraURL("../index.php");
 } elseif (!usuarioCreado()) {
     iraURL("../pages/create_user.php");
-}
-try {
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
-    $UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
+}*/
+//try {
+    $client = new nusoap_client($wsdl_sdc, 'wsdl');
+    $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"], 'sede' => $_SESSION["Sede"]["nombresed"]);
     $SedeRol = $client->consultarSedeRol($UsuarioRol);
-    $Sedes = $client->listarSedes();
+	$consumo = $client->call("listarSedes");
+    $Sedes = $consumo['return'];
+   // $Sedes = $client->listarSedes();
     $usu = array('idusu' => $_SESSION["Usuario"]->return->idusu);
     $sede = array('idsed' => $_SESSION["Sede"]->return->idsed);
     $param = array('registroUsuario' => $usu,
         'registroSede' => $sede);
 
-    $rowDocumentos = $client->listarDocumentos();
-    $rowPrioridad = $client->listarPrioridad();
+   // $rowDocumentos = $client->listarDocumentos();
+    $consumo = $client->call("listarDocumentos");
+    $rowDocumentos = $consumo['return'];
+	//$rowPrioridad = $client->listarPrioridad();
+	$consumo = $client->call("listarPrioridad");
+    $rowPrioridad = $consumo['return'];
 	$origenbuz = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'idsede' => $_SESSION["Sede"]->return->idsed);
     $propioBuzon = $client->consultarBuzonXUsuarioSede($origenbuz);
-	if (!isset($propioBuzon->return)) {
+/*	if (!isset($propioBuzon->return)) {
         javaalert("Lo sentimos no se puede enviar correspondencia porque no tiene el buzon creado,Consulte con el Administrador");
         iraURL('../pages/inbox.php');
     }
@@ -37,7 +43,7 @@ try {
     if (!isset($rowPrioridad->return)) {
         javaalert("Lo sentimos no se puede enviar correspondencia porque no hay Prioridades registradas,Consulte con el Administrador");
         iraURL('../pages/inbox.php');
-    }
+    }*/
     
     if (isset($_POST["enviar"])) {
         if ($_POST["contacto"] != "" && isset($_POST["asunto"]) && $_POST["asunto"] != "" && isset($_POST["doc"]) && $_POST["doc"] != "" && isset($_POST["prioridad"]) && $_POST["prioridad"] != "" && isset($_POST["elmsg"]) && $_POST["elmsg"] != "") {
@@ -145,8 +151,8 @@ try {
         }
     }
     include("../views/send_correspondence.php");
-} catch (Exception $e) {
+/*} catch (Exception $e) {
     javaalert('Lo sentimos no hay conexion');
     iraURL('../pages/inbox.php');
-}
+}*/
 ?>
