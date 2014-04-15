@@ -73,7 +73,7 @@ if ($reg != 0) {
     echo "</div>";
     echo "<br>
 	   <form id='formv' method='post'>";
-    echo "<table class='footable table table-striped table-bordered' align='center'  data-page-size=$itemsByPage>
+    echo "<table class='footable table table-striped table-bordered' align='center'  data-page-size=".$itemsByPage.">
     	 <thead bgcolor='#ff0000'>
          <tr>
         <th style='width:7%; text-align:center' >Destino</th>

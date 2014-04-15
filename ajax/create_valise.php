@@ -57,7 +57,7 @@ require_once("../core/Crypt/AES.php");
     if ($reg != 0) {
         echo "<form method='post'>		 
        <br>";
-        echo "<table class='footable table table-striped table-bordered' align='center'  data-page-size=$itemsByPage>
+        echo "<table class='footable table table-striped table-bordered' align='center'  data-page-size=".$itemsByPage.">
     	 <thead bgcolor='#FF0000'>		
                                 <tr>
                                     <th style='width:20%; text-align:center' >Origen</th>

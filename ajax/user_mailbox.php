@@ -41,7 +41,7 @@
     }
     if ($reg != 0) {
         echo "<h2> <strong>Usuarios</strong> </h2>";
-        echo "<table class='footable table table-striped table-bordered' align='center' data-page-size=$itemsByPage>
+        echo "<table class='footable table table-striped table-bordered' align='center' data-page-size=".$itemsByPage.">
     	 <thead bgcolor='#ff0000'>
                                     <tr>";
         echo "<th ; text-align:center' >Nombres y apellidos</th>";

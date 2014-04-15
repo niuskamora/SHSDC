@@ -100,7 +100,7 @@ if ($usu== "") {
                                 ?>
                                 <form class="form-search" id="formulario" method="post">                   
                                     <strong> <h2 align="center">Paquetes por buscar</h2> </strong>
-                                    <table class='footable table table-striped table-bordered' data-page-size=$itemsByPage>
+                                    <table class='footable table table-striped table-bordered' data-page-size=<?php echo $itemsByPage ?>>
                                         <thead bgcolor='#FF0000'>
                                             <tr>
                                                 
