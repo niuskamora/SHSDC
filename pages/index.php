@@ -42,12 +42,13 @@ if (isset($_POST["Biniciar"])) {
             $_SESSION["Usuario"] = $valorUser;
           //  $idUsu = array('idusu' => $UsuarioLogIn->return->idusu);
            // $registroUsu = array('registroUsuario' => $idUsu);
-			$idusu['idusu'] =$UsuarioLogIn["idusu"];
+			$idusu['idusu'] =$valorUser["idusu"];
 			$registroUsu["registroUsuario"]=$idusu;
            
 		   // $Sedes = $client->consultarSedeDeUsuario($registroUsu);
            $consumo = $client->call("consultarSedeDeUsuario",$registroUsu);
 		   $Sedes = $consumo['return'];
+		   $_SESSION["Sede"] = $Sedes;
 		   if (count($Sedes) == 1) {
                 $_SESSION["Sede"] = $Sedes;
         //        iraURL("../pages/send_correspondence.php");
