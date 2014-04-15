@@ -65,26 +65,27 @@ function llenarLog($accion, $observacion, $usuario, $sede) {
             break;
     }
 
-    $parametros = array('idSede' => $sede,
-        'idUsu' => $usuario,
-        'accion' => $accion,
-        'observacion' => $observacion);
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
-    $registroBitacora = $client->insertarBitacora($parametros);
+    $parametros["idSede"] = $sede;
+    $parametros["idUsu"] = $usuario;
+    $parametros["accion"] = $accion;
+    $parametros["observacion"] = $observacion;
+	$client = new nusoap_client($wsdl_sdc, 'wsdl');
+    $consumo = $client->call("insertarBitacora",$parametros);
+	$Bitacora = $consumo['return'];
 }
 
 //Verificando si el usuario esta creado
 function usuarioCreado() {
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
-    $Usuario = array('idUsuario' => $_SESSION["Usuario"]->return->idusu);
-    $Usuariocreado = $client->consultarUsuario($Usuario);
-
-    if (isset($Usuariocreado->return))
-        return true;
-    else
+     $client = new nusoap_client($wsdl_sdc, 'wsdl');
+	 $userparam['idUsuario'] = $_SESSION["Usuario"]["idusu"];
+	 $consumo = $client->call("consultarUsuario",$userparam);
+     $Usuariocreado = $consumo['return'];
+	 echo '<pre>';print_r( $Usuariocreado);
+	 
+    if ($consumo=="")
         return false;
+    else
+        return true;
 }
 
 function Menu($SedeRol) {
@@ -94,13 +95,13 @@ function Menu($SedeRol) {
             <li class="pull-left">
                 <div class="modal-header" style="width:1135px;">
                     <h3> Correspondencia    
-                        <span></span> <?php echo " - " . $_SESSION["Usuario"]->return->nombreusu ." ". $_SESSION["Usuario"]->return->apellidousu; ?>
+                        <span></span> <?php echo " - " . $_SESSION["Usuario"]["nombreusu"] ." ". $_SESSION["Usuario"]["apellidousu"]; ?>
                         <div class="btn-group  pull-right">
                             <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"> <span class="icon-cog" style="color:rgb(255,255,255)"> Configuración </span> </button>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="../pages/view_user.php">Cuenta</a></li>
                                 <li class="divider"></li>
-                                <?php if ($_SESSION["Usuario"]->return->tipousu == "1" || $_SESSION["Usuario"]->return->tipousu == "2") { ?>
+                                <?php if ($_SESSION["Usuario"]["tipousu"] == "1" || $_SESSION["Usuario"]["tipousu"] == "2") { ?>
                                     <li><a href="../pages/administration.php">Administración</a></li>
                                     <li class="divider"></li>
                                 <?php } ?>
@@ -109,27 +110,27 @@ function Menu($SedeRol) {
                                 <li><a href="#">Ayuda</a></li>
                             </ul>
                         </div>
-                        <?php if ($SedeRol->return->idrol->idrol != "6") { ?>
+                        <?php if ($SedeRol["idrol"]["idrol"] != "6") { ?>
                             <span class="divider pull-right" style="color:rgb(255,255,255)"> | </span>
                             <div class="btn-group  pull-right">
                                 <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"> <span class="icon-th-large" style="color:rgb(255,255,255)"> Operaciones </span> </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <?php if ($SedeRol->return->idrol->idrol != "4" && $SedeRol->return->idrol->idrol != "6") { ?>
+                                    <?php if ($SedeRol["idrol"]["idrol"] != "4" && $SedeRol["idrol"]["idrol"] != "6") { ?>
                                         <li><a href="confirm_package.php">Recibir Paquete</a></li>
                                         <?php
                                     }
-									if ($SedeRol->return->idrol->idrol == "2" || $SedeRol->return->idrol->idrol == "5") { ?>
+									if ($SedeRol["idrol"]["idrol"] == "2" || $SedeRol["idrol"]["idrol"] == "5") { ?>
                                         <li class="divider"></li>
 										<li><a href="external_costs.php">Enviar Paquetes Externos</a></li>
 										<li class="divider"></li>
 										<li><a href="confirm_externo.php">Confirmar Paquetes Externos</a></li>
                                         <?php
-										  if ($SedeRol->return->idrol->idrol == "5") {
+										  if ($SedeRol["idrol"]["idrol"] == "5") {
                                             ?>                                        
                                             <li class="divider"></li>
                                         <?php } 
                                     }
-                                    if ($SedeRol->return->idrol->idrol == "4" || $SedeRol->return->idrol->idrol == "5") {
+                                    if ($SedeRol["idrol"]["idrol"] == "4" || $SedeRol["idrol"]["idrol"] == "5") {
 									?>  
                                         <li><a href="create_valise.php">Crear Valija</a></li>
                                         <li class="divider"></li>
@@ -147,11 +148,11 @@ function Menu($SedeRol) {
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="../pages/correspondence_overdue.php">Paquetes Enviados y Recibidos</a></li>
                                 <?php
-                                if ($SedeRol->return->idrol->idrol != "6") {
+                                if ($SedeRol["idrol"]["idrol"] != "6") {
                                     ?>
                                     <li class="divider"></li>
                                     <li><a href="../pages/tracing_overdue.php">Paquetes por Confirmar</a></li>
-                                <?php } if ($SedeRol->return->idrol->idrol == "4" || $SedeRol->return->idrol->idrol == "5") { ?>
+                                <?php } if ($SedeRol["idrol"]["idrol"] == "4" || $SedeRol["idrol"]["idrol"] == "5") { ?>
                                     <li class="divider"></li>	                                           
                                     <li><a href="../pages/suitcase_overdue.php">Valijas</a></li>
                                 <?php } ?>

@@ -149,10 +149,10 @@
                                         <td>Tipo Doc:</td><td><select name="doc" required  title="Seleccione el tipo de documento">
                                                 <option value="" style="display:none">Seleccionar:</option>
                                                 <?php
-                                                if (count($rowDocumentos) == 1) {
+                                                if (!isset($rowDocumentos[0])) {												
                                                     echo '<option value="' . $rowDocumentos["iddoc"] . '">' . $rowDocumentos["nombredoc"]. '</option>';
                                                 } else {
-                                                    for ($i = 0; $i < count($rowDocumentos->return); $i++) {
+                                                    for ($i = 0; $i < count($rowDocumentos); $i++) {
                                                         echo '<option value="' . $rowDocumentos[$i]["iddoc"]. '">' . $rowDocumentos[$i]["nombredoc"]. '</option>';
                                                     }
                                                 }
@@ -165,10 +165,10 @@
                                         <td>Prioridad:</td><td><select name="prioridad" required  title="Seleccione la prioridad">
                                                 <option value="" style="display:none">Seleccionar:</option>                                  
                                                 <?php
-                                                if (count($rowPrioridad->return) == 1) {
+                                                if (!isset($rowPrioridad[0])) {
                                                     echo '<option value="' . $rowPrioridad["idpri"]. '">' . $rowPrioridad["nombrepri"] . '</option>';
                                                 } else {
-                                                    for ($i = 0; $i < count($rowPrioridad->return); $i++) {
+                                                    for ($i = 0; $i < count($rowPrioridad); $i++) {
                                                         echo '<option value="' . $rowPrioridad[$i]["idpri"] . '">' . $rowPrioridad[$i]["nombrepri"]. '</option>';
                                                     }
                                                 }
@@ -227,11 +227,11 @@
                                         <td><select name="sede" id="sede" onChange="areas(this.value)"   title="Seleccione Sede">
                                                 <option value="" style="display:none">Seleccionar Sede:</option>                                  
                                                 <?php
-                                                if (count($Sedes->return) == 1) {
-                                                    echo '<option value="' . $Sedes->return->nombresed . '">' . $Sedes->return->nombresed . '</option>';
+                                                if (!isset($Sedes[0])) {
+                                                    echo '<option value="' . $Sedes["nombresed"] . '">' . $Sedes["nombresed"] . '</option>';
                                                 } else {
-                                                    for ($i = 0; $i < count($Sedes->return); $i++) {
-                                                        echo '<option value="' . $Sedes->return[$i]->nombresed . '">' . $Sedes->return[$i]->nombresed . '</option>';
+                                                    for ($i = 0; $i < count($Sedes); $i++) {
+                                                        echo '<option value="' . $Sedes[$i]["nombresed"] . '">' . $Sedes[$i]["nombresed"] . '</option>';
                                                     }
                                                 }
                                                 ?>

@@ -28,16 +28,25 @@
     $ape = $_POST['ape'];
     $area = $_POST['area'];
     $reg = 0;
-    $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
-	$idusu = array('idusu' => $_SESSION["Usuario"]->return->idusu);
-	$parametrosBuzon = array('idUsuario' => $idusu);
-	$idBuzon=$client->miIdBuzon($parametrosBuzon);	
-	$idBuz=array('idbuz' => $idBuzon->return);
-    $BuzonNA = array('nombre' => $nom, 'apellido' => $ape, 'area' => $area, 'miBuzon' =>$idBuz);
-    $Buz = $client->consultarBuzonParaEnviar($BuzonNA);
-    if (isset($Buz->return)) {
-        $reg = count($Buz->return);
+   $client = new nusoap_client($wsdl_sdc, 'wsdl');
+	$idusu["idusu"] = $_SESSION["Usuario"]["idusu"];
+	$parametrosBuzon["idUsuario"] = $idusu;
+	 $consumo = $client->call("miIdBuzon",$parametrosBuzon);
+    $idBuzon = $consumo['return'];
+	$idBuz["idbuz"]=$idBuzon["idbuz"]);
+    $BuzonNA["nombre"] =  $nom;
+	$BuzonNA["apellido"] = $ape;
+	$BuzonNA["area"] = $area;
+	$BuzonNA["miBuzon"]=$idBuz;
+	 $consumo = $client->call("consultarBuzonParaEnviar",$BuzonNA);
+  
+    if ($consumo!="") {
+	  $Buz = $consumo['return'];
+	  if(!isset($Buz[0])){
+	   $reg = count($Buz);
+	  }else
+	  $reg=1;
+     
     }
     if ($reg != 0) {
         echo "<h2> <strong>Usuarios</strong> </h2>";
@@ -56,18 +65,18 @@
         if ($reg > 1) {
             while ($j < $reg) {
 
-                if ($Buz->return[$j]->tipobuz == "1") {
-                    echo "<th text-align:center' data-sort-ignore='true'>" . $Buz->return[$j]->nombrebuz . "</th>";
+                if ($Buz[$j]->tipobuz == "1") {
+                    echo "<th text-align:center' data-sort-ignore='true'>" . $Buz[$j]["nombrebuz"] . "</th>";
                     echo "<td style='text-align:center'> Externo</td>";
                     echo "<td style='text-align:center'> Externo</td>";
                 } else {
-                    echo "<th text-align:center' data-sort-ignore='true'>" . $Buz->return[$j]->idusu->nombreusu . " " . $Buz->return[$j]->idusu->apellidousu . "</th>";
-                    echo "<td style='text-align:center'>" . $Buz->return[$j]->idatr->nombreatr . "</td>";
-                    echo "<td style='text-align:center'>" . $Buz->return[$j]->idatr->idsed->nombresed . "</td>";
+                    echo "<th text-align:center' data-sort-ignore='true'>" . $Buz[$j]["idusu"]["nombreusu"] . " " . $Buz[$j]["idusu"]["apellidousu"] . "</th>";
+                    echo "<td style='text-align:center'>" . $Buz[$j]["idatr"]["nombreatr"] . "</td>";
+                    echo "<td style='text-align:center'>" . $Buz[$j]["idatr"]["idsed"]["nombresed"] . "</td>";
                 }
                 ?>
             <th  'text-align:center' >
-                <button class='btn' onClick="seleccionar('<?php echo $Buz->return[$j]->idbuz; ?>', '<?php echo $Buz->return[$j]->nombrebuz; ?>');">
+                <button class='btn' onClick="seleccionar('<?php echo $Buz[$j]["idbuz"]; ?>', '<?php echo $Buz[$j]["nombrebuz"]; ?>');">
                     <span class="icon-hand-up" > </span>
                 </button></th>
             <?php
@@ -75,18 +84,18 @@
             $j++;
         }
     } else {
-        if ($Buz->return->tipobuz == "1") {
-            echo "<th text-align:center' data-sort-ignore='true'>" . $Buz->return->nombrebuz . "</th>";
+        if ($Buz->tipobuz == "1") {
+            echo "<th text-align:center' data-sort-ignore='true'>" . $Buz["nombrebuz"] . "</th>";
             echo "<td style='text-align:center'> Externo</td>";
-            echo "<td style='text-align:center'>" . $Buz->return->nombrebuz . "</td>";
+            echo "<td style='text-align:center'>Externo</td>";
         } else {
-            echo "<th text-align:center' data-sort-ignore='true'>" . $Buz->return->idusu->nombreusu ." " . $Buz->return->idusu->apellidousu . "</th>";
-            echo "<td style='text-align:center'>" . $Buz->return->idusu->apellidousu . "</td>";
-            echo "<td style='text-align:center'>" . $Buz->return->nombrebuz . "</td>";
+            echo "<th text-align:center' data-sort-ignore='true'>" . $Buz["idusu"]["nombreusu"] ." " . $Buz["idusu"]["apellidousu"] . "</th>";
+            echo "<td style='text-align:center'>" . $Buz["idusu"]["apellidousu"] . "</td>";
+            echo "<td style='text-align:center'>" . $Buz["idusu"]["nombreusu"] . "</td>";
         }
         ?>
         <th  'text-align:center' >
-            <button class='btn' onClick="seleccionar('<?php echo $Buz->return->idbuz; ?>', '<?php echo $Buz->return->nombrebuz; ?>');">
+            <button class='btn' onClick="seleccionar('<?php echo $Buz["idbuz"]; ?>', '<?php echo $Buz["nombrebuz"]; ?>');">
                 <span class="icon-hand-up" > </span>
             </button></th>
         <?php

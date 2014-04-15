@@ -48,11 +48,10 @@ if (isset($_POST["Biniciar"])) {
 		   // $Sedes = $client->consultarSedeDeUsuario($registroUsu);
            $consumo = $client->call("consultarSedeDeUsuario",$registroUsu);
 		   $Sedes = $consumo['return'];
-		   $_SESSION["Sede"] = $Sedes;
-		   if (count($Sedes) == 1) {
+		   if (!isset($Sedes[0])) {
                 $_SESSION["Sede"] = $Sedes;
-        //        iraURL("../pages/send_correspondence.php");
-            } else if (isset($Sedes->return)) {
+            //    iraURL("../pages/send_correspondence.php");
+            } else {
                 $_SESSION["Sedes"] = $Sedes;
                 iraURL("../pages/headquarters.php");
             }
