@@ -149,11 +149,11 @@
                                         <td>Tipo Doc:</td><td><select name="doc" required  title="Seleccione el tipo de documento">
                                                 <option value="" style="display:none">Seleccionar:</option>
                                                 <?php
-                                                if (count($rowDocumentos->return) == 1) {
-                                                    echo '<option value="' . $rowDocumentos->return->iddoc . '">' . $rowDocumentos->return->nombredoc . '</option>';
+                                                if (count($rowDocumentos) == 1) {
+                                                    echo '<option value="' . $rowDocumentos["iddoc"] . '">' . $rowDocumentos["nombredoc"]. '</option>';
                                                 } else {
                                                     for ($i = 0; $i < count($rowDocumentos->return); $i++) {
-                                                        echo '<option value="' . $rowDocumentos->return[$i]->iddoc . '">' . $rowDocumentos->return[$i]->nombredoc . '</option>';
+                                                        echo '<option value="' . $rowDocumentos[$i]["iddoc"]. '">' . $rowDocumentos[$i]["nombredoc"]. '</option>';
                                                     }
                                                 }
                                                 ?>
@@ -166,10 +166,10 @@
                                                 <option value="" style="display:none">Seleccionar:</option>                                  
                                                 <?php
                                                 if (count($rowPrioridad->return) == 1) {
-                                                    echo '<option value="' . $rowPrioridad->return->idpri . '">' . $rowPrioridad->return->nombrepri . '</option>';
+                                                    echo '<option value="' . $rowPrioridad["idpri"]. '">' . $rowPrioridad["nombrepri"] . '</option>';
                                                 } else {
                                                     for ($i = 0; $i < count($rowPrioridad->return); $i++) {
-                                                        echo '<option value="' . $rowPrioridad->return[$i]->idpri . '">' . $rowPrioridad->return[$i]->nombrepri . '</option>';
+                                                        echo '<option value="' . $rowPrioridad[$i]["idpri"] . '">' . $rowPrioridad[$i]["nombrepri"]. '</option>';
                                                     }
                                                 }
                                                 ?>

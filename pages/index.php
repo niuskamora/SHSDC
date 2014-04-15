@@ -5,7 +5,7 @@ require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
-
+	$client = new nusoap_client($wsdl_sdc, 'wsdl');
 if (isset($_SESSION["Usuario"]) || isset($_SESSION["User"])) {
     eliminarSesion();
 }
@@ -31,21 +31,26 @@ if (isset($_POST["Biniciar"])) {
 		
 		
 		$userparam['user'] = $_POST["usuario"];
-		$usuario = new nusoap_client($wsdl_sdc, 'wsdl');
-		$userResp = $usuario->call("consultarUsuarioXUser",$userparam);
+	
+		$userResp = $client->call("consultarUsuarioXUser",$userparam);
         $valorUser = $userResp['return'];
 		
 		//if (isset($UsuarioLogIn->return)) {
 		if (isset($valorUser)) {
-			javaalert($valorUser['nombreusu']);
+			//javaalert($valorUser['nombreusu']);
 			
-            $_SESSION["Usuario"] = $UsuarioLogIn;
-            $idUsu = array('idusu' => $UsuarioLogIn->return->idusu);
-            $registroUsu = array('registroUsuario' => $idUsu);
-            $Sedes = $client->consultarSedeDeUsuario($registroUsu);
-            if (isset($Sedes->return) && count($Sedes->return) == 1) {
+            $_SESSION["Usuario"] = $valorUser;
+          //  $idUsu = array('idusu' => $UsuarioLogIn->return->idusu);
+           // $registroUsu = array('registroUsuario' => $idUsu);
+			$idusu['idusu'] =$UsuarioLogIn["idusu"];
+			$registroUsu["registroUsuario"]=$idusu;
+           
+		   // $Sedes = $client->consultarSedeDeUsuario($registroUsu);
+           $consumo = $client->call("consultarSedeDeUsuario",$registroUsu);
+		   $Sedes = $consumo['return'];
+		   if (count($Sedes) == 1) {
                 $_SESSION["Sede"] = $Sedes;
-                iraURL("../pages/inbox.php");
+        //        iraURL("../pages/send_correspondence.php");
             } else if (isset($Sedes->return)) {
                 $_SESSION["Sedes"] = $Sedes;
                 iraURL("../pages/headquarters.php");
