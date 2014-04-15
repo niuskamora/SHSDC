@@ -1,0 +1,916 @@
+﻿/*
+Theme Name: Seguros Horizonte | Mapa
+Theme URI: http://seguroshorizonte.com/
+Description: Código adaptativo basado en Twitter Bootstrap.
+Author: Carlos A Rojas
+Version: 1.0
+License: GNU General Public License v2 or later
+Tags: bootstrap, responsive, twentyten
+Text Domain: bootstrapwp
+*/
+
+/* GENERAL */
+
+	html, body{
+		font-family: 'Roboto Condensed', sans-serif;
+		width: 100%;
+      height: 100%;
+	}
+	
+	/* Quitarte los bordes redondeados a los a en nav-pills */
+	.nav-pills > li > a {
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	}
+	
+	/* Estilo activo por defecto a los a en los nav-pills */
+	.nav-pills > .active > a, .nav-pills > .active > a:hover, .nav-pills > .active > a:focus {
+	color: #ffffff;
+	background-color: #3588ba;
+	}
+		
+	a:hover{
+	text-decoration:none;
+	}
+	
+	.tooltip.in {
+	opacity: 1;
+	filter: alpha(opacity=80);
+	}
+
+/* Header top */
+
+	#header{
+	background-color:#ffffff;
+	
+	}
+	
+	#header .header-top{
+	background-color:#f3f5f4;
+	background-image:url('../images/header-top-bg.png');
+	background-position:left top;
+	background-repeat:repeat-x;
+	padding-top:5px;
+	}
+	
+	#header .header-top .container{
+	}
+	
+	
+	
+		/* Header top filter area */
+	
+		#header .header-top .filter-area{
+		background-color:#CD343F;
+		padding:3px;
+		}
+	
+	
+	
+						
+
+
+/* Middle */
+
+#middle .container h1.title{
+font-size:21px;
+color:#607481;
+background-color:#f5f5f6;
+padding:0px 10px;
+}
+
+
+
+
+
+
+/* Login */
+
+.loginBg{
+background-color:#3f3f3f;
+}
+
+
+#loginModal{
+max-width:385px;
+margin:auto;
+padding-top:20px;
+}
+
+	#loginModal form{
+	margin:0;
+}
+
+.modal-header-container{
+padding: 15px;	
+}
+
+.modal-header-container > .modal-header{
+background-color:#fafafa;
+border-bottom:5px #0067a7 solid;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+	.modal-header-container > .modal-header h3{
+	color:#0067a7;
+	}
+		.modal-header-container > .modal-header h3 span{
+		color:#ed1c24;
+		}
+		
+.modal-body{
+padding-top:0;
+}
+
+.modal-body .well{
+padding:15px;
+}
+
+
+.modal-body .nav-tabs>li>a, .nav-pills>li>a {
+padding-right: 7px;
+padding-left: 7px;
+color:#3f3f3f;
+}
+
+
+.modal-body .nav-tabs>.active>a, .nav-tabs>.active>a:hover {
+color: #ffffff;
+background-color: #3688ba;
+border: 1px solid #ddd;
+border-bottom-color: transparent;
+cursor: default;
+}
+
+.modal-body .nav>li>a:hover {
+text-decoration: none;
+background-color: #e9e9e9;
+}
+
+	.modal-body .nav-tabs>li.active>a{
+	font-weight:bold;
+	}
+
+
+	#create .document{
+	padding-left:0;
+	margin-bottom:5px;	
+	}
+	
+		#create .form-inline{
+		vertical-align:top;
+		}
+		
+		#create .form-inline label{
+		margin-bottom: 10px;
+		padding-top:0;
+		}
+
+.hide{
+	display:none;
+}
+
+.well{
+	margin-bottom:0;
+}
+
+.alert-login{
+	max-width:530px;
+	margin:auto;
+}
+
+.alert-login strong{
+	font-size:16px;
+}
+
+
+
+
+/*Form*/
+.error-input{
+	color:#d9534f;
+}
+
+
+
+/* App */
+
+.appBg{
+background-color:#e9e9e9;
+}
+
+
+.app-container{
+padding-top:5px;
+color:#707070;
+}
+
+
+/*Download file*/
+
+.download-file{
+text-align:center;
+background-color:#F9F9F9;
+padding:5px;	
+}
+
+
+.download-file i{
+font-size:70px;
+}
+
+
+
+/*user detail*/
+
+.user-detail .women {
+background-color: #FADFDF;
+}
+	
+	.user-detail .women img{
+		margin:auto;
+		display:block;
+	}
+
+
+
+.user-detail .men{
+background-color:#DAEEF5;
+}
+
+	.user-detail .men img{
+		margin:auto;
+		display:block;
+	}
+	
+	
+.user-detail{
+
+	
+}	
+
+
+/*	*/
+.alert-error i{
+font-size:60px;
+}
+
+.alert-error .span11{
+line-height:50px;
+vertical-align:middle;
+}
+
+
+.tickets tbody tr td:first-child{
+	font-weight:bold;
+}
+
+
+.tickets i{
+	color:#607481;
+	font-size:18px;
+	line-height:18px;
+	}
+
+	.tickets i.icon-trash:hover{
+	color:#e82121;
+	}
+	
+	.tickets i.icon-check:hover{
+	color:#60bf60;
+	}
+	.tickets i.icon-pencil:hover{
+	color:#0069AA;
+	}
+	
+.tickets .action{
+	margin-right:10px;
+}	
+
+	
+	/* App nav-tabs */
+
+	.app-container .tabs-left>#main-menu {
+	float: left;
+	margin-right: 0;
+	border:none;
+	}
+	
+	.app-container #main-menu li a{
+	border:none;
+	width:140px;
+	text-align:center;
+	color:#707070;
+	}
+	
+	.app-container #main-menu li a i{
+	font-size:28px;
+	display:block;
+	}
+	
+	
+	
+	.app-container #main-menu>.active>a {
+	color: #2f83b7;
+	background-color: #ffffff;
+	cursor:pointer;
+	border:none;
+	}
+	
+	
+	
+	.app-container .tabs-left>.#main-menu>li.active>a:hover {
+	border-color: #eeeeee #dddddd #eeeeee #eeeeee;
+	background-color:#ffffff;
+	}
+	
+	#main-menu .nav>li>a:hover {
+	color:#293237;
+	background-color:#d5d8d9;	
+	}
+	
+	/* App tab-content */
+	
+	.app-container ul.nav-pills{
+	margin-bottom:5px;
+	background-color:#fafafa;
+	padding:5px;
+	}
+	.app-container ul.nav-pills .modal-header{
+	padding: 4px 15px 5px 15px;
+	border:none;
+	color:#2f83b7;
+	background-color:transparent;
+	-webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.0);
+	-moz-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.0);
+	box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.0);
+	}
+	
+	.app-container ul.nav-pills .modal-header h3 span{
+	color: #ed1c24;
+	}
+
+	.app-container .tab-content{
+	background-color:#ffffff;
+	border--radius:4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	padding:15px 20px 20px 26px;
+	margin-bottom:30px;
+	}
+	
+		.app-container .tab-content h1{
+		font-size:21px;
+		color:#ffffff;
+		background-color:#85929b;
+		margin:0 0 15px 0;
+		padding-left:10px;
+		font-weight:normal;		
+		}
+		
+		.app-container .tab-content h2{
+		font-size:21px;
+		color:#ffffff;
+		background-color:#88ABC4;
+		margin:0 0 15px 0;
+		padding-left:10px;
+		font-weight:normal;		
+		}
+		
+		.app-container .tab-content h3.activa{
+		font-size:21px;
+		color:#ffffff;
+		background-color:#5cb85c;
+		margin:0 0 15px 0;
+		padding-left:10px;
+		font-weight:normal;	
+		text-align:center;	
+		}
+		
+		.app-container .tab-content h3.negada{
+		font-size:21px;
+		color:#ffffff;
+		background-color:#d9534f;
+		margin:0 0 15px 0;
+		padding-left:10px;
+		font-weight:normal;
+		text-align:center;		
+		}
+
+
+		
+		.app-container .tab-content .thumbnails {
+		margin-left: 0px;
+		}
+		
+		.app-container .tab-content .thumbnails > li {
+		margin-left: 0px;
+		margin-right:30px;
+		}
+		
+		.app-container .tab-content .thumbnails > li.span5 {
+		width: 460px;
+		}
+		
+		
+		.app-container .thumbnail {
+		display: block;
+		padding: 0px;
+		line-height: 20px;
+		border: 1px solid #ddd;
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+		-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+		-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+		-webkit-transition: all 0.2s ease-in-out;
+		-moz-transition: all 0.2s ease-in-out;
+		-o-transition: all 0.2s ease-in-out;
+		transition: all 0.2s ease-in-out;
+		}
+		
+			.app-container .thumbnail h3{
+			margin:0;
+			font-size:16px;
+			color:#ffffff;
+			background-color:#2f83b7;
+			font-weight:normal;
+			padding-left:10px;
+			}
+
+			.app-container .thumbnails .principal .icon-user{
+			font-size:95px;
+			}
+			
+			.app-container .thumbnail .span3{
+			width: 340px;
+			}
+		
+		
+	/*-- Formulario --*/
+
+	
+		.form-horizontal{
+		margin-left:0;
+		margin-right:10px;
+		width:auto;
+		background-color:#fafafa;
+		border:1px #959595 solid;
+		padding:20px 10px;
+		}
+		
+		
+		
+		.form-horizontal .control-group .control-label{
+		width: 136px;
+		}
+		
+		.form-horizontal .control-group .controls{
+		margin-left: 148px;
+		}
+	
+	.select-location .control-group:nth-child(2) .control-label{
+	width: 54px;	
+	}
+	
+	.select-location .control-group:nth-child(2) .controls{
+	margin-left: 85px;	
+	}
+	
+	
+	.select-location .control-group:nth-child(3) .control-label{
+	width: 54px;	
+	}
+	
+	.select-location .control-group:nth-child(3) .controls{
+	margin-left: 85px;	
+	}
+
+
+/*-- Cambiar Password --*/
+
+.change-password{
+	width:500px;
+	margin:auto;
+	background-color:#ffffff;
+	border:none;
+
+}
+	
+/*modal de evento*/
+#myModal{
+	
+}
+
+.modal-header{
+background-color:#2f83b7;	
+}
+
+
+h3#myModalLabel{
+background-color:transparent;	
+}
+
+.modal-footer{
+background-color:#85929b;
+}	
+	
+#event-detail{
+	width:460px;
+	left: 57%;
+}
+	
+	#event-detail .close{
+		color:#ffffff;
+		opacity: 1;
+	}
+
+	#event-detail .modal-body{
+	padding:20px;
+	}
+		
+	#event-detail .modal-body .row-fluid .span7 span:nth-child(1){
+	width:80px;
+	font-weight:bold;
+	color:#272626;
+	width:135px;
+	display:inline-block;
+	}
+	
+	#event-detail .modal-body i{
+	margin-right:10px;
+	}
+		
+	#event-detail .modal-body .row-fluid .span5 span:nth-child(1){
+	width:60px;
+	font-weight:bold;
+	color:#272626;
+
+	}
+	
+	#event-detail .modal-body > i
+
+	
+	
+	
+	/*Buzon table*/
+	
+	.buzon-table{
+	}
+	
+	.buzon-table i{
+	color:#607481;
+	font-size:18px;
+	line-height:18px;
+	}
+
+	.buzon-table i.icon-trash:hover{
+	color:#e82121;
+	}
+	
+	.buzon-table i.icon-check:hover{
+	color:#60bf60;
+	}
+
+	
+/*Tabs Tables*/
+
+#tabs-tables{
+	
+}
+	
+#tabs-tables .tab-content{
+padding:0;
+	
+}
+
+
+
+
+
+.frontend .alert-error .span11 {
+line-height: 30px;
+vertical-align: middle;
+}	
+	
+	
+.pendiente i{
+color:#CBDAE4;
+	
+}
+	
+	
+	
+/*Admision*/
+
+.admision{
+	
+}
+
+.admision .span8{
+padding-top:7px;
+	
+}
+
+
+/*Solicitud*/	
+
+
+.solicitud .container{
+}	
+	
+	.solicitud h4{
+	margin-top:0;
+	}	
+	
+	.solicitud .span6{
+	width:450px;
+}
+	
+	
+.enviar-solicitud{
+background-color: #FFFFFF;
+border: 1px #E7E7E7 solid;
+padding: 20px;
+}
+	
+
+/*Aprobar/Rechazar*/
+
+.aprobar-rechazar{
+background-color: #FFFFFF;
+border: 1px #E7E7E7 solid;
+padding: 20px;
+width:auto;
+	
+}	
+	
+	
+	
+	
+	
+/*-----------------Farmacia----------------------------*/
+
+.archivos, .patologias{
+	margin-bottom:15px;
+}
+
+.input-mini {
+width: 40px;
+}	
+
+.archivos i{
+	font-size:80px;
+	color:#999999;
+}
+	
+.patologias button[type=submit]{
+margin-top:-11px;	
+}
+
+	.patologias .row-fluid .span4.text-right{
+	padding-right:60px;
+		
+	}
+	
+
+.procesar{
+padding:8px;
+	background-color:#F5F5F5;
+}
+
+	.procesar .input-prepend{
+	padding-top:5px;
+	}
+	
+	.procesar .input-prepend span{
+	font-weight:bold;
+	}
+	
+	.procesar input[type=text]{
+	background-color:#ffffff;
+	color: #555555;
+	}
+	
+.medicamentos h3{
+font-size: 17px;
+color: #ffffff;
+background-color: #48AFB8;
+margin: 0 0 15px 0;
+padding-left: 10px;
+font-weight: normal;
+line-height:30px;	
+}	
+
+.medicamentos .drug-process{
+margin-bottom:15px;
+padding-bottom:10px;
+border-bottom:3px #F5F5F5 solid;
+}
+	
+	.medicamentos .drug-process label{
+	font-weight:bold;
+		
+	}	
+	
+.limite-monto{
+margin-top:-15px;
+background-color:#F7F7F9;
+padding-top:5px;
+	
+}
+
+	.limite-monto .span4 .limite{
+	padding-right:10px;
+	padding-left:10px;
+	line-height:30px;
+	vertical-align:top;		
+	}
+	
+	
+	.limite-monto .span5{
+		
+	}
+
+
+
+
+	
+.agregar-patologia{
+margin:15px 0px;
+	
+}
+
+.add-pathology{
+	margin-top:-11px;
+}
+
+.ocultar{
+	visibility:hidden;
+}
+
+
+/*Modal par agregar patologia*/
+
+.modal-header{
+background-color:#ffffff;	
+}
+
+
+.modal-body {
+padding-top:15px;
+}
+	
+/*------------------------------- RESPONSIVE ------------------------------------*/
+
+/* Escritorio normal */
+@media (min-width: 980px) and (max-width: 1199px) { 
+
+#header{
+	border-top:3px red solid;
+}
+
+.alert-error .span11{
+	line-height:20px;
+	padding-left:20px;
+	padding-top:5px;
+	vertical-align:middle;
+}
+
+
+.archivos i {
+font-size: 63px;
+color: #999999;
+}
+
+
+.drug-process label{
+font-size: 13px;	
+}
+
+
+.drug-process select{
+	width: 170px;
+}
+
+
+.input-mini {
+width: 35px;
+}
+
+.btn-success{
+padding: 4px 5px;
+font-size: 13px;	
+}
+
+.btn-danger{
+padding: 4px 5px;
+font-size: 13px;	
+}
+
+}
+
+/* Tablets apaisados y escritorio */
+@media (min-width: 768px) and (max-width: 979px) { 
+
+#header{
+	border-top:3px blue solid;
+}
+
+.alert-error .span11{
+	line-height:20px;
+	padding-left:30px;
+	padding-top:5px;
+	vertical-align:middle;
+}
+
+
+
+}
+
+/* Tablets */
+@media (max-width: 767px) { 
+
+#header{
+	border-top:3px green solid;
+}
+
+.alert-error .span11{
+	line-height:20px;
+	padding-left:0px;
+	padding-top:5px;
+	vertical-align:middle;
+}
+.alert-error .span1{
+	display:none;
+}
+
+
+.header-top .container img{
+height:50px;
+margin-bottom:5px;
+	
+}
+
+
+
+.filter-area .container .form-inline{
+float:none;
+}
+
+.filter-area .container .form-inline select{
+width:100%;
+}
+
+
+.dl-horizontal dt {
+loat: left;
+width: 160px;
+clear: left;
+text-align: right;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+}
+
+h1.title{
+line-height: 25px;
+}
+
+}
+ 
+/* Smartphones */
+@media (max-width: 480px) { 
+
+#header{
+	border-top:3px black solid;
+}
+
+
+.alert-error .span11{
+	line-height:20px;
+	padding-left:20px;
+	padding-top:5px;
+	vertical-align:middle;
+}
+
+
+h1.title{
+line-height: 25px;
+}
+
+.header-top .container .pull-right{
+	display:none;
+}
+
+
+}
+
+
