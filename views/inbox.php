@@ -82,7 +82,7 @@
                                 ?>
                                 <li> <a href="../pages/correspondence_lost.php" id="pextraviada"  > Extraviadas</a></li>
                                 <?php
-                                if ($SedeRol['return']['idrol']['idrol'] == "4" || $SedeRol['return']['idrol']['idrol'] == "5") {
+                                if ($SedeRol['idrol']['idrol'] == "4" || $SedeRol['idrol']['idrol'] == "5") {
                                     echo '<li> <a href="../pages/lost_bag.php" id="vextraviada"  > Valijas Extraviadas</a></li>';
                                 }
                                 ?>
