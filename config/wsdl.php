@@ -10,7 +10,7 @@ require_once('../core/class.inputfilter.php');
 
 //DESARROLLO-PRUEBAS
 //$ip = "172.30.3.161";
-$ip="192.168.1.101";
+$ip="127.0.0.1";
 $puerto = "7001";
 
 //CERTIFICACION

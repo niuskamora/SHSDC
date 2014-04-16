@@ -23,22 +23,24 @@
 <body class="appBg">
 
     <?php
+	require_once("../lib/nusoap.php");
+require_once("../config/wsdl.php");
+require_once("../config/definitions.php");
+require_once("../core/Crypt/AES.php");
 	session_start();
     $nom = $_POST['nom'];
     $ape = $_POST['ape'];
     $area = $_POST['area'];
     $reg = 0;
-   $client = new nusoap_client($wsdl_sdc, 'wsdl');
+    $client = new nusoap_client($wsdl_sdc, 'wsdl');
 	$idusu["idusu"] = $_SESSION["Usuario"]["idusu"];
 	$parametrosBuzon["idUsuario"] = $idusu;
 	 $consumo = $client->call("miIdBuzon",$parametrosBuzon);
     $idBuzon = $consumo['return'];
-	$idBuz["idbuz"]=$idBuzon["idbuz"]);
-    $BuzonNA["nombre"] =  $nom;
-	$BuzonNA["apellido"] = $ape;
-	$BuzonNA["area"] = $area;
-	$BuzonNA["miBuzon"]=$idBuz;
-	 $consumo = $client->call("consultarBuzonParaEnviar",$BuzonNA);
+	$idBuz["idbuz"]=$idBuzon;
+    $BuzonNA = array('nombre' => $nom, 'apellido' => $ape, 'area' => $area, 'miBuzon' =>$idBuz);
+	$consumo = $client->call("consultarBuzonParaEnviar",$BuzonNA);
+echo '<pre>';print_r( $consumo);	
   
     if ($consumo!="") {
 	  $Buz = $consumo['return'];

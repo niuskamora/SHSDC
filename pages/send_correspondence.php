@@ -14,27 +14,15 @@ require_once("../core/Crypt/AES.php");
 }*/
 //try {
     $client = new nusoap_client($wsdl_sdc, 'wsdl');
-   // $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"], 'sede' => $_SESSION["Sede"]["nombresed"]);
-	$UsuarioRol["idusu"] = $_SESSION["Usuario"]["idusu"];
-	$UsuarioRol["sede"] = $_SESSION["Sede"]["nombresed"];
+    $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"], 'sede' => $_SESSION["Sede"]["nombresed"]);
+	//$UsuarioRol["idusu"] = $_SESSION["Usuario"]["idusu"];
+	//$UsuarioRol["sede"] = $_SESSION["Sede"]["nombresed"];
     $consumo = $client->call("consultarSedeRol",$UsuarioRol);
     $SedeRol = $consumo['return'];
-	//$SedeRol = $client->consultarSedeRol($UsuarioRol);
 	$consumo = $client->call("listarSedes");
     $Sedes = $consumo['return'];
-   
-
-   // $Sedes = $client->listarSedes();
-  /*  $usu = array('idusu' => $_SESSION["Usuario"]->return->idusu);
-    $sede = array('idsed' => $_SESSION["Sede"]->return->idsed);
-    $param = array('registroUsuario' => $usu,
-        'registroSede' => $sede);
-*/
-   // $rowDocumentos = $client->listarDocumentos();
     $consumo = $client->call("listarDocumentos");
     $rowDocumentos = $consumo['return'];
-		
-	//$rowPrioridad = $client->listarPrioridad();
 	$consumo = $client->call("listarPrioridad");
     $rowPrioridad = $consumo['return'];
 	//echo '<pre>';print_r($rowPrioridad);
@@ -61,14 +49,15 @@ require_once("../core/Crypt/AES.php");
 
             $idbuz = $_POST["id"];
         
-            $origenpaq = array('idbuz' => $propioBuzon->return->idbuz);
+            $origenpaq = array('idbuz' => $propioBuzon["idbuz"]);
 			$paramBuzonP= array('idbuz' => $idbuz);
-			$buzonPara=$client->consultarBuzon($paramBuzonP);
+			$consumo = $client->call("consultarBuzon",$paramBuzonP);
+			$buzonPara = $consumo['return'];
             if (count($propioBuzon->return) == 1) {
-                $tipobuz = $propioBuzon->return->tipobuz;
+                $tipobuz = $propioBuzon["tipobuz"];
             }
             //if (isset($usuarioBuzon->return)) {
-            if ($buzonPara->return->tipobuz == "0") {
+            if ($buzonPara["tipobuz"] == "0") {
                 if (!isset($_POST["rta"])) {
                     $rta = "0";
                 } else {
@@ -85,28 +74,36 @@ require_once("../core/Crypt/AES.php");
             $destinopaq = array('idbuz' => $idbuz);
             $prioridad = array('idpri' => $_POST["prioridad"]);
             $documento = array('iddoc' => $_POST["doc"]);
-            $sede = array('idsed' => $_SESSION["Sede"]->return->idsed);
+            $sede = array('idsed' => $_SESSION["Sede"]["idsed"]);
             $paquete = array('origenpaq' => $origenpaq,
                 'destinopaq' => $destinopaq,
                 'asuntopaq' => $_POST["asunto"],
                 'textopaq' => $_POST["elmsg"],
                 'fechapaq' => date("Y-m-d"),
                 'statuspaq' => "0",
-                'localizacionpaq' => $_SESSION["Usuario"]->return->userusu,
+                'localizacionpaq' => $_SESSION["Usuario"]["userusu"],
                 'idpri' => $prioridad,
                 'iddoc' => $documento,
                 'fragilpaq' => $fra,
                 'respaq' => $rta,
                 'idsed' => $sede);
             $registro = array('registroPaquete' => $paquete);
-            $envio = $client->crearPaquete($registro);  //pilas ismael
-            $paramUltimo = array('idUsuario' => $_SESSION["Usuario"]->return->idusu);
-            $idPaquete = $client->ultimoPaqueteXOrigen($paramUltimo);
-            $paq = array('idpaq' => $idPaquete->return->idpaq);
-            $bandejaorigen = $client->insertarBandejaOrigen($paq);
-            if ($tipobuz == 0) {
-                $bandejaD = $client->insertarBandejaDestino($paq);
-                $bandejaDestino = $bandejaD->return;
+            //$envio = $client->crearPaquete($registro);  //pilas ismael
+			$consumo = $client->call("crearPaquete",$registro);
+			$envio = $consumo['return'];
+            $paramUltimo = array('idUsuario' => $_SESSION["Usuario"]["idusu"]);
+            $consumo = $client->call("ultimoPaqueteXOrigen",$paramUltimo);
+			$idPaquete = $consumo['return'];
+			//$idPaquete = $client->ultimoPaqueteXOrigen($paramUltimo);
+            $paq = array('idpaq' => $idPaquete["idpaq"]);
+          //  $bandejaorigen = $client->insertarBandejaOrigen($paq);
+            $consumo = $client->call("insertarBandejaOrigen",$paq);
+			$bandejaorigen = $consumo['return'];
+			if ($tipobuz == 0) {
+			  $consumo = $client->call("insertarBandejaDestino",$paq);
+			  $bandejaD = $consumo['return'];
+               // $bandejaD = $client->insertarBandejaDestino($paq);
+                $bandejaDestino = $bandejaD;
             } else {
                 $bandejaDestino = "1";
             }
@@ -133,9 +130,11 @@ require_once("../core/Crypt/AES.php");
                     'urladj' => $Ruta,
                     'idpaq' => $paq);
                 $par = array('registroAdj' => $adj);
-                $Rta = $client->insertarAdjunto($par);
+				$consumo = $client->call("insertarAdjunto",$par);
+				$Rta = $consumo['return'];               
+			  // $Rta = $client->insertarAdjunto($par);
             }
-            if ($envio->return == "1" && $bandejaorigen->return == "1" && $bandejaDestino == "1") {
+            if ($envio == "1" && $bandejaorigen == "1" && $bandejaDestino == "1") {
                 if ($tipobuz == 1) {
                     javaalert("La correspondencia ha sido enviada, como el buzón es externo no tendra respuesta del paquete");
                 } else {
@@ -146,8 +145,10 @@ require_once("../core/Crypt/AES.php");
                     'registroUsuario' => $usuario,
                     'registroSede' => $sede,
                     'Caso' => "Envio");
-                $seg = $client->registroSeguimiento($parametros);
-                llenarLog(1, "Envio de Correspondencia", $_SESSION["Usuario"]->return->idusu, $_SESSION["Sede"]->return->idsed);
+                
+			//	$seg = $client->registroSeguimiento($parametros);
+				$consumo = $client->call("registroSeguimiento",$parametros);
+                llenarLog(1, "Envio de Correspondencia", $_SESSION["Usuario"]["idusu"], $_SESSION["Sede"]["idsed"]);
                 echo"<script>window.open('../pages/proof_of_correspondence.php');</script>";
             } else {
                 javaalert("La correspondencia no ha podido ser enviada correctamente , por favor consulte con el administrador");
