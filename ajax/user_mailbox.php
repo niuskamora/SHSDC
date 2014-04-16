@@ -37,11 +37,12 @@ require_once("../core/Crypt/AES.php");
 	$parametrosBuzon["idUsuario"] = $idusu;
 	 $consumo = $client->call("miIdBuzon",$parametrosBuzon);
     $idBuzon = $consumo['return'];
-	$idBuz["idbuz"]=$idBuzon;
-    $BuzonNA = array('nombre' => $nom, 'apellido' => $ape, 'area' => $area, 'miBuzon' =>$idBuz);
+	$usuId = array('idusu' => $_SESSION["Usuario"]["idusu"]);
+	$idBuz=array('idbuz' => $idBuzon,
+					'idusu' =>$usuId);
+    $BuzonNA = array('nombre' => $nom, 'apellido' => $ape, 'area' => $area, 'miBuzon' =>$idBuz,'sede'=>$_SESSION["Sede"]["idsed"]);
 	$consumo = $client->call("consultarBuzonParaEnviar",$BuzonNA);
-echo '<pre>';print_r( $consumo);	
-  
+//echo '<pre>';print_r( $consumo['return']);	
     if ($consumo!="") {
 	  $Buz = $consumo['return'];
 	  if(!isset($Buz[0])){

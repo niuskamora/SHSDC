@@ -5,41 +5,52 @@ require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
-if (!isset($_SESSION["Usuario"])) {
-    iraURL("../index.php");
-} elseif (!usuarioCreado()) {
-    iraURL("../pages/create_user.php");
-} elseif (!isset($_POST['idpaq'])) {
-    iraURL("../pages/inbox.php");
-}
+
 
 try {
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
+      $client = new nusoap_client($wsdl_sdc, 'wsdl');
+	 $_SESSION["cli"]=$client;  
+		if (!isset($_SESSION["Usuario"])) {
+			iraURL("../index.php");
+		} elseif (!usuarioCreado()) {
+			iraURL("../pages/create_user.php");
+		} elseif (!isset($_POST['idpaq'])) {
+			iraURL("../pages/inbox.php");
+		}
     $idPaquete = array('idPaquete' => $_POST['idpaq']);
-    $Paquete = $client->ConsultarPaqueteXId($idPaquete);
-    $usu = array('idusu' => $_SESSION["Usuario"]->return->idusu);
-    if (isset($Paquete->return)) {
+		 echo '<pre>';print_r($idPaquete);
+
+  //<  $Paquete = $client->ConsultarPaqueteXId($idPaquete);
+	$consumo = $client->call("ConsultarPaqueteXId",$idPaquete);
+	if ($consumo!="") {
+	 $Paquete =$consumo['return'];
+	}
+    $usu = array('idusu' => $_SESSION["Usuario"]["idusu"]);
+    if (isset($Paquete)) {
         $idPaquete = array('idpaq' => $_POST['idpaq']);
-        $sede = array('idsed' => $_SESSION["Sede"]->return->idsed);
+        $sede = array('idsed' => $_SESSION["Sede"]["idsed"]);
         $parametros = array('registroPaquete' => $idPaquete,
             'registroUsuario' => $usu,
             'registroSede' => $sede,
             'Caso' => "Confirmar");
-        $seg = $client->registroSeguimiento($parametros);
-        if ($seg->return == 0) {
+        //$seg = $client->registroSeguimiento($parametros);
+		$consumo = $client->call("registroSeguimiento",$parametros);
+		if ($consumo!="") {
+		 $seg =$consumo['return'];
+		}
+        if ($seg == 0) {
             echo "<br>";
             echo"<div class='alert alert-block' align='center'>
 			<h2 style='color:rgb(255,255,255)' align='center'>Atención</h2>
 			<h4 align='center'>El paquete ya fue confirmado </h4>
 		</div> ";
-        } elseif ($seg->return == 2) {
+        } elseif ($seg == 2) {
             echo "<br>";
             echo"<div class='alert alert-block' align='center'>
 			<h2 style='color:rgb(255,255,255)' align='center'>Atención</h2>
 			<h4 align='center'>Paquete con seguimiento errado ,consulte con el administrador </h4>
 		</div> ";
-        } elseif ($seg->return == 1) {
+        } elseif ($seg == 1) {
             javaalert("Se ha confirmado el paquete exitósamente");
         }
     } else {
@@ -49,21 +60,25 @@ try {
 			<h4 align='center'>No hay Correspondencia con ese código  </h4>
 		</div> ";
     }
-    $UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-    $SedeRol = $client->consultarSedeRol($UsuarioRol);
-    if (isset($SedeRol->return)) {
-        if ($SedeRol->return->idrol->idrol != "1" && $SedeRol->return->idrol->idrol != "2" && $SedeRol->return->idrol->idrol != "3" && $SedeRol->return->idrol->idrol != "5") {
+   $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"], 'sede' => $_SESSION["Sede"]["nombresed"]);
+	$consumo = $client->call("consultarSedeRol",$UsuarioRol);
+	if ($consumo!="") {
+	$SedeRol = $consumo['return'];   
+        if ($SedeRol["idrol"]["idrol"] != "1" && $SedeRol["idrol"]["idrol"] != "2" && $SedeRol["idrol"]["idrol"] != "3" && $SedeRol["idrol"]["idrol"] != "5") {
             iraURL('../pages/inbox.php');
         }
     } else {
         iraURL('../pages/inbox.php');
     }
 
-    $usuSede = array('iduse' => $SedeRol->return->iduse,
-        'idrol' => $SedeRol->return->idrol,
-        'idsed' => $SedeRol->return->idsed);
+    $usuSede = array('iduse' => $SedeRol["iduse"],
+        'idrol' => $SedeRol["idrol"],
+        'idsed' => $SedeRol["idsed"]);
     $parametros = array('idUsuarioSede' => $usuSede);
-    $PaquetesConfirmados = $client->consultarPaquetesConfirmadosXRol($parametros);
+	$consumo = $client->call("consultarPaquetesConfirmadosXRol",$parametros);
+	if($consumo!=""){
+	$PaquetesConfirmados= $consumo['return'];
+	}
     ?>
 
     <!-- styles -->
@@ -90,96 +105,98 @@ try {
 
 
     <?php
-    if (isset($PaquetesConfirmados->return)) {
-        echo "<br>";
-        ?>
-        <h2>Correspondencia que ha sido confirmada</h2>
-        <table class='footable table table-striped table-bordered'  data-page-size=<?php echo $itemsByPage ?>>    
-            <thead bgcolor='#FF0000'>
-                <tr>	
-                    <th style='width:7%; text-align:center'>Origen</th>
-                    <th style='width:7%; text-align:center' data-sort-ignore="true">Destino</th>
-                    <th style='width:7%; text-align:center' data-sort-ignore="true">Asunto </th>
-                    <th style='width:7%; text-align:center' data-sort-ignore="true">Tipo</th>
-                    <th style='width:7%; text-align:center' data-sort-ignore="true">Contenido</th>
-                    <th style='width:7%; text-align:center' data-sort-ignore="true">Con Respuesta</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                if (count($PaquetesConfirmados->return) == 1) {
-                    if ($PaquetesConfirmados->return->respaq == "0") {
-                        $rta = "No";
-                    } else {
-                        $rta = "Si";
-                    }
-                    if (strlen($PaquetesConfirmados->return->textopaq) > 10) {
-                        $contenido = substr($PaquetesConfirmados->return->textopaq, 0, 10) . "...";
-                    } else {
-                        $contenido = $PaquetesConfirmados->return->textopaq;
-                    }
-                    if (strlen($PaquetesConfirmados->return->asuntopaq) > 10) {
-                        $asunto = substr($PaquetesConfirmados->return->asuntopaq, 0, 10) . "...";
-                    } else {
-                        $asunto = $PaquetesConfirmados->return->asuntopaq;
-                    }
-                    if ($PaquetesConfirmados->return->destinopaq->tipobuz == 0) {
-                        $nombrebuz = $PaquetesConfirmados->return->destinopaq->idusu->nombreusu . " " . $PaquetesConfirmados->return->destinopaq->idusu->apellidousu;
-                    } else {
-                        $nombrebuz = $PaquetesConfirmados->return->destinopaq->nombrebuz;
-                    }
-                    ?>
-                    <tr>     
-                        <td  style='text-align:center'><?php echo $PaquetesConfirmados->return->origenpaq->idusu->nombreusu . " " . $PaquetesConfirmados->return->origenpaq->idusu->apellidousu; ?></td>
-                        <td style='text-align:center'><?php echo $nombrebuz; ?></td>
-                        <td style='text-align:center'><?php echo $asunto; ?></td>
-                        <td style='text-align:center'><?php echo $PaquetesConfirmados->return->iddoc->nombredoc; ?></td>
-                        <td style='text-align:center'><?php echo $contenido; ?></td>
-                        <td style='text-align:center'><?php echo $rta; ?></td>  
-                    </tr>   
-                    <?php
-                } else {
-                    for ($i = 0; $i < count($PaquetesConfirmados->return); $i++) {
-                        if ($PaquetesConfirmados->return[$i]->respaq == "0") {
-                            $rta = "No";
-                        } else {
-                            $rta = "Si";
-                        }
-                        if (strlen($PaquetesConfirmados->return[$i]->textopaq) > 25) {
-                            $contenido = substr($PaquetesConfirmados->return[$i]->textopaq, 0, 23) . "...";
-                        } else {
-                            $contenido = $PaquetesConfirmados->return[$i]->textopaq;
-                        }
-                        if (strlen($PaquetesConfirmados->return[$i]->asuntopaq) > 10) {
-                            $asunto = substr($PaquetesConfirmados->return[$i]->asuntopaq, 0, 10) . "...";
-                        } else {
-                            $asunto = $PaquetesConfirmados->return[$i]->asuntopaq;
-                        }
-                        if ($PaquetesConfirmados->return[$i]->destinopaq->tipobuz == 0) {
-                            $nombrebuz = $PaquetesConfirmados->return[$i]->destinopaq->idusu->nombreusu . " " . $PaquetesConfirmados->return[$i]->destinopaq->idusu->apellidousu;
-                        } else {
-                            $nombrebuz = $PaquetesConfirmados->return[$i]->destinopaq->nombrebuz;
-                        }
-                        ?>
-                        <tr>     
-                            <td  style='text-align:center'><?php echo $PaquetesConfirmados->return[$i]->origenpaq->idusu->nombreusu . " " . $PaquetesConfirmados->return[$i]->origenpaq->idusu->apellidousu; ?></td>
-                            <td style='text-align:center'><?php echo $nombrebuz; ?></td>
-                            <td style='text-align:center'><?php echo $asunto; ?></td>
-                            <td style='text-align:center'><?php echo $PaquetesConfirmados->return[$i]->iddoc->nombredoc; ?></td>
-                            <td style='text-align:center'><?php echo $contenido; ?></td>
-                            <td style='text-align:center'><?php echo $rta; ?></td>  
-                        </tr>   
-                <?php
-            }
-        }//fin else
-        ?>  
-            </tbody>
-        </table>
-        <ul id="pagination" class="footable-nav"><span>Pag:</span></ul>								
+    if (isset($PaquetesConfirmados)) {
 
-        <?php
-    }
-    ?>
+                                        echo "<br>";
+                                        ?>
+
+                                        <h2>Correspondencia que ha sido confirmada</h2>
+                                        <table class='footable table table-striped table-bordered'  data-page-size=<?php echo $itemsByPage ?>>    
+                                            <thead bgcolor='#FF0000'>
+                                                <tr>	
+                                                    <th style='width:7%; text-align:center'>Origen</th>
+                                                    <th style='width:7%; text-align:center' data-sort-ignore="true">Destino</th>
+                                                    <th style='width:7%; text-align:center' data-sort-ignore="true">Asunto </th>
+                                                    <th style='width:7%; text-align:center' data-sort-ignore="true">Tipo</th>
+                                                    <th style='width:7%; text-align:center' data-sort-ignore="true">Contenido</th>
+                                                    <th style='width:7%; text-align:center' data-sort-ignore="true">Con Respuesta</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                if (!isset($PaquetesConfirmados[0])) {
+                                                    if ($PaquetesConfirmados["respaq"] == "0") {
+                                                        $rta = "No";
+                                                    } else {
+                                                        $rta = "Si";
+                                                    }
+                                                    if (strlen($PaquetesConfirmados["textopaq"]) > 10) {
+                                                        $contenido =utf8_decode( substr($PaquetesConfirmados["textopaq"], 0, 10) ). "...";
+                                                    } else {
+                                                        $contenido =utf8_decode( $PaquetesConfirmados["textopaq"]);
+                                                    }
+                                                    if (strlen($PaquetesConfirmados["asuntopaq"]) > 10) {
+                                                        $asunto = utf8_decode(substr($PaquetesConfirmados["asuntopaq"], 0, 10)) . "...";
+                                                    } else {
+                                                        $asunto = utf8_decode($PaquetesConfirmados["asuntopaq"]);
+                                                    }
+                                                    if ($PaquetesConfirmados["destinopaq"]["tipobuz"] == 0) {
+                                                        $nombrebuz =utf8_decode( $PaquetesConfirmados["destinopaq"]["idusu"]["nombreusu"]. " " . $PaquetesConfirmados["destinopaq"]["idusu"]["apellidousu"]);
+                                                    } else {
+                                                        $nombrebuz =utf8_decode( $PaquetesConfirmados["destinopaq"]["nombrebuz"]);
+                                                    }
+                                                    ?>
+                                                    <tr>     
+                                                        <td  style='text-align:center'><?php echo utf8_decode($PaquetesConfirmados["origenpaq"]["idusu"]["nombreusu"]. " " . $PaquetesConfirmados["origenpaq"]["idusu"]["apellidousu"]); ?></td>
+                                                        <td style='text-align:center'><?php echo $nombrebuz; ?></td>
+                                                        <td style='text-align:center'><?php echo $asunto; ?></td>
+                                                        <td style='text-align:center'><?php echo utf8_decode($PaquetesConfirmados["iddoc"]["nombredoc"]); ?></td>
+                                                        <td style='text-align:center'><?php echo $contenido; ?></td>
+                                                        <td style='text-align:center'><?php echo $rta; ?></td>  
+                                                    </tr>   
+                                                    <?php
+                                                } else {
+                                                    for ($i = 0; $i < count($PaquetesConfirmados); $i++) {
+                                                        if ($PaquetesConfirmados[$i]["respaq"] == "0") {
+                                                            $rta = "No";
+                                                        } else {
+                                                            $rta = "Si";
+                                                        }
+                                                        if (strlen($PaquetesConfirmados[$i]["textopaq"]) > 25) {
+                                                            $contenido = utf8_decode(substr($PaquetesConfirmados[$i]["textopaq"], 0, 23)) . "...";
+                                                        } else {
+                                                            $contenido = utf8_decode($PaquetesConfirmados[$i]["textopaq"]);
+                                                        }
+                                                        if (strlen($PaquetesConfirmados[$i]["asuntopaq"]) > 10) {
+                                                            $asunto = utf8_decode(substr($PaquetesConfirmados[$i]["asuntopaq"], 0, 10)) . "...";
+                                                        } else {
+                                                            $asunto = utf8_decode($PaquetesConfirmados[$i]["asuntopaq"]);
+                                                        }
+                                                        if ($PaquetesConfirmados[$i]["destinopaq"]["tipobuz"] == 0) {
+                                                            $nombrebuz = utf8_decode($PaquetesConfirmados[$i]["destinopaq"]["idusu"]["nombreusu"] . " " . $PaquetesConfirmados[$i]["destinopaq"]["idusu"]["apellidousu"]);
+                                                        } else {
+                                                            $nombrebuz =utf8_decode( $PaquetesConfirmados[$i]["destinopaq"]["nombrebuz"]);
+                                                        }
+                                                        ?>
+                                                        <tr>     
+                                                            <td  style='text-align:center'><?php echo utf8_decode($PaquetesConfirmados[$i]["origenpaq"]["idusu"]["nombreusu"]. " " . $PaquetesConfirmados[$i]["origenpaq"]["idusu"]["apellidousu"]); ?></td>
+                                                            <td style='text-align:center'><?php echo $nombrebuz; ?></td>
+                                                            <td style='text-align:center'><?php echo $asunto; ?></td>
+                                                            <td style='text-align:center'><?php echo utf8_decode($PaquetesConfirmados[$i]["iddoc"]["nombredoc"]); ?></td>
+                                                            <td style='text-align:center'><?php echo $contenido; ?></td>
+                                                            <td style='text-align:center'><?php echo $rta; ?></td>  
+                                                        </tr>   
+                                                        <?php
+                                                    }
+                                                }//fin else
+                                                ?>  
+                                            </tbody>
+                                        </table>
+                                        <ul id="pagination" class="footable-nav"><span>Pag:</span></ul>					
+
+                                        <?php
+                                    }
+									?> 
     <script src="../js/footable.js" type="text/javascript"></script>
     <script src="../js/footable.paginate.js" type="text/javascript"></script>
     <script src="../js/footable.sortable.js" type="text/javascript"></script>
