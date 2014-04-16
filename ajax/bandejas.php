@@ -1,4 +1,5 @@
- <?php session_start();
+ <?php 
+session_start();
 ?>
 <!-- styles -->
 <link rel="shortcut icon" href="../images/faviconsh.ico">
