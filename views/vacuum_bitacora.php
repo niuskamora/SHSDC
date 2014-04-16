@@ -1,7 +1,7 @@
 <?php
-/*if ($usuarioBitacora == "") {
+if ($usuarioBitacora == "") {
     echo '<script language="javascript"> window.location = "../pages/inbox.php"; </script>';
-}*/
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,7 +84,7 @@
                         </ul>
                     </div>
                     <div class="span10">
-                        <div class="tab-content"  id="bandeja">
+                        <div class="tab-content" id="bandeja">
                             <?php
                             //Verificando que este vacio o sea null
                             if (!isset($resultadoListaBitacora)) {
@@ -116,8 +116,8 @@
                                                     <tr>
                                                         <td style="text-align:center"><?php echo $resultadoListaBitacora[$i]['idbit'] ?></td>
                                                         <td style="text-align:center"><?php echo utf8_encode($resultadoListaBitacora[$i]['accionbit']) ?></td>
-                                                        <?php //$fecha[$i] = FechaHora($resultadoListaBitacora[$i]['fechabit']); ?>
-                                                        <td style="text-align:center"><?php echo "" ?></td>
+                                                        <?php $fecha[$i] = FechaHora($resultadoListaBitacora[$i]['fechabit']); ?>
+                                                        <td style="text-align:center"><?php echo $fecha[$i] ?></td>
                                                         <td style="text-align:center"><?php echo utf8_encode($resultadoListaBitacora[$i]['observacionbit']) ?></td>
                                                         <td style="text-align:center"><?php echo utf8_encode($resultadoListaBitacora[$i]['idusu']['nombreusu']) . ' ' . utf8_encode($resultadoListaBitacora[$i]['idusu']['apellidousu']) ?></td>
                                                     </tr>
@@ -128,8 +128,8 @@
                                                     <tr>
                                                         <td style="text-align:center"><?php echo $resultadoListaBitacora['idbit'] ?></td>
                                                         <td style="text-align:center"><?php echo utf8_encode($resultadoListaBitacora['accionbit']) ?></td>
-                                                        <?php //$fecha = FechaHora($resultadoListaBitacora['fechabit']); ?>
-                                                        <td style="text-align:center"><?php echo "" ?></td>
+                                                        <?php $fecha = FechaHora($resultadoListaBitacora['fechabit']); ?>
+                                                        <td style="text-align:center"><?php echo $fecha ?></td>
                                                         <td style="text-align:center"><?php echo utf8_encode($resultadoListaBitacora['observacionbit']) ?></td>
                                                         <td style="text-align:center"><?php echo utf8_encode($resultadoListaBitacora['idusu']['nombreusu']) . ' ' . utf8_encode($resultadoListaBitacora['idusu']['apellidousu']) ?></td>
                                                     </tr>
@@ -141,12 +141,12 @@
                                     </table>                            
                                     <ul id="pagination" class="footable-nav"><span>Pag:</span></ul>
                                     <br>
-                                    <?php //if ($_SESSION["Usuario"]->return->tipousu == "2") { ?>
+                                    <?php if ($_SESSION["Usuario"]['tipousu'] == "2") { ?>
                                         <div align="right">                      
                                             <button type="submit" class="btn" id="vaciar" name="vaciar" onclick="return confirm('¿Esta seguro que desea vaciar la Bitacora?')">Vaciar Bitácora</button>
 
                                         </div>
-                                    <?php //} ?>
+                                    <?php } ?>
                                 </form>
                             <?php } ?>
                         </div>

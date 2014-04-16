@@ -3,81 +3,78 @@
 session_start();
 include("../recursos/funciones.php");
 include("../recursos/codigoBarrasPdf.php");
-require_once('../lib/nusoap.php');
+require_once("../lib/nusoap.php");
+require_once("../config/wsdl.php");
+require_once("../config/definitions.php");
+require_once("../core/Crypt/AES.php");
 
-if (!isset($_SESSION["Usuario"])) {
-    iraURL("../index.php");
-} elseif (!usuarioCreado()) {
-    iraURL("../pages/create_user.php");
-}
+/* if (!isset($_SESSION["Usuario"])) {
+  iraURL("../index.php");
+  } elseif (!usuarioCreado()) {
+  iraURL("../pages/create_user.php");
+  } */
 
 $_SESSION["paquete"] = "";
 $_SESSION["codigo"] = "";
 $_SESSION["fecha"] = "";
 
-$client = new SOAPClient($wsdl_sdc);
-$client->decode_utf8 = false;
-$UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-$SedeRol = $client->consultarSedeRol($UsuarioRol);
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$_SESSION["cli"] = $client;
+$UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"],
+    'sede' => $_SESSION["Sede"]["nombresed"]);
+$consumo = $client->call("consultarSedeRol", $UsuarioRol);
 
-$nomUsuario = $_SESSION["Usuario"]->return->userusu;
-$ideSede = $_SESSION["Sede"]->return->idsed;
-$usuarioBitacora = $_SESSION["Usuario"]->return->idusu;
+if ($consumo != "") {
+    $SedeRol = $consumo['return'];
+} else {
+    iraURL('../pages/inbox.php');
+}
+
+$nomUsuario = $_SESSION["Usuario"]['userusu'];
+$ideSede = $_SESSION["Sede"]['idsed'];
+$usuarioBitacora = $_SESSION["Usuario"]['idusu'];
 
 try {
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
-
-    $usuario = array('user' => $nomUsuario);
-    $resultadoConsultarUsuario = $client->consultarUsuarioXUser($usuario);
-
-    if (!isset($resultadoConsultarUsuario->return)) {
-        $usua = 0;
-    } else {
-        $usua = $resultadoConsultarUsuario->return;
+    $client = new nusoap_client($wsdl_sdc, 'wsdl');
+    $idUsu = array('idUsuario' => $usuarioBitacora);
+    $consumoPaquete = $client->call("ultimoPaqueteXOrigen", $idUsu);
+    if ($consumoPaquete != "") {
+        $resultadoConsultarUltimoPaquete = $consumoPaquete['return'];
     }
 
-    $idUsuario = $resultadoConsultarUsuario->return->idusu;
+    if (isset($resultadoConsultarUltimoPaquete)) {
 
-    try {
-$client = new SOAPClient($wsdl_sdc);
-        $client->decode_utf8 = false;
-
-        $idUsu = array('idUsuario' => $idUsuario);
-        $resultadoConsultarUltimoPaquete = $client->ultimoPaqueteXOrigen($idUsu);
-
-        if (isset($resultadoConsultarUltimoPaquete->return)) {
-
-            if (isset($resultadoConsultarUltimoPaquete->return->fechapaq)) {
-                $fecha = FechaHora($resultadoConsultarUltimoPaquete->return->fechapaq);
-            } else {
-                $fecha = "";
-            }
-            //Año de envio del paquete
-            $fechaCod = (substr($fecha, 6, 4));
-
-            $sedPaq = $resultadoConsultarUltimoPaquete->return->idsed->idsed;
-            $idSede = array('idSede' => $sedPaq);
-            $resultadoConsultarSede = $client->consultarSedeXId($idSede);
-            $codigoSede = $resultadoConsultarSede->return->codigosed;
-
-            $idpaq = $resultadoConsultarUltimoPaquete->return->idpaq;
-
-            //Código total codigosede+añopaquete+idpaquete
-            $codigoTotal = $codigoSede . $fechaCod . $idpaq;
-            guardarImagen($codigoTotal);
-
-            $_SESSION["paquete"] = $resultadoConsultarUltimoPaquete;
-            $_SESSION["codigo"] = $codigoTotal;
-            $_SESSION["fecha"] = $fecha;
-
-            llenarLog(6, "Comprobante de Correspondencia", $usuarioBitacora, $ideSede);
-            echo"<script>window.open('../pdf/proof_of_correspondence.php','fullscreen');</script>";
-            //iraURL('../pdf/proof_of_correspondence.php');
+        if (isset($resultadoConsultarUltimoPaquete['fechapaq'])) {
+            $fecha = FechaHora($resultadoConsultarUltimoPaquete['fechapaq']);
+        } else {
+            $fecha = "";
         }
-    } catch (Exception $e) {
-        javaalert('Lo sentimos no hay conexion');
-        iraURL('../pages/send_correspondence.php');
+        //Año de envio del paquete
+        $fechaCod = (substr($fecha, 6, 4));
+
+        $sedPaq = $resultadoConsultarUltimoPaquete['idsed']['idsed'];
+        $idSede = array('idSede' => $sedPaq);
+        $consumoSede = $client->call("consultarSedeXId", $idSede);
+        if ($consumoSede != "") {
+            $resultadoConsultarSede = $consumoSede['return'];
+        }
+        if (isset($resultadoConsultarSede)) {
+            $codigoSede = $resultadoConsultarSede['codigosed'];
+        }
+
+        $idpaq = $resultadoConsultarUltimoPaquete['idpaq'];
+
+        //Código total codigosede+añopaquete+idpaquete
+        $codigoTotal = $codigoSede . $fechaCod . $idpaq;
+        guardarImagen($codigoTotal);
+
+        $_SESSION["paquete"] = $resultadoConsultarUltimoPaquete;
+        $_SESSION["codigo"] = $codigoTotal;
+        $_SESSION["fecha"] = $fecha;
+
+        llenarLog(6, "Comprobante de Correspondencia", $usuarioBitacora, $ideSede);
+        echo"<script>window.open('../pdf/proof_of_correspondence.php');</script>";
+        //iraURL('../pdf/proof_of_correspondence.php');
     }
     echo "<script languaje='javascript' type='text/javascript'>window.close();</script>";
 } catch (Exception $e) {

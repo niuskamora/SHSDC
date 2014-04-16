@@ -4,8 +4,17 @@ session_start();
 
 $fechaEnvio = $_SESSION["fechaEnvio"];
 $resultadoConsultarPaquetes = $_SESSION["paquetes"];
-$contadorPaquetes = count($resultadoConsultarPaquetes->return);
 $reporte = $_SESSION["Reporte"];
+
+if (isset($resultadoConsultarPaquetes)) {
+    if (isset($resultadoConsultarPaquetes[0])) {
+        $contadorPaquetes = count($resultadoConsultarPaquetes);
+    } else {
+        $contadorPaquetes = 1;
+    }
+} else {
+    $contadorPaquetes = 0;
+}
 
 if ($reporte == '1') {
     $nombreReporte = "Paquetes Enviados";

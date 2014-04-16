@@ -7,35 +7,44 @@ require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
 
-if (!isset($_SESSION["Usuario"])) {
-    iraURL("../index.php");
-} elseif (!usuarioCreado()) {
-    iraURL("../pages/create_user.php");
-}
+/* if (!isset($_SESSION["Usuario"])) {
+  iraURL("../index.php");
+  } elseif (!usuarioCreado()) {
+  iraURL("../pages/create_user.php");
+  } */
 
-$client = new SOAPClient($wsdl_sdc);
-$client->decode_utf8 = false;
-$UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-$SedeRol = $client->consultarSedeRol($UsuarioRol);
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$_SESSION["cli"]=$client;
+$UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"],
+    'sede' => $_SESSION["Sede"]["nombresed"]);
+$consumo = $client->call("consultarSedeRol", $UsuarioRol);
 
-if (isset($SedeRol->return)) {
-    if ($SedeRol->return->idrol->idrol != "4" && $SedeRol->return->idrol->idrol != "5") {
+if ($consumo != "") {
+    $SedeRol = $consumo['return'];
+    if ($SedeRol['idrol']['idrol'] != "4" && $SedeRol['idrol']['idrol'] != "5") {
         iraURL('../pages/inbox.php');
     }
 } else {
     iraURL('../pages/inbox.php');
 }
 
-$usuarioBitacora = $_SESSION["Usuario"]->return->idusu;
-$sede = $_SESSION["Sede"]->return->idsed;
+$usuarioBitacora = $_SESSION["Usuario"]['idusu'];
+$sede = $_SESSION["Sede"]['idsed'];
 
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
 $idsede = array('idsed' => $sede);
 $sedeP = array('sede' => $idsede);
-$resultadoProveedor = $client->consultarProveedorXSede($sedeP);
-if (!isset($resultadoProveedor->return)) {
-    $proveedor = 0;
+$consumoProveedorXSede = $client->call("consultarProveedorXSede", $sedeP);
+
+if ($consumoProveedorXSede != "") {
+    $resultadoProveedor = $consumoProveedorXSede['return'];
+    if (isset($resultadoProveedor[0])) {
+        $proveedor = count($resultadoProveedor);
+    } else {
+        $proveedor = 1;
+    }
 } else {
-    $proveedor = count($resultadoProveedor->return);
+    $proveedor = 0;
 }
 
 if (isset($_POST["confirmar"])) {
@@ -43,33 +52,36 @@ if (isset($_POST["confirmar"])) {
     if (isset($_POST["cValija"]) && $_POST["cValija"] != "" && isset($_POST["cProveedor"]) && $_POST["cProveedor"] != "" && isset($_POST["proveedor"]) && $_POST["proveedor"] != "") {
 
         try {
-            $wsdl_url = 'http://localhost:15362/SistemaDeCorrespondencia/CorrespondeciaWS?WSDL';
-            $client = new SOAPClient($wsdl_url);
-            $client->decode_utf8 = false;
+            $client = new nusoap_client($wsdl_sdc, 'wsdl');
             $valija = $_POST["cValija"];
             $Val = array('codigo' => $valija);
-            $Valijac = $client->consultarValijaXIdOCodigoBarra($Val);
-            if (isset($Valijac->return)) {
-                $idVal = $Valijac->return->idval;
+            $consumoValija = $client->call("consultarValijaXIdOCodigoBarra", $Val);
+
+            if ($consumoValija != "") {
+                $Valijac = $consumoValija['return'];
+                $idVal = $Valijac['idval'];
                 $parametros = array('idValija' => $idVal,
                     'proveedor' => $_POST["proveedor"],
                     'codProveedor' => $_POST["cProveedor"]);
-                $confirmarValija = $client->confirmarValija($parametros);
-                if (isset($confirmarValija->return) == 1) {
-                    javaalert('Valija Confirmada');
-                    llenarLog(2, "Confirmación de Valija", $usuarioBitacora, $sede);
-                    iraURL('../pages/create_valise.php');
-                } else {
-                    javaalert('Valija No Confirmada');
-                    iraURL('../pages/create_valise.php');
+                $consumoConfirmar = $client->call("confirmarValija", $parametros);
+                if ($consumoConfirmar != "") {
+                    $confirmarValija = $consumoConfirmar['return'];
+                    if ($confirmarValija == 1) {
+                        javaalert('Valija Confirmada');
+                        llenarLog(2, "Confirmación de Valija", $usuarioBitacora, $sede);
+                        //iraURL('../pages/create_valise.php');
+                    } else {
+                        javaalert('Valija No Confirmada');
+                        //iraURL('../pages/create_valise.php');
+                    }
                 }
             } else {
                 javaalert('Valija No Confirmada');
-                iraURL('../pages/create_valise.php');
+                //iraURL('../pages/create_valise.php');
             }
         } catch (Exception $e) {
             javaalert('Lo sentimos no hay conexion');
-            iraURL('../pages/administration.php');
+            iraURL('../pages/create_valise.php');
         }
     } else {
         javaalert("Debe agregar todos los campos, por favor verifique");

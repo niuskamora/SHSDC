@@ -87,7 +87,7 @@ if ($idPaquete == "" || $usuario == "") {
                         <div class="tab-content" id="bandeja">
                             <?php
                             //Verificando que este vacio o sea null
-                            if (!isset($resultadoPaquete->return)) {
+                            if (!isset($resultadoPaquete)) {
                                 echo '<div class="alert alert-block" align="center">';
                                 echo '<h2 style="color:rgb(255,255,255)" align="center">Atención</h2>';
                                 echo '<h4 align="center">No Existen Registros del Traking del Paquete</h4>';
@@ -135,78 +135,78 @@ if ($idPaquete == "" || $usuario == "") {
                                             for ($i = 0; $i < $segumientoPaquete; $i++) {
                                                 ?>
                                                 <tr>
-                                                    <?php if (isset($resultadoPaquete->return[$i]->iduse->idusu->apellidousu)) { ?>
-                                                        <td><?php echo $resultadoPaquete->return[$i]->iduse->idusu->nombreusu . ' ' . $resultadoPaquete->return[$i]->iduse->idusu->apellidousu ?></td>
+                                                    <?php if (isset($resultadoPaquete[$i]['iduse']['idusu']['apellidousu'])) { ?>
+                                                        <td><?php echo $resultadoPaquete[$i]['iduse']['idusu']['nombreusu'] . ' ' . $resultadoPaquete[$i]['iduse']['idusu']['apellidousu'] ?></td>
                                                     <?php } else {
                                                         ?>
-                                                        <td><?php echo $resultadoPaquete->return[$i]->iduse->idusu->nombreusu ?></td>
+                                                        <td><?php echo $resultadoPaquete[$i]['iduse']['idusu']['nombreusu'] ?></td>
                                                         <?php
                                                     }
-                                                    $fecha[$i] = FechaHora($resultadoPaquete->return[$i]->fechaseg);
+                                                    $fecha[$i] = FechaHora($resultadoPaquete[$i]['fechaseg']);
                                                     ?>
                                                     <td style="text-align:center"><?php echo $fecha[$i] ?></td>
                                                     <?php
                                                     $status = "";
-                                                    if ($resultadoPaquete->return[$i]->statusseg == "0") {
+                                                    if ($resultadoPaquete[$i]['statusseg'] == "0") {
                                                         $status = "En Proceso";
-                                                    } elseif ($resultadoPaquete->return[$i]->statusseg == "1") {
+                                                    } elseif ($resultadoPaquete[$i]['statusseg'] == "1") {
                                                         $status = "Entregado";
-                                                    } elseif ($resultadoPaquete->return[$i]->statusseg == "2") {
+                                                    } elseif ($resultadoPaquete[$i]['statusseg'] == "2") {
                                                         $status = "Reenviado";
-                                                    } elseif ($resultadoPaquete->return[$i]->statusseg == "3") {
+                                                    } elseif ($resultadoPaquete[$i]['statusseg'] == "3") {
                                                         $status = "Extraviado";
                                                     }
                                                     ?>
                                                     <td style="text-align:center"><?php echo $status ?></td>
                                                     <?php
                                                     $tipo = "";
-                                                    if ($resultadoPaquete->return[$i]->tiposeg == "0") {
+                                                    if ($resultadoPaquete[$i]['tiposeg'] == "0") {
                                                         $tipo = "Origen";
-                                                    } elseif ($resultadoPaquete->return[$i]->tiposeg == "1") {
+                                                    } elseif ($resultadoPaquete[$i]['tiposeg'] == "1") {
                                                         $tipo = "Destino";
                                                     }
                                                     ?>
                                                     <td style="text-align:center"><?php echo $tipo ?></td>
-                                                    <td style="text-align:center"><?php echo $resultadoPaquete->return[$i]->nivelseg ?></td>
+                                                    <td style="text-align:center"><?php echo $resultadoPaquete[$i]['nivelseg'] ?></td>
                                                 </tr>
                                                 <?php
                                             }
                                         } else {
                                             ?>
                                             <tr>
-                                                <?php if (isset($resultadoPaquete->return->iduse->idusu->apellidousu)) { ?>
-                                                    <td><?php echo $resultadoPaquete->return->iduse->idusu->nombreusu . ' ' . $resultadoPaquete->return->iduse->idusu->apellidousu ?></td>
+                                                <?php if (isset($resultadoPaquete['iduse']['idusu']['apellidousu'])) { ?>
+                                                    <td><?php echo $resultadoPaquete['iduse']['idusu']['nombreusu'] . ' ' . $resultadoPaquete['iduse']['idusu']['apellidousu'] ?></td>
                                                 <?php } else {
                                                     ?>
-                                                    <td><?php echo $resultadoPaquete->return->iduse->idusu->nombreusu ?></td>
+                                                    <td><?php echo $resultadoPaquete['iduse']['idusu']['nombreusu'] ?></td>
                                                     <?php
                                                 }
-                                                $fecha = FechaHora($resultadoPaquete->return->fechaseg);
+                                                $fecha = FechaHora($resultadoPaquete['fechaseg']);
                                                 ?>
                                                 <td style="text-align:center"><?php echo $fecha ?></td>
                                                 <?php
                                                 $status = "";
-                                                if ($resultadoPaquete->return->statusseg == "0") {
+                                                if ($resultadoPaquete['statusseg'] == "0") {
                                                     $status = "En Proceso";
-                                                } elseif ($resultadoPaquete->return->statusseg == "1") {
+                                                } elseif ($resultadoPaquete['statusseg'] == "1") {
                                                     $status = "Entregado";
-                                                } elseif ($resultadoPaquete->return->statusseg == "2") {
+                                                } elseif ($resultadoPaquete['statusseg'] == "2") {
                                                     $status = "Reenviado";
-                                                } elseif ($resultadoPaquete->return->statusseg == "3") {
+                                                } elseif ($resultadoPaquete['statusseg'] == "3") {
                                                     $status = "Extraviado";
                                                 }
                                                 ?>
                                                 <td style="text-align:center"><?php echo $status ?></td>
                                                 <?php
                                                 $tipo = "";
-                                                if ($resultadoPaquete->return->tiposeg == "0") {
+                                                if ($resultadoPaquete['tiposeg'] == "0") {
                                                     $tipo = "Origen";
-                                                } elseif ($resultadoPaquete->return->tiposeg == "1") {
+                                                } elseif ($resultadoPaquete['tiposeg'] == "1") {
                                                     $tipo = "Destino";
                                                 }
                                                 ?>
                                                 <td style="text-align:center"><?php echo $tipo ?></td>
-                                                <td style="text-align:center"><?php echo $resultadoPaquete->return->nivelseg ?></td>
+                                                <td style="text-align:center"><?php echo $resultadoPaquete['nivelseg'] ?></td>
                                             </tr>
                                         <?php } ?>                                    
                                     </tbody>

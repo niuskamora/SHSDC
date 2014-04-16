@@ -1,3 +1,8 @@
+<?php
+if ($SedeRol == "") {
+    echo '<script language="javascript"> window.location = "../pages/inbox.php"; </script>';
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -72,43 +77,33 @@
                         <ul class="nav nav-pills nav-stacked">
                             <li>   
                                 <a href="../pages/inbox.php">Atrás</a>
-                            </li> 
-                            <li>   
-                                <a href="../pages/misguidance_report.php">Repotar Extravió</a>
-                            </li>
-                            <li>   
-                                <a href="../pages/assign_headquarters.php">Buzón Adicional</a>
-                            </li>
-                            <li>   
-                                <a href="../pages/create_headquarters.php">Crear Sede</a>
-                            </li>
-                            <li>   
-                                <a href="../pages/create_area.php">Crear Área de Trabajo</a>
-                            </li>
-                            <li>   
-                                <a href="../pages/disable_area.php">Deshabilitar Area</a>
-                            </li>
-                            <li>   
-                                <a href="../pages/user_role.php">Editar Rol</a>
-                            </li>
-                            <li>   
-                                <a href="../pages/create_provider.php">Crear Proveedor</a>
-                            </li>                            
-                            <li>   
-                                <a href="../pages/reports_valise.php">Estadísticas De Valijas</a>
-                            </li>                            
-                            <li>   
-                                <a href="../pages/reports_package.php">Estadísticas Paquetes</a>
                             </li>
                             <li>   
                                 <a href="../pages/vacuum_bitacora.php">Bitácora</a>
                             </li>
                             <li>   
+                                <a href="../pages/assign_headquarters.php">Buzón Adicional</a>
+                            </li>
+                            <li>   
+                                <a href="../pages/create_area.php">Crear Área de Trabajo</a>
+                            </li>
+                            <li>   
+                                <a href="../pages/create_provider.php">Crear Proveedor</a>
+                            </li>
+                            <li>   
+                                <a href="../pages/create_headquarters.php">Crear Sede</a>
+                            </li>
+                            <li>   
+                                <a href="../pages/disable_area.php">Deshabilitar Área</a>
+                            </li>
+                            <li>   
+                                <a href="../pages/user_role.php">Editar Rol</a>
+                            </li>
+                            <li>   
                                 <a href="../pages/level_time.php">Editar Tiempo en Área</a>
                             </li>
                             <?php
-                            $i = 0;
-                            if ($_SESSION["Usuario"]->return->tipousu == "2") {
+                            if ($_SESSION["Usuario"]['tipousu'] == "2") {
                                 ?>   
                                 <li>   
                                     <a href="../pages/edit_type_user.php">Editar Tipo De Usuario</a>
@@ -116,6 +111,15 @@
                                 <?php
                             }
                             ?>
+                            <li>   
+                                <a href="../pages/reports_package.php">Estadísticas Paquetes</a>
+                            </li>
+                            <li>   
+                                <a href="../pages/reports_valise.php">Estadísticas Valijas</a>
+                            </li>
+                            <li>   
+                                <a href="../pages/misguidance_report.php">Repotar Extravió</a>
+                            </li>                            
                         </ul>
                     </div>
                     <div class="span10">

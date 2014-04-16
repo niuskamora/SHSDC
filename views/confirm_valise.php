@@ -104,11 +104,11 @@ if ($usuarioBitacora == "") {
                                             if ($proveedor > 1) {
                                                 $i = 0;
                                                 while ($proveedor > $i) {
-                                                    echo "<option value='" . $resultadoProveedor->return[$i]->idpro . "' >" . $resultadoProveedor->return[$i]->nombrepro . "</option>";
+                                                    echo "<option value='" . $resultadoProveedor[$i]['idpro'] . "' >" . $resultadoProveedor[$i]['nombrepro'] . "</option>";
                                                     $i++;
                                                 }
                                             } else {
-                                                echo "<option value='" . $resultadoProveedor->return->idpro . "' >" . $resultadoProveedor->return->nombrepro . "</option>";
+                                                echo "<option value='" . $resultadoProveedor['idpro'] . "' >" . $resultadoProveedor['nombrepro'] . "</option>";
                                             }
                                             ?>
                                         </select>
