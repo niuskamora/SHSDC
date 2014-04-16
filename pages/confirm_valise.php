@@ -22,10 +22,10 @@ $consumo = $client->call("consultarSedeRol", $UsuarioRol);
 if ($consumo != "") {
     $SedeRol = $consumo['return'];
     if ($SedeRol['idrol']['idrol'] != "4" && $SedeRol['idrol']['idrol'] != "5") {
-        //iraURL('../pages/inbox.php');
-    } else {
-        //iraURL('../pages/inbox.php');
+        iraURL('../pages/inbox.php');
     }
+} else {
+    iraURL('../pages/inbox.php');
 }
 
 $usuarioBitacora = $_SESSION["Usuario"]['idusu'];

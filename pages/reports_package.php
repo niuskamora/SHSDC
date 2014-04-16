@@ -21,10 +21,10 @@ $consumo = $client->call("consultarSedeRol", $UsuarioRol);
 if ($consumo != "") {
     $SedeRol = $consumo['return'];
     if ($SedeRol['idusu']['tipousu'] != "1" && $SedeRol['idusu']['tipousu'] != "2") {
-        //iraURL('../pages/inbox.php');
-    } else {
-        //iraURL('../pages/inbox.php');
+        iraURL('../pages/inbox.php');
     }
+} else {
+    iraURL('../pages/inbox.php');
 }
 
 $usuario = $_SESSION["Usuario"]['idusu'];

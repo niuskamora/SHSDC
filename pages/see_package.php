@@ -7,33 +7,43 @@ require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
 
-if (!isset($_SESSION["Usuario"])) {
-    iraURL("../index.php");
-} elseif (!usuarioCreado()) {
-    iraURL("../pages/create_user.php");
+/* if (!isset($_SESSION["Usuario"])) {
+  iraURL("../index.php");
+  } elseif (!usuarioCreado()) {
+  iraURL("../pages/create_user.php");
+  } */
+
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$_SESSION["cli"] = $client;
+$UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"],
+    'sede' => $_SESSION["Sede"]["nombresed"]);
+$consumo = $client->call("consultarSedeRol", $UsuarioRol);
+
+if ($consumo != "") {
+    $SedeRol = $consumo['return'];
+} else {
+    iraURL('../pages/inbox.php');
 }
 
-$client = new SOAPClient($wsdl_sdc);
-$client->decode_utf8 = false;
-$UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-$SedeRol = $client->consultarSedeRol($UsuarioRol);
-
 $idPaquete = $_GET["id"];
-$usuario = $_SESSION["Usuario"]->return->idusu;
+$usuario = $_SESSION["Usuario"]['idusu'];
 
 if ($idPaquete == "") {
     iraURL('../pages/inbox.php');
 } else {
     try {
+        $client = new nusoap_client($wsdl_sdc, 'wsdl');
         $paquete = array('idPaquete' => $idPaquete);
-$client = new SOAPClient($wsdl_sdc);
-        $client->decode_utf8 = false;
-        $resultadoPaquete = $client->consultarSeguimientoXPaquete($paquete);
-
-        if (!isset($resultadoPaquete->return)) {
-            $segumientoPaquete = 0;
+        $consumoSeguimiento = $client->call("consultarSeguimientoXPaquete", $paquete);
+        if ($consumoSeguimiento != "") {
+            $resultadoPaquete = $consumoSeguimiento['return'];
+            if (isset($resultadoPaquete[0])) {
+                $segumientoPaquete = count($resultadoPaquete);
+            } else {
+                $segumientoPaquete = 1;
+            }
         } else {
-            $segumientoPaquete = count($resultadoPaquete->return);
+            $segumientoPaquete = 0;
         }
         include("../views/see_package.php");
     } catch (Exception $e) {

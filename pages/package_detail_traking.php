@@ -22,11 +22,11 @@ if($consumo != ""){
 	$SedeRol = $consumo['return'];
 	if ($SedeRol['idrol']['idrol'] != "4" && $SedeRol['idrol']['idrol'] != "5") {
 		if ($SedeRol['idusu']['tipousu'] != "1" && $SedeRol['idusu']['tipousu'] != "2") {
-			//iraURL('../pages/inbox.php');
+			iraURL('../pages/inbox.php');
 		}
 	}
 } else {
-    //iraURL('../pages/inbox.php');
+    iraURL('../pages/inbox.php');
 }
 
 $idPaquete = $_GET["id"];

@@ -24,6 +24,8 @@ $consumo = $client->call("consultarSedeRol", $UsuarioRol);
 
 if ($consumo != "") {
     $SedeRol = $consumo['return'];
+} else {
+    iraURL('../pages/inbox.php');
 }
 
 $nomUsuario = $_SESSION["Usuario"]['userusu'];
