@@ -7,31 +7,40 @@ require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
 
-if (!isset($_SESSION["Usuario"])) {
-    iraURL("../index.php");
-} elseif (!usuarioCreado()) {
-    iraURL("../pages/create_user.php");
+/* if (!isset($_SESSION["Usuario"])) {
+  iraURL("../index.php");
+  } elseif (!usuarioCreado()) {
+  iraURL("../pages/create_user.php");
+  } */
+
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"],
+    'sede' => $_SESSION["Sede"]["nombresed"]);
+$consumo = $client->call("consultarSedeRol", $UsuarioRol);
+
+if ($consumo != "") {
+    $SedeRol = $consumo['return'];
+    if ($SedeRol['idusu']['tipousu'] != "1" && $SedeRol['idusu']['tipousu'] != "2") {
+        //iraURL('../pages/inbox.php');
+    } else {
+        //iraURL('../pages/inbox.php');
+    }
 }
-$client = new SOAPClient($wsdl_sdc);
-$client->decode_utf8 = false;
-$UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-$SedeRol = $client->consultarSedeRol($UsuarioRol);
-if (isset($SedeRol->return)) {
-    if ($SedeRol->return->idusu->tipousu != "1" && $SedeRol->return->idusu->tipousu != "2") {
-        iraURL('../pages/inbox.php');
+
+$usuario = $_SESSION["Usuario"]['idusu'];
+$ideSede = $_SESSION["Sede"]['idsed'];
+
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$consumoSedes = $client->call("listarSedes");
+if ($consumoSedes != "") {
+    $resultadoSedes = $consumoSedes['return'];
+    if (isset($resultadoSedes[0])) {
+        $sedes = count($resultadoSedes);
+    } else {
+        $sedes = 1;
     }
 } else {
-    iraURL('../pages/inbox.php');
-}
-
-$ideSede = $_SESSION["Sede"]->return->idsed;
-$usuario = $_SESSION["Usuario"]->return->idusu;
-
-$resultadoSedes = $client->listarSedes();
-if (!isset($resultadoSedes->return)) {
     $sedes = 0;
-} else {
-    $sedes = count($resultadoSedes->return);
 }
 
 $_SESSION["Reporte"] = "";

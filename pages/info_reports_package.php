@@ -7,44 +7,46 @@ require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
 
-if (!isset($_SESSION["Usuario"])) {
-    iraURL("../index.php");
-} elseif (!usuarioCreado()) {
-    iraURL("../pages/create_user.php");
-}
+/* if (!isset($_SESSION["Usuario"])) {
+  iraURL("../index.php");
+  } elseif (!usuarioCreado()) {
+  iraURL("../pages/create_user.php");
+  } */
 
-if ($_SESSION["Usuario"]->return->tipousu != "1" && $_SESSION["Usuario"]->return->tipousu != "2") {
-    iraURL('../pages/inbox.php');
-}
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"],
+    'sede' => $_SESSION["Sede"]["nombresed"]);
+$consumo = $client->call("consultarSedeRol", $UsuarioRol);
 
-$client = new SOAPClient($wsdl_sdc);
-$client->decode_utf8 = false;
-$UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-$SedeRol = $client->consultarSedeRol($UsuarioRol);
-if (isset($SedeRol->return)) {
-    if ($SedeRol->return->idrol->idrol == 0) {
-        iraURL("../pages/inbox.php");
+if ($consumo != "") {
+    $SedeRol = $consumo['return'];
+    if ($SedeRol['idusu']['tipousu'] != "1" && $SedeRol['idusu']['tipousu'] != "2") {
+        //iraURL('../pages/inbox.php');
+    } else {
+        //iraURL('../pages/inbox.php');
     }
-} else {
-    iraURL('../pages/inbox.php');
 }
 
-$ideSede = $_SESSION["Sede"]->return->idsed;
-$usuario = $_SESSION["Usuario"]->return->idusu;
+$usuario = $_SESSION["Usuario"]['idusu'];
+$ideSede = $_SESSION["Sede"]['idsed'];
 
 $_SESSION["paquetes"] = "";
 
 try {
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
+    $client = new nusoap_client($wsdl_sdc, 'wsdl');
     $Con = array('fechaInicio' => $_SESSION["Fechaini"],
         'fechaFinal' => $_SESSION["Fechafin"],
         'consulta' => $_SESSION["Reporte"],
         'idsede' => $_SESSION["Osede"]);
-    $resultadoConsultarPaquetes = $client->consultarEstadisticasPaquetes($Con);
+    $consumoPaquetes = $client->call("consultarEstadisticasPaquetes", $Con);
 
-    if (isset($resultadoConsultarPaquetes->return)) {
-        $paquetes = count($resultadoConsultarPaquetes->return);
+    if ($consumoPaquetes != "") {
+        $resultadoConsultarPaquetes = $consumoPaquetes['return'];
+        if (isset($resultadoConsultarPaquetes[0])) {
+            $paquetes = count($resultadoConsultarPaquetes);
+        } else {
+            $paquetes = 1;
+        }
     } else {
         $paquetes = 0;
     }

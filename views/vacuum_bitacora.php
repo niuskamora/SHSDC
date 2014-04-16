@@ -1,7 +1,7 @@
 <?php
-/*if ($usuarioBitacora == "") {
+if ($usuarioBitacora == "") {
     echo '<script language="javascript"> window.location = "../pages/inbox.php"; </script>';
-}*/
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,7 +84,7 @@
                         </ul>
                     </div>
                     <div class="span10">
-                        <div class="tab-content"  id="bandeja">
+                        <div class="tab-content" id="bandeja">
                             <?php
                             //Verificando que este vacio o sea null
                             if (!isset($resultadoListaBitacora)) {
@@ -141,12 +141,12 @@
                                     </table>                            
                                     <ul id="pagination" class="footable-nav"><span>Pag:</span></ul>
                                     <br>
-                                    <?php //if ($_SESSION["Usuario"]->return->tipousu == "2") { ?>
+                                    <?php if ($_SESSION["Usuario"]['tipousu'] == "2") { ?>
                                         <div align="right">                      
                                             <button type="submit" class="btn" id="vaciar" name="vaciar" onclick="return confirm('¿Esta seguro que desea vaciar la Bitacora?')">Vaciar Bitácora</button>
 
                                         </div>
-                                    <?php //} ?>
+                                    <?php } ?>
                                 </form>
                             <?php } ?>
                         </div>

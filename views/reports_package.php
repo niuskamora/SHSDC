@@ -106,13 +106,13 @@
                                             if ($sedes > 1) {
                                                 $i = 0;
                                                 while ($sedes > $i) {
-                                                    echo "<option value='" . $resultadoSedes->return[$i]->idsed . "' >" . $resultadoSedes->return[$i]->nombresed . "</option>";
+                                                    echo "<option value='" . $resultadoSedes[$i]['idsed'] . "' >" . utf8_encode($resultadoSedes[$i]['nombresed']) . "</option>";
                                                     $i++;
                                                 }
                                             } else {
-                                                echo "<option value='" . $resultadoProveedor->return->idsed . "' >" . $resultadoProveedor->return->nombresed . "</option>";
+                                                echo "<option value='" . $resultadoProveedor['idsed'] . "' >" . utf8_encode($resultadoProveedor['nombresed']) . "</option>";
                                             }
-                                            if ($_SESSION["Usuario"]->return->tipousu == "2") {
+                                            if ($_SESSION["Usuario"]['tipousu'] == "2") {
                                             ?>
                                             	<option value='0'>Todas las Sedes</option>
                                             <?php } ?>
