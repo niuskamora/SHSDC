@@ -76,11 +76,9 @@ function llenarLog($accion, $observacion, $usuario, $sede) {
 
 //Verificando si el usuario esta creado
 function usuarioCreado() {
-     $client = new nusoap_client($wsdl_sdc, 'wsdl');
 	 $userparam['idUsuario'] = $_SESSION["Usuario"]["idusu"];
-	 $consumo = $client->call("consultarUsuario",$userparam);
+	 $consumo =  $_SESSION["cli"]->call("consultarUsuario",$userparam);
      $Usuariocreado = $consumo['return'];
-	 echo '<pre>';print_r( $Usuariocreado);
 	 
     if ($consumo=="")
         return false;
