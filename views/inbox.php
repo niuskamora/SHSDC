@@ -73,16 +73,16 @@
                                 <?php
                                 $i = 0;
                                 while ($i < $reg) {
-                                    $aux = $BandejaUsu->return[$i]->nombreiba;
+                                    $aux = $BandejaUsu['return'][$i]['nombreiba'];
                                     ?>
-                                    <li> <a href="javascript:;" id="<?php echo $aux ?>" onClick="Bandeja(<?php echo "'" . $aux . "'" ?>);" > <?php echo ($BandejaUsu->return[$i]->nombreiba); ?> </a> </li>
+                                    <li> <a href="javascript:;" id="<?php echo $aux ?>" onClick="Bandeja(<?php echo "'" . $aux . "'" ?>);" > <?php echo ($BandejaUsu['return'][$i]['nombreiba']); ?> </a> </li>
                                     <?php
                                     $i++;
                                 }
                                 ?>
                                 <li> <a href="../pages/correspondence_lost.php" id="pextraviada"  > Extraviadas</a></li>
                                 <?php
-                                if ($SedeRol->return->idrol->idrol == "4" || $SedeRol->return->idrol->idrol == "5") {
+                                if ($SedeRol['return']['idrol']['idrol'] == "4" || $SedeRol['return']['idrol']['idrol'] == "5") {
                                     echo '<li> <a href="../pages/lost_bag.php" id="vextraviada"  > Valijas Extraviadas</a></li>';
                                 }
                                 ?>
