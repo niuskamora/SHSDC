@@ -1,14 +1,13 @@
-<?php
-session_start();
+<?php session_start();
 include("../recursos/funciones.php");
 require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
 	$client = new nusoap_client($wsdl_sdc, 'wsdl');
-if (isset($_SESSION["Usuario"]) || isset($_SESSION["User"])) {
-    eliminarSesion();
-}
+//if (isset($_SESSION["Usuario"]) || isset($_SESSION["User"])) {
+//    eliminarSesion();
+//}
 
 if (isset($_POST["Biniciar"])) {
     try {
