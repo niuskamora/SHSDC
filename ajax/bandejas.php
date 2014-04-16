@@ -30,7 +30,7 @@ require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
     $aux = $_POST['idban'];
-    $client = new SOAPClient($wsdl_sdc);
+    $client = new nusoap_client($wsdl_sdc, 'wsdl');
     $client->decode_utf8 = false;
 	$Usuario['user'] = $_SESSION["Usuario"]->return->idusu;
 	$Usuario['ban'] =$aux;
@@ -42,6 +42,19 @@ require_once("../core/Crypt/AES.php");
     } else {
         $reg = 0;
     }
+	
+	 $reg = 0;
+    if($Bandeja != ""){
+		$resultadoBandeja = $Bandeja['return'];
+		if(isset($resultadoBandeja[0])){
+			$reg = count($resultadoBandeja);
+		}
+		else{
+			$reg = 1;
+		}
+	}
+	
+	
     echo "<h2> <strong>" . $aux . "</h2> </strong>";
     if ($reg != 0) {
         echo "</div>";
@@ -82,26 +95,26 @@ require_once("../core/Crypt/AES.php");
         if ($reg > 1) {
             $j = 0;
             while ($j < $reg) {
-                if (strlen($Bandeja->return[$j]->asuntopaq) > 10) {
-                    $asunto = substr($Bandeja->return[$j]->asuntopaq, 0, 10) . "...";
+                if (strlen($Bandeja['return'][$j]['asuntopaq']) > 10) {
+                    $asunto = substr($Bandeja['return'][$j]['asuntopaq'], 0, 10) . "...";
                 } else {
-                    $asunto = $Bandeja->return[$j]->asuntopaq;
+                    $asunto = $Bandeja['return'][$j]['asuntopaq'];
                 }
                 if ($aux == "Por Recibir" || $aux == "Recibidas") {
-                    echo "<td  style='text-align:center'>" . $Bandeja->return[$j]->origenpaq->idusu->nombreusu . " ".$Bandeja->return[$j]->origenpaq->idusu->apellidousu. "</td>";
+                    echo "<td  style='text-align:center'>" . $Bandeja['return'][$j]['origenpaq']['idusu']['nombreusu'] . " ".$Bandeja['return'][$j]['origenpaq']['idusu']['apellidousu']. "</td>";
                 } else if ($aux == "Por Entregar" || $aux == "Entregadas") {
-                    if ($Bandeja->return[$j]->destinopaq->tipobuz == "1") {
-                        echo "<td  style='text-align:center'>" . $Bandeja->return[$j]->destinopaq->nombrebuz . "</td>";
+                    if ($Bandeja['return'][$j]['destinopaq']['tipobuz'] == "1") {
+                        echo "<td  style='text-align:center'>" . $Bandeja['return'][$j]['destinopaq']['nombrebuz'] . "</td>";
                     } else {
-                        echo "<td  style='text-align:center'>" . $Bandeja->return[$j]->destinopaq->idusu->nombreusu ." ".$Bandeja->return[$j]->destinopaq->idusu->apellidousu. "</td>";
+                        echo "<td  style='text-align:center'>" . $Bandeja['return'][$j]['destinopaq']['idusu']['nombreusu'] ." ".$Bandeja['return'][$j]['destinopaq']['idusu']['apellidousu']. "</td>";
                     }
                 }
                 if ($aux != "Por Recibir") {
                     echo "<td  style='text-align:center'>" . $asunto . "</td>";
                 } else {
-                    echo "<th style='width:7%; text-align:center' data-sort-ignore='true'>" . $Bandeja->return[$j]->idpaq . "</th>";
+                    echo "<th style='width:7%; text-align:center' data-sort-ignore='true'>" . $Bandeja['return'][$j]['idpaq'] . "</th>";
                 }
-                echo "<td style='text-align:center'>" . $Bandeja->return[$j]->iddoc->nombredoc . "</td>";
+                echo "<td style='text-align:center'>" . $Bandeja['return'][$j]['iddoc']['nombredoc'] . "</td>";
                 if ($Bandeja->return[$j]->respaq == 1 || $Bandeja->return[$j]->respaq == 2) {
                     echo "<td style='text-align:center'> Si </td>";
                 } else {

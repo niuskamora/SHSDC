@@ -35,9 +35,11 @@ if (isset($_POST["Biniciar"])) {
 		$userResp = $client->call("consultarUsuarioXUser",$userparam);
         $valorUser = $userResp['return'];
 		
+		
+		
 		//if (isset($UsuarioLogIn->return)) {
 		if (isset($valorUser)) {
-			//javaalert($valorUser['nombreusu']);
+			javaalert($valorUser['nombreusu'].$valorUser['apellidousu']);
 			
             $_SESSION["Usuario"] = $valorUser;
           //  $idUsu = array('idusu' => $UsuarioLogIn->return->idusu);
@@ -50,7 +52,7 @@ if (isset($_POST["Biniciar"])) {
 		   $Sedes = $consumo['return'];
 		   if (!isset($Sedes[0])) {
                 $_SESSION["Sede"] = $Sedes;
-            //    iraURL("../pages/send_correspondence.php");
+               iraURL("../pages/inbox.php");
             } else {
                 $_SESSION["Sedes"] = $Sedes;
                 iraURL("../pages/headquarters.php");

@@ -3,11 +3,11 @@
 session_start();
 include("../recursos/funciones.php");
 require_once("../lib/nusoap.php");
-if (!isset($_SESSION["Usuario"])) {
-    iraURL("../index.php");
-} elseif (!usuarioCreado()) {
-    iraURL("../pages/create_user.php");
-}
+//if (!isset($_SESSION["Usuario"])) {
+//    iraURL("../index.php");
+//} elseif (!usuarioCreado()) {
+//    iraURL("../pages/create_user.php");
+//}
 $Sedes = $_SESSION["Sedes"];
 try {
     if (isset($_POST["Biniciar"])) {
