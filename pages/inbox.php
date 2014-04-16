@@ -27,7 +27,7 @@ require_once("../core/Crypt/AES.php");
    // $Usuario = array('user' => $_SESSION["Usuario"]->return->idusu, 'ban' => $BandejaUsu[$i]['nombreiba']);
 
     $UsuarioRol = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sede' => $_SESSION["Sede"]['nombresed']);
-	 javaalert($_SESSION["Usuario"]['idusu']);
+	 
     
 	 $SedeR = $client->call("consultarSedeRol",$UsuarioRol);
 	 $SedeRol=$SedeR['return'];

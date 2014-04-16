@@ -39,7 +39,6 @@ if (isset($_POST["Biniciar"])) {
 		
 		//if (isset($UsuarioLogIn->return)) {
 		if (isset($valorUser)) {
-			javaalert($valorUser['nombreusu'].$valorUser['apellidousu']);
 			
             $_SESSION["Usuario"] = $valorUser;
           //  $idUsu = array('idusu' => $UsuarioLogIn->return->idusu);

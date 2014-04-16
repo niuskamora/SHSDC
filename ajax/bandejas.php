@@ -49,7 +49,7 @@ require_once("../core/Crypt/AES.php");
 			$reg = 1;
 		}
 	}else{
-		 javaalert('entro else');
+		
 		$reg = 0;
 	}
 	
