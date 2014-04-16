@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-include("../recursos/codigoBarrasPdf.php");
 include("../recursos/funciones.php");
 require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
@@ -18,6 +17,7 @@ $_SESSION["trakingPaquete"] = "";
 $_SESSION["fecha"] = "";
 
 $client = new nusoap_client($wsdl_sdc, 'wsdl');
+$_SESSION["cli"]=$client;
 $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"],
     'sede' => $_SESSION["Sede"]["nombresed"]);
 $consumo = $client->call("consultarSedeRol", $UsuarioRol);
@@ -69,7 +69,7 @@ if ($idPaquete == "") {
         $_SESSION["trakingPaquete"] = $resultadoPaquete;
 
         if (isset($resultadoPaquete)) {
-            //llenarLog(6, "Comprobante de Traking de Paquete", $usuarioBitacora, $ideSede);
+            llenarLog(6, "Comprobante de Traking de Paquete", $usuarioBitacora, $ideSede);
             echo"<script>window.open('../pdf/proof_of_traking_package.php');</script>";
             //iraURL('../pdf/proof_of_traking_package.php');
         }

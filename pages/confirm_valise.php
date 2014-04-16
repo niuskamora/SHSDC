@@ -14,6 +14,7 @@ require_once("../core/Crypt/AES.php");
   } */
 
 $client = new nusoap_client($wsdl_sdc, 'wsdl');
+$_SESSION["cli"]=$client;
 $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"],
     'sede' => $_SESSION["Sede"]["nombresed"]);
 $consumo = $client->call("consultarSedeRol", $UsuarioRol);
@@ -67,7 +68,7 @@ if (isset($_POST["confirmar"])) {
                     $confirmarValija = $consumoConfirmar['return'];
                     if ($confirmarValija == 1) {
                         javaalert('Valija Confirmada');
-                        //llenarLog(2, "Confirmación de Valija", $usuarioBitacora, $sede);
+                        llenarLog(2, "Confirmación de Valija", $usuarioBitacora, $sede);
                         //iraURL('../pages/create_valise.php');
                     } else {
                         javaalert('Valija No Confirmada');

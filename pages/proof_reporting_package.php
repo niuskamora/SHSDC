@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-include("../recursos/codigoBarrasPdf.php");
 include("../recursos/funciones.php");
 require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
@@ -15,6 +14,7 @@ require_once("../core/Crypt/AES.php");
   } */
 
 $client = new nusoap_client($wsdl_sdc, 'wsdl');
+$_SESSION["cli"]=$client;
 $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"],
     'sede' => $_SESSION["Sede"]["nombresed"]);
 $consumo = $client->call("consultarSedeRol", $UsuarioRol);
@@ -66,7 +66,7 @@ if ($paquetes > 0) {
     }
 }
 if (isset($resultadoConsultarPaquetes)) {
-    //llenarLog(6, "Comprobante de Paquetes", $usuarioBitacora, $ideSede);
+    llenarLog(6, "Comprobante de Paquetes", $usuarioBitacora, $ideSede);
     echo"<script>window.open('../pdf/proof_reporting_package.php');</script>";
     //iraURL('../pdf/proof_reporting_package.php');
 }

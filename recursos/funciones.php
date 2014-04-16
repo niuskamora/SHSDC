@@ -58,7 +58,7 @@ function llenarLog($accion, $observacion, $usuario, $sede) {
             $accion = "REPORTE";
             break;
         case 8:
-            $accion = "VACIO DE BITACORA";
+            $accion = "VACIO DE BITÁCORA";
             break;
         case 9:
             $accion = "EDICIÓN";
@@ -67,10 +67,10 @@ function llenarLog($accion, $observacion, $usuario, $sede) {
 
     $parametros["idSede"] = $sede;
     $parametros["idUsu"] = $usuario;
-    $parametros["accion"] = $accion;
-    $parametros["observacion"] = $observacion;
-	$client = new nusoap_client($wsdl_sdc, 'wsdl');
-    $consumo = $client->call("insertarBitacora",$parametros);
+    $parametros["accion"] = utf8_decode($accion);
+    $parametros["observacion"] = utf8_decode($observacion);
+	//$client = new nusoap_client($wsdl_sdc, 'wsdl');
+    $consumo = $_SESSION["cli"]->call("insertarBitacora",$parametros);
 	$Bitacora = $consumo['return'];
 }
 

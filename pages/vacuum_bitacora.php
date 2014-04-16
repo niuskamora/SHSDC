@@ -14,6 +14,7 @@ require_once("../core/Crypt/AES.php");
   } */
 
 $client = new nusoap_client($wsdl_sdc, 'wsdl');
+$_SESSION["cli"]=$client;
 $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"],
     'sede' => $_SESSION["Sede"]["nombresed"]);
 $consumo = $client->call("consultarSedeRol", $UsuarioRol);
@@ -47,11 +48,11 @@ try {
         $consumoVacioBitacora = $client->call("vaciarBitacora");
         $resultadoVacioBitacora = $consumoVacioBitacora['return'];
         if (isset($resultadoVacioBitacora) == 1) {
-            javaalert('Bitacora Vaciada');
-            //llenarLog(8, "Vacio de Bitácora", $usuarioBitacora, $sede);
+            javaalert('Bitacora Vacia');
+            llenarLog(8, "Vacio de Bitácora", $usuarioBitacora, $sede);
             //iraURL('../pages/administration.php');
         } else {
-            javaalert('Bitacora No Vaciada');
+            javaalert('Bitacora No Vacia');
             iraURL('../pages/administration.php');
         }
     }
