@@ -136,8 +136,7 @@ if ($usuario == "") {
                                                 <tr>
                                                     <?php
                                                     if (isset($resultadoConsultarPaquetes[$i]['fechapaq'])) {
-                                                        //$fechaEnvio = FechaHora($resultadoConsultarPaquetes->return[$i]->fechapaq);
-														$fechaEnvio = "";
+                                                        $fechaEnvio = FechaHora($resultadoConsultarPaquetes[$i]['fechapaq']);
                                                     } else {
                                                         $fechaEnvio = "";
                                                     }
@@ -217,8 +216,7 @@ if ($usuario == "") {
                                             <tr>
                                                 <?php
                                                 if (isset($resultadoConsultarPaquetes['fechapaq'])) {
-                                                    //$fechaEnvio = FechaHora($resultadoConsultarPaquetes->return->fechapaq);
-													$fechaEnvio = "";
+                                                    $fechaEnvio = FechaHora($resultadoConsultarPaquetes['fechapaq']);
                                                 } else {
                                                     $fechaEnvio = "";
                                                 }

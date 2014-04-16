@@ -116,8 +116,8 @@ if ($usuarioBitacora == "") {
                                                     <tr>
                                                         <td style="text-align:center"><?php echo $resultadoListaBitacora[$i]['idbit'] ?></td>
                                                         <td style="text-align:center"><?php echo utf8_encode($resultadoListaBitacora[$i]['accionbit']) ?></td>
-                                                        <?php //$fecha[$i] = FechaHora($resultadoListaBitacora[$i]['fechabit']); ?>
-                                                        <td style="text-align:center"><?php echo "" ?></td>
+                                                        <?php $fecha[$i] = FechaHora($resultadoListaBitacora[$i]['fechabit']); ?>
+                                                        <td style="text-align:center"><?php echo $fecha[$i] ?></td>
                                                         <td style="text-align:center"><?php echo utf8_encode($resultadoListaBitacora[$i]['observacionbit']) ?></td>
                                                         <td style="text-align:center"><?php echo utf8_encode($resultadoListaBitacora[$i]['idusu']['nombreusu']) . ' ' . utf8_encode($resultadoListaBitacora[$i]['idusu']['apellidousu']) ?></td>
                                                     </tr>
@@ -128,8 +128,8 @@ if ($usuarioBitacora == "") {
                                                     <tr>
                                                         <td style="text-align:center"><?php echo $resultadoListaBitacora['idbit'] ?></td>
                                                         <td style="text-align:center"><?php echo utf8_encode($resultadoListaBitacora['accionbit']) ?></td>
-                                                        <?php //$fecha = FechaHora($resultadoListaBitacora['fechabit']); ?>
-                                                        <td style="text-align:center"><?php echo "" ?></td>
+                                                        <?php $fecha = FechaHora($resultadoListaBitacora['fechabit']); ?>
+                                                        <td style="text-align:center"><?php echo $fecha ?></td>
                                                         <td style="text-align:center"><?php echo utf8_encode($resultadoListaBitacora['observacionbit']) ?></td>
                                                         <td style="text-align:center"><?php echo utf8_encode($resultadoListaBitacora['idusu']['nombreusu']) . ' ' . utf8_encode($resultadoListaBitacora['idusu']['apellidousu']) ?></td>
                                                     </tr>

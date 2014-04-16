@@ -50,8 +50,7 @@ if ($paquetes > 0) {
         for ($i = 0; $i < $paquetes; $i++) {
             $fechaEnvio = "";
             if (isset($resultadoConsultarPaquetes[$i]['fechapaq'])) {
-                //$fechaEnvio = FechaHora($resultadoConsultarPaquetes[$i]['fechapaq']);
-                $fechaEnvio = "";
+                $fechaEnvio = FechaHora($resultadoConsultarPaquetes[$i]['fechapaq']);
             } else {
                 $fechaEnvio = "";
             }
@@ -59,8 +58,7 @@ if ($paquetes > 0) {
         }
     } else {
         if (isset($resultadoConsultarPaquetes['fechapaq'])) {
-            //$fechaEnvio = FechaHora($resultadoConsultarPaquetes['fechapaq']);
-            $fechaEnvio = "";
+            $fechaEnvio = FechaHora($resultadoConsultarPaquetes['fechapaq']);
         } else {
             $fechaEnvio = "";
         }

@@ -49,7 +49,7 @@ try {
         if (isset($resultadoVacioBitacora) == 1) {
             javaalert('Bitacora Vaciada');
             //llenarLog(8, "Vacio de Bitácora", $usuarioBitacora, $sede);
-            iraURL('../pages/administration.php');
+            //iraURL('../pages/administration.php');
         } else {
             javaalert('Bitacora No Vaciada');
             iraURL('../pages/administration.php');

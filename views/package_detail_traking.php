@@ -142,8 +142,7 @@ if ($idPaquete == "" || $usuario == "") {
                                                         <td><?php echo $resultadoPaquete[$i]['iduse']['idusu']['nombreusu'] ?></td>
                                                         <?php
                                                     }
-                                                    //$fecha[$i] = FechaHora($resultadoPaquete[$i]['fechaseg']);
-													$fecha[$i] = "";
+                                                    $fecha[$i] = FechaHora($resultadoPaquete[$i]['fechaseg']);
                                                     ?>
                                                     <td style="text-align:center"><?php echo $fecha[$i] ?></td>
                                                     <?php
@@ -182,8 +181,7 @@ if ($idPaquete == "" || $usuario == "") {
                                                     <td><?php echo $resultadoPaquete['iduse']['idusu']['nombreusu'] ?></td>
                                                     <?php
                                                 }
-                                                //$fecha = FechaHora($resultadoPaquete['fechaseg']);
-												$fecha = "";
+                                                $fecha = FechaHora($resultadoPaquete['fechaseg']);
                                                 ?>
                                                 <td style="text-align:center"><?php echo $fecha ?></td>
                                                 <?php

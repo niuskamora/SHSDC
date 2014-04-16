@@ -52,8 +52,7 @@ if ($idPaquete == "") {
         if ($segumientoPaquete > 1) {
             for ($i = 0; $i < $segumientoPaquete; $i++) {
                 if (isset($resultadoPaquete[$i]['fechaseg'])) {
-                    //$fecha[$i] = FechaHora($resultadoPaquete[$i]['fechaseg']);
-                    $fecha[$i] = "";
+                    $fecha[$i] = FechaHora($resultadoPaquete[$i]['fechaseg']);
                 } else {
                     $fecha[$i] = "";
                 }
@@ -61,8 +60,7 @@ if ($idPaquete == "") {
             }
         } elseif ($segumientoPaquete == 1) {
             if (isset($resultadoPaquete['fechaseg'])) {
-                //$fecha = FechaHora($resultadoPaquete['fechaseg']);
-                $fecha = "";
+                $fecha = FechaHora($resultadoPaquete['fechaseg']);
             } else {
                 $fecha = "";
             }
