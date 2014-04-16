@@ -1,4 +1,5 @@
-<?php session_start();
+<?php 
+session_start();
 //try {
 
 include("../recursos/funciones.php");
@@ -28,7 +29,9 @@ require_once("../core/Crypt/AES.php");
     $UsuarioRol = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sede' => $_SESSION["Sede"]['return']['nombresed']);
 	 javaalert($_SESSION["Usuario"]['idusu']);
     
-	 $SedeRol  = $client->call("consultarSedeRol",$UsuarioRol);
+	 $SedeR = $client->call("consultarSedeRol",$UsuarioRol);
+	 $SedeRol=$SedeR['return'];
+	 
     $reg = 0;
     if($BandejaUsu != ""){
 		$resultadoBandejaUsu = $BandejaUsu['return'];
