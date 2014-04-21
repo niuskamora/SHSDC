@@ -7,17 +7,19 @@ require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
 
-/* if (!isset($_SESSION["Usuario"])) {
-  iraURL("../index.php");
-  } elseif (!usuarioCreado()) {
-  iraURL("../pages/create_user.php");
-  } */
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$_SESSION["cli"]=$client;
+
+if (!isset($_SESSION["Usuario"])) {
+	iraURL("../index.php");
+} elseif (!usuarioCreado()) {
+	iraURL("../pages/create_user.php");
+}
 
 $_SESSION["trakingPaquete"] = "";
 $_SESSION["fecha"] = "";
 
 $client = new nusoap_client($wsdl_sdc, 'wsdl');
-$_SESSION["cli"]=$client;
 $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"],
     'sede' => $_SESSION["Sede"]["nombresed"]);
 $consumo = $client->call("consultarSedeRol", $UsuarioRol);
