@@ -28,32 +28,32 @@
                         ?>
                         <tr>
                             <td align="center"><?php echo $fechaEnvio[$i] ?></td>
-                            <td align="center"><?php echo $resultadoConsultarValijas->return[$i]->idval ?></td>
-                            <?php if (isset($resultadoConsultarValijas->return[$i]->codproveedorval)) { ?>
-                                <td align="center"><?php echo $resultadoConsultarValijas->return[$i]->codproveedorval ?></td>
+                            <td align="center"><?php echo $resultadoConsultarValijas[$i]['idval'] ?></td>
+                            <?php if (isset($resultadoConsultarValijas[$i]['codproveedorval'])) { ?>
+                                <td align="center"><?php echo $resultadoConsultarValijas[$i]['codproveedorval'] ?></td>
                             <?php } else {
                                 ?>
                                 <td><?php echo "" ?></td>
                             <?php } ?>
-                            <td><?php echo $nombreSede[$i] ?></td>
-                            <?php if (isset($resultadoConsultarValijas->return[$i]->iduse->idusu->apellidousu)) { ?>
-                                <td><?php echo $resultadoConsultarValijas->return[$i]->iduse->idusu->nombreusu . ' ' . $resultadoConsultarValijas->return[$i]->iduse->idusu->apellidousu ?></td>
+                            <td><?php echo utf8_encode($nombreSede[$i]) ?></td>
+                            <?php if (isset($resultadoConsultarValijas[$i]['iduse']['idusu']['apellidousu'])) { ?>
+                                <td><?php echo utf8_encode($resultadoConsultarValijas[$i]['iduse']['idusu']['nombreusu']) . ' ' . utf8_encode($resultadoConsultarValijas[$i]['iduse']['idusu']['apellidousu']) ?></td>
                             <?php } else {
                                 ?>
-                                <td><?php echo $resultadoConsultarValijas->return[$i]->iduse->idusu->nombreusu ?></td>                                                    
+                                <td><?php echo utf8_encode($resultadoConsultarValijas[$i]['iduse']['idusu']['nombreusu']) ?></td>                                                    
                                 <?php
                             }
-                            if (isset($resultadoConsultarValijas->return[$i]->tipoval)) {
+                            if (isset($resultadoConsultarValijas[$i]['tipoval'])) {
                                 ?>
-                                <td><?php echo $resultadoConsultarValijas->return[$i]->tipoval ?></td>
+                                <td><?php echo utf8_encode($resultadoConsultarValijas[$i]['tipoval']) ?></td>
                             <?php } else {
                                 ?>
                                 <td><?php echo "" ?></td>
                                 <?php
                             }
-                            if (isset($resultadoConsultarValijas->return[$i]->destinoval->nombresed)) {
+                            if (isset($resultadoConsultarValijas[$i]['destinoval']['nombresed'])) {
                                 ?>
-                                <td><?php echo $resultadoConsultarValijas->return[$i]->destinoval->nombresed ?></td>
+                                <td><?php echo utf8_encode($resultadoConsultarValijas[$i]['destinoval']['nombresed']) ?></td>
                             <?php } else {
                                 ?>
                                 <td><?php echo "" ?></td>
@@ -66,32 +66,32 @@
                     ?>
                     <tr>
                         <td align="center"><?php echo $fechaEnvio ?></td>
-                        <td align="center"><?php echo $resultadoConsultarValijas->return->idval ?></td>
-                        <?php if (isset($resultadoConsultarValijas->return->codproveedorval)) { ?>
-                            <td align="center"><?php echo $resultadoConsultarValijas->return->codproveedorval ?></td>
+                        <td align="center"><?php echo $resultadoConsultarValijas['idval'] ?></td>
+                        <?php if (isset($resultadoConsultarValijas['codproveedorval'])) { ?>
+                            <td align="center"><?php echo $resultadoConsultarValijas['codproveedorval'] ?></td>
                         <?php } else {
                             ?>
                             <td><?php echo "" ?></td>
                         <?php } ?>
-                        <td><?php echo $nombreSede ?></td>
-                        <?php if (isset($resultadoConsultarValijas->return->iduse->idusu->apellidousu)) { ?>
-                            <td><?php echo $resultadoConsultarValijas->return->iduse->idusu->nombreusu . ' ' . $resultadoConsultarValijas->return->iduse->idusu->apellidousu ?></td>
+                        <td><?php echo utf8_encode($nombreSede) ?></td>
+                        <?php if (isset($resultadoConsultarValijas['iduse']['idusu']['apellidousu'])) { ?>
+                            <td><?php echo utf8_encode($resultadoConsultarValijas['iduse']['idusu']['nombreusu']) . ' ' . utf8_encode($resultadoConsultarValijas['iduse']['idusu']['apellidousu']) ?></td>
                         <?php } else {
                             ?>
-                            <td><?php echo $resultadoConsultarValijas->return->iduse->idusu->nombreusu ?></td>                                                    
+                            <td><?php echo utf8_encode($resultadoConsultarValijas['iduse']['idusu']['nombreusu']) ?></td>                                                    
                             <?php
                         }
-                        if (isset($resultadoConsultarValijas->return->tipoval)) {
+                        if (isset($resultadoConsultarValijas['tipoval'])) {
                             ?>
-                            <td><?php echo $resultadoConsultarValijas->return->tipoval ?></td>
+                            <td><?php echo utf8_encode($resultadoConsultarValijas['tipoval']) ?></td>
                         <?php } else {
                             ?>
                             <td><?php echo "" ?></td>
                             <?php
                         }
-                        if (isset($resultadoConsultarValijas->return->destinoval->nombresed)) {
+                        if (isset($resultadoConsultarValijas['destinoval']['nombresed'])) {
                             ?>
-                            <td><?php echo $resultadoConsultarValijas->return->destinoval->nombresed ?></td>
+                            <td><?php echo utf8_encode($resultadoConsultarValijas['destinoval']['nombresed']) ?></td>
                         <?php } else {
                             ?>
                             <td><?php echo "" ?></td>

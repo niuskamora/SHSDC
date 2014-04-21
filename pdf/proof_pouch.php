@@ -6,55 +6,55 @@ $codigo = $_SESSION["codigo"];
 $resultadoOrigen = $_SESSION["origen"];
 $fecha = $_SESSION["fecha"];
 
-if (isset($resultadoConsultarUltimaValija->return)) {
+if (isset($resultadoConsultarUltimaValija)) {
 
 //Datos de la Valija
-    $idVal = $resultadoConsultarUltimaValija->return->idval;
-    if (isset($resultadoConsultarUltimaValija->return->iduse->idsed->nombresed)) {
-        $sede = $resultadoConsultarUltimaValija->return->iduse->idsed->nombresed;
+    $idVal = $resultadoConsultarUltimaValija['idval'];
+    if (isset($resultadoConsultarUltimaValija['iduse']['idsed']['nombresed'])) {
+        $sede = utf8_encode($resultadoConsultarUltimaValija['iduse']['idsed']['nombresed']);
     } else {
         $sede = "";
     }
-    if (isset($resultadoConsultarUltimaValija->return->tipoval)) {
-        $tipo = $resultadoConsultarUltimaValija->return->tipoval;
+    if (isset($resultadoConsultarUltimaValija['tipoval'])) {
+        $tipo = utf8_encode($resultadoConsultarUltimaValija['tipoval']);
     } else {
         $tipo = "";
     }
 
 //Datos del Origen
-    if (isset($resultadoOrigen->return->nombresed)) {
-        $nombreOrig = $resultadoOrigen->return->nombresed;
+    if (isset($resultadoOrigen['nombresed'])) {
+        $nombreOrig = utf8_encode($resultadoOrigen['nombresed']);
     } else {
         $nombreOrig = "";
     }
-    if (isset($resultadoOrigen->return->direccionsed)) {
-        $direccionOrig = $resultadoOrigen->return->direccionsed;
+    if (isset($resultadoOrigen['direccionsed'])) {
+        $direccionOrig = utf8_encode($resultadoOrigen['direccionsed']);
     } else {
         $direccionOrig = "";
     }
-    if (isset($resultadoOrigen->return->telefonosed)) {
-        $telefonoOrig = $resultadoOrigen->return->telefonosed;
+    if (isset($resultadoOrigen['telefonosed'])) {
+        $telefonoOrig = $resultadoOrigen['telefonosed'];
     } else {
         $telefonoOrig = "";
     }
 
 //Datos del Destino
-    if (isset($resultadoConsultarUltimaValija->return->destinoval->nombresed)) {
-        $nombreDest = $resultadoConsultarUltimaValija->return->destinoval->nombresed;
+    if (isset($resultadoConsultarUltimaValija['destinoval']['nombresed'])) {
+        $nombreDest = utf8_encode($resultadoConsultarUltimaValija['destinoval']['nombresed']);
     } else {
         $nombreDest = "";
     }
-    if (isset($resultadoConsultarUltimaValija->return->destinoval->direccionsed)) {
-        $direccionDest = $resultadoConsultarUltimaValija->return->destinoval->direccionsed;
+    if (isset($resultadoConsultarUltimaValija['destinoval']['direccionsed'])) {
+        $direccionDest = utf8_encode($resultadoConsultarUltimaValija['destinoval']['direccionsed']);
     } else {
         $direccionDest = "";
     }
-    if (isset($resultadoConsultarUltimaValija->return->destinoval->telefonosed)) {
-        $telefonoDest = $resultadoConsultarUltimaValija->return->destinoval->telefonosed;
+    if (isset($resultadoConsultarUltimaValija['destinoval']['telefonosed'])) {
+        $telefonoDest = $resultadoConsultarUltimaValija['destinoval']['telefonosed'];
     } else {
         $telefonoDest = "";
     }
-	
+
     ob_start();
     include("../template/proof_pouch.php");
 

@@ -92,7 +92,7 @@ if ($usuario == "") {
                         <div class="tab-content" id="lista" align="center">
                             <?php
                             //Verificando que este vacio o sea null
-                            if (!isset($resultadoConsultarValijas->return)) {
+                            if (!isset($resultadoConsultarValijas)) {
                                 echo '<div class="alert alert-block" align="center">';
                                 echo '<h2 style="color:rgb(255,255,255)" align="center">Atención</h2>';
                                 echo '<h4 align="center">No Existen Registros de Valijas</h4>';
@@ -137,7 +137,7 @@ if ($usuario == "") {
                     },
                     xAxis: {
                         categories: [
-                            '<?php echo $opcionSede ?>'
+                            '<?php echo utf8_encode($opcionSede) ?>'
                         ]
                     },
                     yAxis: {

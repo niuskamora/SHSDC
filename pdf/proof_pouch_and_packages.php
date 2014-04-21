@@ -5,46 +5,50 @@ session_start();
 $fechaEnvio = $_SESSION["fechaEnvio"];
 $fechaRecibido = $_SESSION["fechaRecibido"];
 $resultadoPaquetesPorValija = $_SESSION["paquetesXValija"];
-$resultadoOrigen = $_SESSION["origenValija"];
-$contadorPaquetes = count($resultadoPaquetesPorValija->return);
+$origen = $_SESSION["origenValija"];
+
+if (isset($resultadoPaquetesPorValija)) {
+    if (isset($resultadoPaquetesPorValija[0])) {
+        $contadorPaquetes = count($resultadoPaquetesPorValija);
+    } else {
+        $contadorPaquetes = 1;
+    }
+} else {
+    $contadorPaquetes = 0;
+}
 
 //Datos de la Valija
-if (isset($resultadoOrigen->return->nombresed)) {
-    $origen = $resultadoOrigen->return->nombresed;
-} else {
-    $origen = "";
-}
 if ($contadorPaquetes > 1) {
-    $idVal = $resultadoPaquetesPorValija->return[0]->idval->idval;
-    if (isset($resultadoPaquetesPorValija->return[0]->idval->codproveedorval)) {
-        $guia = $resultadoPaquetesPorValija->return[0]->idval->codproveedorval;
+    $idVal = $resultadoPaquetesPorValija[0]['idval']['idval'];
+    if (isset($resultadoPaquetesPorValija[0]['idval']['codproveedorval'])) {
+        $guia = $resultadoPaquetesPorValija[0]['idval']['codproveedorval'];
     } else {
         $guia = "";
     }
-    if (isset($resultadoPaquetesPorValija->return[0]->idval->tipoval)) {
-        $tipo = $resultadoPaquetesPorValija->return[0]->idval->tipoval;
+    if (isset($resultadoPaquetesPorValija[0]['idval']['tipoval'])) {
+        $tipo = utf8_encode($resultadoPaquetesPorValija[0]['idval']['tipoval']);
     } else {
         $tipo = "";
     }
-    if (isset($resultadoPaquetesPorValija->return[0]->idval->destinoval->nombresed)) {
-        $destino = $resultadoPaquetesPorValija->return[0]->idval->destinoval->nombresed;
+    if (isset($resultadoPaquetesPorValija[0]['idval']['destinoval']['nombresed'])) {
+        $destino = utf8_encode($resultadoPaquetesPorValija[0]['idval']['destinoval']['nombresed']);
     } else {
         $destino = "";
     }
-} elseif($contadorPaquetes==1) {
-    $idVal = $resultadoPaquetesPorValija->return->idval->idval;
-    if (isset($resultadoPaquetesPorValija->return->idval->codproveedorval)) {
-        $guia = $resultadoPaquetesPorValija->return->idval->codproveedorval;
+} elseif ($contadorPaquetes == 1) {
+    $idVal = $resultadoPaquetesPorValija['idval']['idval'];
+    if (isset($resultadoPaquetesPorValija['idval']['codproveedorval'])) {
+        $guia = $resultadoPaquetesPorValija['idval']['codproveedorval'];
     } else {
         $guia = "";
     }
-    if (isset($resultadoPaquetesPorValija->return->idval->tipoval)) {
-        $tipo = $resultadoPaquetesPorValija->return->idval->tipoval;
+    if (isset($resultadoPaquetesPorValija['idval']['tipoval'])) {
+        $tipo = utf8_encode($resultadoPaquetesPorValija['idval']['tipoval']);
     } else {
         $tipo = "";
     }
-    if (isset($resultadoPaquetesPorValija->return->idval->destinoval->nombresed)) {
-        $destino = $resultadoPaquetesPorValija->return->idval->destinoval->nombresed;
+    if (isset($resultadoPaquetesPorValija['idval']['destinoval']['nombresed'])) {
+        $destino = utf8_encode($resultadoPaquetesPorValija['idval']['destinoval']['nombresed']);
     } else {
         $destino = "";
     }

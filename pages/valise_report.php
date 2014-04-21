@@ -7,181 +7,193 @@ require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
 
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$_SESSION["cli"] = $client;
+
 if (!isset($_SESSION["Usuario"])) {
     iraURL("../index.php");
 } elseif (!usuarioCreado()) {
     iraURL("../pages/create_user.php");
 }
 
-$client = new SOAPClient($wsdl_sdc);
-$client->decode_utf8 = false;
-$UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-$SedeRol = $client->consultarSedeRol($UsuarioRol);
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"],
+    'sede' => $_SESSION["Sede"]["nombresed"]);
+$consumo = $client->call("consultarSedeRol", $UsuarioRol);
 
-if (isset($SedeRol->return)) {
-    if ($SedeRol->return->idrol->idrol != "4" && $SedeRol->return->idrol->idrol != "5") {
+if ($consumo != "") {
+    $SedeRol = $consumo['return'];
+    if ($SedeRol['idrol']['idrol'] != "4" && $SedeRol['idrol']['idrol'] != "5") {
         iraURL('../pages/inbox.php');
     }
 } else {
     iraURL('../pages/inbox.php');
 }
 
-$nomUsuario = $_SESSION["Usuario"]->return->userusu;
-$usuarioBitacora = $_SESSION["Usuario"]->return->idusu;
-$sede = $_SESSION["Sede"]->return->idsed;
+$nomUsuario = $_SESSION["Usuario"]["userusu"];
+$usuarioBitacora = $_SESSION["Usuario"]["idusu"];
+$sede = $_SESSION["Sede"]["idsed"];
 
 $_SESSION['val'] = "";
 
-try {
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$idsede = array('idsed' => $sede);
+$sedeP = array('sede' => $idsede);
+$consumoProveedorXSede = $client->call("consultarProveedorXSede", $sedeP);
 
-    $usuario = array('user' => $nomUsuario);
-    $resultadoConsultarUsuario = $client->consultarUsuarioXUser($usuario);
-
-    if (!isset($resultadoConsultarUsuario->return)) {
-        $usua = 0;
+if ($consumoProveedorXSede != "") {
+    $resultadoProveedor = $consumoProveedorXSede['return'];
+    if (isset($resultadoProveedor[0])) {
+        $proveedor = count($resultadoProveedor);
     } else {
-        $usua = $resultadoConsultarUsuario->return;
+        $proveedor = 1;
     }
+} else {
+    $proveedor = 0;
+}
 
-    $idUsuario = $resultadoConsultarUsuario->return->idusu;
+if (isset($_POST["reportarPaqExc"])) {
 
-    $idsede = array('idsed' => $sede);
-    $sedeP = array('sede' => $idsede);
-    $resultadoProveedor = $client->consultarProveedorXSede($sedeP);
-    if (!isset($resultadoProveedor->return)) {
-        $proveedor = 0;
-    } else {
-        $proveedor = count($resultadoProveedor->return);
-    }
+    if (isset($_POST["cPaquete"]) && $_POST["cPaquete"] != "" && isset($_POST["datosPaquete"]) && $_POST["datosPaquete"] != "") {
 
-    if (isset($_POST["reportarPaqExc"])) {
+        try {
+            $client = new nusoap_client($wsdl_sdc, 'wsdl');
+            $paquete = $_POST["cPaquete"];
+            $idPaquete = array('codigo' => $paquete);
+            $consumoReportarPaq = $client->call("consultarPaqueteXIdOCodigoBarras", $idPaquete);
 
-        if (isset($_POST["cPaquete"]) && $_POST["cPaquete"] != "" && isset($_POST["datosPaquete"]) && $_POST["datosPaquete"] != "") {
-
-            try {
-                $wsdl_url = 'http://localhost:15362/SistemaDeCorrespondencia/CorrespondeciaWS?WSDL';
-                $client = new SOAPClient($wsdl_url);
-                $client->decode_utf8 = false;
-
-                $paquete = $_POST["cPaquete"];
-                $idPaquete = array('codigo' => $paquete);
-                $rowPaquete = $client->consultarPaqueteXIdOCodigoBarras($idPaquete);
-
-                if (isset($rowPaquete->return)) {
-
-                    $idDestino = $rowPaquete->return->destinopaq->idusu->idusu;
+            if ($consumoReportarPaq != "") {
+                $rowPaquete = $consumoReportarPaq['return'];
+                if (isset($rowPaquete)) {
+                    $idDestino = $rowPaquete['destinopaq']['idusu']['idusu'];
                     $idUsu = array('idusu' => $idDestino);
                     $registroUsu = array('registroUsuario' => $idUsu);
-                    $resultadoDestino = $client->consultarSedeDeUsuario($registroUsu);
-                    if (isset($resultadoDestino->return)) {
-                        if (count($resultadoDestino->return) > 1) {
-                            $sedeDestino = $resultadoDestino->return[0]->nombresed;
-                        } else {
-                            $sedeDestino = $resultadoDestino->return->nombresed;
+                    $client = new nusoap_client($wsdl_sdc, 'wsdl');
+                    $consumoDestino = $client->call("consultarSedeDeUsuario", $registroUsu);
+                    if ($consumoDestino != "") {
+                        $resultadoDestino = $consumoDestino['return'];
+                        if (isset($resultadoDestino)) {
+                            if (isset($resultadoDestino[0])) {
+                                $sedeDestino = $resultadoDestino[0]['nombresed'];
+                            } else {
+                                $sedeDestino = $resultadoDestino['nombresed'];
+                            }
                         }
                     }
-
-                    $idPaq = $rowPaquete->return->idpaq;
+                    $idPaq = $rowPaquete['idpaq'];
                     $parametros = array('registroPaquete' => $idPaq,
-                        'registroUsuario' => $idUsuario,
+                        'registroUsuario' => $usuarioBitacora,
                         'registroSede' => $sede,
                         'datosPaquete' => $_POST["datosPaquete"]);
-                    $reportarPaqExc = $client->reportarPaqueteExcedente($parametros);
+                    $client = new nusoap_client($wsdl_sdc, 'wsdl');
+                    $consumoReportar = $client->call("reportarPaqueteExcedente", $parametros);
+                    if ($consumoReportar != "") {
+                        $reportarPaqExc = $consumoReportar['return'];
+                    }
 
-                    if ($reportarPaqExc->return == 1) {
+                    if ($reportarPaqExc == 1) {
 
                         //Creación de Valija
                         $datosValija = array('idusu' => $usuarioBitacora, 'sorigen' => $sede, 'sdestino' => $sedeDestino, 'fechaapaq' => date('Y-m-d', strtotime(str_replace('/', '-', "27/03/2014"))));
-                        $wsdl_url = 'http://localhost:15362/SistemaDeCorrespondencia/CorrespondeciaWS?WSDL';
-                        $client = new SOAPClient($wsdl_url);
-                        $client->decode_utf8 = false;
-                        $idValija = $client->insertarValija($datosValija);
+                        $client = new nusoap_client($wsdl_sdc, 'wsdl');
+                        $consumoValija = $client->call("insertarValija", $datosValija);
+                        if ($consumoValija != "") {
+                            $idValija = $consumoValija['return'];
+                        }
 
-                        //Actualizacion del dato de la valija en paquete
-                        $datosAct = array('idpaq' => $idPaq, 'idval' => $idValija->return);
-                        $client->ActualizacionLocalizacionyValijaDelPaquete($datosAct);
+                        //Actualización del dato de la valija en paquete
+                        $client = new nusoap_client($wsdl_sdc, 'wsdl');
+                        $datosAct = array('idpaq' => $idPaq, 'idval' => $idValija);
+                        $consumoActualizacion = $client->call("ActualizacionLocalizacionyValijaDelPaquete", $datosAct);
 
-                        $valija = $idValija->return;
+                        $valija = $idValija;
                         $Val = array('codigo' => $valija);
-                        $Valijac = $client->consultarValijaXIdOCodigoBarra($Val);
-                        if (isset($Valijac->return)) {
-                            $idVal = $Valijac->return->idval;
+                        $client = new nusoap_client($wsdl_sdc, 'wsdl');
+                        $consumoVal = $client->call("consultarValijaXIdOCodigoBarra", $Val);
+                        if ($consumoVal != "") {
+                            $Valijac = $consumoVal['return'];
+                        }
+                        if (isset($Valijac)) {
+                            $idVal = $Valijac['idval'];
                             $parametros = array('idValija' => $idVal,
                                 'proveedor' => $_POST["proveedor"],
                                 'codProveedor' => $_POST["cProveedor"]);
-                            $confirmarValija = $client->confirmarValija($parametros);
-                            $_SESSION['val'] = $idVal;
-                            echo"<script>window.open('../pages/proof_pouch.php');</script>";
+                            $consumoConfirmar = $client->call("confirmarValija", $parametros);
+                            if ($consumoConfirmar != "") {
+                                $confirmarValija = $consumoConfirmar['return'];
+                                echo"<script>window.open('../pages/proof_pouch.php');</script>";
+                            }
                         }
-
                         javaalert('Paquete Reportado y Reenviado');
                         llenarLog(7, "Paquete Excedente", $usuarioBitacora, $sede);
-                        iraURL('../pages/breakdown_valise.php');
+                        //iraURL('../pages/breakdown_valise.php');
                     } else {
                         javaalert('Paquete No Reportado y No Reenviado, verifique los datos');
-                        iraURL('../pages/breakdown_valise.php');
+                        //iraURL('../pages/breakdown_valise.php');
                     }
                 } else {
                     javaalert('Paquete No Reportado y No Reenviado, verifique los datoss');
-                    iraURL('../pages/breakdown_valise.php');
+                    //iraURL('../pages/breakdown_valise.php');
                 }
-            } catch (Exception $e) {
-                javaalert('Lo sentimos no hay conexión');
-                iraURL('../pages/breakdown_valise.php');
             }
-        } else {
-            javaalert("Debe agregar todos los campos, por favor verifique");
+        } catch (Exception $e) {
+            javaalert('Lo sentimos no hay conexión');
+            iraURL('../pages/breakdown_valise.php');
         }
+    } else {
+        javaalert("Debe agregar todos los campos, por favor verifique");
     }
+}
 
-    if (isset($_POST["reportarValija"])) {
+if (isset($_POST["reportarValija"])) {
 
-        if (isset($_POST["cValija"]) && $_POST["cValija"] != "" && isset($_POST["datosValija"]) && $_POST["datosValija"] != "") {
+    if (isset($_POST["cValija"]) && $_POST["cValija"] != "" && isset($_POST["datosValija"]) && $_POST["datosValija"] != "") {
 
-            try {
-                $wsdl_url = 'http://localhost:15362/SistemaDeCorrespondencia/CorrespondeciaWS?WSDL';
-                $client = new SOAPClient($wsdl_url);
-                $client->decode_utf8 = false;
-                $parametros = array('registroValija' => $_POST["cValija"],
-                    'registroUsuario' => $idUsuario,
-                    'registroSede' => $sede,
-                    'datosValija' => $_POST["datosValija"]);
-                $reportarValija = $client->reportarValija($parametros);
+        try {
+            $client = new nusoap_client($wsdl_sdc, 'wsdl');
+            $parametros = array('registroValija' => $_POST["cValija"],
+                'registroUsuario' => $usuarioBitacora,
+                'registroSede' => $sede,
+                'datosValija' => $_POST["datosValija"]);
+            $consumoReportar = $client->call("reportarValija", $parametros);
+            if ($consumoReportar != "") {
+                $reportarValija = $consumoReportar['return'];
+            }
 
-                if ($reportarValija->return == 1) {
-                    $valija = $_POST["cValija"];
-                    $Val = array('codigo' => $valija);
-                    $Valijac = $client->consultarValijaXIdOCodigoBarra($Val);
-                    if (isset($Valijac->return)) {
-                        $idVal = $Valijac->return->idval;
-                        $parametros = array('idValija' => $idVal,
-                            'proveedor' => $_POST["proveedor"],
-                            'codProveedor' => $_POST["cProveedor"]);
-                        $confirmarValija = $client->confirmarValija($parametros);
+            if ($reportarValija == 1) {
+                $valija = $_POST["cValija"];
+                $Val = array('codigo' => $valija);
+                $client = new nusoap_client($wsdl_sdc, 'wsdl');
+                $consumoVal = $client->call("consultarValijaXIdOCodigoBarra", $Val);
+                if ($consumoVal != "") {
+                    $Valijac = $consumoVal['return'];
+                }
+                if (isset($Valijac)) {
+                    $idVal = $Valijac['idval'];
+                    $parametros = array('idValija' => $idVal,
+                        'proveedor' => $_POST["proveedor"],
+                        'codProveedor' => $_POST["cProveedor"]);
+                    $consumoConfirmar = $client->call("confirmarValija", $parametros);
+                    if ($consumoConfirmar != "") {
+                        $confirmarValija = $consumoConfirmar['return'];
                         $_SESSION['val'] = $idVal;
                         echo"<script>window.open('../pages/proof_pouch_report.php');</script>";
                     }
-
-                    javaalert('Valija Reportada y Reenviada');
-                    llenarLog(7, "Valija Erronea", $usuarioBitacora, $sede);
-                    iraURL('../pages/breakdown_valise.php');
-                } else {
-                    javaalert('Valija No Reportada y No Reenviada, verifique los datos');
-                    iraURL('../pages/breakdown_valise.php');
                 }
-            } catch (Exception $e) {
-                javaalert('Lo sentimos no hay conexion');
-                iraURL('../pages/breakdown_valise.php');
+                javaalert('Valija Reportada y Reenviada');
+                llenarLog(7, "Valija Erronea", $usuarioBitacora, $sede);
+                //iraURL('../pages/breakdown_valise.php');
+            } else {
+                javaalert('Valija No Reportada y No Reenviada, verifique los datos');
+                //iraURL('../pages/breakdown_valise.php');
             }
-        } else {
-            javaalert("Debe agregar todos los campos, por favor verifique");
+        } catch (Exception $e) {
+            javaalert('Lo sentimos no hay conexion');
+            iraURL('../pages/breakdown_valise.php');
         }
+    } else {
+        javaalert("Debe agregar todos los campos, por favor verifique");
     }
-    include("../views/valise_report.php");
-} catch (Exception $e) {
-    javaalert('Lo sentimos no hay conexion');
-    iraURL('../pages/breakdown_valise.php');
 }
+include("../views/valise_report.php");
 ?>

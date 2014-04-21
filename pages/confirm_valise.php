@@ -8,12 +8,12 @@ require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
 
 $client = new nusoap_client($wsdl_sdc, 'wsdl');
-$_SESSION["cli"]=$client;
+$_SESSION["cli"] = $client;
 
 if (!isset($_SESSION["Usuario"])) {
-	iraURL("../index.php");
+    iraURL("../index.php");
 } elseif (!usuarioCreado()) {
-	iraURL("../pages/create_user.php");
+    iraURL("../pages/create_user.php");
 }
 
 $client = new nusoap_client($wsdl_sdc, 'wsdl');
@@ -30,8 +30,8 @@ if ($consumo != "") {
     iraURL('../pages/inbox.php');
 }
 
-$usuarioBitacora = $_SESSION["Usuario"]['idusu'];
-$sede = $_SESSION["Sede"]['idsed'];
+$usuarioBitacora = $_SESSION["Usuario"]["idusu"];
+$sede = $_SESSION["Sede"]["idsed"];
 
 $client = new nusoap_client($wsdl_sdc, 'wsdl');
 $idsede = array('idsed' => $sede);

@@ -6,8 +6,17 @@ $fechaEnvio = $_SESSION["fechaEnvio"];
 $fechaRecibido = $_SESSION["fechaRecibido"];
 $resultadoConsultarValijas = $_SESSION["valijas"];
 $nombreSede = $_SESSION["nombreSede"];
-$valijas = count($resultadoConsultarValijas->return);
 $reporte = $_SESSION["Reporte"];
+
+if (isset($resultadoConsultarValijas)) {
+    if (isset($resultadoConsultarValijas[0])) {
+        $valijas = count($resultadoConsultarValijas);
+    } else {
+        $valijas = 1;
+    }
+} else {
+    $valijas = 0;
+}
 
 if ($reporte == '1') {
     $nombreReporte = "Valijas Enviadas";

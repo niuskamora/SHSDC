@@ -46,11 +46,11 @@
                     for ($i = 0; $i < $contadorPaquetes; $i++) {
                         ?>
                         <tr>
-                            <td align="center"><?php echo $resultadoPaquetesPorValija->return[$i]->idpaq ?></td>
+                            <td align="center"><?php echo $resultadoPaquetesPorValija[$i]['idpaq'] ?></td>
                             <?php
                             $nomOrigen = "";
-                            if (isset($resultadoPaquetesPorValija->return[$i]->origenpaq->idatr->idsed->nombresed)) {
-                                $nomOrigen = $resultadoPaquetesPorValija->return[$i]->origenpaq->idatr->idsed->nombresed;
+                            if (isset($resultadoPaquetesPorValija[$i]['origenpaq']['idatr']['idsed']['nombresed'])) {
+                                $nomOrigen = $resultadoPaquetesPorValija[$i]['origenpaq']['idatr']['idsed']['nombresed'];
                             } else {
                                 $nomOrigen = "";
                             }
@@ -59,13 +59,13 @@
                             <?php
                             $deOrigen = "";
                             $apellidoOrigen = "";
-                            if (isset($resultadoPaquetesPorValija->return[$i]->origenpaq->idusu->nombreusu)) {
-                                $deOrigen = $resultadoPaquetesPorValija->return[$i]->origenpaq->idusu->nombreusu;
+                            if (isset($resultadoPaquetesPorValija[$i]['origenpaq']['idusu']['nombreusu'])) {
+                                $deOrigen = $resultadoPaquetesPorValija[$i]['origenpaq']['idusu']['nombreusu'];
                             } else {
                                 $deOrigen = "";
                             }
-                            if (isset($resultadoPaquetesPorValija->return[$i]->origenpaq->idusu->apellidousu)) {
-                                $apellidoOrigen = $resultadoPaquetesPorValija->return[$i]->origenpaq->idusu->apellidousu;
+                            if (isset($resultadoPaquetesPorValija[$i]['origenpaq']['idusu']['apellidousu'])) {
+                                $apellidoOrigen = $resultadoPaquetesPorValija[$i]['origenpaq']['idusu']['apellidousu'];
                             } else {
                                 $apellidoOrigen = "";
                             }
@@ -75,32 +75,32 @@
                             $paraDestino = "";
                             $apellidoDestino = "";
                             $nomDestino = "";
-                            if (isset($resultadoPaquetesPorValija->return[$i]->destinopaq->tipobuz)) {
-                                if ($resultadoPaquetesPorValija->return[$i]->destinopaq->tipobuz == "0") {
-                                    if (isset($resultadoPaquetesPorValija->return[$i]->destinopaq->idusu->nombreusu)) {
-                                        $paraDestino = $resultadoPaquetesPorValija->return[$i]->destinopaq->idusu->nombreusu;
+                            if (isset($resultadoPaquetesPorValija[$i]['destinopaq']['tipobuz'])) {
+                                if ($resultadoPaquetesPorValija[$i]['destinopaq']['tipobuz'] == "0") {
+                                    if (isset($resultadoPaquetesPorValija[$i]['destinopaq']['idusu']['nombreusu'])) {
+                                        $paraDestino = $resultadoPaquetesPorValija[$i]['destinopaq']['idusu']['nombreusu'];
                                     } else {
                                         $paraDestino = "";
                                     }
-                                    if (isset($resultadoPaquetesPorValija->return[$i]->destinopaq->idusu->apellidousu)) {
-                                        $apellidoDestino = $resultadoPaquetesPorValija->return[$i]->destinopaq->idusu->apellidousu;
+                                    if (isset($resultadoPaquetesPorValija[$i]['destinopaq']['idusu']['apellidousu'])) {
+                                        $apellidoDestino = $resultadoPaquetesPorValija[$i]['destinopaq']['idusu']['apellidousu'];
                                     } else {
                                         $apellidoDestino = "";
                                     }
-                                    if (isset($resultadoPaquetesPorValija->return[$i]->destinopaq->idatr->idsed->nombresed)) {
-                                        $nomDestino = $resultadoPaquetesPorValija->return[$i]->destinopaq->idatr->idsed->nombresed;
+                                    if (isset($resultadoPaquetesPorValija[$i]['destinopaq']['idatr']['idsed']['nombresed'])) {
+                                        $nomDestino = $resultadoPaquetesPorValija[$i]['destinopaq']['idatr']['idsed']['nombresed'];
                                     } else {
                                         $nomDestino = "";
                                     }
                                 }
-                                if ($resultadoPaquetesPorValija->return[$i]->destinopaq->tipobuz == "1") {
-                                    if (isset($resultadoPaquetesPorValija->return[$i]->destinopaq->nombrebuz)) {
-                                        $paraDestino = $resultadoPaquetesPorValija->return[$i]->destinopaq->nombrebuz;
+                                if ($resultadoPaquetesPorValija[$i]['destinopaq']['tipobuz'] == "1") {
+                                    if (isset($resultadoPaquetesPorValija[$i]['destinopaq']['nombrebuz'])) {
+                                        $paraDestino = $resultadoPaquetesPorValija[$i]['destinopaq']['nombrebuz'];
                                     } else {
                                         $paraDestino = "";
                                     }
-                                    if (isset($resultadoPaquetesPorValija->return[$i]->destinopaq->direccionbuz)) {
-                                        $nomDestino = $resultadoPaquetesPorValija->return[$i]->destinopaq->direccionbuz;
+                                    if (isset($resultadoPaquetesPorValija[$i]['destinopaq']['direccionbuz'])) {
+                                        $nomDestino = $resultadoPaquetesPorValija[$i]['destinopaq']['direccionbuz'];
                                     } else {
                                         $nomDestino = "";
                                     }
@@ -115,12 +115,11 @@
                 } else {
                     ?>
                     <tr>
-                        <td align="center"><?php echo $resultadoPaquetesPorValija->return->idpaq ?></td>
+                        <td align="center"><?php echo $resultadoPaquetesPorValija['idpaq'] ?></td>
                         <?php
                         $nomOrigen = "";
-                        $apellidoOrigen = "";
-                        if (isset($resultadoPaquetesPorValija->return->origenpaq->idatr->idsed->nombresed)) {
-                            $nomOrigen = $resultadoPaquetesPorValija->return->origenpaq->idatr->idsed->nombresed;
+                        if (isset($resultadoPaquetesPorValija['origenpaq']['idatr']['idsed']['nombresed'])) {
+                            $nomOrigen = $resultadoPaquetesPorValija['origenpaq']['idatr']['idsed']['nombresed'];
                         } else {
                             $nomOrigen = "";
                         }
@@ -128,13 +127,14 @@
                         <td><?php echo $nomOrigen ?></td>
                         <?php
                         $deOrigen = "";
-                        if (isset($resultadoPaquetesPorValija->return->origenpaq->idusu->nombreusu)) {
-                            $deOrigen = $resultadoPaquetesPorValija->return->origenpaq->idusu->nombreusu;
+                        $apellidoOrigen = "";
+                        if (isset($resultadoPaquetesPorValija['origenpaq']['idusu']['nombreusu'])) {
+                            $deOrigen = $resultadoPaquetesPorValija['origenpaq']['idusu']['nombreusu'];
                         } else {
                             $deOrigen = "";
                         }
-                        if (isset($resultadoPaquetesPorValija->return->origenpaq->idusu->apellidousu)) {
-                            $apellidoOrigen = $resultadoPaquetesPorValija->return->origenpaq->idusu->apellidousu;
+                        if (isset($resultadoPaquetesPorValija['origenpaq']['idusu']['apellidousu'])) {
+                            $apellidoOrigen = $resultadoPaquetesPorValija['origenpaq']['idusu']['apellidousu'];
                         } else {
                             $apellidoOrigen = "";
                         }
@@ -144,33 +144,32 @@
                         $paraDestino = "";
                         $apellidoDestino = "";
                         $nomDestino = "";
-                        if (isset($resultadoPaquetesPorValija->return->destinopaq->tipobuz)) {
-                            if ($resultadoPaquetesPorValija->return->destinopaq->tipobuz == "0") {
-
-                                if (isset($resultadoPaquetesPorValija->return->idpaq->destinopaq->idusu->nombreusu)) {
-                                    $paraDestino = $resultadoPaquetesPorValija->return->idpaq->destinopaq->idusu->nombreusu;
+                        if (isset($resultadoPaquetesPorValija['destinopaq']['tipobuz'])) {
+                            if ($resultadoPaquetesPorValija['destinopaq']['tipobuz'] == "0") {
+                                if (isset($resultadoPaquetesPorValija['destinopaq']['idusu']['nombreusu'])) {
+                                    $paraDestino = $resultadoPaquetesPorValija['destinopaq']['idusu']['nombreusu'];
                                 } else {
                                     $paraDestino = "";
                                 }
-                                if (isset($resultadoPaquetesPorValija->return->destinopaq->idusu->apellidousu)) {
-                                    $apellidoDestino = $resultadoPaquetesPorValija->return->destinopaq->idusu->apellidousu;
+                                if (isset($resultadoPaquetesPorValija['destinopaq']['idusu']['apellidousu'])) {
+                                    $apellidoDestino = $resultadoPaquetesPorValija['destinopaq']['idusu']['apellidousu'];
                                 } else {
                                     $apellidoDestino = "";
                                 }
-                                if (isset($resultadoPaquetesPorValija->return->destinopaq->idatr->idsed->nombresed)) {
-                                    $nomDestino = $resultadoPaquetesPorValija->return->destinopaq->idatr->idsed->nombresed;
+                                if (isset($resultadoPaquetesPorValija['destinopaq']['idatr']['idsed']['nombresed'])) {
+                                    $nomDestino = $resultadoPaquetesPorValija['destinopaq']['idatr']['idsed']['nombresed'];
                                 } else {
                                     $nomDestino = "";
                                 }
                             }
-                            if ($resultadoPaquetesPorValija->return->destinopaq->tipobuz == "1") {
-                                if (isset($resultadoPaquetesPorValija->return->destinopaq->nombrebuz)) {
-                                    $paraDestino = $resultadoPaquetesPorValija->return->destinopaq->nombrebuz;
+                            if ($resultadoPaquetesPorValija['destinopaq']['tipobuz'] == "1") {
+                                if (isset($resultadoPaquetesPorValija['destinopaq']['nombrebuz'])) {
+                                    $paraDestino = $resultadoPaquetesPorValija['destinopaq']['nombrebuz'];
                                 } else {
                                     $paraDestino = "";
                                 }
-                                if (isset($resultadoPaquetesPorValija->return->destinopaq->direccionbuz)) {
-                                    $nomDestino = $resultadoPaquetesPorValija->return->destinopaq->direccionbuz;
+                                if (isset($resultadoPaquetesPorValija['destinopaq']['direccionbuz'])) {
+                                    $nomDestino = $resultadoPaquetesPorValija['destinopaq']['direccionbuz'];
                                 } else {
                                     $nomDestino = "";
                                 }
