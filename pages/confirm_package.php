@@ -7,31 +7,38 @@ require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
+
+//try {
+    $client = new nusoap_client($wsdl_sdc, 'wsdl');
+$_SESSION["cli"]=$client;	
 if (!isset($_SESSION["Usuario"])) {
     iraURL("../index.php");
 } elseif (!usuarioCreado()) {
     iraURL("../pages/create_user.php");
-}
-try {
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
-    $UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-    $SedeRol = $client->consultarSedeRol($UsuarioRol);
-    if (isset($SedeRol->return)) {
-        if ($SedeRol->return->idrol->idrol != "1" && $SedeRol->return->idrol->idrol != "2" && $SedeRol->return->idrol->idrol != "3" && $SedeRol->return->idrol->idrol != "5") {
+}	
+    $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"], 'sede' => $_SESSION["Sede"]["nombresed"]);
+	$consumo = $client->call("consultarSedeRol",$UsuarioRol);
+	if ($consumo!="") {
+	$SedeRol = $consumo['return'];   
+        if ($SedeRol["idrol"]["idrol"] != "1" && $SedeRol["idrol"]["idrol"] != "2" && $SedeRol["idrol"]["idrol"] != "3" && $SedeRol["idrol"]["idrol"] != "5") {
             iraURL('../pages/inbox.php');
         }
     } else {
         iraURL('../pages/inbox.php');
     }
-    $usuSede = array('iduse' => $SedeRol->return->iduse,
-        'idrol' => $SedeRol->return->idrol,
-        'idsed' => $SedeRol->return->idsed);
+    $usuSede = array('iduse' => $SedeRol["iduse"],
+        'idrol' => $SedeRol["idrol"],
+        'idsed' => $SedeRol["idsed"]);
     $parametros = array('idUsuarioSede' => $usuSede);
-    $PaquetesConfirmados = $client->consultarPaquetesConfirmadosXRol($parametros);
+	$consumo = $client->call("consultarPaquetesConfirmadosXRol",$parametros);
+	if($consumo!=""){
+	$PaquetesConfirmados= $consumo['return'];
+	}
+	
+    //$PaquetesConfirmados = $client->consultarPaquetesConfirmadosXRol($parametros);
     include("../views/confirm_package.php");
-} catch (Exception $e) {
+/*} catch (Exception $e) {
     javaalert('Lo sentimos no hay conexion');
     iraURL('../pages/inbox.php');
-}
+}*/
 ?>

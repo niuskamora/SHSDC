@@ -25,7 +25,10 @@
     <td style='text-align:center'>  Seleccionar Área: </td>
 
     <?php
-
+require_once("../lib/nusoap.php");
+require_once("../config/wsdl.php");
+require_once("../config/definitions.php");
+require_once("../core/Crypt/AES.php");
     session_start();
 //    try {
         $reg = 0;
