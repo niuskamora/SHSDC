@@ -63,14 +63,14 @@ require_once("../core/Crypt/AES.php");
         if ($reg > 1) {
             $i = 0;
             while ($reg > $i) {
-                echo "<option value='" . $Sedes[$i]["idatr"]. "' >" . $Sedes[$i]["nombreatr"] . "</option>";
+                echo "<option value='" . $Sedes[$i]["idatr"]. "' >" .utf8_decode( $Sedes[$i]["nombreatr"]) . "</option>";
                 $i++;
             }
         } else {
-            echo "<option value='" . $Sedes["idatr"] . "' >" . $Sedes["nombreatr"] . "</option>";
+            echo "<option value='" . $Sedes["idatr"] . "' >" . utf8_decode($Sedes["nombreatr"]) . "</option>";
         }
     } else {
-        javaalert('No existen areas de trabajo para esta sede');
+        javaalert('No existen áreas de trabajo para esta sede');
         iraURL('../pages/inbox.php');
     }
     ?>

@@ -114,10 +114,10 @@ if (!isset($SedeRol)) {
                                                 }
                                                 ?>
                                                 <tr>     
-                                                    <td  style='text-align:center'><?php echo $PaquetesExtraviados->origenpaq->idusu->nombreusu . " " . $PaquetesExtraviados->origenpaq->idusu->apellidousu; ?></td>
-                                                    <td  style='text-align:center'><?php echo $nombrebuz; ?></td>
-                                                    <td style='text-align:center'><?php echo $asunto; ?></td>
-                                                    <td style='text-align:center'><?php echo $PaquetesExtraviados->localizacionpaq; ?></td>
+                                                    <td  style='text-align:center'><?php echo utf8_decode($PaquetesExtraviados->origenpaq->idusu->nombreusu . " " . $PaquetesExtraviados->origenpaq->idusu->apellidousu); ?></td>
+                                                    <td  style='text-align:center'><?php echo utf8_decode($nombrebuz); ?></td>
+                                                    <td style='text-align:center'><?php echo utf8_decode($asunto); ?></td>
+                                                    <td style='text-align:center'><?php echo utf8_decode($PaquetesExtraviados->localizacionpaq); ?></td>
                                                     <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($PaquetesExtraviados["fechapaq"], 0, 10))); ?></td>
                                                 </tr>   
                                                 <?php
@@ -135,10 +135,10 @@ if (!isset($SedeRol)) {
                                                     }
                                                     ?>
                                                     <tr>     
-                                                        <td  style='text-align:center'><?php echo $PaquetesExtraviados[$i]["origenpaq"]["idusu"]["nombreusu"] . " " . $PaquetesExtraviados[$i]["origenpaq"]["idusu"]["apellidousu"]; ?></td>
-                                                        <td  style='text-align:center'><?php echo $nombrebuz; ?></td>
-                                                        <td style='text-align:center'><?php echo $asunto; ?></td>
-                                                        <td style='text-align:center'><?php echo $PaquetesExtraviados[$i]["localizacionpaq"]; ?></td>
+                                                        <td  style='text-align:center'><?php echo utf8_decode($PaquetesExtraviados[$i]["origenpaq"]["idusu"]["nombreusu"] . " " . $PaquetesExtraviados[$i]["origenpaq"]["idusu"]["apellidousu"]); ?></td>
+                                                        <td  style='text-align:center'><?php echo utf8_decode($nombrebuz); ?></td>
+                                                        <td style='text-align:center'><?php echo utf8_decode($asunto); ?></td>
+                                                        <td style='text-align:center'><?php echo utf8_decode($PaquetesExtraviados[$i]["localizacionpaq"]); ?></td>
                                                         <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($PaquetesExtraviados[$i]["fechapaq"], 0, 10))); ?></td>
                                                     </tr>   
                                                     <?php

@@ -5,15 +5,18 @@ require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
-if (!isset($_SESSION["Usuario"])) {
+
+try {
+ $client = new nusoap_client($wsdl_sdc, 'wsdl');
+	 $_SESSION["cli"]=$client;	
+
+    if (!isset($_SESSION["Usuario"])) {
     iraURL("../index.php");
 } elseif (!usuarioCreado()) {
     iraURL("../pages/create_user.php");
 } elseif (!isset($_POST['idpaq'])) {
     iraURL("../pages/inbox.php");
-}
-try {
-      
+}      
     $idPaquete = array('idPaquete' => $_POST['idpaq']);
    // $rowPaquete = $client->ConsultarPaqueteXId($idPaquete);
    $consumo = $client->call("ConsultarPaqueteXId",$idPaquete);

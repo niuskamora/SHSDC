@@ -7,12 +7,13 @@ require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
-    if (!isset($_SESSION["Usuario"])) {
-        iraURL("../index.php");
-    } elseif (!usuarioCreado()) {
-        iraURL("../pages/create_user.php");
-    }
-      
+  $client = new nusoap_client($wsdl_sdc, 'wsdl');
+	$_SESSION["cli"]=$client;
+	if (!isset($_SESSION["Usuario"])) {
+    iraURL("../index.php");
+	} elseif (!usuarioCreado()) {
+		iraURL("../pages/create_user.php");
+	}
     $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"], 'sede' => $_SESSION["Sede"]["nombresed"]);
 	$consumo = $client->call("consultarSedeRol",$UsuarioRol);
 	if ($consumo!="") {

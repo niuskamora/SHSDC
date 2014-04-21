@@ -132,10 +132,10 @@ if (!isset($Sedes)) {
                                             <option value="" style="display:none">Seleccionar:</option>                                  
                                             <?php
                                             if (!isset($Sedes[0])) {
-                                                echo '<option value="' . $Sedes["idsed"] . '">' . $Sedes["nombresed"] . '</option>';
+                                                echo '<option value="' . $Sedes["idsed"] . '">' . utf8_decode($Sedes["nombresed"]) . '</option>';
                                             } else {
                                                 for ($i = 0; $i < count($Sedes); $i++) {
-                                                    echo '<option value="' . $Sedes[$i]["idsed"] . '">' . $Sedes[$i]["nombresed"] . '</option>';
+                                                    echo '<option value="' . $Sedes[$i]["idsed"] . '">' . utf8_decode($Sedes[$i]["nombresed"]) . '</option>';
                                                 }
                                             }
                                             ?>

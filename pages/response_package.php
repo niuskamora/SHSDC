@@ -6,18 +6,19 @@ require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
-if (!isset($_SESSION["Usuario"])) {
-    iraURL("../index.php");
-} elseif (!usuarioCreado()) {
-    iraURL("../pages/create_user.php");
-} elseif (!isset($_GET['idpaqr'])) {
-    iraURL("../pages/inbox.php");
-}
+
 try {
-$client = new SOAPClient($wsdl_sdc);
-$client->decode_utf8 = false;
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$_SESSION["cli"]=$client;
+	if (!isset($_SESSION["Usuario"])) {
+    iraURL("../index.php");
+	} elseif (!usuarioCreado()) {
+		iraURL("../pages/create_user.php");
+	} elseif (!isset($_GET['idpaqr'])) {
+		iraURL("../pages/inbox.php");
+	}
      $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"], 'sede' => $_SESSION["Sede"]["nombresed"]);
-$consumo = $client->call("consultarSedeRol",$UsuarioRol);
+	$consumo = $client->call("consultarSedeRol",$UsuarioRol);
 	if ($consumo!="") {
 	$SedeRol = $consumo['return'];   
     } else {

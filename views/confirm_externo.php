@@ -1,5 +1,5 @@
 <?php
-if (!isset($SedeRol->return)) {
+if (!isset($SedeRol)) {
     echo '<script language="javascript"> window.location = "../pages/inbox.php"; </script>';
 }
 ?>
@@ -90,7 +90,7 @@ if (!isset($SedeRol->return)) {
 
                                 <div id="data">
                                     <?php
-                                    if (isset($PaquetesConfirmados->return)) {
+                                    if (isset($PaquetesConfirmados)) {
 
                                         echo "<br>";
                                         ?>
@@ -108,59 +108,59 @@ if (!isset($SedeRol->return)) {
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                if (count($PaquetesConfirmados->return) == 1) {
+                                                if (!isset($PaquetesConfirmados[0])) {
 
-                                                    if (strlen($PaquetesConfirmados->return->textopaq) > 10) {
-                                                        $contenido = substr($PaquetesConfirmados->return->textopaq, 0, 10) . "...";
+                                                    if (strlen($PaquetesConfirmados["textopaq"]) > 10) {
+                                                        $contenido = substr($PaquetesConfirmados["textopaq"], 0, 10) . "...";
                                                     } else {
-                                                        $contenido = $PaquetesConfirmados->return->textopaq;
+                                                        $contenido = $PaquetesConfirmados["textopaq"];
                                                     }
-                                                    if (strlen($PaquetesConfirmados->return->asuntopaq) > 10) {
-                                                        $asunto = substr($PaquetesConfirmados->return->asuntopaq, 0, 10) . "...";
+                                                    if (strlen($PaquetesConfirmados["asuntopaq"]) > 10) {
+                                                        $asunto = substr($PaquetesConfirmados["asuntopaq"], 0, 10) . "...";
                                                     } else {
-                                                        $asunto = $PaquetesConfirmados->return->asuntopaq;
+                                                        $asunto = $PaquetesConfirmados["asuntopaq"];
                                                     }
-                                                    if ($PaquetesConfirmados->return->destinopaq->tipobuz == 0) {
-                                                        $nombrebuz = $PaquetesConfirmados->return->destinopaq->idusu->nombreusu . " " . $PaquetesConfirmados->return->destinopaq->idusu->apellidousu;
+                                                    if ($PaquetesConfirmados["destinopaq"]["tipobuz"] == 0) {
+                                                        $nombrebuz = $PaquetesConfirmados["destinopaq"]["idusu"]["nombreusu"] . " " . $PaquetesConfirmados-["destinopaq"]["idusu"]["apellidousu"];
                                                     } else {
-                                                        $nombrebuz = $PaquetesConfirmados->return->destinopaq->nombrebuz;
+                                                        $nombrebuz = $PaquetesConfirmados->destinopaq->nombrebuz;
                                                     }
                                                     ?>
                                                     <tr>     
-                                                        <td  style='text-align:center'><?php echo $PaquetesConfirmados->return->origenpaq->idusu->nombreusu . " " . $PaquetesConfirmados->return->origenpaq->idusu->apellidousu; ?></td>
+                                                        <td  style='text-align:center'><?php echo $PaquetesConfirmados["origenpaq"]["idusu"]["nombreusu"] . " " . $PaquetesConfirmados["origenpaq"]["idusu"]["apellidousu"]; ?></td>
                                                         <td style='text-align:center'><?php echo $nombrebuz; ?></td>
                                                         <td style='text-align:center'><?php echo $asunto; ?></td>
-                                                        <td style='text-align:center'><?php echo $PaquetesConfirmados->return->iddoc->nombredoc; ?></td>
+                                                        <td style='text-align:center'><?php echo $PaquetesConfirmados["iddoc"]["nombredoc"]; ?></td>
                                                         <td style='text-align:center'><?php echo $contenido; ?></td>
-                                                        <td style='text-align:center'> <button type='button' class='btn btn-info btn-primary' onClick="Paquete(<?php echo $PaquetesConfirmados->return->idpaq; ?>);">  Confirmar </button></td>  
+                                                        <td style='text-align:center'> <button type='button' class='btn btn-info btn-primary' onClick="Paquete(<?php echo $PaquetesConfirmados["idpaq"]; ?>);">  Confirmar </button></td>  
                                                     </tr>   
                                                     <?php
                                                 } else {
-                                                    for ($i = 0; $i < count($PaquetesConfirmados->return); $i++) {
+                                                    for ($i = 0; $i < count($PaquetesConfirmados); $i++) {
 
-                                                        if (strlen($PaquetesConfirmados->return[$i]->textopaq) > 25) {
-                                                            $contenido = substr($PaquetesConfirmados->return[$i]->textopaq, 0, 23) . "...";
+                                                        if (strlen($PaquetesConfirmados[$i]["textopaq"]) > 25) {
+                                                            $contenido = substr($PaquetesConfirmados[$i]["textopaq"], 0, 23) . "...";
                                                         } else {
-                                                            $contenido = $PaquetesConfirmados->return[$i]->textopaq;
+                                                            $contenido = $PaquetesConfirmados[$i]["textopaq"];
                                                         }
-                                                        if (strlen($PaquetesConfirmados->return[$i]->asuntopaq) > 10) {
-                                                            $asunto = substr($PaquetesConfirmados->return[$i]->asuntopaq, 0, 10) . "...";
+                                                        if (strlen($PaquetesConfirmados[$i]["asuntopaq"]) > 10) {
+                                                            $asunto = substr($PaquetesConfirmados[$i]["asuntopaq"], 0, 10) . "...";
                                                         } else {
-                                                            $asunto = $PaquetesConfirmados->return[$i]->asuntopaq;
+                                                            $asunto = $PaquetesConfirmados[$i]["asuntopaq"];
                                                         }
-                                                        if ($PaquetesConfirmados->return[$i]->destinopaq->tipobuz == 0) {
-                                                            $nombrebuz = $PaquetesConfirmados->return[$i]->destinopaq->idusu->nombreusu . " " . $PaquetesConfirmados->return[$i]->destinopaq->idusu->apellidousu;
+                                                        if ($PaquetesConfirmados[$i]["destinopaq"]["tipobuz"] == 0) {
+                                                            $nombrebuz = $PaquetesConfirmados[$i]["destinopaq"]["idusu"]["nombreusu"] . " " . $PaquetesConfirmados[$i]["destinopaq"]["idusu"]["apellidousu"];
                                                         } else {
-                                                            $nombrebuz = $PaquetesConfirmados->return[$i]->destinopaq->nombrebuz;
+                                                            $nombrebuz = $PaquetesConfirmados[$i]["destinopaq"]["nombrebuz"];
                                                         }
                                                         ?>
                                                         <tr>     
-                                                            <td  style='text-align:center'><?php echo $PaquetesConfirmados->return[$i]->origenpaq->idusu->nombreusu . " " . $PaquetesConfirmados->return[$i]->origenpaq->idusu->apellidousu; ?></td>
+                                                            <td  style='text-align:center'><?php echo $PaquetesConfirmados[$i]["origenpaq"]["idusu"]["nombreusu"] . " " . $PaquetesConfirmados[$i]["origenpaq"]["idusu"]["apellidousu"]; ?></td>
                                                             <td style='text-align:center'><?php echo $nombrebuz; ?></td>
                                                             <td style='text-align:center'><?php echo $asunto; ?></td>
-                                                            <td style='text-align:center'><?php echo $PaquetesConfirmados->return[$i]->iddoc->nombredoc; ?></td>
+                                                            <td style='text-align:center'><?php echo $PaquetesConfirmados[$i]["iddoc"]["nombredoc"]; ?></td>
                                                             <td style='text-align:center'><?php echo $contenido; ?></td>
-                                                            <td style='text-align:center'> <button type='button' class='btn btn-info btn-primary' onClick="Paquete(<?php echo $PaquetesConfirmados->return[$i]->idpaq; ?>);">  Confirmar </button></td>  
+                                                            <td style='text-align:center'> <button type='button' class='btn btn-info btn-primary' onClick="Paquete(<?php echo $PaquetesConfirmados[$i]["idpaq"]; ?>);">  Confirmar </button></td>  
                                                         </tr>   
                                                         <?php
                                                     }

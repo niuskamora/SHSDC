@@ -106,10 +106,10 @@ if (!isset($rowDocumentos)) {
 
                                         <?php
                                         if (!isset($rowDocumentos[0])) {
-                                            echo '<option value="' . $rowDocumentos["iddoc"] . '">' . $rowDocumentos["nombredoc"] . '</option>';
+                                            echo '<option value="' . $rowDocumentos["iddoc"] . '">' . utf8_decode($rowDocumentos["nombredoc"]) . '</option>';
                                         } else {
                                             for ($i = 0; $i < count($rowDocumentos); $i++) {
-                                                echo '<option value="' . $rowDocumentos[$i]["iddoc"] . '">' . $rowDocumentos[$i]["nombredoc"] . '</option>';
+                                                echo '<option value="' . $rowDocumentos[$i]["iddoc"] . '">' . utf8_decode($rowDocumentos[$i]["nombredoc"]) . '</option>';
                                             }
                                         }
                                         ?>
@@ -121,10 +121,10 @@ if (!isset($rowDocumentos)) {
                                         <option value="" style="display:none">Seleccionar:</option>                                  
                                         <?php
                                         if (count($rowPrioridad) == 1) {
-                                            echo '<option value="' . $rowPrioridad["idpri"] . '">' . $rowPrioridad["nombrepri"] . '</option>';
+                                            echo '<option value="' . $rowPrioridad["idpri"] . '">' . utf8_decode($rowPrioridad["nombrepri"]) . '</option>';
                                         } else {
                                             for ($i = 0; $i < count($rowPrioridad); $i++) {
-                                                echo '<option value="' . $rowPrioridad[$i]["idpri"] . '">' . $rowPrioridad[$i]["nombrepri"] . '</option>';
+                                                echo '<option value="' . $rowPrioridad[$i]["idpri"] . '">' . utf8_decode($rowPrioridad[$i]["nombrepri"]) . '</option>';
                                             }
                                         }
                                         ?>

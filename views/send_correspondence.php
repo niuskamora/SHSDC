@@ -150,10 +150,10 @@
                                                 <option value="" style="display:none">Seleccionar:</option>
                                                 <?php
                                                 if (!isset($rowDocumentos[0])) {												
-                                                    echo '<option value="' . $rowDocumentos["iddoc"] . '">' . $rowDocumentos["nombredoc"]. '</option>';
+                                                    echo '<option value="' . $rowDocumentos["iddoc"] . '">' . utf8_decode($rowDocumentos["nombredoc"]). '</option>';
                                                 } else {
                                                     for ($i = 0; $i < count($rowDocumentos); $i++) {
-                                                        echo '<option value="' . $rowDocumentos[$i]["iddoc"]. '">' . $rowDocumentos[$i]["nombredoc"]. '</option>';
+                                                        echo '<option value="' . $rowDocumentos[$i]["iddoc"]. '">' .utf8_decode( $rowDocumentos[$i]["nombredoc"]). '</option>';
                                                     }
                                                 }
                                                 ?>
@@ -166,10 +166,10 @@
                                                 <option value="" style="display:none">Seleccionar:</option>                                  
                                                 <?php
                                                 if (!isset($rowPrioridad[0])) {
-                                                    echo '<option value="' . $rowPrioridad["idpri"]. '">' . $rowPrioridad["nombrepri"] . '</option>';
+                                                    echo '<option value="' . $rowPrioridad["idpri"]. '">' . utf8_decode($rowPrioridad["nombrepri"]) . '</option>';
                                                 } else {
                                                     for ($i = 0; $i < count($rowPrioridad); $i++) {
-                                                        echo '<option value="' . $rowPrioridad[$i]["idpri"] . '">' . $rowPrioridad[$i]["nombrepri"]. '</option>';
+                                                        echo '<option value="' . $rowPrioridad[$i]["idpri"] . '">' . utf8_decode($rowPrioridad[$i]["nombrepri"]). '</option>';
                                                     }
                                                 }
                                                 ?>
@@ -228,10 +228,10 @@
                                                 <option value="" style="display:none">Seleccionar Sede:</option>                                  
                                                 <?php
                                                 if (!isset($Sedes[0])) {
-                                                    echo '<option value="' . $Sedes["nombresed"] . '">' . $Sedes["nombresed"] . '</option>';
+                                                    echo '<option value="' . $Sedes["nombresed"] . '">' .utf8_decode( $Sedes["nombresed"]) . '</option>';
                                                 } else {
                                                     for ($i = 0; $i < count($Sedes); $i++) {
-                                                        echo '<option value="' . $Sedes[$i]["nombresed"] . '">' . $Sedes[$i]["nombresed"] . '</option>';
+                                                        echo '<option value="' . $Sedes[$i]["nombresed"] . '">' . utf8_decode($Sedes[$i]["nombresed"]) . '</option>';
                                                     }
                                                 }
                                                 ?>

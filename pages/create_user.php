@@ -9,8 +9,9 @@ require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
 
 try {
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
+       $client = new nusoap_client($wsdl_sdc, 'wsdl');
+	$_SESSION["cli"]=$client;
+
     if (!isset($_SESSION["User"])) {
         iraURL('../index.php');
     }

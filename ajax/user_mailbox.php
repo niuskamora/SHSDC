@@ -69,17 +69,17 @@ require_once("../core/Crypt/AES.php");
             while ($j < $reg) {
 
                 if ($Buz[$j]->tipobuz == "1") {
-                    echo "<th text-align:center' data-sort-ignore='true'>" . $Buz[$j]["nombrebuz"] . "</th>";
+                    echo "<th text-align:center' data-sort-ignore='true'>" . utf8_decode($Buz[$j]["nombrebuz"]) . "</th>";
                     echo "<td style='text-align:center'> Externo</td>";
                     echo "<td style='text-align:center'> Externo</td>";
                 } else {
-                    echo "<th text-align:center' data-sort-ignore='true'>" . $Buz[$j]["idusu"]["nombreusu"] . " " . $Buz[$j]["idusu"]["apellidousu"] . "</th>";
-                    echo "<td style='text-align:center'>" . $Buz[$j]["idatr"]["nombreatr"] . "</td>";
-                    echo "<td style='text-align:center'>" . $Buz[$j]["idatr"]["idsed"]["nombresed"] . "</td>";
+                    echo "<th text-align:center' data-sort-ignore='true'>" .utf8_decode( $Buz[$j]["idusu"]["nombreusu"] . " " . $Buz[$j]["idusu"]["apellidousu"] ). "</th>";
+                    echo "<td style='text-align:center'>" . utf8_decode($Buz[$j]["idatr"]["nombreatr"]) . "</td>";
+                    echo "<td style='text-align:center'>" . utf8_decode($Buz[$j]["idatr"]["idsed"]["nombresed"]) . "</td>";
                 }
                 ?>
             <th  'text-align:center' >
-                <button class='btn' onClick="seleccionar('<?php echo $Buz[$j]["idbuz"]; ?>', '<?php echo $Buz[$j]["nombrebuz"]; ?>');">
+                <button class='btn' onClick="seleccionar('<?php echo $Buz[$j]["idbuz"]; ?>', '<?php echo utf8_decode($Buz[$j]["nombrebuz"]); ?>');">
                     <span class="icon-hand-up" > </span>
                 </button></th>
             <?php
@@ -87,18 +87,18 @@ require_once("../core/Crypt/AES.php");
             $j++;
         }
     } else {
-        if ($Buz->tipobuz == "1") {
-            echo "<th text-align:center' data-sort-ignore='true'>" . $Buz["nombrebuz"] . "</th>";
+        if ($Buz["tipobuz"] == "1") {
+            echo "<th text-align:center' data-sort-ignore='true'>" . utf8_decode($Buz["nombrebuz"]) . "</th>";
             echo "<td style='text-align:center'> Externo</td>";
             echo "<td style='text-align:center'>Externo</td>";
         } else {
-            echo "<th text-align:center' data-sort-ignore='true'>" . $Buz["idusu"]["nombreusu"] ." " . $Buz["idusu"]["apellidousu"] . "</th>";
-            echo "<td style='text-align:center'>" . $Buz["idusu"]["apellidousu"] . "</td>";
-            echo "<td style='text-align:center'>" . $Buz["idusu"]["nombreusu"] . "</td>";
+            echo "<th text-align:center' data-sort-ignore='true'>" . utf8_decode($Buz["idusu"]["nombreusu"] ." " . $Buz["idusu"]["apellidousu"]) . "</th>";
+            echo "<td style='text-align:center'>" . utf8_decode($Buz["idatr"]["nombreatr"]) . "</td>";
+            echo "<td style='text-align:center'>" . utf8_decode($Buz["idatr"]["idsed"]["nombresed"]) . "</td>";
         }
         ?>
         <th  'text-align:center' >
-            <button class='btn' onClick="seleccionar('<?php echo $Buz["idbuz"]; ?>', '<?php echo $Buz["nombrebuz"]; ?>');">
+            <button class='btn' onClick="seleccionar('<?php echo $Buz["idbuz"]; ?>', '<?php echo utf8_decode($Buz["nombrebuz"]); ?>');">
                 <span class="icon-hand-up" > </span>
             </button></th>
         <?php

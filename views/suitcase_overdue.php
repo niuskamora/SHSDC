@@ -107,8 +107,8 @@ if (!isset($SedeRol)) {
                                                     ?>
                                                     <tr class="success">     
                                                         <td style='text-align:center'><?php echo $ValijasDestino["idval"]; ?></td>
-                                                        <td style='text-align:center'><?php echo $ValijasDestino["origenval"]; ?></td>
-                                                        <td style='text-align:center'><?php echo $ValijasDestino["destinoval"]["nombresed"]; ?></td>
+                                                        <td style='text-align:center'><?php echo utf8_decode($ValijasDestino["origenval"]); ?></td>
+                                                        <td style='text-align:center'><?php echo utf8_decode($ValijasDestino["destinoval"]["nombresed"]); ?></td>
                                                         <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($ValijasDestino["fechaval"], 0, 10))); ?></td>
                                                     </tr>   
                                                     <?php
@@ -117,8 +117,8 @@ if (!isset($SedeRol)) {
                                                         ?>
                                                         <tr class="success">     
                                                             <td style='text-align:center'><?php echo $ValijasDestino[$i]["idval"]; ?></td>
-                                                            <td style='text-align:center'><?php echo $ValijasDestino[$i]["origenval"]; ?></td>
-                                                            <td style='text-align:center'><?php echo $ValijasDestino[$i]["destinoval"]["nombresed"]; ?></td>
+                                                            <td style='text-align:center'><?php echo utf8_decode($ValijasDestino[$i]["origenval"]); ?></td>
+                                                            <td style='text-align:center'><?php echo utf8_decode($ValijasDestino[$i]["destinoval"]["nombresed"]); ?></td>
                                                             <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($ValijasDestino[$i]["fechaval"], 0, 10))); ?></td>
                                                         </tr>   
                                                         <?php
@@ -130,8 +130,8 @@ if (!isset($SedeRol)) {
                                                     ?>
                                                     <tr class="info">     
                                                         <td style='text-align:center'><?php echo $ValijasOrigen["idval"]; ?></td>
-                                                        <td style='text-align:center'><?php echo $ValijasOrigen["origenval"]; ?></td>
-                                                        <td style='text-align:center'><?php echo $ValijasOrigen["destinoval"]["nombresed"; ?></td>
+                                                        <td style='text-align:center'><?php echo utf8_decode($ValijasOrigen["origenval"]); ?></td>
+                                                        <td style='text-align:center'><?php echo utf8_decode($ValijasOrigen["destinoval"]["nombresed"); ?></td>
                                                         <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($ValijasOrigen["fechaval"], 0, 10))); ?></td>
                                                     </tr>   
                                                     <?php
@@ -140,8 +140,8 @@ if (!isset($SedeRol)) {
                                                         ?>
                                                         <tr class="info">     
                                                             <td style='text-align:center'><?php echo $ValijasOrigen[$i]->idval; ?></td>
-                                                            <td style='text-align:center'><?php echo $ValijasOrigen[$i]["origenval"]; ?></td>
-                                                            <td style='text-align:center'><?php echo $ValijasOrigen[$i]["destinoval"]["nombresed"; ?></td>
+                                                            <td style='text-align:center'><?php echo utf8_decode($ValijasOrigen[$i]["origenval"]); ?></td>
+                                                            <td style='text-align:center'><?php echo utf8_decode($ValijasOrigen[$i]["destinoval"]["nombresed"]); ?></td>
                                                             <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($ValijasOrigen[$i]["fechaval"], 0, 10))); ?></td>
                                                         </tr>   
                                                         <?php
