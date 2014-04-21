@@ -13,13 +13,12 @@ if (!isset($_SESSION["Usuario"])) {
     iraURL("../pages/create_user.php");
 }
 try {
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
+     
     $UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-    $SedeRol = $client->consultarSedeRol($UsuarioRol);
-
-    if (isset($SedeRol->return)) {
-        if ($SedeRol->return->idrol->idrol != "2" && $SedeRol->return->idrol->idrol != "5") {
+ $consumo = $client->call("consultarSedeRol",$UsuarioRol);
+	if ($consumo!="") {
+	$SedeRol = $consumo['return'];   
+        if ($SedeRol["idrol"]["idrol"] != "2" && $SedeRol["idrol"]["idrol"] != "5") {
             iraURL('../pages/inbox.php');
         }
     } else {
@@ -27,7 +26,11 @@ try {
     }
     $sede = array('idsed' => $_SESSION["Sede"]->return->idsed);
     $parametros = array('sede' => $sede);
-    $PaquetesExternos = $client->consultarPaquetesExternosXEnviar($parametros);
+    //$PaquetesExternos = $client->consultarPaquetesExternosXEnviar($parametros);
+	$consumo = $client->call("consultarPaquetesExternosXEnviar",$parametros);
+	if ($consumo!="") {
+	$PaquetesExternos =$consumo['return'];   
+	}
     include("../views/external_costs.php");
 } catch (Exception $e) {
     javaalert('Lo sentimos no hay conexion');

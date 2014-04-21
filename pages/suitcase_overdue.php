@@ -13,45 +13,66 @@ if (!isset($_SESSION["Usuario"])) {
     iraURL("../pages/create_user.php");
 }
 try {
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
-    $UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-    $SedeRol = $client->consultarSedeRol($UsuarioRol);
-    if (isset($SedeRol->return)) {
-        if ($SedeRol->return->idrol->idrol != "4" && $SedeRol->return->idrol->idrol != "5") {
+      
+    $UsuarioRol = array('idusu' => $_SESSION["Usuario"]->idusu, 'sede' => $_SESSION["Sede"]->nombresed);
+    $consumo = $client->call("consultarSedeRol",$UsuarioRol);
+	if ($consumo!="") {
+	$SedeRol = $consumo['return'];   
+        if ($SedeRol["idrol"]["idrol"] != "4" && $SedeRol["idrol"]["idrol"] != "5") {
             iraURL('../pages/inbox.php');
         }
     } else {
         iraURL('../pages/inbox.php');
     }
-    $parametros = array('idSede' => $_SESSION["Sede"]->return->idsed);
-    $ValijasOrigen = $client->valijasXFechaVencidaXUsuarioOrigen($parametros);
-    if (isset($ValijasOrigen->return)) {
-        if (count($ValijasOrigen->return) == 1) {
-            $parametros = array('Id' => $ValijasOrigen->return->origenval);
-            $nombreSede = $client->consultaNombreSedeXId($parametros);
-            $ValijasOrigen->return->origenval = $nombreSede->return;
+    $parametros = array('idSede' => $_SESSION["Sede"]["idsed"]);
+   // $ValijasOrigen = $client->valijasXFechaVencidaXUsuarioOrigen($parametros);
+	 $consumo = $client->call("valijasXFechaVencidaXUsuarioOrigen",$parametros);
+	if ($consumo!="") {
+	$ValijasOrigen = $consumo['return'];  
+	}
+    if (isset($ValijasOrigen)) {
+        if (!isset($ValijasOrigen[0])) {
+            $parametros = array('Id' => $ValijasOrigen["origenval"]);
+            //$nombreSede = $client->consultaNombreSedeXId($parametros);
+			 $consumo = $client->call("consultaNombreSedeXId",$parametros);
+			if ($consumo!="") {
+			$nombreSede = $consumo['return'];  
+			}
+            $ValijasOrigen["origenval"] = $nombreSede;
         } else {
-            for ($i = 0; $i < count($ValijasOrigen->return); $i++) {
-                $parametros = array('Id' => $ValijasOrigen->return[$i]->origenval);
-                $nombreSede = $client->consultaNombreSedeXId($parametros);
-                $ValijasOrigen->return[$i]->origenval = $nombreSede->return;
+            for ($i = 0; $i < count($ValijasOrigen); $i++) {
+                $parametros = array('Id' => $ValijasOrigen[$i]["origenval"]);
+				$consumo = $client->call("consultaNombreSedeXId",$parametros);
+				if ($consumo!="") {
+				$nombreSede = $consumo['return'];  
+				}         
+				$ValijasOrigen[$i]["origenval"] = $nombreSede;
             }
         }
     }
-    $sede = array('idsed' => $_SESSION["Sede"]->return->idsed);
+    $sede = array('idsed' => $_SESSION["Sede"]["idsed"]);
     $parametros = array('registroSede' => $sede);
-    $ValijasDestino = $client->valijasXFechaVencidaXUsuarioDestino($parametros);
-    if (isset($ValijasDestino->return)) {
-        if (count($ValijasDestino->return) == 1) {
-            $parametros = array('Id' => $ValijasDestino->return->origenval);
-            $nombreSede = $client->consultaNombreSedeXId($parametros);
-            $ValijasDestino->return->origenval = $nombreSede->return;
+   // $ValijasDestino = $client->valijasXFechaVencidaXUsuarioDestino($parametros);
+	$consumo = $client->call("valijasXFechaVencidaXUsuarioDestino",$parametros);
+				if ($consumo!="") {
+				$ValijasDestino = $consumo['return'];  
+				}    
+    if (isset($ValijasDestino)) {
+        if (!isset($ValijasDestino[0])) {
+            $parametros = array('Id' => $ValijasDestino["origenval"]);
+				$consumo = $client->call("consultaNombreSedeXId",$parametros);
+				if ($consumo!="") {
+				$nombreSede = $consumo['return'];  
+				}
+				$ValijasDestino["origenval"] = $nombreSede;
         } else {
-            for ($i = 0; $i < count($ValijasDestino->return); $i++) {
-                $parametros = array('Id' => $ValijasDestino->return[$i]->origenval);
-                $nombreSede = $client->consultaNombreSedeXId($parametros);
-                $ValijasDestino->return[$i]->origenval = $nombreSede->return;
+            for ($i = 0; $i < count($ValijasDestino); $i++) {
+                $parametros = array('Id' => $ValijasDestino[$i]["origenval"]);
+				$consumo = $client->call("consultaNombreSedeXId",$parametros);
+				if ($consumo!="") {
+				$nombreSede = $consumo['return'];  
+				}                
+				$ValijasDestino[$i]["origenval"] = $nombreSede;
             }
         }
     }

@@ -16,10 +16,19 @@ try {
         $client = new SOAPClient($wsdl_sdc);
     $client->decode_utf8 = false;
     $UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-    $SedeRol = $client->consultarSedeRol($UsuarioRol);
-    $parametros = array('idusu' => $_SESSION["Usuario"]->return->idusu,
+	$consumo = $client->call("consultarSedeRol",$UsuarioRol);
+	if ($consumo!="") {
+	$SedeRol = $consumo['return'];   
+    } else {
+        iraURL('../pages/inbox.php');
+    }    
+	$parametros = array('idusu' => $_SESSION["Usuario"]->return->idusu,
         'idsede' => $_SESSION["Sede"]->return->idsed);
-    $PaquetesExtraviados = $client->consultarStatusPaquete($parametros);
+	$consumo = $client->call("consultarStatusPaquete",$parametros);	
+    if ($consumo!="") {
+	$PaquetesExtraviados = $consumo['return'];   
+    } 
+	//$PaquetesExtraviados = $client->consultarStatusPaquete($parametros);
     //echo '<pre>';print_r($PaquetesExtraviados);
 	include("../views/correspondence_lost.php");
 } catch (Exception $e) {

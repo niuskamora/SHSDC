@@ -1,5 +1,5 @@
 <?php
-if (!isset($SedeRol->return)) {
+if (!isset($SedeRol)) {
     echo '<script language="javascript"> window.location = "../pages/inbox.php"; </script>';
 }
 ?>
@@ -88,7 +88,7 @@ if (!isset($SedeRol->return)) {
                             <form class="form-search" id="formulario">
                                 <h2>Correspondencia que no ha sido entregada con tiempo vencido</h2>
                                 <?php
-                                if (isset($PaquetesDestino->return) || isset($PaquetesOrigen->return)) {
+                                if (isset($PaquetesDestino) || isset($PaquetesOrigen)) {
 
                                     echo "<br>";
                                     ?>
@@ -106,91 +106,91 @@ if (!isset($SedeRol->return)) {
                                         </thead>
                                         <tbody>
                                             <?php
-                                            if (isset($PaquetesDestino->return)) {
-                                                if (count($PaquetesDestino->return) == 1) {
-                                                    if (strlen($PaquetesDestino->return->asuntopaq) > 10) {
-                                                        $asunto = substr($PaquetesDestino->return->asuntopaq, 0, 10) . "...";
+                                            if (isset($PaquetesDestino)) {
+                                                if (!isset($PaquetesDestino[0])) {
+                                                    if (strlen($PaquetesDestino["asuntopaq"]) > 10) {
+                                                        $asunto = substr($PaquetesDestino["asuntopaq"], 0, 10) . "...";
                                                     } else {
-                                                        $asunto = $PaquetesDestino->return->asuntopaq;
+                                                        $asunto = $PaquetesDestino["asuntopaq"];
                                                     }
-                                                    if ($PaquetesDestino->return->destinopaq->tipobuz == 0) {
-                                                        $nombrebuz = $PaquetesDestino->return->destinopaq->idusu->nombreusu . " " . $PaquetesDestino->return->destinopaq->idusu->apellidousu;
+                                                    if ($PaquetesDestino["destinopaq"]["tipobuz"] == 0) {
+                                                        $nombrebuz = $PaquetesDestino["destinopaq"]["idusu"]["nombreusu"] . " " . $PaquetesDestino["destinopaq"]["idusu"]["apellidousu"];
                                                     } else {
-                                                        $nombrebuz = $PaquetesDestino->return->destinopaq->nombrebuz;
+                                                        $nombrebuz = $PaquetesDestino["destinopaq"]["nombrebuz"];
                                                     }
                                                     ?>
                                                     <tr class="success">     
-                                                        <td  style='text-align:center'><?php echo $PaquetesDestino->return->origenpaq->idusu->nombreusu . " " . $PaquetesDestino->return->origenpaq->idusu->apellidousu; ?></td>
+                                                        <td  style='text-align:center'><?php echo $PaquetesDestino->["origenpaq"]["idusu"]["nombreusu"] . " " . $PaquetesDestino["origenpaq"]["idusu"]["apellidousu"]; ?></td>
                                                         <td  style='text-align:center'><?php echo $nombrebuz; ?></td>
                                                         <td style='text-align:center'><?php echo $asunto; ?></td>
-                                                        <td style='text-align:center'><?php echo $PaquetesDestino->return->iddoc->nombredoc; ?></td>
-                                                        <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($PaquetesDestino->return->fechapaq, 0, 10))); ?></td>
+                                                        <td style='text-align:center'><?php echo $PaquetesDestino["iddoc"]["nombredoc"];?></td>
+                                                        <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($PaquetesDestino["fechapaq"], 0, 10))); ?></td>
                                                     </tr>   
                                                     <?php
                                                 } else {
-                                                    for ($i = 0; $i < count($PaquetesDestino->return); $i++) {
-                                                        if (strlen($PaquetesDestino->return[$i]->asuntopaq) > 10) {
-                                                            $asunto = substr($PaquetesDestino->return[$i]->asuntopaq, 0, 10) . "...";
+                                                    for ($i = 0; $i < count($PaquetesDestino); $i++) {
+                                                        if (strlen($PaquetesDestino[$i]["asuntopaq"]) > 10) {
+                                                            $asunto = substr($PaquetesDestino[$i]["asuntopaq"], 0, 10) . "...";
                                                         } else {
-                                                            $asunto = $PaquetesDestino->return[$i]->asuntopaq;
+                                                            $asunto = $PaquetesDestino[$i]["asuntopaq"];
                                                         }
-                                                        if ($PaquetesDestino->return[$i]->destinopaq->tipobuz == 0) {
-                                                            $nombrebuz = $PaquetesDestino->return[$i]->destinopaq->idusu->nombreusu . " " . $PaquetesDestino->return[$i]->destinopaq->idusu->apellidousu;
+                                                        if ($PaquetesDestino[$i]["destinopaq"]["tipobuz"] == 0) {
+                                                            $nombrebuz = $PaquetesDestino[$i]["destinopaq"]["idusu"]["nombreusu"] . " " . $PaquetesDestino[$i]["destinopaq"]["idusu"]["apellidousu"];
                                                         } else {
-                                                            $nombrebuz = $PaquetesDestino->return[$i]->destinopaq->nombrebuz;
+                                                            $nombrebuz = $PaquetesDestino[$i]["destinopaq"]["nombrebuz"];
                                                         }
                                                         ?>
                                                         <tr class="success">     
-                                                            <td  style='text-align:center'><?php echo $PaquetesDestino->return[$i]->origenpaq->idusu->nombreusu . " " . $PaquetesDestino->return[$i]->origenpaq->idusu->apellidousu; ?></td>
+                                                            <td  style='text-align:center'><?php echo $PaquetesDestino[$i]["origenpaq"]["idusu"]["nombreusu"] . " " . $PaquetesDestino[$i]["origenpaq"]["idusu"]["apellidousu"]; ?></td>
                                                             <td  style='text-align:center'><?php echo $nombrebuz; ?></td>
                                                             <td style='text-align:center'><?php echo $asunto; ?></td>
-                                                            <td style='text-align:center'><?php echo $PaquetesDestino->return[$i]->iddoc->nombredoc; ?></td>
-                                                            <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($PaquetesDestino->return[$i]->fechapaq, 0, 10))); ?></td>
+                                                            <td style='text-align:center'><?php echo $PaquetesDestino[$i]["iddoc"]["nombredoc"]; ?></td>
+                                                            <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($PaquetesDestino[$i]["fechapaq"], 0, 10))); ?></td>
                                                         </tr>   
                                                         <?php
                                                     }
                                                 }//fin else
                                             }
-                                            if (isset($PaquetesOrigen->return)) {
-                                                if (count($PaquetesOrigen->return) == 1) {
-                                                    if (strlen($PaquetesOrigen->return->asuntopaq) > 10) {
-                                                        $asunto = substr($PaquetesOrigen->return->asuntopaq, 0, 10) . "...";
+                                            if (!isset($PaquetesOrigen[0])) {
+                                                if (count($PaquetesOrigen) == 1) {
+                                                    if (strlen($PaquetesOrigen["asuntopaq"]) > 10) {
+                                                        $asunto = substr($PaquetesOrigen["asuntopaq"], 0, 10) . "...";
                                                     } else {
-                                                        $asunto = $PaquetesOrigen->return->asuntopaq;
+                                                        $asunto = $PaquetesOrigen["asuntopaq"];
                                                     }
-                                                    if ($PaquetesOrigen->return->destinopaq->tipobuz == 0) {
-                                                        $nombrebuz = $PaquetesOrigen->return->destinopaq->idusubuz->nombreusu . " " . $PaquetesOrigen->return->destinopaq->idusubuz->apellidousu;
+                                                    if ($PaquetesOrigen["destinopaq"]["tipobuz"] == 0) {
+                                                        $nombrebuz = $PaquetesOrigen["destinopaq"]["idusu"]["nombreusu"]. " " . $PaquetesOrigen["destinopaq"]["idusu"]["apellidousu"];
                                                     } else {
-                                                        $nombrebuz = $PaquetesOrigen->return->destinopaq->nombrebuz;
+                                                        $nombrebuz = $PaquetesOrigen["destinopaq"]["nombrebuz"];
                                                     }
                                                     ?>
                                                     <tr class="info">     
-                                                        <td  style='text-align:center'><?php echo $PaquetesOrigen->return->origenpaq->idusu->nombreusu . " " . $PaquetesOrigen->return->origenpaq->idusu->apellidousu; ?></td>
+                                                        <td  style='text-align:center'><?php echo $PaquetesOrigen["origenpaq"]["idusu"]["nombreusu"]  . " " . $PaquetesOrigen["origenpaq"]["idusu"]["apellidousu"]; ?></td>
                                                         <td  style='text-align:center'><?php echo $nombrebuz; ?></td>
                                                         <td style='text-align:center'><?php echo $asunto; ?></td>
-                                                        <td style='text-align:center'><?php echo $PaquetesOrigen->return->iddoc->nombredoc; ?></td>
-                                                        <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($PaquetesOrigen->return->fechapaq, 0, 10))); ?></td>
+                                                        <td style='text-align:center'><?php echo $PaquetesOrigen["iddoc"]["nombredoc"]; ?></td>
+                                                        <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($PaquetesOrigen["fechapaq"], 0, 10))); ?></td>
                                                     </tr>   
                                                     <?php
                                                 } else {
-                                                    for ($i = 0; $i < count($PaquetesOrigen->return); $i++) {
-                                                        if (strlen($PaquetesOrigen->return[$i]->asuntopaq) > 10) {
-                                                            $asunto = substr($PaquetesOrigen->return[$i]->asuntopaq, 0, 10) . "...";
+                                                    for ($i = 0; $i < count($PaquetesOrigen); $i++) {
+                                                        if (strlen($PaquetesOrigen[$i]["asuntopaq"]) > 10) {
+                                                            $asunto = substr($PaquetesOrigen[$i]["asuntopaq"], 0, 10) . "...";
                                                         } else {
-                                                            $asunto = $PaquetesOrigen->return[$i]->asuntopaq;
+                                                            $asunto = $PaquetesOrigen[$i]["asuntopaq"];
                                                         }
-                                                        if ($PaquetesOrigen->return[$i]->destinopaq->tipobuz == 0) {
-                                                            $nombrebuz = $PaquetesOrigen->return[$i]->destinopaq->idusu->nombreusu . " " . $PaquetesOrigen->return[$i]->destinopaq->idusu->apellidousu;
+                                                        if ($PaquetesOrigen[$i]["destinopaq"]["tipobuz"] == 0) {
+                                                            $nombrebuz = $PaquetesOrigen[$i]["destinopaq"]["idusu"]["nombreusu"] . " " . $PaquetesOrigen[$i]["destinopaq"]["idusu"]["apellidousu"];
                                                         } else {
-                                                            $nombrebuz = $PaquetesOrigen->return[$i]->destinopaq->nombrebuz;
+                                                            $nombrebuz = $PaquetesOrigen[$i]["destinopaq"]["nombrebuz"];
                                                         }
                                                         ?>
                                                         <tr class="info">     
-                                                            <td  style='text-align:center'><?php echo $PaquetesOrigen->return[$i]->origenpaq->idusu->nombreusu . " " . $PaquetesOrigen->return[$i]->origenpaq->idusu->apellidousu; ?></td>
+                                                            <td  style='text-align:center'><?php echo $PaquetesOrigen[$i]->origenpaq->idusu->nombreusu . " " . $PaquetesOrigen[$i]->origenpaq->idusu->apellidousu; ?></td>
                                                             <td  style='text-align:center'><?php echo $nombrebuz; ?></td>
                                                             <td style='text-align:center'><?php echo $asunto; ?></td>
-                                                            <td style='text-align:center'><?php echo $PaquetesOrigen->return[$i]->iddoc->nombredoc; ?></td>
-                                                            <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($PaquetesOrigen->return[$i]->fechapaq, 0, 10))); ?></td>
+                                                            <td style='text-align:center'><?php echo $PaquetesOrigen[$i]->iddoc->nombredoc; ?></td>
+                                                            <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($PaquetesOrigen[$i]["fechapaq"], 0, 10))); ?></td>
                                                         </tr>   
                                                         <?php
                                                     }

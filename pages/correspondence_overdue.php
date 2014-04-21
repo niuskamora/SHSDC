@@ -16,17 +16,30 @@ try {
         $client = new SOAPClient($wsdl_sdc);
     $client->decode_utf8 = false;
     $UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-    $SedeRol = $client->consultarSedeRol($UsuarioRol);
-    $usu = array('idusu' => $_SESSION["Usuario"]->return->idusu);
+	$consumo = $client->call("consultarSedeRol",$UsuarioRol);
+	if ($consumo!="") {
+	$SedeRol = $consumo['return'];   
+    } else {
+        iraURL('../pages/inbox.php');
+    }    
+	$usu = array('idusu' => $_SESSION["Usuario"]->return->idusu);
     $sede = array('idsed' => $_SESSION["Sede"]->return->idsed);
-
     $parametros = array('registroUsuario' => $usu,
         'registroSede' => $sede);
-    $PaquetesDestino = $client->paquetesVencidosXDestino($parametros);
-    $PaquetesOrigen = $client->paquetesVencidosXOrigen($parametros);
+	$consumo = $client->call("paquetesVencidosXDestino",$parametros);
+	if ($consumo!="") {
+	$PaquetesDestino = $consumo['return'];   
+    } 
+	$consumo = $client->call("paquetesVencidosXOrigen",$parametros);
+	if ($consumo!="") {
+	$PaquetesOrigen = $consumo['return'];   
+    } 
+    //$PaquetesDestino = $client->paquetesVencidosXDestino($parametros);
+    //$PaquetesOrigen = $client->paquetesVencidosXOrigen($parametros);
     include("../views/correspondence_overdue.php");
 } catch (Exception $e) {
     javaalert('Lo sentimos no hay conexion');
     iraURL('../pages/inbox.php');
+
 }
 ?>

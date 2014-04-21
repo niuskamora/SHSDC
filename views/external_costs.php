@@ -1,5 +1,5 @@
 <?php
-if (!isset($SedeRol->return)) {
+if (!isset($SedeRol)) {
     echo '<script language="javascript"> window.location = "../pages/inbox.php"; </script>';
 }
 ?>
@@ -84,7 +84,7 @@ if (!isset($SedeRol->return)) {
                                 <div class="row-fluid">
                                     <div id="data">
                                         <?php
-                                        if (isset($PaquetesExternos->return)) {
+                                        if (isset($PaquetesExternos)) {
 
                                             echo "<br>";
                                             ?>
@@ -103,47 +103,47 @@ if (!isset($SedeRol->return)) {
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    if (count($PaquetesExternos->return) == 1) {
-                                                        if ($PaquetesExternos->return->respaq == "0") {
+                                                    if (!isset($PaquetesExternos[0])) {
+                                                        if ($PaquetesExternos["respaq"] == "0") {
                                                             $rta = "No";
                                                         } else {
                                                             $rta = "Si";
                                                         }
-                                                        if (strlen($PaquetesExternos->return->asuntopaq) > 10) {
-                                                            $asunto = substr($PaquetesExternos->return->asuntopaq, 0, 10) . "...";
+                                                        if (strlen($PaquetesExternos["asuntopaq"]) > 10) {
+                                                            $asunto = substr($PaquetesExternos["asuntopaq"], 0, 10) . "...";
                                                         } else {
-                                                            $asunto = $PaquetesExternos->return->asuntopaq;
+                                                            $asunto = $PaquetesExternos["asuntopaq"];
                                                         }
                                                         ?>
                                                         <tr>     
-                                                            <td  style='text-align:center'><?php echo $PaquetesExternos->return->origenpaq->idusu->nombreusu . " " . $PaquetesExternos->return->origenpaq->idusu->apellidousu; ?></td>
-                                                            <td style='text-align:center'><?php echo $PaquetesExternos->return->destinopaq->nombrebuz; ?></td>
+                                                            <td  style='text-align:center'><?php echo $PaquetesExternos["origenpaq"]["idusu"]["nombreusu"] . " " . $PaquetesExternos["origenpaq"]["idusu"]["apellidousu"]; ?></td>
+                                                            <td style='text-align:center'><?php echo $PaquetesExternos["destinopaq"]["nombrebuz"]; ?></td>
                                                             <td style='text-align:center'><?php echo $asunto; ?></td>
                                                             <td style='text-align:center'><?php echo $rta; ?></td>
-                                                            <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($PaquetesExternos->return->fechapaq, 0, 10))); ?></td>
-                                                            <td style='text-align:center'><input type="radio" name="ide" id="ide" value="<?php echo $PaquetesExternos->return->idpaq; ?>"></td>  
+                                                            <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($PaquetesExternos["fechapaq"], 0, 10))); ?></td>
+                                                            <td style='text-align:center'><input type="radio" name="ide" id="ide" value="<?php echo $PaquetesExternos["idpaq"]; ?>"></td>  
                                                         </tr>   
                                                         <?php
                                                     } else {
-                                                        for ($i = 0; $i < count($PaquetesExternos->return); $i++) {
-                                                            if ($PaquetesExternos->return[$i]->respaq == "0") {
+                                                        for ($i = 0; $i < count($PaquetesExternos); $i++) {
+                                                            if ($PaquetesExternos[$i]["respaq"] == "0") {
                                                                 $rta = "No";
                                                             } else {
                                                                 $rta = "Si";
                                                             }
-                                                            if (strlen($PaquetesExternos->return[$i]->asuntopaq) > 10) {
-                                                                $asunto = substr($PaquetesExternos->return[$i]->asuntopaq, 0, 10) . "...";
+                                                            if (strlen($PaquetesExternos[$i]["asuntopaq"]) > 10) {
+                                                                $asunto = substr($PaquetesExternos[$i]["asuntopaq"], 0, 10) . "...";
                                                             } else {
-                                                                $asunto = $PaquetesExternos->return[$i]->asuntopaq;
+                                                                $asunto = $PaquetesExternos[$i]["asuntopaq"];
                                                             }
                                                             ?>
                                                             <tr>     
-                                                                <td  style='text-align:center'><?php echo $PaquetesExternos->return[$i]->origenpaq->idusu->nombreusu . " " . $PaquetesExternos->return[$i]->origenpaq->idusu->apellidousu; ?></td>
-                                                                <td style='text-align:center'><?php echo $PaquetesExternos->return[$i]->destinopaq->nombrebuz; ?></td>
+                                                                <td  style='text-align:center'><?php echo $PaquetesExternos[$i]["origenpaq"]["idusu"]["nombreusu"]. " " . $PaquetesExternos[$i]"origenpaq"]["idusu"]["apellidousu"]; ?></td>
+                                                                <td style='text-align:center'><?php echo $PaquetesExternos[$i]["destinopaq"]["nombrebuz"]; ?></td>
                                                                 <td style='text-align:center'><?php echo $asunto; ?></td>
                                                                 <td style='text-align:center'><?php echo $rta; ?></td>
-                                                                <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($PaquetesExternos->return[$i]->fechapaq, 0, 10))); ?></td>
-                                                                <td style='text-align:center'><input type="radio" name="ide" id="ide" value="<?php echo $PaquetesExternos->return[$i]->idpaq; ?>"></td>  
+                                                                <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($PaquetesExternos[$i]["fechapaq"], 0, 10))); ?></td>
+                                                                <td style='text-align:center'><input type="radio" name="ide" id="ide" value="<?php echo $PaquetesExternos[$i]["idpaq"]; ?>"></td>  
                                                             </tr>   
                                                             <?php
                                                         }

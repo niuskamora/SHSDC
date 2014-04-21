@@ -16,28 +16,44 @@ if (!isset($_SESSION["Usuario"])) {
 try {
 $client = new SOAPClient($wsdl_sdc);
 $client->decode_utf8 = false;
-$UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-$SedeRol = $client->consultarSedeRol($UsuarioRol);
+     $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"], 'sede' => $_SESSION["Sede"]["nombresed"]);
+$consumo = $client->call("consultarSedeRol",$UsuarioRol);
+	if ($consumo!="") {
+	$SedeRol = $consumo['return'];   
+    } else {
+        iraURL('../pages/inbox.php');
+    }
 $idPaquete = array('idPaquete' => $_GET['idpaqr']);
-$Paquete = $client->ConsultarPaqueteXId($idPaquete);
+$consumo = $client->call("ConsultarPaqueteXId",$idPaquete);
+	if ($consumo!="") {
+	$Paquete = $consumo['return'];   
+    }
+//$Paquete = $client->ConsultarPaqueteXId($idPaquete);
 
-if (!isset($Paquete->return)) {
+if (!isset($Paquete)) {
     iraURL('../pages/inbox.php');
-} elseif ($Paquete->return->statuspaq != "1" && $Paquete->return->destinopaq->idusu->idusu != $_SESSION["Usuario"]->return->idusu) {
+} elseif ($Paquete["statuspaq"] != "1" && $Paquete["destinopaq"]["idusu"]["idusu"] != $_SESSION["Usuario"]["idusu"]) {
     iraURL('../pages/inbox.php');
 }
-$contacto = array('idusu' => $Paquete->return->origenpaq->idusu->idusu);
-$dueno = array('idusu' => $Paquete->return->destinopaq->idusu->idusu);
+$contacto = array('idusu' => $Paquete["origenpaq"]["idusu"]["idusu"]);
+$dueno = array('idusu' => $Paquete["destinopaq"]["idusu"]["idusu"]);
 
 
-$rowDocumentos = $client->listarDocumentos();
-$rowPrioridad = $client->listarPrioridad();
-
-if (!isset($rowDocumentos->return)) {
+//$rowDocumentos = $client->listarDocumentos();
+$consumo = $client->call("listarDocumentos");
+	if ($consumo!="") {
+	$Paquete = $consumo['return'];   
+    }
+//$rowPrioridad = $client->listarPrioridad();
+$consumo = $client->call("listarPrioridad");
+	if ($consumo!="") {
+	$Paquete = $consumo['return'];   
+    }
+if (!isset($rowDocumentos)) {
     javaalert("Lo sentimos no se puede enviar correspondencia porque no hay Tipos de documentos registrados, Consulte con el Administrador");
     iraURL('../pages/inbox.php');
 }
-if (!isset($rowPrioridad->return)) {
+if (!isset($rowPrioridad)) {
     javaalert("Lo sentimos no se puede enviar correspondencia porque no hay Prioridades registradas, Consulte con el Administrador");
     iraURL('../pages/inbox.php');
 }
@@ -48,11 +64,11 @@ if (isset($_POST["enviar"])) {
                 $fra = "1";
             } else {
                 $fra = "0";
-            }		 $origenpaq = array('idbuz' => $Paquete->return->destinopaq->idbuz);
-            $destinopaq = array('idbuz' => $Paquete->return->origenpaq->idbuz);
+            }		 $origenpaq = array('idbuz' => $Paquete["destinopaq"]["idbuz"]);
+            $destinopaq = array('idbuz' => $Paquete["origenpaq"]["idbuz"]);
             $prioridad = array('idpri' => $_POST["prioridad"]);
             $documento = array('iddoc' => $_POST["doc"]);
-            $sede = array('idsed' => $_SESSION["Sede"]->return->idsed);
+            $sede = array('idsed' => $_SESSION["Sede"]["idsed"]);
             $idPadre = array('idpaq' => $_GET['idpaqr']);
             $paquete = array('origenpaq' => $origenpaq,
                 'destinopaq' => $destinopaq,
@@ -62,7 +78,7 @@ if (isset($_POST["enviar"])) {
                 'statuspaq' => "0",
 				'fragilpaq' => $fra,
                 'respaq' => "0",
-                'localizacionpaq' => $Paquete->return->destinopaq->idusu->userusu,
+                'localizacionpaq' => $Paquete["destinopaq"]["idusu"]["userusu"],
                 'idpri' => $prioridad,
                 'iddoc' => $documento,
                 'idsed' => $sede,
@@ -70,14 +86,30 @@ if (isset($_POST["enviar"])) {
             $registro = array('registroPaquete' => $paquete);
 
             $envio = $client->crearPaquete($registro);  //pilas ismael
-            $paramUltimo = array('idUsuario' => $Paquete->return->destinopaq->idusu->idusu);
-            $idPaquete = $client->ultimoPaqueteXOrigen($paramUltimo);
-            $paq = array('idpaq' => $idPaquete->return->idpaq);
-            $bandejaorigen = $client->insertarBandejaOrigen($paq);
-            $bandejaDestino = $client->insertarBandejaDestino($paq);
+            $paramUltimo = array('idUsuario' => $Paquete["destinopaq"]["idusu"]["idusu"]);
+//            $idPaquete = $client->ultimoPaqueteXOrigen($paramUltimo);
+			$consumo = $client->call("ultimoPaqueteXOrigen",$paramUltimo);
+				if ($consumo!="") {
+				$idPaquete = $consumo['return'];   
+				}
+		    $paq = array('idpaq' => $idPaquete["idpaq"]);
+            $consumo = $client->call("insertarBandejaOrigen",$paq);
+				if ($consumo!="") {
+				$bandejaorigen = $consumo['return'];   
+				}
+			$consumo = $client->call("insertarBandejaDestino",$paq);
+				if ($consumo!="") {
+				$bandejaDestino = $consumo['return'];   
+				}	
+			//$bandejaorigen = $client->insertarBandejaOrigen($paq);
+            //$bandejaDestino = $client->insertarBandejaDestino($paq);
             $paramPadre = array('idpaq' => $_GET['idpaqr']);
-            $ResPadre = $client->editarRespuestaPaquete($paramPadre);
-            if ($_FILES['imagen']['name'] != "") {
+           // $ResPadre = $client->editarRespuestaPaquete($paramPadre);
+            $consumo = $client->call("editarRespuestaPaquete",$paramPadre);
+				if ($consumo!="") {
+				$ResPadre = $consumo['return'];   
+				}	
+			if ($_FILES['imagen']['name'] != "") {
                 $imagenName = $_FILES['imagen']['name'];
                 $caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"; //posibles caracteres a usar
                 $numerodeletras = 5; //numero de letras para generar el texto
@@ -97,20 +129,24 @@ if (isset($_POST["enviar"])) {
                     'urladj' => $Ruta,
                     'idpaq' => $paq);
                 $par = array('registroAdj' => $adj);
-                $Rta = $client->insertarAdjunto($par);
+                //$Rta = $client->insertarAdjunto($par);
+				 $consumo = $client->call("insertarAdjunto",$par);
+				if ($consumo!="") {
+				$Rta = $consumo['return'];   
+				}	
             }
-            if (!isset($envio->return) || !isset($bandejaorigen->return) || !isset($bandejaDestino->return) || !isset($ResPadre->return)) {
+            if (!isset($envio) || !isset($bandejaorigen) || !isset($bandejaDestino) || !isset($ResPadre)) {
                 javaalert("La correspondencia no ha podido ser enviada correctamente , por favor consulte con el administrador");
             } else {
-                if ($envio->return == "1" && $bandejaorigen->return == "1" && $bandejaDestino->return == "1" && $ResPadre->return == "1") {
+                if ($envio == "1" && $bandejaorigen == "1" && $bandejaDestino == "1" && $ResPadre == "1") {
                     javaalert("La correspondencia ha sido enviada");
-					$usuario = array('idusu' => $Paquete->return->destinopaq->idusu->idusu);
+					$usuario = array('idusu' => $Paquete["destinopaq"]["idusu"]["idusu"]);
 					$parametros = array('registroPaquete' => $paq,
                     'registroUsuario' => $usuario,
                     'registroSede' => $sede,
                     'Caso' => "Envio");
-					$seg = $client->registroSeguimiento($parametros);
-                    llenarLog(1, "Envio de Respuesta de Correspondencia", $_SESSION["Usuario"]->return->idusu, $_SESSION["Sede"]->return->idsed);
+					$consumo = $client->call("registroSeguimiento",$parametros);
+                    llenarLog(1, "Envio de Respuesta de Correspondencia", $_SESSION["Usuario"]["idusu"], $_SESSION["Sede"]["idsed"]);
                 }
             }
             iraURL('../pages/inbox.php');

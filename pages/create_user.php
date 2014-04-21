@@ -25,11 +25,13 @@ try {
       iraURL('../index.php');   //ojo necesito el index
       } */    //importante:implementar cuando se tenga el index 
 
-    $Sedes = $client->listarSedes();
-    if (!isset($Sedes->return)) {
-        javaalert("Lo sentimos no se puede crear el usuario porque no hay sedes registradas,Consulte con el Administrador");
+     $consumo = $client->call("listarSedes");
+	if ($consumo!="") {
+	$Sedes = $consumo['return'];   
+	}else{
+	javaalert("Lo sentimos no se puede crear el usuario porque no hay sedes registradas,Consulte con el Administrador");
         iraURL('../index.php');
-    }
+	}
 
     if (isset($_POST["crear"])) {
         if (isset($_POST["nombre"]) && $_POST["nombre"] != "" && isset($_POST["apellido"]) && $_POST["apellido"] != "" && isset($_POST["correo"]) && $_POST["correo"] != "" && isset($_POST["cargo"]) && $_POST["cargo"] != "" && isset($_POST["sede"]) && $_POST["sede"] != "" && isset($_POST["area"]) && $_POST["area"] != "") {
@@ -64,24 +66,32 @@ try {
                     'statususu' => "1",
                     'borradousu' => "0");
                 $parametros = array('registroUsuario' => $Usuario);
-                $client->insertarUsuario($parametros);
+				$consumo = $client->call("insertarUsuario",$parametros);
+                //$client->insertarUsuario($parametros);
                 $sede = array('idsed' => $_POST["sede"]);
                 $area = array('idatr' => $_POST["area"]);
                 $rol = array('idrol' => "6");
                 $usuSede = array('idsed' => $sede, 'idrol' => $rol, 'idatr' => $area);
                 $RegUsuSede = array('registroUsuSede' => $usuSede,
                     'userUsu' => $usernuevo);
+					$consumo = $client->call("insertarUsuarioSedeXDefecto",$RegUsuSede);
+					if(isset($consumo)){
+					$guardo=$consumo["return"];
+					}
+              //  $guardo = $client->insertarUsuarioSedeXDefecto($RegUsuSede);
 
-                $guardo = $client->insertarUsuarioSedeXDefecto($RegUsuSede);
-
-                if ($guardo->return == 0) {
+                if ($guardo == 0) {
                     javaalert("No se han Guardado los datos del Usuario, Consulte con el Admininistrador");
                 } else {
                     $Usuario = array('user' => $usernuevo);
-                    $UsuarioLogIn = $client->consultarUsuarioXUser($Usuario);
+					$consumo = $client->call("consultarUsuarioXUser",$Usuario);
+                    if(isset($consumo)){
+					$UsuarioLogIn=$consumo["return"];
+					}
+					//$UsuarioLogIn = $client->consultarUsuarioXUser($Usuario);
                     $_SESSION["Usuario"] = $UsuarioLogIn;
                     javaalert("Se han Guardado los datos del Usuario");
-                    llenarLog(1, "Inserción de Usuario", $_SESSION["Usuario"]->return->idusu, $_POST["sede"]);
+                    llenarLog(1, "Inserción de Usuario", $_SESSION["Usuario"]["idusu"], $_POST["sede"]);
                 }
                 iraURL('../index.php');
             } else {

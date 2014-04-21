@@ -1,5 +1,5 @@
 <?php
-if (!isset($Usuario->return)) {
+if (!isset($Usuario)) {
     echo '<script language="javascript"> window.location = "../pages/inbox.php"; </script>';
 }
 ?>
@@ -56,23 +56,23 @@ if (!isset($Usuario->return)) {
     $telefono2 = "";
     $direccion1 = "";
     $direccion2 = "";
-    if (isset($Usuario->return->apellidousu)) {
-        $apellido = $Usuario->return->apellidousu;
+    if (isset($Usuario["apellidousu"])) {
+        $apellido = $Usuario["apellidousu"];
     }
-    if (isset($Usuario->return->correousu)) {
-        $correo = $Usuario->return->correousu;
+    if (isset($Usuario["correousu"])) {
+        $correo = $Usuario["correousu"];
     }
-    if (isset($Usuario->return->telefonousu)) {
-        $telefono1 = $Usuario->return->telefonousu;
+    if (isset($Usuario["telefonousu"])) {
+        $telefono1 = $Usuario["telefonousu"];
     }
-    if (isset($Usuario->return->telefono2usu)) {
-        $telefono2 = $Usuario->return->telefono2usu;
+    if (isset($Usuario["telefono2usu"])) {
+        $telefono2 = $Usuario["telefono2usu"];
     }
-    if (isset($Usuario->return->direccionusu)) {
-        $direccion1 = $Usuario->return->direccionusu;
+    if (isset($Usuario["direccionusu"])) {
+        $direccion1 = $Usuario["direccionusu"];
     }
-    if (isset($Usuario->return->direccion2usu)) {
-        $direccion2 = $Usuario->return->direccion2usu;
+    if (isset($Usuario["direccion2usu"])) {
+        $direccion2 = $Usuario["direccion2usu"];
     }
     ?>
     <body class="appBg">
@@ -114,7 +114,7 @@ if (!isset($Usuario->return)) {
                                 <table class='footable table table-striped table-bordered'>
                                     <tr>
                                         <td style="text-align:center" >Nombre</td>
-                                        <td style="text-align:center"><input type="text" name="nombre" id="nombre" autocomplete="off" value="<?php echo $Usuario->return->nombreusu; ?>" maxlength="150" size="30"  autofocus required></td>
+                                        <td style="text-align:center"><input type="text" name="nombre" id="nombre" autocomplete="off" value="<?php echo $Usuario["nombreusu"]; ?>" maxlength="150" size="30"  autofocus required></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align:center">Apellido</td>
@@ -127,7 +127,7 @@ if (!isset($Usuario->return)) {
                                     </tr>
                                     <tr>
                                         <td style="text-align:center" width="50%">Usuario</td>
-                                        <td style="text-align:center"><input type="text" name="usuario" id="usuario"  value="<?php echo $Usuario->return->userusu; ?>" size="30"   disabled>
+                                        <td style="text-align:center"><input type="text" name="usuario" id="usuario"  value="<?php echo $Usuario["userusu"]; ?>" size="30"   disabled>
                                         </td>		
                                     </tr>
                                     <tr>

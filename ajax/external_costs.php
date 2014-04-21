@@ -13,14 +13,20 @@ if (!isset($_SESSION["Usuario"])) {
     iraURL("../pages/inbox.php");
 }
 try {
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
+      
     $idPaquete = array('idPaquete' => $_POST['idpaq']);
-    $rowPaquete = $client->ConsultarPaqueteXId($idPaquete);
-    $idsede = array('idsed' => $_SESSION["Sede"]->return->idsed);
+   // $rowPaquete = $client->ConsultarPaqueteXId($idPaquete);
+   $consumo = $client->call("ConsultarPaqueteXId",$idPaquete);
+	if ($consumo!="") {
+	$rowPaquete = $consumo['return'];   
+	}
+    $idsede = array('idsed' => $_SESSION["Sede"]["idsed"]);
     $sede = array('sede' => $idsede);
-
-    $resultadoProveedor = $client->consultarProveedorXSede($sede);
+	$consumo = $client->call("consultarProveedorXSede",$sede);
+	if ($consumo!="") {
+	$resultadoProveedor = $consumo['return'];   
+	}
+   //$resultadoProveedor = $client->consultarProveedorXSede($sede);
     ?>
 
     <!-- styles -->
@@ -48,21 +54,21 @@ try {
 
     <div id="data">
         <?php
-        if (isset($rowPaquete->return)) {
-            if ($rowPaquete->return->respaq == "0") {
+        if (isset($rowPaquete)) {
+            if ($rowPaquete["respaq"] == "0") {
                 $rta = "No";
             } else {
                 $rta = "Si";
             }
-            if (strlen($rowPaquete->return->textopaq) > 10) {
-                $contenido = substr($rowPaquete->return->textopaq, 0, 10) . "...";
+            if (strlen($rowPaquete["textopaq"]) > 10) {
+                $contenido = substr($rowPaquete["textopaq"], 0, 10) . "...";
             } else {
-                $contenido = $rowPaquete->return->textopaq;
+                $contenido = $rowPaquete["textopaq"];
             }
-            if (strlen($rowPaquete->return->asuntopaq) > 10) {
-                $asunto = substr($rowPaquete->return->asuntopaq, 0, 10) . "...";
+            if (strlen($rowPaquete["asuntopaq"]) > 10) {
+                $asunto = substr($rowPaquete["asuntopaq"], 0, 10) . "...";
             } else {
-                $asunto = $rowPaquete->return->asuntopaq;
+                $asunto = $rowPaquete["asuntopaq"];
             }
             echo "<br>";
             ?>  <h2>Correspondencia seleccionada</h2>
@@ -78,25 +84,14 @@ try {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    if ($rowPaquete->return->respaq == "0") {
-                        $rta = "No";
-                    } else {
-                        $rta = "Si";
-                    }
-                    if (strlen($rowPaquete->return->asuntopaq) > 10) {
-                        $asunto = substr($rowPaquete->return->asuntopaq, 0, 10) . "...";
-                    } else {
-                        $asunto = $rowPaquete->return->asuntopaq;
-                    }
-                    ?>
+                    
                     <tr>   
-                        <td  style='text-align:center'><?php echo $rowPaquete->return->idpaq; ?></td>	
-                        <td  style='text-align:center'><?php echo $rowPaquete->return->origenpaq->idusu->nombreusu . " " . $rowPaquete->return->origenpaq->idusu->apellidousu; ?></td>
-                        <td style='text-align:center'><?php echo $rowPaquete->return->destinopaq->nombrebuz; ?></td>
+                        <td  style='text-align:center'><?php echo $rowPaquete["idpaq"]; ?></td>	
+                        <td  style='text-align:center'><?php echo $rowPaquete["origenpaq"]["idusu"]["nombreusu"] . " " . $rowPaquete["origenpaq"]["idusu"]["apellidousu"]; ?></td>
+                        <td style='text-align:center'><?php echo $rowPaquete["destinopaq"]["nombrebuz"]; ?></td>
                         <td style='text-align:center'><?php echo $asunto; ?></td>
                         <td style='text-align:center'><?php echo $rta; ?></td>
-                        <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($rowPaquete->return->fechapaq, 0, 10))); ?></td>
+                        <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($rowPaquete["fechapaq"], 0, 10))); ?></td>
                     </tr>   
                 </tbody>
             </table>
@@ -105,14 +100,14 @@ try {
                 <select name='proveedor' id='proveedor' required  title='Seleccione el Proveedor'>
                     <option value='' style='display:none'>Seleccionar:</option>
                     <?php
-                    if (count($resultadoProveedor->return) > 1) {
+                    if (isset($resultadoProveedor[0])) {
                         $i = 0;
-                        while (count($resultadoProveedor->return) > $i) {
-                            echo "<option value='" . $resultadoProveedor->return[$i]->nombrepro . "' >" . $resultadoProveedor->return[$i]->nombrepro . "</option>";
+                        while (count($resultadoProveedor) > $i) {
+                            echo "<option value='" . $resultadoProveedor[$i]["nombrepro"] . "' >" . $resultadoProveedor[$i]["nombrepro"]. "</option>";
                             $i++;
                         }
                     } else {
-                        echo "<option value='" . $resultadoProveedor->return->nombrepro . "' >" . $resultadoProveedor->return->nombrepro . "</option>";
+                        echo "<option value='" . $resultadoProveedor["nombrepro"] . "' >" . $resultadoProveedor["nombrepro"] . "</option>";
                     }
                     ?>
                 </select>

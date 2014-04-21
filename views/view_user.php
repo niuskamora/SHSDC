@@ -1,5 +1,5 @@
 <?php
-if (!isset($Usuario->return)) {
+if (!isset($Usuario)) {
     echo '<script language="javascript"> window.location = "../pages/inbox.php"; </script>';
 }
 ?>
@@ -15,7 +15,7 @@ if (!isset($Usuario->return)) {
         <!-- javascript -->
         <script type='text/javascript' src="../js/jquery-1.9.1.js"></script>
         <script type='text/javascript' src="../js/bootstrap.js"></script>
-        <script type='text/javascript' src="../js/bootstrap-transition.js"></script>
+        <script type='text/javascript' src="../js/bootst<rap-transition.js"></script>
         <script type='text/javascript' src="../js/bootstrap-tooltip.js"></script>
         <script type='text/javascript' src="../js/modernizr.min.js"></script>
 <!--<script type='text/javascript' src="../js/togglesidebar.js"></script>-->	
@@ -57,23 +57,23 @@ if (!isset($Usuario->return)) {
     $telefono2 = "";
     $direccion1 = "";
     $direccion2 = "";
-    if (isset($Usuario->return->apellidousu)) {
-        $apellido = $Usuario->return->apellidousu;
+    if (isset($Usuario["apellidousu"])) {
+        $apellido = $Usuario["apellidousu"];
     }
-    if (isset($Usuario->return->correousu)) {
-        $correo = $Usuario->return->correousu;
+    if (isset($Usuario["correousu"])) {
+        $correo = $Usuario["correousu"];
     }
-    if (isset($Usuario->return->telefonousu)) {
-        $telefono1 = $Usuario->return->telefonousu;
+    if (isset($Usuario["telefonousu"])) {
+        $telefono1 = $Usuario["telefonousu"];
     }
-    if (isset($Usuario->return->telefono2usu)) {
-        $telefono2 = $Usuario->return->telefono2usu;
+    if (isset($Usuario["telefono2usu"])) {
+        $telefono2 = $Usuario["telefono2usu"];
     }
-    if (isset($Usuario->return->direccionusu)) {
-        $direccion1 = $Usuario->return->direccionusu;
+    if (isset($Usuario["direccionusu"])) {
+        $direccion1 = $Usuario["direccionusu"];
     }
-    if (isset($Usuario->return->direccion2usu)) {
-        $direccion2 = $Usuario->return->direccion2usu;
+    if (isset($Usuario["direccion2usu"])) {
+        $direccion2 = $Usuario["direccion2usu"];
     }
     ?>
     <body class="appBg">
@@ -123,7 +123,7 @@ if (!isset($Usuario->return)) {
                                 <table class='footable table table-striped table-bordered'>
                                     <tr>
                                         <td style="text-align:center" ><b>Nombre</b></td>
-                                        <td style="text-align:center"><?php echo $Usuario->return->nombreusu; ?></td>
+                                        <td style="text-align:center"><?php echo $Usuario["nombreusu"]; ?></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align:center"><b>Apellido</b></td>
@@ -135,7 +135,7 @@ if (!isset($Usuario->return)) {
                                     </tr>
                                     <tr>
                                         <td style="text-align:center" width="50%"><b>Usuario</b></td>
-                                        <td style="text-align:center"><?php echo $Usuario->return->userusu; ?>
+                                        <td style="text-align:center"><?php echo $Usuario["userusu"]; ?>
                                         </td>		
                                     </tr>
                                     <tr>

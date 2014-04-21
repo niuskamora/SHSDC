@@ -13,29 +13,36 @@ if (!isset($_SESSION["Usuario"])) {
     iraURL("../pages/inbox.php");
 }
 try {
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
-    $UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-    $SedeRol = $client->consultarSedeRol($UsuarioRol);
-    if (isset($SedeRol->return)) {
-        if ($SedeRol->return->idrol->idrol != "2" && $SedeRol->return->idrol->idrol != "5") {
+
+    $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"], 'sede' => $_SESSION["Sede"]["nombresed"]);
+	$consumo = $client->call("consultarSedeRol",$UsuarioRol);
+	if ($consumo!="") {
+	$SedeRol = $consumo['return'];   
+        if ($SedeRol["idrol"]["idrol"] != "2" && $SedeRol["idrol"]["idrol"] != "5") {
             iraURL('../pages/inbox.php');
         }
     } else {
         iraURL('../pages/inbox.php');
     }
-
     $idPaquete = array('idPaquete' => $_POST['idpaq']);
-    $Paquete = $client->ConsultarPaqueteXId($idPaquete);
-    $usu = array('idusu' => $_SESSION["Usuario"]->return->idusu);
-    if (isset($Paquete->return)) {
+   // $Paquete = $client->ConsultarPaqueteXId($idPaquete);
+	$consumo = $client->call("ConsultarPaqueteXId",$idPaquete);
+	if ($consumo!="") {
+	$Paquete = $consumo['return'];   
+	}
+    $usu = array('idusu' => $_SESSION["Usuario"]["idusu"]);
+    if (isset($Paquete)) {
         $idPaquete = array('idpaq' => $_POST['idpaq']);
-        $sede = array('idsed' => $_SESSION["Sede"]->return->idsed);
+        $sede = array('idsed' => $_SESSION["Sede"]["idsed"]);
         $parametros = array('registroPaquete' => $idPaquete,
             'registroUsuario' => $usu,
             'registroSede' => $sede,
             'localizacion' => $_POST['localizacion']);
-        $seg = $client->seguimientoExterno($parametros);
+		$consumo = $client->call("seguimientoExterno",$parametros);
+		if ($consumo!="") {
+		$seg = $consumo['return'];   
+		}
+       // $seg = $client->seguimientoExterno($parametros);
         ?>
 
         <!-- styles -->
@@ -63,13 +70,13 @@ try {
 
         <div id="data">
             <?php
-            if ($seg->return == 0) {
+            if ($seg == 0) {
                 echo "<br>";
                 echo"<div class='alert alert-block' align='center'>
 			<h2 style='color:rgb(255,255,255)' align='center'>Atención</h2>
 			<h4 align='center'>Paquete con seguimiento errado ,consulte con el administrador </h4>
 		</div> ";
-            } elseif ($seg->return == 1) {
+            } elseif ($seg== 1) {
                 echo"<div class='alert alert-block' align='center'>
 			<h2 style='color:rgb(255,255,255)' align='center'>Atención</h2>
 			<h4 align='center'>Se ha enviado el paquete exitósamente </h4>

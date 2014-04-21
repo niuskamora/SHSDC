@@ -12,13 +12,20 @@ require_once("../core/Crypt/AES.php");
     } elseif (!usuarioCreado()) {
         iraURL("../pages/create_user.php");
     }
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
-    $UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-    $SedeRol = $client->consultarSedeRol($UsuarioRol);
-    $usuario = array('user' => $_SESSION["Usuario"]->return->userusu);
-    $Usuario = $client->consultarUsuarioXUser($usuario);
-
+      
+    $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"], 'sede' => $_SESSION["Sede"]["nombresed"]);
+	$consumo = $client->call("consultarSedeRol",$UsuarioRol);
+	if ($consumo!="") {
+	$SedeRol = $consumo['return'];   
+    } else {
+        iraURL('../pages/inbox.php');
+    }   
+    $usuario = array('user' => $_SESSION["Usuario"]["userusu"]);
+    //$Usuario = $client->consultarUsuarioXUser($usuario);
+	$consumo = $client->call("consultarUsuarioXUser",$usuario);
+	if ($consumo!="") {
+	$Usuario = $consumo['return'];   
+    }
     if (isset($_POST["guardar"])) {
         if (isset($_POST["nombre"]) && $_POST["nombre"] != "" && isset($_POST["apellido"]) && $_POST["apellido"] != "" && isset($_POST["correo"]) && $_POST["correo"] != "") {
             $telefono1 = "";
@@ -47,12 +54,16 @@ require_once("../core/Crypt/AES.php");
                             'telefono2usu' => $telefono2,
                             'userusu' => $Usuario->return->userusu);
                 $registroU = array('registroUsuario' => $registroUsu);
-                $guardo = $client->editarUsuario($registroU);
-                if ($guardo->return == 0) {
+               	$consumo = $client->call("editarUsuario",$registroU);
+				if($consumo!=""){
+				$guardo=$consumo["return"];
+				}
+			   // $guardo = $client->editarUsuario($registroU);
+                if ($guardo == 0) {
                     javaalert("No se han Guardado los datos del Usuario, Consulte con el Admininistrador");
                 } else {
                     javaalert("Se han Guardado los datos del Usuario");
-                    llenarLog(9, "Edición de Usuario", $_SESSION["Usuario"]->return->idusu, $_SESSION["Sede"]->return->idsed);
+                    llenarLog(9, "Edición de Usuario", $_SESSION["Usuario"]["idusu"], $_SESSION["Sede"]["idsed"]);
                 }
                 iraURL('../pages/inbox.php');
             }
