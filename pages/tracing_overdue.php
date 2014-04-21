@@ -7,21 +7,28 @@ require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
-
-if (!isset($_SESSION["Usuario"])) {
-    iraURL("../index.php");
-} elseif (!usuarioCreado()) {
-    iraURL("../pages/create_user.php");
-}
 try {
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
-    $UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-    $SedeRol = $client->consultarSedeRol($UsuarioRol);
-    $usu = array('iduse' => $SedeRol->return->iduse);
+    $client = new nusoap_client($wsdl_sdc, 'wsdl');
+	$_SESSION["cli"]=$client;
+	if (!isset($_SESSION["Usuario"])) {
+    iraURL("../index.php");
+	} elseif (!usuarioCreado()) {
+		iraURL("../pages/create_user.php");
+	}
+    $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"], 'sede' => $_SESSION["Sede"]["nombresed"]);
+	$consumo = $client->call("consultarSedeRol",$UsuarioRol);
+	if ($consumo!="") {
+	$SedeRol = $consumo['return'];   
+    } else {
+        iraURL('../pages/inbox.php');
+    }    
+    $usu = array('iduse' => $SedeRol["iduse"]);
     $parametros = array('usuarioSede' => $usu);
-    $PaquetesDestino = $client->paquetesVencidosXSeguimiento($parametros);
-    
+    //$PaquetesDestino = $client->paquetesVencidosXSeguimiento($parametros);
+    $consumo = $client->call("paquetesVencidosXSeguimiento",$parametros);
+	if ($consumo!="") {
+	$PaquetesDestino = $consumo['return'];   
+    } 
     include("../views/tracing_overdue.php");
 } catch (Exception $e) {
     javaalert('Lo sentimos no hay conexion');

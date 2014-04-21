@@ -1,5 +1,5 @@
 <?php
-if (!isset($SedeRol->return)) {
+if (!isset($SedeRol)) {
     echo '<script language="javascript"> window.location = "../pages/inbox.php"; </script>';
 }
 ?>
@@ -88,7 +88,7 @@ if (!isset($SedeRol->return)) {
                             <form class="form-search" id="formulario">
                                 <h2>Correspondencia que no ha sido confirmada con tiempo vencido</h2>
                                 <?php
-                                if (isset($PaquetesDestino->return)) {
+                                if (isset($PaquetesDestino)) {
 
                                     echo "<br>";
                                     ?>
@@ -106,37 +106,48 @@ if (!isset($SedeRol->return)) {
                                         </thead>
                                         <tbody>
                                             <?php
-                                            if (count($PaquetesDestino->return) == 1) {
-                                                if (strlen($PaquetesDestino->return->asuntopaq) > 10) {
-                                                    $asunto = substr($PaquetesDestino->return->asuntopaq, 0, 10) . "...";
+                                            if (!isset($PaquetesDestino[0])) {
+                                                if (strlen(utf8_decode($PaquetesDestino["asuntopaq"])) > 10) {
+                                                    $asunto = substr(utf8_decode($PaquetesDestino["asuntopaq"]), 0, 10) . "...";
                                                 } else {
-                                                    $asunto = $PaquetesDestino->return->asuntopaq;
+                                                    $asunto = utf8_decode($PaquetesDestino["asuntopaq"]);
                                                 }
+												if ($PaquetesDestino["destinopaq"]["tipobuz"] == 0) {
+                                                        $nombrebuz = utf8_decode($PaquetesDestino["destinopaq"]["idusu"]["nombreusu"] . " " . $PaquetesDestino["destinopaq"]["idusu"]["apellidousu"]);
+                                                    } else {
+                                                        $nombrebuz = utf8_decode($PaquetesDestino["destinopaq"]["nombrebuz"]);
+                                                    }
                                                 ?>
                                                 <tr>     
-                                                    <td  style='text-align:center'><?php echo $PaquetesDestino->return->origenpaq->idusu->nombreusu . " " . $PaquetesDestino->return->origenpaq->idusu->apellidousu; ?></td>
-                                                    <td  style='text-align:center'><?php echo $PaquetesDestino->return->destinopaq->idusu->nombreusu . " " . $PaquetesDestino->return->destinopaq->idusu->apellidousu; ?></td>
+                                                    <td  style='text-align:center'><?php echo $PaquetesDestino["origenpaq"]["idusu"]["nombreusu"] . " " . $PaquetesDestino["origenpaq"]["idusu"]["apellidousu"]; ?></td>
+                                                    <td  style='text-align:center'><?php echo $nombrebuz; ?></td>
                                                     <td style='text-align:center'><?php echo $asunto; ?></td>
-                                                    <td style='text-align:center'><?php echo $PaquetesDestino->return->iddoc->nombredoc; ?></td>
-                                                    <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($PaquetesDestino->return->fechapaq, 0, 10)));
+                                                    <td style='text-align:center'><?php echo utf8_decode($PaquetesDestino["iddoc"]["nombredoc"]); ?></td>
+                                                    <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($PaquetesDestino["fechapaq"], 0, 10)));
                                         ; ?></td>
                                                 </tr>   
                                                 <?php
                                             } else {
-                                                for ($i = 0; $i < count($PaquetesDestino->return); $i++) {
-                                                    if (strlen($PaquetesDestino->return[$i]->asuntopaq) > 10) {
-                                                        $asunto = substr($PaquetesDestino->return[$i]->asuntopaq, 0, 10) . "...";
-                                                    } else {
-                                                        $asunto = $PaquetesDestino->return[$i]->asuntopaq;
-                                                    }
-                                                    ?>
-                                                    <tr>     
-                                                        <td  style='text-align:center'><?php echo $PaquetesDestino->return[$i]->origenpaq->idusu->nombreusu . " " . $PaquetesDestino->return[$i]->origenpaq->idusu->apellidousu; ?></td>
-                                                        <td  style='text-align:center'><?php echo $PaquetesDestino->return[$i]->destinopaq->idusu->nombreusu . " " . $PaquetesDestino->return[$i]->destinopaq->idusu->apellidousu; ?></td>
-                                                        <td style='text-align:center'><?php echo $asunto; ?></td>
-                                                        <td style='text-align:center'><?php echo $PaquetesDestino->return[$i]->iddoc->nombredoc; ?></td>
-                                                        <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($PaquetesDestino->return[$i]->fechapaq, 0, 10))); ?></td>
-                                                    </tr>   
+                                                for ($i = 0; $i < count($PaquetesDestino); $i++) {
+                                                  if (strlen(utf8_decode($PaquetesDestino[$i]["asuntopaq"])) > 10) {
+                                                            $asunto = substr(utf8_decode($PaquetesDestino[$i]["asuntopaq"]), 0, 10) . "...";
+                                                        } else {
+                                                            $asunto = utf8_decode($PaquetesDestino[$i]["asuntopaq"]);
+                                                        }
+                                                        if ($PaquetesDestino[$i]["destinopaq"]["tipobuz"] == 0) {
+                                                            $nombrebuz =utf8_decode( $PaquetesDestino[$i]["destinopaq"]["idusu"]["nombreusu"] . " " . $PaquetesDestino[$i]["destinopaq"]["idusu"]["apellidousu"]);
+                                                        } else {
+                                                            $nombrebuz = utf8_decode($PaquetesDestino[$i]["destinopaq"]["nombrebuz"]);
+                                                        }
+                                                        ?>
+                                                    
+														<tr>     
+                                                            <td  style='text-align:center'><?php echo utf8_decode($PaquetesDestino[$i]["origenpaq"]["idusu"]["nombreusu"] . " " . $PaquetesDestino[$i]["origenpaq"]["idusu"]["apellidousu"]); ?></td>
+                                                            <td  style='text-align:center'><?php echo $nombrebuz; ?></td>
+                                                            <td style='text-align:center'><?php echo $asunto; ?></td>
+                                                            <td style='text-align:center'><?php echo utf8_decode($PaquetesDestino[$i]["iddoc"]["nombredoc"]); ?></td>
+                                                            <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($PaquetesDestino[$i]["fechapaq"], 0, 10))); ?></td>
+                                                        </tr>    
                                                     <?php
                                                 }
                                             }//fin else
