@@ -102,15 +102,15 @@ if (!isset($SedeRol)) {
                                         <tbody>
                                             <?php
                                             if (!isset($PaquetesExtraviados[0])) {
-                                                if (strlen($PaquetesExtraviados["asuntopaq"]) > 10) {
-                                                    $asunto = substr($PaquetesExtraviados["asuntopaq"], 0, 10) . "...";
+                                                if (strlen(utf8_decode($PaquetesExtraviados["asuntopaq"])) > 10) {
+                                                    $asunto = substr(utf8_decode($PaquetesExtraviados["asuntopaq"]), 0, 10) . "...";
                                                 } else {
-                                                    $asunto = $PaquetesExtraviados["asuntopaq"];
+                                                    $asunto = utf8_decode($PaquetesExtraviados["asuntopaq"]);
                                                 }
                                                 if ($PaquetesExtraviados["destinopaq"]["tipobuz"] == 0) {
-                                                    $nombrebuz = $PaquetesExtraviados["destinopaq"]["idusu"]["nombreusu"] . " " . $PaquetesExtraviados["destinopaq"]["idusu"]["apellidousu"];
+                                                    $nombrebuz = utf8_decode($PaquetesExtraviados["destinopaq"]["idusu"]["nombreusu"] . " " . $PaquetesExtraviados["destinopaq"]["idusu"]["apellidousu"]);
                                                 } else {
-                                                    $nombrebuz = $PaquetesExtraviados["destinopaq"]["nombrebuz"];
+                                                    $nombrebuz = utf8_decode($PaquetesExtraviados["destinopaq"]["nombrebuz"]);
                                                 }
                                                 ?>
                                                 <tr>     
@@ -123,15 +123,15 @@ if (!isset($SedeRol)) {
                                                 <?php
                                             } else {
                                                 for ($i = 0; $i < count($PaquetesExtraviados); $i++) {
-                                                    if (strlen($PaquetesExtraviados[$i]["asuntopaq"]) > 10) {
-                                                        $asunto = substr($PaquetesExtraviados[$i]["asuntopaq"], 0, 10) . "...";
+                                                    if (strlen(utf8_decode($PaquetesExtraviados[$i]["asuntopaq"])) > 10) {
+                                                        $asunto = substr(utf8_decode($PaquetesExtraviados[$i]["asuntopaq"]), 0, 10) . "...";
                                                     } else {
-                                                        $asunto = $PaquetesExtraviados[$i]["asuntopaq"];
+                                                        $asunto = utf8_decode($PaquetesExtraviados[$i]["asuntopaq"]);
                                                     }
                                                     if ($PaquetesExtraviados[$i]["destinopaq"]["tipobuz"] == 0) {
-                                                        $nombrebuz = $PaquetesExtraviados[$i]["destinopaq"]["idusu"]["nombreusu"] . " " . $PaquetesExtraviados[$i]["destinopaq"]["idusu"]["apellidousu"];
+                                                        $nombrebuz = utf8_decode($PaquetesExtraviados[$i]["destinopaq"]["idusu"]["nombreusu"] . " " . $PaquetesExtraviados[$i]["destinopaq"]["idusu"]["apellidousu"]);
                                                     } else {
-                                                        $nombrebuz = $PaquetesExtraviados[$i]["destinopaq"]["nombrebuz"];
+                                                        $nombrebuz = utf8_decode($PaquetesExtraviados[$i]["destinopaq"]["nombrebuz"]);
                                                     }
                                                     ?>
                                                     <tr>     
