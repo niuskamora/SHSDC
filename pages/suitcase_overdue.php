@@ -26,7 +26,7 @@ try {
     } else {
         iraURL('../pages/inbox.php');
     }
-    $parametros = array('idSede' => $_SESSION["Sede"]["idsed"]);
+    $parametros = array('idSede' => $_SESSION["Sede"]["idsed"]);
    // $ValijasOrigen = $client->valijasXFechaVencidaXUsuarioOrigen($parametros);
 	 $consumo = $client->call("valijasXFechaVencidaXUsuarioOrigen",$parametros);
 	if ($consumo!="") {

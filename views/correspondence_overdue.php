@@ -120,7 +120,7 @@ if (!isset($SedeRol)) {
                                                     }
                                                     ?>
                                                     <tr class="success">     
-                                                        <td  style='text-align:center'><?php echo utf8_decode($PaquetesDestino->["origenpaq"]["idusu"]["nombreusu"] . " " . $PaquetesDestino["origenpaq"]["idusu"]["apellidousu"]); ?></td>
+                                                        <td  style='text-align:center'><?php echo utf8_decode($PaquetesDestino["origenpaq"]["idusu"]["nombreusu"] . " " . $PaquetesDestino["origenpaq"]["idusu"]["apellidousu"]); ?></td>
                                                         <td  style='text-align:center'><?php echo utf8_decode($nombrebuz); ?></td>
                                                         <td style='text-align:center'><?php echo utf8_decode($asunto); ?></td>
                                                         <td style='text-align:center'><?php echo utf8_decode($PaquetesDestino["iddoc"]["nombredoc"]);?></td>

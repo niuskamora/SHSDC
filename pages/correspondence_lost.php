@@ -23,8 +23,8 @@ try {
     } else {
         iraURL('../pages/inbox.php');
     }    
-	$parametros = array('idusu' => $_SESSION["Usuario"]->return->idusu,
-        'idsede' => $_SESSION["Sede"]->return->idsed);
+	$parametros = array('idusu' => $_SESSION["Usuario"]["idusu"],
+        'idsede' => $_SESSION["Sede"]["idsed"]);
 	$consumo = $client->call("consultarStatusPaquete",$parametros);	
     if ($consumo!="") {
 	$PaquetesExtraviados = $consumo['return'];   

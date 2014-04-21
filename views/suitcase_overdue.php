@@ -131,7 +131,7 @@ if (!isset($SedeRol)) {
                                                     <tr class="info">     
                                                         <td style='text-align:center'><?php echo $ValijasOrigen["idval"]; ?></td>
                                                         <td style='text-align:center'><?php echo utf8_decode($ValijasOrigen["origenval"]); ?></td>
-                                                        <td style='text-align:center'><?php echo utf8_decode($ValijasOrigen["destinoval"]["nombresed"); ?></td>
+                                                        <td style='text-align:center'><?php echo utf8_decode($ValijasOrigen["destinoval"]["nombresed"]); ?></td>
                                                         <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($ValijasOrigen["fechaval"], 0, 10))); ?></td>
                                                     </tr>   
                                                     <?php

@@ -23,8 +23,8 @@ try {
     } else {
         iraURL('../pages/inbox.php');
     }    
-	$usu = array('idusu' => $_SESSION["Usuario"]->return->idusu);
-    $sede = array('idsed' => $_SESSION["Sede"]->return->idsed);
+	$usu = array('idusu' => $_SESSION["Usuario"]["idusu"]);
+    $sede = array('idsed' => $_SESSION["Sede"]["idsed"]);
     $parametros = array('registroUsuario' => $usu,
         'registroSede' => $sede);
 	$consumo = $client->call("paquetesVencidosXDestino",$parametros);
