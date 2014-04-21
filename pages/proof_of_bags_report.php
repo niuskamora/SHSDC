@@ -2,8 +2,13 @@
 
 session_start();
 include("../recursos/funciones.php");
-include("../recursos/codigoBarrasPdf.php");
-require_once('../lib/nusoap.php');
+require_once("../lib/nusoap.php");
+require_once("../config/wsdl.php");
+require_once("../config/definitions.php");
+require_once("../core/Crypt/AES.php");
+
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$_SESSION["cli"] = $client;
 
 if (!isset($_SESSION["Usuario"])) {
     iraURL("../index.php");
@@ -16,14 +21,15 @@ $_SESSION["fechaRecibido"] = "";
 $resultadoConsultarValijas = $_SESSION["valijas"];
 $nombreSede = $_SESSION["nombreSede"];
 
-$client = new SOAPClient($wsdl_sdc);
-$client->decode_utf8 = false;
-$UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-$SedeRol = $client->consultarSedeRol($UsuarioRol);
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"],
+    'sede' => $_SESSION["Sede"]["nombresed"]);
+$consumo = $client->call("consultarSedeRol", $UsuarioRol);
 
-if (isset($SedeRol->return)) {
-    if ($SedeRol->return->idrol->idrol != "4" && $SedeRol->return->idrol->idrol != "5") {
-        if ($_SESSION["Usuario"]->return->tipousu != "1" && $_SESSION["Usuario"]->return->tipousu != "2") {
+if ($consumo != "") {
+    $SedeRol = $consumo['return'];
+    if ($SedeRol['idrol']['idrol'] != "4" && $SedeRol['idrol']['idrol'] != "5") {
+        if ($SedeRol['idusu']['tipousu'] != "1" && $SedeRol['idusu']['tipousu'] != "2") {
             iraURL('../pages/inbox.php');
         }
     }
@@ -31,14 +37,18 @@ if (isset($SedeRol->return)) {
     iraURL('../pages/inbox.php');
 }
 
-$nomUsuario = $_SESSION["Usuario"]->return->userusu;
-$ideSede = $_SESSION["Sede"]->return->idsed;
-$usuarioBitacora = $_SESSION["Usuario"]->return->idusu;
+$nomUsuario = $_SESSION["Usuario"]['userusu'];
+$ideSede = $_SESSION["Sede"]['idsed'];
+$usuarioBitacora = $_SESSION["Usuario"]['idusu'];
 
-if (!isset($resultadoConsultarValijas->return)) {
-    $valijas = 0;
+if (isset($resultadoConsultarValijas)) {
+    if (isset($resultadoConsultarValijas[0])) {
+        $valijas = count($resultadoConsultarValijas);
+    } else {
+        $valijas = 1;
+    }
 } else {
-    $valijas = count($resultadoConsultarValijas->return);
+    $valijas = 0;
 }
 
 if ($valijas > 0) {
@@ -46,13 +56,13 @@ if ($valijas > 0) {
         for ($i = 0; $i < $valijas; $i++) {
             $fechaEnvio = "";
             $fechaRecibido = "";
-            if (isset($resultadoConsultarValijas->return[$i]->fechaval)) {
-                $fechaEnvio = FechaHora($resultadoConsultarValijas->return[$i]->fechaval);
+            if (isset($resultadoConsultarValijas[$i]['fechaval'])) {
+                $fechaEnvio = FechaHora($resultadoConsultarValijas[$i]['fechaval']);
             } else {
                 $fechaEnvio = "";
             }
-            if (isset($resultadoConsultarValijas->return[$i]->fecharval)) {
-                $fechaRecibido = FechaHora($resultadoConsultarValijas->return[$i]->fecharval);
+            if (isset($resultadoConsultarValijas[$i]['fecharval'])) {
+                $fechaRecibido = FechaHora($resultadoConsultarValijas[$i]['fecharval']);
             } else {
                 $fechaRecibido = "";
             }
@@ -60,13 +70,13 @@ if ($valijas > 0) {
             $_SESSION["fechaRecibido"][$i] = $fechaRecibido;
         }
     } else {
-        if (isset($resultadoConsultarValijas->return->fechaval)) {
-            $fechaEnvio = FechaHora($resultadoConsultarValijas->return->fechaval);
+        if (isset($resultadoConsultarValijas['fechaval'])) {
+            $fechaEnvio = FechaHora($resultadoConsultarValijas['fechaval']);
         } else {
             $fechaEnvio = "";
         }
-        if (isset($resultadoConsultarValijas->return->fecharval)) {
-            $fechaRecibido = FechaHora($resultadoConsultarValijas->return->fecharval);
+        if (isset($resultadoConsultarValijas['fecharval'])) {
+            $fechaRecibido = FechaHora($resultadoConsultarValijas['fecharval']);
         } else {
             $fechaRecibido = "";
         }
@@ -75,7 +85,7 @@ if ($valijas > 0) {
     }
 }
 
-if (isset($resultadoConsultarValijas->return)) {
+if (isset($resultadoConsultarValijas)) {
     llenarLog(6, "Comprobante de Valijas", $usuarioBitacora, $ideSede);
     echo"<script>window.open('../pdf/proof_of_bags_report.php');</script>";
     //iraURL('../pdf/proof_of_bags_report.php');

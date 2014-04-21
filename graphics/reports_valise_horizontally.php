@@ -149,13 +149,13 @@ if ($usuario == "") {
             	categories: [<?php if ($contadorSedes > 1) {
                                 for ($i = 0; $i < $contadorSedes; $i++) {
                                     if ($i == 0) { ?>
-										'<?php echo $nombreSede[$i]; ?>'
+										'<?php echo utf8_encode($nombreSede[$i]); ?>'
 									<?php } else { ?>
-                        				, '<?php echo $nombreSede[$i]; ?>'
+                        				, '<?php echo utf8_encode($nombreSede[$i]); ?>'
         							<?php }
     							}
 							} else { ?>
-                				'<?php echo $nombreSede; ?>'
+                				'<?php echo utf8_encode($nombreSede); ?>'
 							<?php } ?>],
 			title: {
             	text: null

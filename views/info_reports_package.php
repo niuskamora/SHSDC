@@ -297,10 +297,10 @@ if ($usuario == "") {
                                 <br>
                                 <br>
                                 <div class="span6" align="center">
-                                	<a href="../pages/graphics_reports_package.php" target="new"><button type="submit" class="btn" id="graficar" name="graficar"> Graficar </button></a>
-                               	</div>
+                                    <a href="../pages/graphics_reports_package.php" target="new"><button type="submit" class="btn" id="graficar" name="graficar"> Graficar </button></a>
+                                </div>
                                 <div class="span5" align="center">
-                                	<a href="../pages/proof_reporting_package.php" target="new"><button type="submit" class="btn" id="imprimir" name="imprimir"> Imprimir </button></a>
+                                    <a href="../pages/proof_reporting_package.php" target="new"><button type="submit" class="btn" id="imprimir" name="imprimir"> Imprimir </button></a>
                                 </div>
                             <?php } ?>
                         </div>

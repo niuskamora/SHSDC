@@ -1,3 +1,8 @@
+<?php
+if ($usuario == "") {
+    echo '<script language="javascript"> window.location = "../pages/inbox.php"; </script>';
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -113,8 +118,8 @@
                                                 echo "<option value='" . $resultadoProveedor['idsed'] . "' >" . utf8_encode($resultadoProveedor['nombresed']) . "</option>";
                                             }
                                             if ($_SESSION["Usuario"]['tipousu'] == "2") {
-                                            ?>
-                                            	<option value='0'>Todas las Sedes</option>
+                                                ?>
+                                                <option value='0'>Todas las Sedes</option>
                                             <?php } ?>
                                         </select>
                                         <br>

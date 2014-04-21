@@ -2,8 +2,13 @@
 
 session_start();
 include("../recursos/funciones.php");
-include("../recursos/codigoBarrasPdf.php");
-require_once('../lib/nusoap.php');
+require_once("../lib/nusoap.php");
+require_once("../config/wsdl.php");
+require_once("../config/definitions.php");
+require_once("../core/Crypt/AES.php");
+
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$_SESSION["cli"] = $client;
 
 if (!isset($_SESSION["Usuario"])) {
     iraURL("../index.php");
@@ -16,14 +21,15 @@ $_SESSION["fechaEnvio"] = "";
 $_SESSION["fechaRecibido"] = "";
 $_SESSION["origenValija"] = "";
 
-$client = new SOAPClient($wsdl_sdc);
-$client->decode_utf8 = false;
-$UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-$SedeRol = $client->consultarSedeRol($UsuarioRol);
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"],
+    'sede' => $_SESSION["Sede"]["nombresed"]);
+$consumo = $client->call("consultarSedeRol", $UsuarioRol);
 
-if (isset($SedeRol->return)) {
-    if ($SedeRol->return->idrol->idrol != "4" && $SedeRol->return->idrol->idrol != "5") {
-        if ($_SESSION["Usuario"]->return->tipousu != "1" && $_SESSION["Usuario"]->return->tipousu != "2") {
+if ($consumo != "") {
+    $SedeRol = $consumo['return'];
+    if ($SedeRol['idrol']['idrol'] != "4" && $SedeRol['idrol']['idrol'] != "5") {
+        if ($SedeRol['idusu']['tipousu'] != "1" && $SedeRol['idusu']['tipousu'] != "2") {
             iraURL('../pages/inbox.php');
         }
     }
@@ -31,50 +37,77 @@ if (isset($SedeRol->return)) {
     iraURL('../pages/inbox.php');
 }
 
-$nomUsuario = $_SESSION["Usuario"]->return->userusu;
-$ideSede = $_SESSION["Sede"]->return->idsed;
-$usuarioBitacora = $_SESSION["Usuario"]->return->idusu;
+$nomUsuario = $_SESSION["Usuario"]["userusu"];
+$ideSede = $_SESSION["Sede"]["idsed"];
+$usuarioBitacora = $_SESSION["Usuario"]["idusu"];
 $idValija = $_GET["id"];
 
 if ($idValija == "") {
     iraURL('../pages/inbox.php');
 } else {
     try {
+        $client = new nusoap_client($wsdl_sdc, 'wsdl');
         $parametros = array('registroValija' => $idValija,
             'sede' => $ideSede);
-$client = new SOAPClient($wsdl_sdc);
-        $client->decode_utf8 = false;
-        $resultadoPaquetesPorValija = $client->ConsultarPaquetesXValija($parametros);
+        $consumoPaqXValija = $client->call("ConsultarPaquetesXValija", $parametros);
 
-        if (!isset($resultadoPaquetesPorValija->return)) {
-            $paquetesXValija = 0;
+        if ($consumoPaqXValija != "") {
+            $resultadoPaquetesPorValija = $consumoPaqXValija['return'];
+            if (isset($resultadoPaquetesPorValija[0])) {
+                $contadorPaquetes = count($resultadoPaquetesPorValija->return);
+            } else {
+                $contadorPaquetes = 1;
+            }
         } else {
-            $paquetesXValija = count($resultadoPaquetesPorValija->return);
+            $contadorPaquetes = 0;
         }
+        $paquetesXValija = $contadorPaquetes;
 
         if ($paquetesXValija > 1) {
-            $idOrigen = array('idSede' => $resultadoPaquetesPorValija->return[0]->idval->origenval);
-            $resultadoOrigen = $client->consultarSedeXId($idOrigen);
-            if (isset($resultadoPaquetesPorValija->return[0]->idval->fechaval)) {
-                $fechaEnvio = FechaHora($resultadoPaquetesPorValija->return[0]->idval->fechaval);
+            $client = new nusoap_client($wsdl_sdc, 'wsdl');
+            $idOrigen = array('idSede' => $resultadoPaquetesPorValija[0]['idval']['origenval']);
+            $consumoSede = $client->call("consultarSedeXId", $idOrigen);
+            if ($consumoSede != "") {
+                $resultadoConsultarSede = $consumoSede['return'];
+                if (isset($resultadoConsultarSede)) {
+                    $origen = utf8_encode($resultadoConsultarSede['nombresed']);
+                } else {
+                    $origen = "";
+                }
+            } else {
+                $origen = "";
+            }
+            if (isset($resultadoPaquetesPorValija[0]['idval']['fechaval'])) {
+                $fechaEnvio = FechaHora($resultadoPaquetesPorValija[0]['idval']['fechaval']);
             } else {
                 $fechaEnvio = "";
             }
-            if (isset($resultadoPaquetesPorValija->return[0]->idval->fecharval)) {
-                $fechaRecibido = FechaHora($resultadoPaquetesPorValija->return[0]->idval->fecharval);
+            if (isset($resultadoPaquetesPorValija[0]['idval']['fecharval'])) {
+                $fechaRecibido = FechaHora($resultadoPaquetesPorValija['idval']['fecharval']);
             } else {
                 $fechaRecibido = "";
             }
         } elseif ($paquetesXValija == 1) {
-            $idOrigen = array('idSede' => $resultadoPaquetesPorValija->return->idval->origenval);
-            $resultadoOrigen = $client->consultarSedeXId($idOrigen);
-            if (isset($resultadoPaquetesPorValija->return->idval->fechaval)) {
-                $fechaEnvio = FechaHora($resultadoPaquetesPorValija->return->idval->fechaval);
+            $client = new nusoap_client($wsdl_sdc, 'wsdl');
+            $idOrigen = array('idSede' => $resultadoPaquetesPorValija['idval']['origenval']);
+            $consumoSede = $client->call("consultarSedeXId", $idOrigen);
+            if ($consumoSede != "") {
+                $resultadoConsultarSede = $consumoSede['return'];
+                if (isset($resultadoConsultarSede)) {
+                    $origen = utf8_encode($resultadoConsultarSede['nombresed']);
+                } else {
+                    $origen = "";
+                }
+            } else {
+                $origen = "";
+            }
+            if (isset($resultadoPaquetesPorValija['idval']['fechaval'])) {
+                $fechaEnvio = FechaHora($resultadoPaquetesPorValija['idval']['fechaval']);
             } else {
                 $fechaEnvio = "";
             }
-            if (isset($resultadoPaquetesPorValija->return->idval->fecharval)) {
-                $fechaRecibido = FechaHora($resultadoPaquetesPorValija->return->idval->fecharval);
+            if (isset($resultadoPaquetesPorValija['idval']['fecharval'])) {
+                $fechaRecibido = FechaHora($resultadoPaquetesPorValija['idval']['fecharval']);
             } else {
                 $fechaRecibido = "";
             }
@@ -83,9 +116,9 @@ $client = new SOAPClient($wsdl_sdc);
         $_SESSION["fechaEnvio"] = $fechaEnvio;
         $_SESSION["fechaRecibido"] = $fechaRecibido;
         $_SESSION["paquetesXValija"] = $resultadoPaquetesPorValija;
-        $_SESSION["origenValija"] = $resultadoOrigen;
+        $_SESSION["origenValija"] = $origen;
 
-        if (isset($resultadoPaquetesPorValija->return)) {
+        if (isset($resultadoPaquetesPorValija)) {
             llenarLog(6, "Comprobante de Detalle de Valija", $usuarioBitacora, $ideSede);
             echo"<script>window.open('../pdf/proof_pouch_and_packages.php');</script>";
             //iraURL('../pdf/proof_pouch_and_packages.php');

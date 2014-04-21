@@ -3,7 +3,13 @@
 session_start();
 include("../recursos/funciones.php");
 include("../recursos/codigoBarrasPdf.php");
-require_once('../lib/nusoap.php');
+require_once("../lib/nusoap.php");
+require_once("../config/wsdl.php");
+require_once("../config/definitions.php");
+require_once("../core/Crypt/AES.php");
+
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$_SESSION["cli"] = $client;
 
 if (!isset($_SESSION["Usuario"])) {
     iraURL("../index.php");
@@ -16,22 +22,23 @@ $_SESSION["codigo"] = "";
 $_SESSION["origen"] = "";
 $_SESSION["fecha"] = "";
 
-$client = new SOAPClient($wsdl_sdc);
-$client->decode_utf8 = false;
-$UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-$SedeRol = $client->consultarSedeRol($UsuarioRol);
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"],
+    'sede' => $_SESSION["Sede"]["nombresed"]);
+$consumo = $client->call("consultarSedeRol", $UsuarioRol);
 
-if (isset($SedeRol->return)) {
-    if ($SedeRol->return->idrol->idrol != "4" && $SedeRol->return->idrol->idrol != "5") {
+if ($consumo != "") {
+    $SedeRol = $consumo['return'];
+    if ($SedeRol['idrol']['idrol'] != "4" && $SedeRol['idrol']['idrol'] != "5") {
         iraURL('../pages/inbox.php');
     }
 } else {
     iraURL('../pages/inbox.php');
 }
 
-$nomUsuario = $_SESSION["Usuario"]->return->userusu;
-$ideSede = $_SESSION["Sede"]->return->idsed;
-$usuarioBitacora = $_SESSION["Usuario"]->return->idusu;
+$nomUsuario = $_SESSION["Usuario"]["userusu"];
+$usuarioBitacora = $_SESSION["Usuario"]["idusu"];
+$idesede = $_SESSION["Sede"]["idsed"];
 
 $idVal = $_SESSION['val'];
 
@@ -40,36 +47,42 @@ if ($idVal == "") {
 } else {
 
     try {
-$client = new SOAPClient($wsdl_sdc);
-        $client->decode_utf8 = false;
-
+        $client = new nusoap_client($wsdl_sdc, 'wsdl');
         $idValija = array('codigo' => $idVal);
-        $resultadoConsultarUltimaValija = $client->consultarValijaXIdOCodigoBarra($idValija);
+        $consumoValija = $client->call("consultarValijaXIdOCodigoBarra", $idValija);
+        if ($consumoValija != "") {
+            $resultadoConsultarValija = $consumoValija['return'];
+        }
 
-        if (isset($resultadoConsultarUltimaValija->return)) {
+        if (isset($resultadoConsultarValija)) {
 
-            if (isset($resultadoConsultarUltimaValija->return->fechaval)) {
-                $fecha = FechaHora($resultadoConsultarUltimaValija->return->fechaval);
+            if (isset($resultadoConsultarValija['fechaval'])) {
+                $fecha = FechaHora($resultadoConsultarValija['fechaval']);
             } else {
                 $fecha = "";
             }
             //Año de envio del paquete
             $fechaCod = (substr($fecha, 6, 4));
 
-            $sedOrigen = $resultadoConsultarUltimaValija->return->origenval;
-            $idOrigen = array('idSede' => $sedOrigen);
-            $resultadoOrigen = $client->consultarSedeXId($idOrigen);
-            $codigoSede = $resultadoOrigen->return->codigosed;
+            $idSed = $resultadoConsultarValija['origenval'];
+            $idSede = array('idSede' => $idSed);
+            $consumoSede = $client->call("consultarSedeXId", $idSede);
+            if ($consumoSede != "") {
+                $resultadoConsultarSede = $consumoSede['return'];
+                if (isset($resultadoConsultarSede)) {
+                    $codigoSede = $resultadoConsultarSede['codigosed'];
+                }
+            }
 
-            $idval = $resultadoConsultarUltimaValija->return->idval;
+            $idval = $resultadoConsultarValija['idval'];
 
-            //Código total codigosede+añovalija+idvalija
+            //Código total codigosede+añopaquete+idpaquete
             $codigoTotal = $codigoSede . $fechaCod . $idval;
             guardarImagen($codigoTotal);
 
-            $_SESSION["valija"] = $resultadoConsultarUltimaValija;
+            $_SESSION["valija"] = $resultadoConsultarValija;
             $_SESSION["codigo"] = $codigoTotal;
-            $_SESSION["origen"] = $resultadoOrigen;
+            $_SESSION["origen"] = $resultadoConsultarSede;
             $_SESSION["fecha"] = $fecha;
 
             llenarLog(6, "Comprobante de Valija", $usuarioBitacora, $ideSede);

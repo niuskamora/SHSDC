@@ -1,5 +1,5 @@
 <?php
-if (!isset($SedeRol->return)) {
+if ($idValija == "" || $nomUsuario == "") {
     echo '<script language="javascript"> window.location = "../pages/inbox.php"; </script>';
 }
 ?>
@@ -87,7 +87,7 @@ if (!isset($SedeRol->return)) {
                         <div class="tab-content" id="bandeja">
                             <?php
                             //Verificando que este vacio o sea null
-                            if (!isset($resultadoPaquetesPorValija->return)) {
+                            if (!isset($resultadoPaquetesPorValija)) {
                                 echo '<div class="alert alert-block" align="center">';
                                 echo '<h2 style="color:rgb(255,255,255)" align="center">Atención</h2>';
                                 echo '<h4 align="center">No Existen Registros de Paquetes en esta Valija</h4>';
@@ -136,7 +136,7 @@ if (!isset($SedeRol->return)) {
                                 <br></br><br></br>
 
                                 <strong> <h2 align="center">Detalle de la Valija</h2> </strong>
-                                <table class='footable table table-striped table-bordered' data-page-size='5'> 
+                                <table class='footable table table-striped table-bordered' data-page-size=<?php echo $itemsByPage ?>> 
                                     <thead bgcolor='#FF0000'>
                                         <tr>
                                             <th style="text-align:center" data-sort-ignore="true">Nro de Paquete</th>
@@ -153,48 +153,48 @@ if (!isset($SedeRol->return)) {
                                             for ($i = 0; $i < $contadorPaquetes; $i++) {
                                                 ?>
                                                 <tr>
-                                                    <td style='text-align:center'><?php echo $resultadoPaquetesPorValija->return[$i]->idpaq ?></td>
-                                                    <td style='text-align:center'><?php echo $resultadoPaquetesPorValija->return[$i]->origenpaq->idatr->idsed->nombresed ?></td>
-                                                    <td style='text-align:center'><?php echo $resultadoPaquetesPorValija->return[$i]->origenpaq->idusu->nombreusu . " " . $resultadoPaquetesPorValija->return[$i]->origenpaq->idusu->apellidousu; ?></td>
+                                                    <td style='text-align:center'><?php echo $resultadoPaquetesPorValija[$i]['idpaq'] ?></td>
+                                                    <td style='text-align:center'><?php echo $resultadoPaquetesPorValija[$i]['origenpaq']['idatr']['idsed']['nombresed'] ?></td>
+                                                    <td style='text-align:center'><?php echo $resultadoPaquetesPorValija[$i]['origenpaq']['idusu']['nombreusu'] . " " . $resultadoPaquetesPorValija[$i]['origenpaq']['idusu']['apellidousu']; ?></td>
                                                     <?php
                                                     $paraDestino = "";
                                                     $nomDestino = "";
-                                                    if ($resultadoPaquetesPorValija->return[$i]->destinopaq->tipobuz == "0") {
-                                                        $paraDestino = $resultadoPaquetesPorValija->return[$i]->destinopaq->idusu->nombreusu . " " . $resultadoPaquetesPorValija->return[$i]->destinopaq->idusu->apellidousu;
-                                                        $nomDestino = $resultadoPaquetesPorValija->return[$i]->destinopaq->idatr->idsed->nombresed;
+                                                    if ($resultadoPaquetesPorValija[$i]['destinopaq']['tipobuz'] == "0") {
+                                                        $paraDestino = $resultadoPaquetesPorValija[$i]['destinopaq']['idusu']['nombreusu'] . " " . $resultadoPaquetesPorValija[$i]['destinopaq']['idusu']['apellidousu'];
+                                                        $nomDestino = $resultadoPaquetesPorValija[$i]['destinopaq']['idatr']['idsed']['nombresed'];
                                                     } else {
-                                                        $paraDestino = $resultadoPaquetesPorValija->return[$i]->destinopaq->nombrebuz;
-                                                        $nomDestino = $resultadoPaquetesPorValija->return[$i]->destinopaq->direccionbuz;
+                                                        $paraDestino = $resultadoPaquetesPorValija[$i]['destinopaq']['nombrebuz'];
+                                                        $nomDestino = $resultadoPaquetesPorValija[$i]['destinopaq']['direccionbuz'];
                                                     }
                                                     ?>                            
                                                     <td style='text-align:center'><?php echo $paraDestino ?></td>
                                                     <td style='text-align:center'><?php echo $nomDestino ?></td>
-                                                    <td style='text-align:center'><a href='../pages/package_detail_traking.php?id=<?php echo $resultadoPaquetesPorValija->return[$i]->idpaq; ?>'><button type='button' class='btn btn-info btn-primary'>Ver más</button> </a></td>
+                                                    <td style='text-align:center'><a href='../pages/package_detail_traking.php?id=<?php echo $resultadoPaquetesPorValija[$i]['idpaq']; ?>'><button type='button' class='btn btn-info btn-primary'>Ver más</button> </a></td>
                                                 </tr>
                                                 <?php
                                             }
                                         } else {
                                             ?>
                                             <tr>
-                                                <td style='text-align:center'><?php echo $resultadoPaquetesPorValija->return->idpaq ?></td>
-                                                <td style='text-align:center'><?php echo $resultadoPaquetesPorValija->return->origenpaq->idatr->idsed->nombresed; ?></td>
-                                                <td style='text-align:center'><?php echo $resultadoPaquetesPorValija->return->origenpaq->idusu->nombreusu . " " . $resultadoPaquetesPorValija->return->origenpaq->idusu->apellidousu; ?></td>
+                                                <td style='text-align:center'><?php echo $resultadoPaquetesPorValija['idpaq'] ?></td>
+                                                <td style='text-align:center'><?php echo $resultadoPaquetesPorValija['origenpaq']['idatr']['idsed']['nombresed']; ?></td>
+                                                <td style='text-align:center'><?php echo $resultadoPaquetesPorValija['origenpaq']['idusu']['nombreusu'] . " " . $resultadoPaquetesPorValija['origenpaq']['idusu']['apellidousu']; ?></td>
                                                 <?php
                                                 $paraDestino = "";
                                                 $nomDestino = "";
-                                                if (isset($resultadoPaquetesPorValija->return->destinopaq->tipobuz)) {
-                                                    if ($resultadoPaquetesPorValija->return->destinopaq->tipobuz == "0") {
-                                                        $paraDestino = $resultadoPaquetesPorValija->return->destinopaq->idusu->nombreusu . " " . $resultadoPaquetesPorValija->return->destinopaq->idusu->apellidousu;
-                                                        $nomDestino = $resultadoPaquetesPorValija->return->destinopaq->idatr->idsed->nombresed;
+                                                if (isset($resultadoPaquetesPorValija['destinopaq']['tipobuz'])) {
+                                                    if ($resultadoPaquetesPorValija['destinopaq']['tipobuz'] == "0") {
+                                                        $paraDestino = $resultadoPaquetesPorValija['destinopaq']['idusu']['nombreusu'] . " " . $resultadoPaquetesPorValija['destinopaq']['idusu']['apellidousu'];
+                                                        $nomDestino = $resultadoPaquetesPorValija['destinopaq']['idatr']['idsed']['nombresed'];
                                                     } else {
-                                                        $paraDestino = $resultadoPaquetesPorValija->return->destinopaq->nombrebuz;
-                                                        $nomDestino = $resultadoPaquetesPorValija->return->destinopaq->direccionbuz;
+                                                        $paraDestino = $resultadoPaquetesPorValija['destinopaq']['nombrebuz'];
+                                                        $nomDestino = $resultadoPaquetesPorValija['destinopaq']['direccionbuz'];
                                                     }
                                                 }
                                                 ?>                            
                                                 <td style='text-align:center'><?php echo $paraDestino ?></td>
                                                 <td style='text-align:center'><?php echo $nomDestino ?></td>
-                                                <td style='text-align:center'><a href='../pages/package_detail_traking.php?id=<?php echo $resultadoPaquetesPorValija->return->idpaq; ?>'><button type='button' class='btn btn-info btn-primary'>Ver más</button> </a></td>
+                                                <td style='text-align:center'><a href='../pages/package_detail_traking.php?id=<?php echo $resultadoPaquetesPorValija['idpaq']; ?>'><button type='button' class='btn btn-info btn-primary'>Ver más</button> </a></td>
 
                                             </tr>
                                         <?php }

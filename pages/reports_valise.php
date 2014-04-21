@@ -7,20 +7,24 @@ require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
 
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$_SESSION["cli"] = $client;
+
 if (!isset($_SESSION["Usuario"])) {
     iraURL("../index.php");
 } elseif (!usuarioCreado()) {
     iraURL("../pages/create_user.php");
 }
 
-$client = new SOAPClient($wsdl_sdc);
-$client->decode_utf8 = false;
-$UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-$SedeRol = $client->consultarSedeRol($UsuarioRol);
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"],
+    'sede' => $_SESSION["Sede"]["nombresed"]);
+$consumo = $client->call("consultarSedeRol", $UsuarioRol);
 
-if (isset($SedeRol->return)) {
-    if ($SedeRol->return->idrol->idrol != "4" && $SedeRol->return->idrol->idrol != "5") {
-        if ($_SESSION["Usuario"]->return->tipousu != "1" && $_SESSION["Usuario"]->return->tipousu != "2") {
+if ($consumo != "") {
+    $SedeRol = $consumo['return'];
+    if ($SedeRol['idrol']['idrol'] != "4" && $SedeRol['idrol']['idrol'] != "5") {
+        if ($SedeRol['idusu']['tipousu'] != "1" && $SedeRol['idusu']['tipousu'] != "2") {
             iraURL('../pages/inbox.php');
         }
     }
@@ -28,14 +32,20 @@ if (isset($SedeRol->return)) {
     iraURL('../pages/inbox.php');
 }
 
-$ideSede = $_SESSION["Sede"]->return->idsed;
-$usuario = $_SESSION["Usuario"]->return->idusu;
+$ideSede = $_SESSION["Sede"]['idsed'];
+$usuario = $_SESSION["Usuario"]['idusu'];
 
-$resultadoSedes = $client->listarSedes();
-if (!isset($resultadoSedes->return)) {
-    $sedes = 0;
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$consumoSedes = $client->call("listarSedes");
+if ($consumoSedes != "") {
+    $resultadoSedes = $consumoSedes['return'];
+    if (isset($resultadoSedes[0])) {
+        $sedes = count($resultadoSedes);
+    } else {
+        $sedes = 1;
+    }
 } else {
-    $sedes = count($resultadoSedes->return);
+    $sedes = 0;
 }
 
 $_SESSION["Reporte"] = "";
