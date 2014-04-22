@@ -193,17 +193,23 @@ if ($idPaquete == "" || $usuario == "") {
                                     <ul id="pagination" class="footable-nav"><span>Pag:</span></ul>
                                     <br>
                                 </form>
-                                <div class="span6" align="center">
+                                <div class="span4" align="center">
+                                    <a href='../pages/see_information_package.php?id=<?php echo $idPaquete ?>' target="new"><button type="submit" class="btn" id="imprimirP" name="imprimirP"> <span class="add-on"><i class="icon-eye-open"></i> </span> Información del Paquete</button></a>
+                                </div>
+                                <div class="span3" align="center">
                                     <a href='../pages/proof_of_traking_package.php?id=<?php echo $idPaquete ?>' target="new"><button type="submit" class="btn" id="imprimirT" name="imprimirT"> <span class="add-on"><i class="icon-print"></i> </span> Traking del Paquete</button></a>
                                 </div>
-                                <div class="span5" align="center">
+                                <div class="span4" align="center">
                                     <a href='../pages/proof_of_correspondence_package.php?id=<?php echo $idPaquete ?>' target="new"><button type="submit" class="btn" id="imprimirP" name="imprimirP"> <span class="add-on"><i class="icon-print"></i> </span> Comprobante del Paquete</button></a>
                                 </div>
                                 <?php
                             }
                             if (!isset($resultadoPaquete)) {
                                 ?>
-                                <div align="right">
+                                <div class="span6" align="center">
+                                    <a href='../pages/see_information_package.php?id=<?php echo $idPaquete ?>' target="new"><button type="submit" class="btn" id="imprimirP" name="imprimirP"> <span class="add-on"><i class="icon-eye-open"></i> </span> Información del Paquete</button></a>
+                                </div>
+                                <div class="span5" align="center">
                                     <a href='../pages/proof_of_correspondence_package.php?id=<?php echo $idPaquete ?>' target="new"><button type="submit" class="btn" id="imprimirP" name="imprimirP"> <span class="add-on"><i class="icon-print"></i> </span> Comprobante del Paquete</button></a>
                                 </div>
                             <?php } ?>                                                      	

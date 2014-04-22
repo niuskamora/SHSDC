@@ -108,4 +108,4 @@ try {
     javaalert('Error al crear el usuario');
     iraURL('../index.php');
 }
-?>
+?

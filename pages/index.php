@@ -6,8 +6,12 @@ require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
 
+
+
 	$client = new nusoap_client($wsdl_sdc, 'wsdl');
 	$client->decode_utf8 = false;
+
+	
 	$_SESSION["cli"]=$client;
 //if (isset($_SESSION["Usuario"]) || isset($_SESSION["User"])) {
 //    eliminarSesion();
@@ -37,10 +41,7 @@ if (isset($_POST["Biniciar"])) {
 	
 		$userResp = $client->call("consultarUsuarioXUser",$userparam);
         $valorUser = $userResp['return'];
-		
-		
-		
-		//if (isset($UsuarioLogIn->return)) {
+	//if (isset($UsuarioLogIn->return)) {
 		if ($userResp!="") {
 			
             $_SESSION["Usuario"] = $valorUser;
@@ -61,7 +62,7 @@ if (isset($_POST["Biniciar"])) {
             }
         } else {
             $_SESSION["User"] = $_POST["usuario"];
-            iraURL("../pages/create_user.php");
+           iraURL("../pages/create_user.php");
         }
 			
 	//}else{

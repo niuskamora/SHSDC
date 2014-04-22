@@ -29,7 +29,7 @@ try {
         iraURL('../pages/inbox.php');
     }
 
-    $orga = $client->call("ConsultarOrganizaciones");
+    $orga = $client->call("consultarOrganizaciones");
     if ($orga=="") {
         javaalert("lo sentimos no se pueden crear sedes, no existen organizaciones registradas, consulte con el administrador");
         iraURL('../pages/inbox.php');

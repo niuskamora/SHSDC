@@ -61,7 +61,7 @@ if (isset($_POST['idval']) && $_POST['idval'] != "" && $_POST['idval'] != "") {
     }
 	
 	if($Valij != ""){
-		$Valija  = $Valija ['return'];
+		$Valija  = $Valij['return'];
 		if(isset($Valija [0])){
 			$reg = count($Valija);
 			$_SESSION["RE"] = $reg;

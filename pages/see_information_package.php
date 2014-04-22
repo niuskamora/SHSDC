@@ -35,19 +35,31 @@ if ($idPaquete == "") {
 } else {
     try {
         $client = new nusoap_client($wsdl_sdc, 'wsdl');
-        $paquete = array('idPaquete' => $idPaquete);
-        $consumoSeguimiento = $client->call("consultarSeguimientoXPaquete", $paquete);
-        if ($consumoSeguimiento != "") {
-            $resultadoPaquete = $consumoSeguimiento['return'];
+        $idpaq = array('idPaquete' => $idPaquete);
+        $consumoPaquete = $client->call("consultarPaqueteXId", $idpaq);
+        if ($consumoPaquete != "") {
+            $resultadoPaquete = $consumoPaquete['return'];
             if (isset($resultadoPaquete[0])) {
-                $segumientoPaquete = count($resultadoPaquete);
+                $paquete = count($resultadoPaquete);
             } else {
-                $segumientoPaquete = 1;
+                $paquete = 1;
             }
         } else {
-            $segumientoPaquete = 0;
+            $paquete = 0;
         }
-        include("../views/see_package.php");
+
+        $consumoAdjunto = $client->call("consultarAdjuntoXPaquete", $idpaq);
+        if ($consumoAdjunto != "") {
+            $resultadoAdjunto = $consumoAdjunto['return'];
+            if (isset($resultadoAdjunto)) {
+                $adjunto = 1;
+            } else {
+                $adjunto = 0;
+            }
+        } else {
+            $adjunto = 0;
+        }
+        include("../views/see_information_package.php");
     } catch (Exception $e) {
         javaalert('Lo sentimos no hay conexion');
         iraURL('../pages/inbox.php');
