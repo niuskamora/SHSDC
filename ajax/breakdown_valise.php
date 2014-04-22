@@ -102,8 +102,8 @@ if ($reg != 0) {
             } else {
                 $asunto = $Valija[$j]['asuntopaq'];
             }
-            echo "<td  style='text-align:center'>" . $Valija[$j]['destinopaq']['idusu']['nombreusu'] . "</td>";
-            echo "<td  style='text-align:center'>" . $asunto . "</td>";
+            echo "<td  style='text-align:center'> " . utf8_encode($Valija[$j]['destinopaq']['idusu']['nombreusu'] ). "</td>";
+            echo "<td  style='text-align:center'>" .utf8_encode( $asunto ). "</td>";
             echo "<td style='text-align:center'>" . $Valija[$j]['iddoc']['nombredoc'] . "</td>";
             if ($Valija[$j]['respaq'] == 0) {
                 echo "<td style='text-align:center'> No </td>";
