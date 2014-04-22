@@ -57,22 +57,22 @@ if (!isset($Usuario)) {
     $direccion1 = "";
     $direccion2 = "";
     if (isset($Usuario["apellidousu"])) {
-        $apellido = utf8_decode($Usuario["apellidousu"]);
+        $apellido = utf8_encode($Usuario["apellidousu"]);
     }
     if (isset($Usuario["correousu"])) {
-        $correo = utf8_decode($Usuario["correousu"]);
+        $correo = utf8_encode($Usuario["correousu"]);
     }
     if (isset($Usuario["telefonousu"])) {
-        $telefono1 = utf8_decode($Usuario["telefonousu"]);
+        $telefono1 = utf8_encode($Usuario["telefonousu"]);
     }
     if (isset($Usuario["telefono2usu"])) {
-        $telefono2 = utf8_decode($Usuario["telefono2usu"]);
+        $telefono2 = utf8_encode($Usuario["telefono2usu"]);
     }
     if (isset($Usuario["direccionusu"])) {
-        $direccion1 = utf8_decode($Usuario["direccionusu"]);
+        $direccion1 = utf8_encode($Usuario["direccionusu"]);
     }
     if (isset($Usuario["direccion2usu"])) {
-        $direccion2 = utf8_decode($Usuario["direccion2usu"]);
+        $direccion2 = utf8_encode($Usuario["direccion2usu"]);
     }
     ?>
     <body class="appBg">
@@ -114,7 +114,7 @@ if (!isset($Usuario)) {
                                 <table class='footable table table-striped table-bordered'>
                                     <tr>
                                         <td style="text-align:center" >Nombre</td>
-                                        <td style="text-align:center"><input type="text" name="nombre" id="nombre" autocomplete="off" value="<?php echo utf8_decode($Usuario["nombreusu"]); ?>" maxlength="150" size="30"  autofocus required></td>
+                                        <td style="text-align:center"><input type="text" name="nombre" id="nombre" autocomplete="off" value="<?php echo utf8_encode($Usuario["nombreusu"]); ?>" maxlength="150" size="30"  autofocus required></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align:center">Apellido</td>
@@ -127,7 +127,7 @@ if (!isset($Usuario)) {
                                     </tr>
                                     <tr>
                                         <td style="text-align:center" width="50%">Usuario</td>
-                                        <td style="text-align:center"><input type="text" name="usuario" id="usuario"  value="<?php echo utf8_decode($Usuario["userusu"]); ?>" size="30"   disabled>
+                                        <td style="text-align:center"><input type="text" name="usuario" id="usuario"  value="<?php echo utf8_encode($Usuario["userusu"]); ?>" size="30"   disabled>
                                         </td>		
                                     </tr>
                                     <tr>

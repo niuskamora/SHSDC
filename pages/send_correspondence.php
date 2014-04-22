@@ -8,7 +8,7 @@ require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
 
-//try {
+try {
     $client = new nusoap_client($wsdl_sdc, 'wsdl');
 	$_SESSION["cli"]=$client;
 	if (!isset($_SESSION["Usuario"])) {
@@ -21,30 +21,37 @@ require_once("../core/Crypt/AES.php");
 	//$UsuarioRol["sede"] = $_SESSION["Sede"]["nombresed"];
     $consumo = $client->call("consultarSedeRol",$UsuarioRol);
     $SedeRol = $consumo['return'];
-	$consumo = $client->call("listarSedes");
+	$sedemia = array('idSede' => $_SESSION["Sede"]["idsed"]);
+    //$Sedes = $client->listarSedesParaEnvio($sedemia);
+	$consumo = $client->call("listarSedesParaEnvio",$sedemia);
     $Sedes = $consumo['return'];
     $consumo = $client->call("listarDocumentos");
-    $rowDocumentos = $consumo['return'];
+	if($consumo!=""){
+	$rowDocumentos = $consumo['return'];
+	}  
 	$consumo = $client->call("listarPrioridad");
-    $rowPrioridad = $consumo['return'];
-	//echo '<pre>';print_r($rowPrioridad);
-	//$origenbuz = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'idsede' => $_SESSION["Sede"]->return->idsed);
+	if($consumo!=""){
+	 $rowPrioridad = $consumo['return'];
+	}
     $buzonxUS['idusu'] = $_SESSION["Usuario"]["idusu"];
 	$buzonxUS['idsede'] = $_SESSION["Sede"]["idsed"];
 	$consumo = $client->call("consultarBuzonXUsuarioSede",$buzonxUS);
-    $propioBuzon = $consumo['return'];
-/*	if (!isset($propioBuzon->return)) {
+	if($consumo!=""){
+	 $propioBuzon = $consumo['return'];
+	}
+   
+	if (!isset($propioBuzon)) {
         javaalert("Lo sentimos no se puede enviar correspondencia porque no tiene el buzon creado,Consulte con el Administrador");
         iraURL('../pages/inbox.php');
     }
-    if (!isset($rowDocumentos->return)) {
+    if (!isset($rowDocumentos)) {
         javaalert("Lo sentimos no se puede enviar correspondencia porque no hay Tipos de documentos registrados,Consulte con el Administrador");
         iraURL('../pages/inbox.php');
     }
-    if (!isset($rowPrioridad->return)) {
+    if (!isset($rowPrioridad)) {
         javaalert("Lo sentimos no se puede enviar correspondencia porque no hay Prioridades registradas,Consulte con el Administrador");
         iraURL('../pages/inbox.php');
-    }*/
+    }
     
     if (isset($_POST["enviar"])) {
         if ($_POST["contacto"] != "" && isset($_POST["asunto"]) && $_POST["asunto"] != "" && isset($_POST["doc"]) && $_POST["doc"] != "" && isset($_POST["prioridad"]) && $_POST["prioridad"] != "" && isset($_POST["elmsg"]) && $_POST["elmsg"] != "") {
@@ -55,7 +62,7 @@ require_once("../core/Crypt/AES.php");
 			$paramBuzonP= array('idbuz' => $idbuz);
 			$consumo = $client->call("consultarBuzon",$paramBuzonP);
 			$buzonPara = $consumo['return'];
-            if (count($propioBuzon->return) == 1) {
+            if (!isset($propioBuzon[0])) {
                 $tipobuz = $propioBuzon["tipobuz"];
             }
             //if (isset($usuarioBuzon->return)) {
@@ -79,17 +86,19 @@ require_once("../core/Crypt/AES.php");
             $sede = array('idsed' => $_SESSION["Sede"]["idsed"]);
             $paquete = array('origenpaq' => $origenpaq,
                 'destinopaq' => $destinopaq,
-                'asuntopaq' => $_POST["asunto"],
-                'textopaq' => $_POST["elmsg"],
-                'fechapaq' => date("Y-m-d"),
+                'asuntopaq' => utf8_decode($_POST["asunto"]),
+                'textopaq' => utf8_decode($_POST["elmsg"]),
+              //  'fechapaq' => date("Y-m-d"),
                 'statuspaq' => "0",
-                'localizacionpaq' => $_SESSION["Usuario"]["userusu"],
+                'localizacionpaq' => utf8_decode($_SESSION["Usuario"]["userusu"]),
                 'idpri' => $prioridad,
                 'iddoc' => $documento,
                 'fragilpaq' => $fra,
                 'respaq' => $rta,
                 'idsed' => $sede);
+				
             $registro = array('registroPaquete' => $paquete);
+			//echo '<pre>';print_r($registro);
             //$envio = $client->crearPaquete($registro);  //pilas ismael
 			$consumo = $client->call("crearPaquete",$registro);
 			$envio = $consumo['return'];
@@ -142,7 +151,7 @@ require_once("../core/Crypt/AES.php");
                 } else {
                     javaalert("La correspondencia ha sido enviada");
                 }
-                $usuario = array('idusu' => $_SESSION["Usuario"]->return->idusu);
+                $usuario = array('idusu' => $_SESSION["Usuario"]["idusu"]);
                 $parametros = array('registroPaquete' => $paq,
                     'registroUsuario' => $usuario,
                     'registroSede' => $sede,
@@ -165,8 +174,8 @@ require_once("../core/Crypt/AES.php");
         }
     }
     include("../views/send_correspondence.php");
-/*} catch (Exception $e) {
+} catch (Exception $e) {
     javaalert('Lo sentimos no hay conexion');
     iraURL('../pages/inbox.php');
-}*/
+}
 ?>
