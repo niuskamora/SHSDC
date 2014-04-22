@@ -73,20 +73,20 @@ if (isset($_POST["enviar"])) {
             $idPadre = array('idpaq' => $_GET['idpaqr']);
             $paquete = array('origenpaq' => $origenpaq,
                 'destinopaq' => $destinopaq,
-                'asuntopaq' => $_POST["asunto"],
-                'textopaq' => $_POST["elmsg"],
-                'fechapaq' => date("Y-m-d"),
+                'asuntopaq' => utf8_decode($_POST["asunto"]),
+                'textopaq' => utf8_decode($_POST["elmsg"]),
+                //'fechapaq' => date("Y-m-d"),
                 'statuspaq' => "0",
 				'fragilpaq' => $fra,
                 'respaq' => "0",
-                'localizacionpaq' => $Paquete["destinopaq"]["idusu"]["userusu"],
+                'localizacionpaq' => utf8_decode($Paquete["destinopaq"]["idusu"]["userusu"]),
                 'idpri' => $prioridad,
                 'iddoc' => $documento,
                 'idsed' => $sede,
                 'idpaqres' => $idPadre);
             $registro = array('registroPaquete' => $paquete);
-
-            $envio = $client->crearPaquete($registro);  //pilas ismael
+            $consumo = $client->call("crearPaquete",$registro);
+			$envio = $consumo['return'];
             $paramUltimo = array('idUsuario' => $Paquete["destinopaq"]["idusu"]["idusu"]);
 //            $idPaquete = $client->ultimoPaqueteXOrigen($paramUltimo);
 			$consumo = $client->call("ultimoPaqueteXOrigen",$paramUltimo);

@@ -6,7 +6,7 @@ if (!isset($Sedes)) {
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
+        <meta charset="ISO-8859-1">
         <title>Seguros Horizonte | HorizonLine</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
@@ -132,10 +132,10 @@ if (!isset($Sedes)) {
                                             <option value="" style="display:none">Seleccionar:</option>                                  
                                             <?php
                                             if (!isset($Sedes[0])) {
-                                                echo '<option value="' . $Sedes["idsed"] . '">' . utf8_decode($Sedes["nombresed"]) . '</option>';
+                                                echo '<option value="' . $Sedes["idsed"] . '">' . utf8_encode($Sedes["nombresed"]) . '</option>';
                                             } else {
                                                 for ($i = 0; $i < count($Sedes); $i++) {
-                                                    echo '<option value="' . $Sedes[$i]["idsed"] . '">' . utf8_decode($Sedes[$i]["nombresed"]) . '</option>';
+                                                    echo '<option value="' . $Sedes[$i]["idsed"] . '">' . utf8_encode($Sedes[$i]["nombresed"]) . '</option>';
                                                 }
                                             }
                                             ?>

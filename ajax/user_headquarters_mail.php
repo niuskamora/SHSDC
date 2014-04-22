@@ -25,11 +25,11 @@ echo "<option value='' style='display:none'>Seleccionar:</option>";
 if (isset($Usuarios[0])) {
     $i = 0;
     while ($reg > $i) {
-        echo '<option value="' . $Usuarios[$i]["idatr"] . '">' . utf8_decode($Usuarios[$i]["nombreatr"]) . '</option>';
+        echo '<option value="' . $Usuarios[$i]["idatr"] . '">' . utf8_encode($Usuarios[$i]["nombreatr"]) . '</option>';
         $i++;
     }
 } else {
-    echo '<option value="' . $Usuarios["idatr"] . '">' . utf8_decode($Usuarios["nombreatr"]) . '</option>';
+    echo '<option value="' . $Usuarios["idatr"] . '">' . utf8_encode($Usuarios["nombreatr"]) . '</option>';
 }
 }
 ?>

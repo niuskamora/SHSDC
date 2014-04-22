@@ -47,6 +47,7 @@
         <link href="../css/footable.paginate.css" rel="stylesheet" type="text/css" />
         <script>
             function areas(idsede) {
+			
                 var parametros = {
                     "ed": idsede
                 };
@@ -150,10 +151,10 @@
                                                 <option value="" style="display:none">Seleccionar:</option>
                                                 <?php
                                                 if (!isset($rowDocumentos[0])) {												
-                                                    echo '<option value="' . $rowDocumentos["iddoc"] . '">' . utf8_decode($rowDocumentos["nombredoc"]). '</option>';
+                                                    echo '<option value="' . $rowDocumentos["iddoc"] . '">' . utf8_encode($rowDocumentos["nombredoc"]). '</option>';
                                                 } else {
                                                     for ($i = 0; $i < count($rowDocumentos); $i++) {
-                                                        echo '<option value="' . $rowDocumentos[$i]["iddoc"]. '">' .utf8_decode( $rowDocumentos[$i]["nombredoc"]). '</option>';
+                                                        echo '<option value="' . $rowDocumentos[$i]["iddoc"]. '">' .utf8_encode( $rowDocumentos[$i]["nombredoc"]). '</option>';
                                                     }
                                                 }
                                                 ?>
@@ -166,10 +167,10 @@
                                                 <option value="" style="display:none">Seleccionar:</option>                                  
                                                 <?php
                                                 if (!isset($rowPrioridad[0])) {
-                                                    echo '<option value="' . $rowPrioridad["idpri"]. '">' . utf8_decode($rowPrioridad["nombrepri"]) . '</option>';
+                                                    echo '<option value="' . $rowPrioridad["idpri"]. '">' . utf8_encode($rowPrioridad["nombrepri"]) . '</option>';
                                                 } else {
                                                     for ($i = 0; $i < count($rowPrioridad); $i++) {
-                                                        echo '<option value="' . $rowPrioridad[$i]["idpri"] . '">' . utf8_decode($rowPrioridad[$i]["nombrepri"]). '</option>';
+                                                        echo '<option value="' . $rowPrioridad[$i]["idpri"] . '">' . utf8_encode($rowPrioridad[$i]["nombrepri"]). '</option>';
                                                     }
                                                 }
                                                 ?>
@@ -228,10 +229,10 @@
                                                 <option value="" style="display:none">Seleccionar Sede:</option>                                  
                                                 <?php
                                                 if (!isset($Sedes[0])) {
-                                                    echo '<option value="' . $Sedes["nombresed"] . '">' .utf8_decode( $Sedes["nombresed"]) . '</option>';
+                                                    echo '<option value="' . utf8_encode($Sedes["nombresed"]) . '">' .utf8_encode( $Sedes["nombresed"]) . '</option>';
                                                 } else {
                                                     for ($i = 0; $i < count($Sedes); $i++) {
-                                                        echo '<option value="' . $Sedes[$i]["nombresed"] . '">' . utf8_decode($Sedes[$i]["nombresed"]) . '</option>';
+                                                        echo '<option value="' . utf8_encode($Sedes[$i]["nombresed"]) . '">' . utf8_encode($Sedes[$i]["nombresed"]) . '</option>';
                                                     }
                                                 }
                                                 ?>

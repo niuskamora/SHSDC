@@ -33,13 +33,15 @@ require_once("../core/Crypt/AES.php");
 //    try {
         $reg = 0;
         if (isset($_POST['ed']) && $_POST['ed'] != "" && $_POST['ed'] != NULL) {
-            $aux = $_POST['ed'];
+            $aux = utf8_decode($_POST['ed']);
             $datosU["sede"] =$aux;
 			$client = new nusoap_client($wsdl_sdc, 'wsdl');	
+						//javaalert($aux);
+
 			$consumo = $client->call("consultarAreasXSedeXNombre",$datosU);
+			//echo '<pre>'; print_r($consumo['return']);
             if ($consumo!="") {
 			$Sedes = $consumo['return'];
-			//echo '<pre>';print_r($Sedes);
 			if(!isset($Sedes[0])){
 			 $reg = 1;
 			}else{
@@ -47,8 +49,6 @@ require_once("../core/Crypt/AES.php");
 			}
                 
             $_SESSION["sededit"] = $aux;
-            } else {
-                $reg = 0;
             }
         } else {
             javaalert('Debe selecionar una sede');
@@ -63,11 +63,11 @@ require_once("../core/Crypt/AES.php");
         if ($reg > 1) {
             $i = 0;
             while ($reg > $i) {
-                echo "<option value='" . $Sedes[$i]["idatr"]. "' >" .utf8_decode( $Sedes[$i]["nombreatr"]) . "</option>";
+                echo "<option value='" . $Sedes[$i]["idatr"]. "' >" .utf8_encode( $Sedes[$i]["nombreatr"]) . "</option>";
                 $i++;
             }
         } else {
-            echo "<option value='" . $Sedes["idatr"] . "' >" . utf8_decode($Sedes["nombreatr"]) . "</option>";
+            echo "<option value='" . $Sedes["idatr"] . "' >" . utf8_encode($Sedes["nombreatr"]) . "</option>";
         }
     } else {
         javaalert('No existen áreas de trabajo para esta sede');

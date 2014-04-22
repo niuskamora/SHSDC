@@ -110,20 +110,20 @@ if (!isset($SedeRol)) {
                                                 <?php
                                                 if (!isset($PaquetesConfirmados[0])) {
 
-                                                    if (strlen($PaquetesConfirmados["textopaq"]) > 10) {
-                                                        $contenido = substr($PaquetesConfirmados["textopaq"], 0, 10) . "...";
+                                                    if (strlen(utf8_encode($PaquetesConfirmados["textopaq"])) > 10) {
+                                                        $contenido = substr(utf8_encode($PaquetesConfirmados["textopaq"]), 0, 10) . "...";
                                                     } else {
-                                                        $contenido = $PaquetesConfirmados["textopaq"];
+                                                        $contenido = utf8_encode($PaquetesConfirmados["textopaq"]);
                                                     }
-                                                    if (strlen($PaquetesConfirmados["asuntopaq"]) > 10) {
-                                                        $asunto = substr($PaquetesConfirmados["asuntopaq"], 0, 10) . "...";
+                                                    if (strlen(utf8_encode($PaquetesConfirmados["asuntopaq"])) > 10) {
+                                                        $asunto = substr(utf8_encode($PaquetesConfirmados["asuntopaq"]), 0, 10) . "...";
                                                     } else {
-                                                        $asunto = $PaquetesConfirmados["asuntopaq"];
+                                                        $asunto = utf8_encode($PaquetesConfirmados["asuntopaq"]);
                                                     }
                                                     if ($PaquetesConfirmados["destinopaq"]["tipobuz"] == 0) {
-                                                        $nombrebuz = $PaquetesConfirmados["destinopaq"]["idusu"]["nombreusu"] . " " . $PaquetesConfirmados-["destinopaq"]["idusu"]["apellidousu"];
+                                                        $nombrebuz = utf8_encode($PaquetesConfirmados["destinopaq"]["idusu"]["nombreusu"] . " " . $PaquetesConfirmados["destinopaq"]["idusu"]["apellidousu"]);
                                                     } else {
-                                                        $nombrebuz = $PaquetesConfirmados->destinopaq->nombrebuz;
+                                                        $nombrebuz = utf8_encode($PaquetesConfirmados["destinopaq"]["nombrebuz"]);
                                                     }
                                                     ?>
                                                     <tr>     
@@ -138,27 +138,27 @@ if (!isset($SedeRol)) {
                                                 } else {
                                                     for ($i = 0; $i < count($PaquetesConfirmados); $i++) {
 
-                                                        if (strlen($PaquetesConfirmados[$i]["textopaq"]) > 25) {
-                                                            $contenido = substr($PaquetesConfirmados[$i]["textopaq"], 0, 23) . "...";
+                                                        if (strlen(utf8_encode($PaquetesConfirmados[$i]["textopaq"])) > 25) {
+                                                            $contenido = substr(utf8_encode($PaquetesConfirmados[$i]["textopaq"]), 0, 23) . "...";
                                                         } else {
-                                                            $contenido = $PaquetesConfirmados[$i]["textopaq"];
+                                                            $contenido = utf8_encode($PaquetesConfirmados[$i]["textopaq"]);
                                                         }
-                                                        if (strlen($PaquetesConfirmados[$i]["asuntopaq"]) > 10) {
-                                                            $asunto = substr($PaquetesConfirmados[$i]["asuntopaq"], 0, 10) . "...";
+                                                        if (strlen(utf8_encode($PaquetesConfirmados[$i]["asuntopaq"])) > 10) {
+                                                            $asunto = substr(utf8_encode($PaquetesConfirmados[$i]["asuntopaq"]), 0, 10) . "...";
                                                         } else {
-                                                            $asunto = $PaquetesConfirmados[$i]["asuntopaq"];
+                                                            $asunto = utf8_encode($PaquetesConfirmados[$i]["asuntopaq"]);
                                                         }
                                                         if ($PaquetesConfirmados[$i]["destinopaq"]["tipobuz"] == 0) {
-                                                            $nombrebuz = $PaquetesConfirmados[$i]["destinopaq"]["idusu"]["nombreusu"] . " " . $PaquetesConfirmados[$i]["destinopaq"]["idusu"]["apellidousu"];
+                                                            $nombrebuz = utf8_encode($PaquetesConfirmados[$i]["destinopaq"]["idusu"]["nombreusu"] . " " . $PaquetesConfirmados[$i]["destinopaq"]["idusu"]["apellidousu"]);
                                                         } else {
-                                                            $nombrebuz = $PaquetesConfirmados[$i]["destinopaq"]["nombrebuz"];
+                                                            $nombrebuz = utf8_encode($PaquetesConfirmados[$i]["destinopaq"]["nombrebuz"]);
                                                         }
                                                         ?>
                                                         <tr>     
-                                                            <td  style='text-align:center'><?php echo $PaquetesConfirmados[$i]["origenpaq"]["idusu"]["nombreusu"] . " " . $PaquetesConfirmados[$i]["origenpaq"]["idusu"]["apellidousu"]; ?></td>
+                                                            <td  style='text-align:center'><?php echo utf8_encode($PaquetesConfirmados[$i]["origenpaq"]["idusu"]["nombreusu"] . " " . $PaquetesConfirmados[$i]["origenpaq"]["idusu"]["apellidousu"]); ?></td>
                                                             <td style='text-align:center'><?php echo $nombrebuz; ?></td>
                                                             <td style='text-align:center'><?php echo $asunto; ?></td>
-                                                            <td style='text-align:center'><?php echo $PaquetesConfirmados[$i]["iddoc"]["nombredoc"]; ?></td>
+                                                            <td style='text-align:center'><?php echo utf8_encode($PaquetesConfirmados[$i]["iddoc"]["nombredoc"]); ?></td>
                                                             <td style='text-align:center'><?php echo $contenido; ?></td>
                                                             <td style='text-align:center'> <button type='button' class='btn btn-info btn-primary' onClick="Paquete(<?php echo $PaquetesConfirmados[$i]["idpaq"]; ?>);">  Confirmar </button></td>  
                                                         </tr>   

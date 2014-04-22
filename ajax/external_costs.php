@@ -75,7 +75,7 @@ try {
             }
             echo "<br>";
             ?>  <h2>Correspondencia seleccionada</h2>
-            <table class='footable table table-striped table-bordered'>    
+            <table class='footable table table-striped table-bordered' >    
                 <thead bgcolor='#FF0000'>
                     <tr>	
                         <th style='width:7%; text-align:center' data-sort-ignore="true">Código</th> 

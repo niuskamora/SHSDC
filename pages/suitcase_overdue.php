@@ -38,17 +38,19 @@ try {
             //$nombreSede = $client->consultaNombreSedeXId($parametros);
 			 $consumo = $client->call("consultaNombreSedeXId",$parametros);
 			if ($consumo!="") {
-			$nombreSede = $consumo['return'];  
+			$nombreSede = $consumo['return']; 
+			$ValijasOrigen["origenval"] = utf8_encode($nombreSede);
 			}
-            $ValijasOrigen["origenval"] = $nombreSede;
+            
         } else {
             for ($i = 0; $i < count($ValijasOrigen); $i++) {
                 $parametros = array('Id' => $ValijasOrigen[$i]["origenval"]);
 				$consumo = $client->call("consultaNombreSedeXId",$parametros);
 				if ($consumo!="") {
 				$nombreSede = $consumo['return'];  
+				$ValijasOrigen[$i]["origenval"] = utf8_encode($nombreSede);
 				}         
-				$ValijasOrigen[$i]["origenval"] = $nombreSede;
+				
             }
         }
     }

@@ -8,7 +8,7 @@ require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
 
-//try {
+try {
     $client = new nusoap_client($wsdl_sdc, 'wsdl');
 $_SESSION["cli"]=$client;	
 if (!isset($_SESSION["Usuario"])) {
@@ -37,8 +37,8 @@ if (!isset($_SESSION["Usuario"])) {
 	
     //$PaquetesConfirmados = $client->consultarPaquetesConfirmadosXRol($parametros);
     include("../views/confirm_package.php");
-/*} catch (Exception $e) {
+} catch (Exception $e) {
     javaalert('Lo sentimos no hay conexion');
     iraURL('../pages/inbox.php');
-}*/
+}
 ?>

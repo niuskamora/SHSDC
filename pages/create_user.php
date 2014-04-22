@@ -9,7 +9,8 @@ require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
 
 try {
-       $client = new nusoap_client($wsdl_sdc, 'wsdl');
+$_SESSION["User"]="aaaa";
+    $client = new nusoap_client($wsdl_sdc, 'wsdl');
 	$_SESSION["cli"]=$client;
 
     if (!isset($_SESSION["User"])) {

@@ -58,6 +58,9 @@ require_once("../core/Crypt/AES.php");
                	$consumo = $client->call("editarUsuario",$registroU);
 				if($consumo!=""){
 				$guardo=$consumo["return"];
+				$userparam['user'] = $_SESSION["Usuario"]["userusu"];
+				$userResp = $client->call("consultarUsuarioXUser",$userparam);
+				 $_SESSION["Usuario"] = $userResp['return'];
 				}
 			   // $guardo = $client->editarUsuario($registroU);
                 if ($guardo == 0) {
