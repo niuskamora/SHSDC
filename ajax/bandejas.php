@@ -145,7 +145,7 @@ require_once("../core/Crypt/AES.php");
             if (strlen($Bandeja['return']['asuntopaq']) > 10) {
                 $asunto = substr($Bandeja['return']['asuntopaq'], 0, 10) . "...";
             } else {
-                $asunto = $Bandeja['asuntopaq'];
+                $asunto = $Bandeja['return']['asuntopaq'];
             }
 			 if ($aux == "Por Recibir" || $aux == "Recibidas") {
                     echo "<td  style='text-align:center'>" . $Bandeja['return']['origenpaq']['idusu']['nombreusu'] . " ".$Bandeja['return']['origenpaq']['idusu']['apellidousu']. "</td>";

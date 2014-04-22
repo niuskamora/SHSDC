@@ -71,15 +71,15 @@ if (isset($_POST["confirmar"])) {
                     if ($confirmarValija == 1) {
                         javaalert('Valija Confirmada');
                         llenarLog(2, "Confirmación de Valija", $usuarioBitacora, $sede);
-                        //iraURL('../pages/create_valise.php');
+                        iraURL('../pages/create_valise.php');
                     } else {
                         javaalert('Valija No Confirmada');
-                        //iraURL('../pages/create_valise.php');
+                        iraURL('../pages/create_valise.php');
                     }
                 }
             } else {
                 javaalert('Valija No Confirmada');
-                //iraURL('../pages/create_valise.php');
+                iraURL('../pages/create_valise.php');
             }
         } catch (Exception $e) {
             javaalert('Lo sentimos no hay conexion');

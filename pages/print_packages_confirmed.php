@@ -3,7 +3,13 @@
 session_start();
 include("../recursos/funciones.php");
 include("../recursos/codigoBarrasPdf.php");
-require_once('../lib/nusoap.php');
+require_once("../lib/nusoap.php");
+require_once("../config/wsdl.php");
+require_once("../config/definitions.php");
+require_once("../core/Crypt/AES.php");
+
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$_SESSION["cli"] = $client;
 
 if (!isset($_SESSION["Usuario"])) {
     iraURL("../index.php");
@@ -11,98 +17,96 @@ if (!isset($_SESSION["Usuario"])) {
     iraURL("../pages/create_user.php");
 }
 
-$client = new SOAPClient($wsdl_sdc);
-$client->decode_utf8 = false;
-$UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-$SedeRol = $client->consultarSedeRol($UsuarioRol);
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"],
+    'sede' => $_SESSION["Sede"]["nombresed"]);
+$consumo = $client->call("consultarSedeRol", $UsuarioRol);
 
-if (isset($SedeRol->return)) {
-    if ($SedeRol->return->idrol->idrol != "1" && $SedeRol->return->idrol->idrol != "3") {
+if ($consumo != "") {
+    $SedeRol = $consumo['return'];
+    if ($SedeRol['idrol']['idrol'] != "1" && $SedeRol['idrol']['idrol'] != "3") {
         iraURL('../pages/inbox.php');
     }
 } else {
     iraURL('../pages/inbox.php');
 }
 
-$nomUsuario = $_SESSION["Usuario"]->return->userusu;
-$ideSede = $_SESSION["Sede"]->return->idsed;
+$nomUsuario = $_SESSION["Usuario"]["userusu"];
+$idesede = $_SESSION["Sede"]["idsed"];
+
 $_SESSION["paquetesConfirmados"] = "";
 $_SESSION["paquetes"] = "";
 $_SESSION["codigos"] = "";
 
+
 try {
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
+    $client = new nusoap_client($wsdl_sdc, 'wsdl');
+    $usuSede = array('iduse' => $SedeRol['iduse'],
+        'idrol' => $SedeRol['idrol'],
+        'idsed' => $SedeRol['idsed']);
+    $parametros = array('idUsuarioSede' => $usuSede);
+    $consumoConfirmados = $client->call("consultarPaquetesConfirmadosXRol", $parametros);
 
-    $usuario = array('user' => $nomUsuario);
-    $resultadoConsultarUsuario = $client->consultarUsuarioXUser($usuario);
-
-    if (!isset($resultadoConsultarUsuario->return)) {
-        $usua = 0;
-    } else {
-        $usua = $resultadoConsultarUsuario->return;
-    }
-
-    $idUsuario = $resultadoConsultarUsuario->return->idusu;
-
-    try {
-$client = new SOAPClient($wsdl_sdc);
-        $client->decode_utf8 = false;
-
-        $usuSede = array('iduse' => $SedeRol->return->iduse,
-            'idrol' => $SedeRol->return->idrol,
-            'idsed' => $SedeRol->return->idsed);
-        $parametros = array('idUsuarioSede' => $usuSede);
-        $resultadoPaquetesConfirmados = $client->consultarPaquetesConfirmadosXRol($parametros);
-
-        if (!isset($resultadoPaquetesConfirmados->return)) {
-            $paquetes = 0;
+    if ($consumoConfirmados != "") {
+        $resultadoPaquetesConfirmados = $consumoConfirmados['return'];
+        if (isset($resultadoPaquetesConfirmados[0])) {
+            $paquetes = count($resultadoPaquetesConfirmados);
         } else {
-            $paquetes = count($resultadoPaquetesConfirmados->return);
+            $paquetes = 1;
         }
-    } catch (Exception $e) {
-        javaalert('Lo sentimos no hay conexion');
-        iraURL('../pages/confirm_package.php');
+    } else {
+        $paquetes = 0;
     }
+} catch (Exception $e) {
+    javaalert('Lo sentimos no hay conexion');
+    iraURL('../pages/confirm_package.php');
+}
 
-    if (isset($_POST["imprimir"])) {
+if (isset($_POST["imprimir"])) {
 
-        if (isset($_POST["ide"])) {
+    if (isset($_POST["ide"])) {
 
-            $imprimirPaquetes = $_POST["ide"];
-            for ($i = 0; $i < count($imprimirPaquetes); $i++) {
-                $idPaquete = array('idPaquete' => $imprimirPaquetes[$i]);
-                $resultadoPaquete = $client->consultarPaqueteXId($idPaquete);
-                $idpaq[$i] = $resultadoPaquete->return->idpaq;
+        $imprimirPaquetes = $_POST["ide"];
+        for ($i = 0; $i < count($imprimirPaquetes); $i++) {
+            $client = new nusoap_client($wsdl_sdc, 'wsdl');
+            $idPaquete = array('idPaquete' => $imprimirPaquetes[$i]);
+            $consumoPaquete = $client->call("consultarPaqueteXId", $idPaquete);
+            if ($consumoPaquete != "") {
+                $resultadoPaquete = $consumoPaquete['return'];
+            }
+            if (isset($resultadoPaquete)) {
+                $idpaq[$i] = $resultadoPaquete['idpaq'];
 
-                $sedPaq = $resultadoPaquete->return->idsed->idsed;
-                $idSede = array('idSede' => $sedPaq);
-                $resultadoConsultarSede = $client->consultarSedeXId($idSede);
-                $codigoSede = $resultadoConsultarSede->return->codigosed;
-
-                if (isset($resultadoPaquete->return->fechapaq)) {
-                    $fecha = FechaHora($resultadoPaquete->return->fechapaq);
+                if (isset($resultadoPaquete['fechapaq'])) {
+                    $fecha = FechaHora($resultadoPaquete['fechapaq']);
                 } else {
                     $fecha = "";
                 }
                 //Año de envio del paquete
                 $fechaCod = (substr($fecha, 6, 4));
 
+                $sedPaq = $resultadoPaquete['idsed']['idsed'];
+                $idSede = array('idSede' => $sedPaq);
+                $consumoSede = $client->call("consultarSedeXId", $idSede);
+                if ($consumoSede != "") {
+                    $resultadoConsultarSede = $consumoSede['return'];
+                }
+                if (isset($resultadoConsultarSede)) {
+                    $codigoSede = $resultadoConsultarSede['codigosed'];
+                }
+
                 //Código total codigosede+añopaquete+idpaquete
                 $codigoTotal[$i] = $codigoSede . $fechaCod . $idpaq[$i];
                 guardarImagen($codigoTotal[$i]);
                 $_SESSION["codigos"][$i] = $codigoTotal[$i];
             }
-            $_SESSION["paquetesConfirmados"] = $resultadoPaquetesConfirmados;
-            $_SESSION["paquetes"] = $imprimirPaquetes;
-            iraURL('../pages/proof_package_confirmed.php');
-        } else {
-            javaalert("Debe seleccionar al menos un paquete, por favor verifique");
         }
+        $_SESSION["paquetesConfirmados"] = $resultadoPaquetesConfirmados;
+        $_SESSION["paquetes"] = $imprimirPaquetes;
+        iraURL('../pages/proof_package_confirmed.php');
+    } else {
+        javaalert("Debe seleccionar al menos un paquete, por favor verifique");
     }
-    include("../views/print_packages_confirmed.php");
-} catch (Exception $e) {
-    javaalert('Lo sentimos no hay conexion');
-    iraURL('../pages/confirm_package.php');
 }
+include("../views/print_packages_confirmed.php");
 ?>

@@ -10,7 +10,7 @@
         </div>
         <div align="center">	
             <h2 align="center">Sistema de Correspondencia</h2>
-            <h3 align="center">Comprobante de Paquetes Confirmados en <?php echo $rol?></h3>
+            <h3 align="center">Comprobante de Paquetes Confirmados en <?php echo $rol ?></h3>
             <table align="center" width="500" border="1" rules="all">
                 <tr>
                     <td style="text-align:center"><strong>Código Paquete</strong></td>
@@ -25,28 +25,28 @@
                     ?>
                     <tr>
                         <td align="center"><img style="top:auto" src=<?php echo $ruta[$i] ?>></td>
-                        <td align="center"><?php echo $paquetesTotales[$i]->idpaq ?></td>
-                        <?php if ($paquetesTotales[$i]->origenpaq->nombrebuz == "") { ?>
+                        <td align="center"><?php echo $paquetesTotales[$i]['idpaq'] ?></td>
+                        <?php if ($paquetesTotales[$i]['origenpaq']['nombrebuz'] == "") { ?>
                             <td><?php echo "" ?></td>
                         <?php } else {
                             ?>
-                            <td align="center"><?php echo $paquetesTotales[$i]->origenpaq->nombrebuz ?></td>
+                            <td align="center"><?php echo utf8_encode($paquetesTotales[$i]['origenpaq']['nombrebuz']) ?></td>
                             <?php
                         }
-                        if ($paquetesTotales[$i]->destinopaq->nombrebuz == "") {
+                        if ($paquetesTotales[$i]['destinopaq']['nombrebuz'] == "") {
                             ?>
                             <td><?php echo "" ?></td>
                         <?php } else {
                             ?>
-                            <td align="center"><?php echo $paquetesTotales[$i]->destinopaq->nombrebuz ?></td>
+                            <td align="center"><?php echo utf8_encode($paquetesTotales[$i]['destinopaq']['nombrebuz']) ?></td>
                             <?php
                         }
-                        if ($paquetesTotales[$i]->idsed == "") {
+                        if ($paquetesTotales[$i]['idsed'] == "") {
                             ?>
                             <td><?php echo "" ?></td>
                         <?php } else {
                             ?>
-                            <td align="center"><?php echo $paquetesTotales[$i]->idsed->nombresed ?></td>
+                            <td align="center"><?php echo utf8_encode($paquetesTotales[$i]['idsed']['nombresed']) ?></td>
                         <?php } ?>
                     </tr>
                 <?php } ?>
@@ -59,7 +59,7 @@
                     <td align="center"><strong>________________</strong></td>
                 </tr>
                 <tr>
-                    <td align="center"><strong><?php echo $rol?></strong></td>
+                    <td align="center"><strong><?php echo $rol ?></strong></td>
                     <td align="center"><strong>Recepción</strong></td>
                 </tr>
             </table>
