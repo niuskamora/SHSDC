@@ -2,10 +2,14 @@
 
 session_start();
 include("../recursos/funciones.php");
+include("../recursos/codigoBarrasPdf.php");
 require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
+
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$_SESSION["cli"] = $client;
 
 if (!isset($_SESSION["Usuario"])) {
     iraURL("../index.php");
@@ -15,17 +19,18 @@ if (!isset($_SESSION["Usuario"])) {
 
 $paquetes = $_SESSION["paquetes"];
 $paquetesConfirmados = $_SESSION["paquetesConfirmados"];
-$usuarioBitacora = $_SESSION["Usuario"]->return->idusu;
-$sede = $_SESSION["Sede"]->return->idsed;
+$usuarioBitacora = $_SESSION["Usuario"]["idusu"];
+$sede = $_SESSION["Sede"]["idsed"];
 $codigos = $_SESSION["codigos"];
 
-$client = new SOAPClient($wsdl_sdc);
-$client->decode_utf8 = false;
-$UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-$SedeRol = $client->consultarSedeRol($UsuarioRol);
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"],
+    'sede' => $_SESSION["Sede"]["nombresed"]);
+$consumo = $client->call("consultarSedeRol", $UsuarioRol);
 
-if (isset($SedeRol->return)) {
-    if ($SedeRol->return->idrol->idrol != "1" && $SedeRol->return->idrol->idrol != "3") {
+if ($consumo != "") {
+    $SedeRol = $consumo['return'];
+    if ($SedeRol['idrol']['idrol'] != "1" && $SedeRol['idrol']['idrol'] != "3") {
         iraURL('../pages/inbox.php');
     }
 } else {
@@ -36,17 +41,25 @@ $_SESSION["paquetesTotales"] = "";
 $_SESSION["rol"] = "";
 
 try {
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
     $i = 0;
     $contadorPaq = 0;
     $paquetesTotales = "";
 
-    for ($j = 0; $j < count($paquetesConfirmados->return); $j++) {
+    if (isset($paquetesConfirmados[0])) {
+        $contPaq = count($paquetesConfirmados);
+    } else {
+        $contPaq = 1;
+    }
+
+    for ($j = 0; $j < $contPaq; $j++) {
         if (isset($paquetes[$j])) {
+            $client = new nusoap_client($wsdl_sdc, 'wsdl');
             $idPaquete = array('idPaquete' => $paquetes[$j]);
-            $resultadoPaquete = $client->consultarPaqueteXId($idPaquete);
-            $paquetesTotales[$i] = $resultadoPaquete->return;
+            $consumoPaquete = $client->call("consultarPaqueteXId", $idPaquete);
+            if ($consumoPaquete != "") {
+                $resultadoPaquete = $consumoPaquete['return'];
+            }
+            $paquetesTotales[$i] = $resultadoPaquete;
             $_SESSION["paquetesTotales"][$i] = $paquetesTotales[$i];
             $i++;
             $contadorPaq++;
@@ -57,7 +70,7 @@ try {
     }
     if ($paquetesTotales != "") {
         $contadorPaquetes = count($paquetesTotales);
-        $_SESSION["rol"] = $SedeRol->return->idrol->nombrerol;
+        $_SESSION["rol"] = $SedeRol['idrol']['nombrerol'];
         llenarLog(6, "Comprobante de Paquetes Confirmados", $usuarioBitacora, $sede);
         echo"<script>window.open('../pdf/proof_package_confirmed.php');</script>";
         //iraURL('../pdf/proof_package_confirmed.php');
