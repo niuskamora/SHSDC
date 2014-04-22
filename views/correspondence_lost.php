@@ -102,43 +102,43 @@ if (!isset($SedeRol)) {
                                         <tbody>
                                             <?php
                                             if (!isset($PaquetesExtraviados[0])) {
-                                                if (strlen(utf8_decode($PaquetesExtraviados["asuntopaq"])) > 10) {
-                                                    $asunto = substr(utf8_decode($PaquetesExtraviados["asuntopaq"]), 0, 10) . "...";
+                                                if (strlen(utf8_encode($PaquetesExtraviados["asuntopaq"])) > 10) {
+                                                    $asunto = substr(utf8_encode($PaquetesExtraviados["asuntopaq"]), 0, 10) . "...";
                                                 } else {
-                                                    $asunto = utf8_decode($PaquetesExtraviados["asuntopaq"]);
+                                                    $asunto = utf8_encode($PaquetesExtraviados["asuntopaq"]);
                                                 }
                                                 if ($PaquetesExtraviados["destinopaq"]["tipobuz"] == 0) {
-                                                    $nombrebuz = utf8_decode($PaquetesExtraviados["destinopaq"]["idusu"]["nombreusu"] . " " . $PaquetesExtraviados["destinopaq"]["idusu"]["apellidousu"]);
+                                                    $nombrebuz = utf8_encode($PaquetesExtraviados["destinopaq"]["idusu"]["nombreusu"] . " " . $PaquetesExtraviados["destinopaq"]["idusu"]["apellidousu"]);
                                                 } else {
-                                                    $nombrebuz = utf8_decode($PaquetesExtraviados["destinopaq"]["nombrebuz"]);
+                                                    $nombrebuz = utf8_encode($PaquetesExtraviados["destinopaq"]["nombrebuz"]);
                                                 }
                                                 ?>
                                                 <tr>     
-                                                    <td  style='text-align:center'><?php echo utf8_decode($PaquetesExtraviados->origenpaq->idusu->nombreusu . " " . $PaquetesExtraviados->origenpaq->idusu->apellidousu); ?></td>
-                                                    <td  style='text-align:center'><?php echo utf8_decode($nombrebuz); ?></td>
-                                                    <td style='text-align:center'><?php echo utf8_decode($asunto); ?></td>
-                                                    <td style='text-align:center'><?php echo utf8_decode($PaquetesExtraviados->localizacionpaq); ?></td>
+                                                    <td  style='text-align:center'><?php echo utf8_encode($PaquetesExtraviados["origenpaq"]["idusu"]["nombreusu"] . " " . $PaquetesExtraviados["origenpaq"]["idusu"]["apellidousu"]); ?></td>
+                                                    <td  style='text-align:center'><?php echo utf8_encode($nombrebuz); ?></td>
+                                                    <td style='text-align:center'><?php echo utf8_encode($asunto); ?></td>
+                                                    <td style='text-align:center'><?php echo utf8_encode($PaquetesExtraviados["localizacionpaq"]); ?></td>
                                                     <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($PaquetesExtraviados["fechapaq"], 0, 10))); ?></td>
                                                 </tr>   
                                                 <?php
                                             } else {
                                                 for ($i = 0; $i < count($PaquetesExtraviados); $i++) {
-                                                    if (strlen(utf8_decode($PaquetesExtraviados[$i]["asuntopaq"])) > 10) {
-                                                        $asunto = substr(utf8_decode($PaquetesExtraviados[$i]["asuntopaq"]), 0, 10) . "...";
+                                                    if (strlen(utf8_encode($PaquetesExtraviados[$i]["asuntopaq"])) > 10) {
+                                                        $asunto = substr(utf8_encode($PaquetesExtraviados[$i]["asuntopaq"]), 0, 10) . "...";
                                                     } else {
-                                                        $asunto = utf8_decode($PaquetesExtraviados[$i]["asuntopaq"]);
+                                                        $asunto = utf8_encode($PaquetesExtraviados[$i]["asuntopaq"]);
                                                     }
                                                     if ($PaquetesExtraviados[$i]["destinopaq"]["tipobuz"] == 0) {
-                                                        $nombrebuz = utf8_decode($PaquetesExtraviados[$i]["destinopaq"]["idusu"]["nombreusu"] . " " . $PaquetesExtraviados[$i]["destinopaq"]["idusu"]["apellidousu"]);
+                                                        $nombrebuz = utf8_encode($PaquetesExtraviados[$i]["destinopaq"]["idusu"]["nombreusu"] . " " . $PaquetesExtraviados[$i]["destinopaq"]["idusu"]["apellidousu"]);
                                                     } else {
-                                                        $nombrebuz = utf8_decode($PaquetesExtraviados[$i]["destinopaq"]["nombrebuz"]);
+                                                        $nombrebuz = utf8_encode($PaquetesExtraviados[$i]["destinopaq"]["nombrebuz"]);
                                                     }
                                                     ?>
                                                     <tr>     
-                                                        <td  style='text-align:center'><?php echo utf8_decode($PaquetesExtraviados[$i]["origenpaq"]["idusu"]["nombreusu"] . " " . $PaquetesExtraviados[$i]["origenpaq"]["idusu"]["apellidousu"]); ?></td>
-                                                        <td  style='text-align:center'><?php echo utf8_decode($nombrebuz); ?></td>
-                                                        <td style='text-align:center'><?php echo utf8_decode($asunto); ?></td>
-                                                        <td style='text-align:center'><?php echo utf8_decode($PaquetesExtraviados[$i]["localizacionpaq"]); ?></td>
+                                                        <td  style='text-align:center'><?php echo utf8_encode($PaquetesExtraviados[$i]["origenpaq"]["idusu"]["nombreusu"] . " " . $PaquetesExtraviados[$i]["origenpaq"]["idusu"]["apellidousu"]); ?></td>
+                                                        <td  style='text-align:center'><?php echo utf8_encode($nombrebuz); ?></td>
+                                                        <td style='text-align:center'><?php echo utf8_encode($asunto); ?></td>
+                                                        <td style='text-align:center'><?php echo utf8_encode($PaquetesExtraviados[$i]["localizacionpaq"]); ?></td>
                                                         <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($PaquetesExtraviados[$i]["fechapaq"], 0, 10))); ?></td>
                                                     </tr>   
                                                     <?php

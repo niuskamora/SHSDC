@@ -23,7 +23,16 @@ $userparam['user'] = "jose.fuentes";
         $valorR = $Resp['return'];
 		
 		for ($i = 0; $i < count($valorR); $i++) {
-			echo '<pre>';print_r($valorR[$i]["idsed"]["idorg"]["descripcionorg"]);
+			//echo '<pre>';print_r($valorR[$i]["idsed"]["idorg"]["descripcionorg"]);
 			}
 		
+		 $datosU["sede"] ="Merida";
+			$consumo = $usuario->call("consultarAreasXSedeXNombre",$datosU);
+			if($consumo==""){
+			echo "aaaaaaa";
+			}else{
+			echo '<pre>';print_r($consumo['return']);
+			}
+			
+
 ?>

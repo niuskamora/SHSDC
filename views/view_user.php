@@ -61,22 +61,22 @@ if (!isset($Usuario)) {
         $apellido = $Usuario["apellidousu"];
     }
       if (isset($Usuario["apellidousu"])) {
-        $apellido = utf8_decode($Usuario["apellidousu"]);
+        $apellido = utf8_encode($Usuario["apellidousu"]);
     }
     if (isset($Usuario["correousu"])) {
-        $correo = utf8_decode($Usuario["correousu"]);
+        $correo = utf8_encode($Usuario["correousu"]);
     }
     if (isset($Usuario["telefonousu"])) {
-        $telefono1 = utf8_decode($Usuario["telefonousu"]);
+        $telefono1 = utf8_encode($Usuario["telefonousu"]);
     }
     if (isset($Usuario["telefono2usu"])) {
-        $telefono2 = utf8_decode($Usuario["telefono2usu"]);
+        $telefono2 = utf8_encode($Usuario["telefono2usu"]);
     }
     if (isset($Usuario["direccionusu"])) {
-        $direccion1 = utf8_decode($Usuario["direccionusu"]);
+        $direccion1 = utf8_encode($Usuario["direccionusu"]);
     }
     if (isset($Usuario["direccion2usu"])) {
-        $direccion2 = utf8_decode($Usuario["direccion2usu"]);
+        $direccion2 = utf8_encode($Usuario["direccion2usu"]);
     }
     ?>
     <body class="appBg">
@@ -126,7 +126,7 @@ if (!isset($Usuario)) {
                                 <table class='footable table table-striped table-bordered'>
                                     <tr>
                                         <td style="text-align:center" ><b>Nombre</b></td>
-                                        <td style="text-align:center"><?php echo utf8_decode($Usuario["nombreusu"]); ?></td>
+                                        <td style="text-align:center"><?php echo utf8_encode($Usuario["nombreusu"]); ?></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align:center"><b>Apellido</b></td>
@@ -138,7 +138,7 @@ if (!isset($Usuario)) {
                                     </tr>
                                     <tr>
                                         <td style="text-align:center" width="50%"><b>Usuario</b></td>
-                                        <td style="text-align:center"><?php echo utf8_decode($Usuario["userusu"]); ?>
+                                        <td style="text-align:center"><?php echo utf8_encode($Usuario["userusu"]); ?>
                                         </td>		
                                     </tr>
                                     <tr>

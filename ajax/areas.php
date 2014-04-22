@@ -14,7 +14,7 @@ $nivell = $client->call("consultarNivel",$prioridad);
 			if(isset($nivel[0])){
 				$reg = count($nivel);
 				for ($i = 0; $i < $reg; $i++) {
-       echo '<option value="' . $nivel->return[$i]['idniv'] . '">' . $nivel[$i]['operadorniv'] . '</option>';
+       echo '<option value="' . $nivel[$i]['idniv'] . '">' . $nivel[$i]['operadorniv'] . '</option>';
 }
 			}
 			else{

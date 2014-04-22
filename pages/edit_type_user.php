@@ -18,7 +18,7 @@ require_once("../core/Crypt/AES.php");
     }
 
     $i = 0;
-	 $Ses = $client->call("consultarSedes");
+	 $Ses = $client->call("ConsultarSedes");
 		
 		if ($Ses=="") {
 			javaalert("lo sentimos no existen sedes registradas, Consulte con el administrador");

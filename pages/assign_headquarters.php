@@ -39,7 +39,7 @@ require_once("../core/Crypt/AES.php");
      $SedeR = $client->call("consultarSedeRol",$UsuarioRol);
 	 $SedeRol=$SedeR['return'];
     if ($SedeRol!="") {
-        if ($SedeRol->return->idusu->tipousu != "1" && $SedeRol->return->idusu->tipousu != "2") {
+        if ($SedeRol['idusu']['tipousu'] != "1" && $SedeRol['idusu']['tipousu'] != "2") {
             iraURL('../pages/inbox.php');
         }
     } else {

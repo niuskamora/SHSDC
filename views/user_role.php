@@ -90,11 +90,11 @@
                                         $i = 0;
                                         while ($reg > $i) {
 
-                                            echo '<option value="' . $Sedes->return[$i]->nombresed . '" >' . $Sedes->return[$i]->nombresed . '</option>';
+                                            echo '<option value="' . $Sedes['nombresed'] . '" >' . $Sedes[$i]['nombresed'] . '</option>';
                                             $i++;
                                         }
                                     } else {
-                                        echo '<option value="' . $Sedes->return->nombresed . '" >' . $Sedes->return->nombresed . '</option>';
+                                        echo '<option value="' . $Sedes['nombresed'] . '" >' . $Sedes['nombresed'] . '</option>';
                                     }
                                     ?>
                                 </select>

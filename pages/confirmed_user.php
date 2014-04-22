@@ -26,11 +26,11 @@ if (!isset($_SESSION["Usuario"])) {
     } else {
         iraURL('../pages/inbox.php');
     }
-    $usuSede = array('iduse' => $SedeRol->return->iduse);
+    $usuSede = array('iduse' => $SedeRol["iduse"]);
     $parametros = array('idUsuarioSede' => $usuSede);
 	$consumo = $client->call("consultarPaquetesConfirmadosXUsuarioSede",$parametros);
 	if ($consumo!="") {
-	$PaquetesConfirmados$consumo['return'];   
+	$PaquetesConfirmados=$consumo['return'];   
 	}
     //$PaquetesConfirmados = $client->consultarPaquetesConfirmadosXUsuarioSede($parametros);
     include("../views/confirmed_user.php");
