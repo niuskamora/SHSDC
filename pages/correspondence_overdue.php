@@ -35,6 +35,7 @@ try {
 	if ($consumo!="") {
 	$PaquetesOrigen = $consumo['return'];   
     } 
+	//echo '<pre>';print_r($PaquetesOrigen);
     //$PaquetesDestino = $client->paquetesVencidosXDestino($parametros);
     //$PaquetesOrigen = $client->paquetesVencidosXOrigen($parametros);
     include("../views/correspondence_overdue.php");

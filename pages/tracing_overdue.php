@@ -18,7 +18,10 @@ try {
     $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"], 'sede' => $_SESSION["Sede"]["nombresed"]);
 	$consumo = $client->call("consultarSedeRol",$UsuarioRol);
 	if ($consumo!="") {
-	$SedeRol = $consumo['return'];   
+	$SedeRol = $consumo['return'];  
+	if ($SedeRol["idrol"]["idrol"] == "6") {
+            iraURL('../pages/inbox.php');
+        }
     } else {
         iraURL('../pages/inbox.php');
     }    
