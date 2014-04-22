@@ -20,19 +20,18 @@ require_once("../core/Crypt/AES.php");
     $i = 0;
     $reg = 0;
     $Sede = array('sede' => $_SESSION["Sede"]['nombresed']);
-	$userResp = $client->call("consultarUsuarioXUser",$userparam);
+	$Seds = $client->call("ConsultarSedeParaValija",$Sede);
 
-    $Sedes = $userResp['return'];
     $UsuarioRol = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sede' => $_SESSION["Sede"]['nombresed']);
 	$SedeR = $client->call("consultarSedeRol",$UsuarioRol);
 	 $SedeRol=$SedeR['return'];
     if ($SedeRol['idrol']['idrol'] == "4" || $SedeRol['idrol']['idrol'] == "5") {
        
-	    if($Sedes != ""){
+	    if($Seds != ""){
 		
-			$resultadoSedes = $Sedes['return'];
-			if(isset($resultadoSedes[0])){
-				$reg = count($resultadoSedes);
+			$Sedes = $Seds['return'];
+			if(isset($Sedes[0])){
+				$reg = count($Sedes);
 			}
 			else{
 				$reg = 1;

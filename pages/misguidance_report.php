@@ -7,41 +7,43 @@ require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
 
+	$client = new nusoap_client($wsdl_sdc, 'wsdl');
+	$client->decode_utf8 = false;
+	$_SESSION["cli"]=$client;
 if (!isset($_SESSION["Usuario"])) {
     iraURL("../index.php");
 } elseif (!usuarioCreado()) {
     iraURL("../pages/create_user.php");
 }
 
-$client = new SOAPClient($wsdl_sdc);
-$client->decode_utf8 = false;
-$UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-$SedeRol = $client->consultarSedeRol($UsuarioRol);
-
-if (isset($SedeRol->return)) {
-    if ($SedeRol->return->idusu->tipousu != "1" && $SedeRol->return->idusu->tipousu != "2") {
+ 	 $UsuarioRol = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sede' => $_SESSION["Sede"]['nombresed']);
+     $SedeR = $client->call("consultarSedeRol",$UsuarioRol);
+	 $SedeRol=$SedeR['return'];
+	 
+    if ($SedeR!="") {
+        if ($SedeRol['idusu']['tipousu'] != "1" && $SedeRol['idusu']['tipousu'] != "2") {
+            iraURL('../pages/inbox.php');
+        }
+    } else {
         iraURL('../pages/inbox.php');
     }
-} else {
-    iraURL('../pages/inbox.php');
-}
 
-$nomUsuario = $_SESSION["Usuario"]->return->userusu;
-$usuarioBitacora = $_SESSION["Usuario"]->return->idusu;
-$sede = $_SESSION["Sede"]->return->idsed;
+$nomUsuario = $_SESSION["Usuario"]['userusu'];
+$usuarioBitacora = $_SESSION["Usuario"]['idusu'];
+$sede = $_SESSION["Sede"]['idsed'];
 
 try {
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
+
 
     $usuario = array('user' => $nomUsuario);
-    $resultadoConsultarUsuario = $client->consultarUsuarioXUser($usuario);
-    if (!isset($resultadoConsultarUsuario->return)) {
+    $resultadoConsultarUsuario = $client->call("consultarUsuarioXUser",$usuario);
+    if ($resultadoConsultarUsuario=="") {
         $usua = 0;
     } else {
-        $usua = $resultadoConsultarUsuario->return;
+        $usua = $resultadoConsultarUsuario['return'];
+		$idUsuario = $usua['idusu'];
     }
-    $idUsuario = $resultadoConsultarUsuario->return->idusu;
+   
 
 
     if (isset($_POST["reportarPaqExc"])) {
@@ -53,12 +55,10 @@ try {
                     'registroUsuario' => $idUsuario,
                     'registroSede' => $sede,
                     'datosPaquete' => $_POST["datosPaquete"]);
-                $wsdl_url = 'http://localhost:15362/SistemaDeCorrespondencia/CorrespondeciaWS?WSDL';
-                $client = new SOAPClient($wsdl_url);
-                $client->decode_utf8 = false;
-                $reportarPaqExc = $client->reportarPaqueteExtravio($parametros);
+               
+                $reportarPaqExc = $client->call("reportarPaqueteExtravio",$parametros);
 
-                if ($reportarPaqExc->return == 1) {
+                if ($reportarPaqExc['return'] == 1) {
                     javaalert('Paquete dado de baja por extravió');
                     llenarLog(7, "Paquete Extraviado", $usuarioBitacora, $sede);
                     iraURL('../pages/administration.php');
@@ -84,12 +84,10 @@ try {
                     'registroUsuario' => $idUsuario,
                     'registroSede' => $sede,
                     'datosValija' => $_POST["datosValija"]);
-                $wsdl_url = 'http://localhost:15362/SistemaDeCorrespondencia/CorrespondeciaWS?WSDL';
-                $client = new SOAPClient($wsdl_url);
-                $client->decode_utf8 = false;
-                $reportarValija = $client->reportarValijaExtravio($parametros);
+                
+                $reportarValija = $client->call("reportarValijaExtravio",$parametros);
 
-                if ($reportarValija->return == 1) {
+                if ($reportarValija['return'] == 1) {
                     javaalert('Valija dada de baja por extravió');
                     llenarLog(7, "Valija Extraviada", $usuarioBitacora, $sede);
                     iraURL('../pages/administration.php');
