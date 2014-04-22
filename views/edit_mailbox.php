@@ -1,5 +1,5 @@
 <?php
-if (!isset($Usuario->return)) {
+if ($Usua=="") {
     echo '<script language="javascript"> window.location = "../pages/inbox.php"; </script>';
 }
 ?>
@@ -54,8 +54,8 @@ if (!isset($Usuario->return)) {
     $telefono = "";
 
 
-    if (isset($Usuario->return->telefonousu)) {
-        $telefono = $Usuario->return->telefonousu;
+    if (isset($Usuario['telefonousu'])) {
+        $telefono = $Usuario['telefonousu'];
     }
     ?>
     <body class="appBg">
@@ -97,11 +97,11 @@ if (!isset($Usuario->return)) {
                                 <table class='footable table table-striped table-bordered'>
                                     <tr>
                                         <td style="text-align:center" >Nombre</td>
-                                        <td style="text-align:center"><input type="text" name="nombre" id="nombre" autocomplete="off" value="<?php echo $Usuario->return->nombrebuz; ?>" maxlength="150" size="30"  autofocus required></td>
+                                        <td style="text-align:center"><input type="text" name="nombre" id="nombre" autocomplete="off" value="<?php echo $Usuario['nombrebuz']; ?>" maxlength="150" size="30"  autofocus required></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align:center">Dirección</td>
-                                        <td style="text-align:center"><input type="text" name="direccion" id="direccion" autocomplete="off" value="<?php echo $Usuario->return->direccionbuz; ?>" maxlength="150" size="30"  ></td>
+                                        <td style="text-align:center"><input type="text" name="direccion" id="direccion" autocomplete="off" value="<?php echo $Usuario['direccionbuz']; ?>" maxlength="150" size="30"  ></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align:center">Teléfono </td>

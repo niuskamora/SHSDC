@@ -2,15 +2,17 @@
 $idsede = $_POST['idsede'];
 
 try {
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
+    $client = new nusoap_client($wsdl_sdc, 'wsdl');
+	$client->decode_utf8 = false;
     $areasede = array('sede' => $idsede);
-    $Areas = $client->consultarAreasXSede($areasede);
-    if (!isset($Areas->return)) {
+    $Areass = $client->call("consultarAreasXSede",$areasede);
+    if ($Areass=="") {
         javaalert("No existen areas registradas");
         iraURL('../pages/inbox.php');
-    }
-    $reg = count($Areas->return);
+    }else{
+		$Areas = $Areass['return'];
+    	$reg = count($Areas);
+	}
 } catch (Exception $e) {
     javaalert('Error al deshabilitar la Area');
     iraURL('../pages/inbox.php');
@@ -34,21 +36,21 @@ if ($reg > 0) {
         $j = 0;
         while ($j < $reg) {
             //verifico si esta borrada
-            if ($Areas->return[$j]->borradoatr == 0) {
-                echo "<td style='background-color: rgb(206, 200, 200);	text-align:center' data-sort-ignore='true'>" . $Areas->return[$j]->idatr . "</td>";
-                echo "<td style='text-align:left; background-color: rgb(206, 200, 200);'>" . $Areas->return[$j]->nombreatr . "</td>";
+            if ($Areas[$j]['borradoatr'] == 0) {
+                echo "<td style='background-color: rgb(206, 200, 200);	text-align:center' data-sort-ignore='true'>" . $Areas[$j]['idatr'] . "</td>";
+                echo "<td style='text-align:left; background-color: rgb(206, 200, 200);'>" . $Areas[$j]['nombreatr'] . "</td>";
                 ?>
                 <td style='background-color: rgb(206, 200, 200); text-align:center'>
-                    <button class='btn' onClick="cambiar('<?php echo $Areas->return[$j]->idatr; ?>', this);">
+                    <button class='btn' onClick="cambiar('<?php echo $Areas[$j]['idatr']; ?>', this);">
                         <span class="icon-refresh" > </span>
                     </button></td>
                 <?php
             } else {
-                echo "<td style='text-align:center' data-sort-ignore='true'>" . $Areas->return[$j]->idatr . "</td>";
-                echo "<td style='text-align:left;'>" . $Areas->return[$j]->nombreatr . "</td>";
+                echo "<td style='text-align:center' data-sort-ignore='true'>" . $Areas[$j]['idatr'] . "</td>";
+                echo "<td style='text-align:left;'>" . $Areas[$j]['nombreatr'] . "</td>";
                 ?>
                 <td style="text-align:center"> 
-                    <button class='btn' onClick="cambiar('<?php echo $Areas->return[$j]->idatr; ?>', this);">
+                    <button class='btn' onClick="cambiar('<?php echo $Areas[$j]['idatr']; ?>', this);">
                         <span class="icon-refresh" > </span>
                     </button></td>
                 <?php
@@ -57,21 +59,21 @@ if ($reg > 0) {
             $j++;
         }
     } else {
-        if ($Areas->return->borradoatr == 0) {
+        if ($Areas['borradoatr'] == 0) {
             echo "<td style='background-color: rgb(206, 200, 200);	text-align:center' data-sort-ignore='true'>" . $Areas->return->idatr . "</td>";
-            echo "<td style='text-align:left; background-color: rgb(206, 200, 200);'>" . $Areas->return->nombreatr . "</td>";
+            echo "<td style='text-align:left; background-color: rgb(206, 200, 200);'>" . $Areas['nombreatr'] . "</td>";
             ?>
             <td style='background-color: rgb(206, 200, 200); text-align:center'> 
-                <button class='btn' onClick="cambiar('<?php echo $Areas->return->idatr; ?>', this);">
+                <button class='btn' onClick="cambiar('<?php echo $Areas['idatr']; ?>', this);">
                     <span class="icon-refresh" > </span>
                 </button></td>
             <?php
         } else {
-            echo "<td style='text-align:center' data-sort-ignore='true'>" . $Areas->return->idatr . "</td>";
-            echo "<td style='text-align:left;'>" . $Areas->return->nombreatr . "</td>";
+            echo "<td style='text-align:center' data-sort-ignore='true'>" . $Areas['idatr'] . "</td>";
+            echo "<td style='text-align:left;'>" . $Areas['nombreatr'] . "</td>";
             ?>
             <td style="text-align:center"> 
-                <button class='btn' onClick="cambiar('<?php echo $Areas->return->idatr; ?>', this);">
+                <button class='btn' onClick="cambiar('<?php echo $Areas['idatr']; ?>', this);">
                     <span class="icon-refresh" > </span>
                 </button></td>
             <?php

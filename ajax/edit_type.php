@@ -15,10 +15,10 @@ require_once("../core/Crypt/AES.php");
         iraURL('../pages/edit_type_user.php');
     } else {
 
-$client = new SOAPClient($wsdl_sdc);
-        $client->decode_utf8 = false;
-        $res = $client->editarTipoUsuario($datosB);
-        if ($res->return == 1) {
+		$client = new nusoap_client($wsdl_sdc, 'wsdl');
+		$client->decode_utf8 = false;
+        $res = $client->call("editarTipoUsuario",$datosB);
+        if ($res['return'] == 1) {
             javaalert('Tipo de usuario asignado con exito');
             iraURL('../pages/administration.php');
         } else {

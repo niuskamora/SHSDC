@@ -7,17 +7,20 @@ require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
+
+	$client = new nusoap_client($wsdl_sdc, 'wsdl');
+	$client->decode_utf8 = false;
+	$_SESSION["cli"]=$client;
     if (!isset($_SESSION["Usuario"])) {
         iraURL("../index.php");
     } elseif (!usuarioCreado()) {
         iraURL("../pages/create_user.php");
     }
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
-    $UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-    $SedeRol = $client->consultarSedeRol($UsuarioRol);
+    $UsuarioRol = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sede' => $_SESSION["Sede"]['nombresed']);
+    $SedeRol = $client->call("$UsuarioRol",$UsuarioRol);
     $Buzon = array('idbuz' => $_GET["id"]);
-    $Usuario = $client->consultarBuzon($Buzon);
+    $Usua = $client->call("consultarBuzon",$Buzon);
+	$Usuario=$Usua['return'];
 
     if (isset($_POST["guardar"])) {
         if (isset($_POST["nombre"]) && $_POST["nombre"] != "" && isset($_POST["direccion"]) && $_POST["direccion"] != "") {
@@ -31,12 +34,12 @@ require_once("../core/Crypt/AES.php");
                 'direccionbuz' => $_POST["direccion"],
                 'telefonobuz' => $telefono);
             $registroU = array('registroBuzon' => $registroUsu);
-            $guardo = $client->editarBuzon($registroU);
-            if ($guardo->return == 0) {
+            $guardo = $client->call("editarBuzon",$registroU);
+            if ($guardo== "") {
                 javaalert("No se han Guardado los datos del Usuario, Consulte con el Admininistrador");
             } else {
                 javaalert("Se han Guardado los datos del Buzon");
-                llenarLog(9, "Edición de Buzon", $_SESSION["Usuario"]->return->idusu, $_SESSION["Sede"]->return->idsed);
+                llenarLog(9, "Edición de Buzon", $_SESSION["Usuario"]['idusu'], $_SESSION["Sede"]['idsed']);
             }
             iraURL('../pages/inbox.php');
         } else {

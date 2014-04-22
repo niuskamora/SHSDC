@@ -1,13 +1,22 @@
 <?php
 try {
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
-    $Sedes = $client->consultarSedes();
-    if (!isset($Sedes->return)) {
-        javaalert("lo sentimos no se pueden deshabilitar areas, no existen sedes registradas, Consulte con el administrador");
+    $client = new nusoap_client($wsdl_sdc, 'wsdl');
+	$client->decode_utf8 = false;
+    $Ses = $client->call("consultarSedes");
+	$Sedes = $Ses["return"];
+   if ($Ses=="") {
+        javaalert("lo sentimos no se pueden deshabilitar Areas, no existen sedes registradas, Consulte con el administrador");
         iraURL('../pages/inbox.php');
-    }
-    $reg = count($Sedes->return);
+    }else{
+		$Sedes=$Ses["return"];
+			if(isset($Sedes[0])){
+				$reg = count($Sedes);
+			}
+			else{
+				$reg = 1;
+			}
+		
+	}
     include("../views/disable_area.php");
 } catch (Exception $e) {
     javaalert('Error al deshabiltar el area');
@@ -24,21 +33,35 @@ echo "<th style='width:10%; text-align:center' data-sort-ignore='true'>Areas</th
          </thead>
         <tbody>		
         	<tr>";
-if ($reg > 0) {
-    $j = 0;
-    while ($j < $reg) {
-        echo "<td text-align:center' data-sort-ignore='true'>" . $Sedes->return[$j]->idsed . "</td>";
-        echo "<td style='text-align:left'>" . $Sedes->return[$j]->nombresed . "</td>";
-        ?>
-        <td style="text-align:center"> 
-             <button class='btn' onClick="buscarAreas('<?php echo $Sedes->return[$j]->idsed; ?>');">
-                <span class="icon-home" > </span>
-            </button></td>
-        <?php
-        echo "</tr>";
-        $j++;
-    }
-}
+if ($reg > 1) {
+	
+  while ($j < $reg) {
+				echo "<td text-align:center' data-sort-ignore='true'>" . $Sedes[$j]['idsed'] . "</td>";
+				echo "<td style='text-align:left'>" . $Sedes[$j]['nombresed'] . "</td>";
+				?>
+				<td style="text-align:center"> 
+					 <button class='btn' onClick="buscarAreas('<?php echo $Sedes[$j]['idsed']; ?>');">
+						<span class="icon-home" > </span>
+					</button></td>
+				<?php
+				echo "</tr>";
+				$j++;
+			}
+	
+	}else{
+		
+		echo "<td text-align:center' data-sort-ignore='true'>" . $Sedes['idsed'] . "</td>";
+				echo "<td style='text-align:left'>" . $Sedes['nombresed'] . "</td>";
+				?>
+				<td style="text-align:center"> 
+					 <button class='btn' onClick="buscarAreas('<?php echo $Sedes['idsed']; ?>');">
+						<span class="icon-home" > </span>
+					</button></td>
+				<?php
+				echo "</tr>";
+			
+	}
+
 echo " </tbody>
   	</table>";
 echo '<ul id="pagination" class="footable-nav"><span>Pag:</span></ul>';

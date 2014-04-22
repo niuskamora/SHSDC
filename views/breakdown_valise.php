@@ -11,37 +11,36 @@ if (isset($_POST["guardar"])) {
             $registrosR = count($_POST["idr"]);
         }
         $contadorEliminados = 0;
-$client = new SOAPClient($wsdl_sdc);
-        $client->decode_utf8 = false;
-        $usu = array('idusu' => $_SESSION["Usuario"]->return->idusu);
-        $sede = array('idsed' => $_SESSION["Sede"]->return->idsed);
+
+        $usu = array('idusu' => $_SESSION["Usuario"]['idusu']);
+        $sede = array('idsed' => $_SESSION["Sede"]['idsed']);
         if (isset($registrosAValijaR)) {
 
-            $datosValija = array('idval' => $_SESSION["valdes"], 'status' => "2", 'idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
+            $datosValija = array('idval' => $_SESSION["valdes"], 'status' => "2", 'idusu' => $_SESSION["Usuario"]['idusu'], 'sede' => $_SESSION["Sede"]['idsed']);
 
             for ($j = 0; $j < $_SESSION["RE"]; $j++) {
                 if (isset($registrosAValijaR[$j])) {
                     $datosfa = array('idpaq' => $registrosAValijaR[$j], 'datosPaquete' => "paquete ausente, no encontro en la valija respectiva");
-                    $client->reportarPaqueteAusente($datosfa);
+                    $client->call("reportarPaqueteAusente",$datosfa);
                 }
             }
         } else {
-            $datosValija = array('idval' => $_SESSION["valdes"], 'status' => "1", 'idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
+            $datosValija = array('idval' => $_SESSION["valdes"], 'status' => "1", 'idusu' => $_SESSION["Usuario"]['idusu'], 'sede' => $_SESSION["Sede"]['idsed']);
         }
 
         if (isset($registrosAValijaC)) {
             for ($j = 0; $j < $_SESSION["RE"]; $j++) {
                 if (isset($registrosAValijaC[$j])) {
                     $datosAct = array('idpaq' => $registrosAValijaC[$j], 'Localizacion' => "Sede Destino");
-                    $client->actualizacionLocalizacionRecibidoValija($datosAct);
+                    $client->call("actualizacionLocalizacionRecibidoValija",$datosAct);
                     $idPaquete = array('idpaq' => $registrosAValijaC[$j]);
                     $parametros = array('registroPaquete' => $idPaquete, 'registroUsuario' => $usu, 'registroSede' => $sede, 'Caso' => "0");
-                    $seg = $client->registroSeguimiento($parametros);
+                    $client->call("registroSeguimiento",$parametros);
                 }
             }
         }
 
-        $idValija = $client->entregarValija($datosValija);
+        $idValija = $client->call("entregarValija",$datosValija);
 
         unset($_SESSION["valdes"]);
         javaalert("Confimada la valija");

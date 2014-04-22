@@ -123,7 +123,7 @@ require_once("../core/Crypt/AES.php");
                 if ($aux != "Recibidas") {
                     echo "<td style='text-align:center'>" . $Bandeja['return'][$j]['localizacionpaq'] . "</td>";
                 }
-                echo "<td style='text-align:center'><a href='../pages/see_package.php?id=" . $Bandeja['return'][$j]['idpaq ']. "'><button type='button' class='btn btn-info btn-primary' value='Realizar Valija'>  Ver Más </button> </a></td>";
+                echo "<td style='text-align:center'><a href='../pages/see_package.php?id=" . $Bandeja['return'][$j]['idpaq']. "'><button type='button' class='btn btn-info btn-primary' value='Realizar Valija'>  Ver Más </button> </a></td>";
                 if ($aux == "Por Recibir") {
 					
                     echo"<th style='width:7%; text-align:center' data-sort-ignore='true'>
@@ -145,7 +145,7 @@ require_once("../core/Crypt/AES.php");
             if (strlen($Bandeja['return']['asuntopaq']) > 10) {
                 $asunto = substr($Bandeja['return']['asuntopaq'], 0, 10) . "...";
             } else {
-                $asunto = $Bandeja->return->asuntopaq;
+                $asunto = $Bandeja['asuntopaq'];
             }
 			 if ($aux == "Por Recibir" || $aux == "Recibidas") {
                     echo "<td  style='text-align:center'>" . $Bandeja['return']['origenpaq']['idusu']['nombreusu'] . " ".$Bandeja['return']['origenpaq']['idusu']['apellidousu']. "</td>";
@@ -171,7 +171,7 @@ require_once("../core/Crypt/AES.php");
                 if ($aux != "Recibidas") {
                     echo "<td style='text-align:center'>" . $Bandeja['return']['localizacionpaq'] . "</td>";
                 }
-                echo "<td style='text-align:center'><a href='../pages/see_package.php?id=" . $Bandeja['return']['idpaq ']. "'><button type='button' class='btn btn-info btn-primary' value='Realizar Valija'>  Ver Más </button> </a></td>";
+                echo "<td style='text-align:center'><a href='../pages/see_package.php?id=" . $Bandeja['return']['idpaq']. "'><button type='button' class='btn btn-info btn-primary' value='Realizar Valija'>  Ver Más </button> </a></td>";
                 if ($aux == "Por Recibir") {
 					
                     echo"<th style='width:7%; text-align:center' data-sort-ignore='true'>

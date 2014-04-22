@@ -38,18 +38,29 @@ require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
     
     $aux = $_POST['sed'];
-        $client = new SOAPClient($wsdl_sdc);
+    $client = new nusoap_client($wsdl_sdc, 'wsdl');
     $client->decode_utf8 = false;
-    $Sedes = array('sede' => $_SESSION["Sede"]->return->nombresed, 'sedeDestino' => $aux,);
-    $Registro = $client->ConsultarPaquetesParaValija($Sedes);
+    $Sedes = array('sede' => $_SESSION["Sede"]['nombresed'], 'sedeDestino' => $aux);
+    $Regist = $client->call("ConsultarPaquetesParaValija",$Sedes);
     $reg = 0;
-    if (isset($Registro->return)) {
-        $reg = count($Registro->return);
-        $_SESSION["reg"] = $reg;
-        $_SESSION["seded"] = $aux;
-    } else {
-        $reg = 0;
-    }
+	
+	if($Regist != ""){
+		
+			 $Registro = $Regist['return'];
+			if(isset($Registro [0])){
+				$reg = count($Registro );
+				$_SESSION["reg"] = $reg;
+                $_SESSION["seded"] = $aux;
+			}
+			else{
+				$reg = 1;
+			}
+		}else{
+			
+			$reg = 0;
+		}
+	
+	
     echo "<br>";
     echo "<br>";
     echo "<h2> <strong>" . $aux . "</h2> </strong>";
@@ -73,41 +84,41 @@ require_once("../core/Crypt/AES.php");
         if ($reg > 1) {
             $j = 0;
             while ($j < $reg) {
-                if (strlen($Registro->return[$j]->asuntopaq) > 10) {
+                if (strlen($Registro[$j]['asuntopaq']) > 10) {
                     $asunto = substr($Registro->return[$j]->asuntopaq, 0, 10) . "...";
                 } else {
                     $asunto = $Registro->return[$j]->asuntopaq;
                 }
-                echo "<td  style='text-align:center'>" . $Registro->return[$j]->origenpaq->idusu->nombreusu . "</td>";
-                echo "<td  style='text-align:center'>" . $Registro->return[$j]->destinopaq->idusu->nombreusu . "</td>";
+                echo "<td  style='text-align:center'>" . $Registro[$j]['origenpaq']['idusu']['nombreusu'] . "</td>";
+                echo "<td  style='text-align:center'>" . $Registro[$j]['destinopaq']['idusu']['nombreusu'] . "</td>";
                 echo "<td style='text-align:center'>" . $asunto . "</td>";
-                if ($Registro->return[$j]->respaq == 0) {
+                if ($Registro[$j]['respaq'] == 0) {
                     echo "<td style='text-align:center'> No </td>";
                 } else {
                     echo "<td style='text-align:center'> Si </td>";
                 }
                 echo "<td style='text-align:center'>" . date("d/m/Y", strtotime(substr($Registro->return[$j]->fechapaq, 0, 10))) . "</td>";
-                echo '<td style="text-align:center" width="15%"><input type="checkbox" name="ide[' . $j . ']" id="ide[' . $j . ']" value=' . $Registro->return[$j]->idpaq . '></td>';
+                echo '<td style="text-align:center" width="15%"><input type="checkbox" name="ide[' . $j . ']" id="ide[' . $j . ']" value=' . $Registro[$j]['idpaq'] . '></td>';
                 echo "</tr>";
                 $j++;
             }
         } else {
 
-            if (strlen($Registro->return->asuntopaq) > 10) {
-                $asunto = substr($Registro->return->asuntopaq, 0, 10) . "...";
+            if (strlen($Registro['asuntopaq']) > 10) {
+                $asunto = substr($Registro['asuntopaq'], 0, 10) . "...";
             } else {
                 $asunto = $Registro->return->asuntopaq;
             }
-            echo "<td  style='text-align:center'>" . $Registro->return->origenpaq->idusu->nombreusu . "</td>";
-            echo "<td  style='text-align:center'>" . $Registro->return->destinopaq->idusu->nombreusu . "</td>";
+            echo "<td  style='text-align:center'>" . $Registro['origenpaq']['idusu']['nombreusu'] . "</td>";
+            echo "<td  style='text-align:center'>" . $Registro['destinopaq']['idusu']['nombreusu'] . "</td>";
             echo "<td style='text-align:center'>" . $asunto . "</td>";
-            if ($Registro->return->respaq == 0) {
+            if ($Registro['respaq'] == 0) {
                 echo "<td style='text-align:center'> No </td>";
             } else {
                 echo "<td style='text-align:center'> Si </td>";
             }
-            echo "<td style='text-align:center'>" . date("d/m/Y", strtotime(substr($Registro->return->fechapaq, 0, 10))) . "</td>";
-            echo '<td style="text-align:center" width="15%"> <input type="checkbox" name="ide[0]" id="ide[0]" value=' . $Registro->return->idpaq . '></td>';
+            echo "<td style='text-align:center'>" . date("d/m/Y", strtotime(substr($Registro['fechapaq'], 0, 10))) . "</td>";
+            echo '<td style="text-align:center" width="15%"> <input type="checkbox" name="ide[0]" id="ide[0]" value=' . $Registro['idpaq'] . '></td>';
             echo "</tr>";
         }
         echo " </tbody>	

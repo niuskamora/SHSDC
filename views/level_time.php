@@ -96,11 +96,11 @@ if ($usu == "") {
                                             <select id="prioridad" name="prioridad" required onChange="areas();" title="Seleccione la prioridad">
                                                 <option value="" style="display:none">Seleccionar:</option>                                  
                                                 <?php
-                                                if (count($rowPrioridad->return) == 1) {
-                                                    echo '<option value="' . $rowPrioridad->return->idpri . '">' . $rowPrioridad->return->nombrepri . '</option>';
+                                                if ($reg == 1) {
+                                                    echo '<option value="' . $rowPrioridad['idpri'] . '">' . $rowPrioridad['nombrepri'] . '</option>';
                                                 } else {
-                                                    for ($i = 0; $i < count($rowPrioridad->return); $i++) {
-                                                        echo '<option value="' . $rowPrioridad->return[$i]->idpri . '">' . $rowPrioridad->return[$i]->nombrepri . '</option>';
+                                                    for ($i = 0; $i < $reg; $i++) {
+                                                        echo '<option value="' . $rowPrioridad[$i]['idpri'] . '">' . $rowPrioridad[$i]['nombrepri'] . '</option>';
                                                     }
                                                 }
                                                 ?>

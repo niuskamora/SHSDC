@@ -7,36 +7,40 @@ require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
 
+
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+	$client->decode_utf8 = false;
+	$_SESSION["cli"]=$client;
 if (!isset($_SESSION["Usuario"])) {
     iraURL("../index.php");
 } elseif (!usuarioCreado()) {
     iraURL("../pages/create_user.php");
 }
 
-$client = new SOAPClient($wsdl_sdc);
-$client->decode_utf8 = false;
-$UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-$SedeRol = $client->consultarSedeRol($UsuarioRol);
-if (isset($SedeRol->return)) {
-    if ($SedeRol->return->idusu->tipousu != "1" && $SedeRol->return->idusu->tipousu != "2") {
+
+ $UsuarioRol = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sede' => $_SESSION["Sede"]['nombresed']);
+      $SedeR = $client->call("consultarSedeRol",$UsuarioRol);
+	 $SedeRol=$SedeR['return'];
+    if ($SedeR!="") {
+        if ($SedeRol['idusu']['tipousu'] != "1" && $SedeRol['idusu']['tipousu'] != "2") {
+            iraURL('../pages/inbox.php');
+        }
+    } else {
         iraURL('../pages/inbox.php');
     }
-} else {
-    iraURL('../pages/inbox.php');
-}
 
-$usu = $_SESSION["Usuario"]->return->idusu;
-$sede = $_SESSION["Sede"]->return->idsed;
+$usu = $_SESSION["Usuario"]['idusu'];
+$sede = $_SESSION["Sede"]['idsed'];
 try {
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
+      
     $datos = array('idusu' => $usu, 'idsed' => $sede);
-    $rowPrioridad = $client->listarPrioridad();
+    $rowPriori = $client->call("listarPrioridad");
 
-    if (!isset($rowPrioridad->return)) {
-        $bitacora = 0;
+    if ($rowPriori=="") {
+        $reg = 0;
     } else {
-        $bitacora = count($rowPrioridad->return);
+		$rowPrioridad = $rowPriori['return'];
+        $reg = count($rowPrioridad);
     }
 
     if (isset($_POST["Guardar"])) {
@@ -45,12 +49,12 @@ try {
             $tiempo = array(
                 'tiempo' => $_POST["hora"],
                 'idniv' => $_POST["area"]);
-            $guardo = $client->actualizarTiempoNivel($tiempo);
-            if ($guardo->return == 0) {
+            $guardo = $client->call("actualizarTiempoNivel",$tiempo);
+            if ($guardo['return'] == 0) {
                 javaalert("No se ha Guardado el tiempo de la Area, Consulte con el Admininistrador");
             } else {
                 javaalert("Se ha Guardado el tiempo de la Area");
-                llenarLog(1, "Inserción tiempo de area", $_SESSION["Usuario"]->return->idusu, $_SESSION["Sede"]->return->idsed);
+                llenarLog(1, "Inserción tiempo de area", $_SESSION["Usuario"]['return']['idusu'], $_SESSION["Sede"]['return']['idsed']);
             }
             iraURL('../pages/inbox.php');
         } else {

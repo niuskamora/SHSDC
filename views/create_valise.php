@@ -3,19 +3,20 @@ if (isset($_POST["guardar"]) && isset($_POST["ide"])) {
     try {
         $registrosAValija = $_POST["ide"];
         $contadorAceptados = 0;
-        $datosValija = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sorigen' => $_SESSION["Sede"]->return->idsed, 'sdestino' => $_SESSION["seded"], 'fechaapaq' => date('Y-m-d', strtotime(str_replace('/', '-', "27/03/2014"))));
-$client = new SOAPClient($wsdl_sdc);
+        $datosValija = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sorigen' => $_SESSION["Sede"]['idsed'], 'sdestino' => $_SESSION["seded"], 'fechaapaq' => date('Y-m-d', strtotime(str_replace('/', '-', "27/03/2014"))));
+       $client = new nusoap_client($wsdl_sdc, 'wsdl');
         $client->decode_utf8 = false;
-        $idValija = $client->insertarValija($datosValija);
-        $usu = array('idusu' => $_SESSION["Usuario"]->return->idusu);
-        $sede = array('idsed' => $_SESSION["Sede"]->return->idsed);
+        $idValija = $client->call("insertarValija",$datosValija);
+		
+        $usu = array('idusu' => $_SESSION["Usuario"]['idusu']);
+        $sede = array('idsed' => $_SESSION["Sede"]['idsed']);
         for ($j = 0; $j < $_SESSION["reg"]; $j++) {
             if (isset($registrosAValija[$j])) {
                 $datosAct = array('idpaq' => $registrosAValija[$j], 'idval' => $idValija->return);
-                $client->ActualizacionLocalizacionyValijaDelPaquete($datosAct);
+                $client->call("ActualizacionLocalizacionyValijaDelPaquete",$datosAct);
                 $idPaquete = array('idpaq' => $registrosAValija[$j]);
                 $parametros = array('registroPaquete' => $idPaquete, 'registroUsuario' => $usu, 'registroSede' => $sede, 'Caso' => "0");
-                $seg = $client->registroSeguimiento($parametros);
+                $seg = $client->call(registroSeguimiento,$parametros);
             }
         }
         echo"<script>window.open('../pages/proof_pouch.php');</script>";
@@ -125,11 +126,11 @@ $client = new SOAPClient($wsdl_sdc);
                                             if ($reg > 1) {
                                                 $i = 0;
                                                 while ($reg > $i) {
-                                                    echo '<option value="' . $Sedes->return[$i] . '">' . $Sedes->return[$i] . '</option>';
+                                                    echo '<option value="' . $Sedes[$i] . '">' . $Sedes[$i] . '</option>';
                                                     $i++;
                                                 }
                                             } else {
-                                                echo '<option value="' . $Sedes->return . '">' . $Sedes->return . '</option>';
+                                                echo '<option value="' . $Sedes . '">' . $Sedes. '</option>';
                                             }
                                             ?>
                                         </select>

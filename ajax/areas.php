@@ -1,12 +1,27 @@
 <?php
 
 $idpri = $_POST['id'];
-$client = new SOAPClient($wsdl_sdc);
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
 $client->decode_utf8 = false;
-$usu = array('sede' => $idsede);
 $prioridad = array('prioridad' => $idpri);
-$nivel = $client->consultarNivel($prioridad);
-for ($i = 0; $i < count($nivel->return); $i++) {
-    echo '<option value="' . $nivel->return[$i]->idniv . '">' . $nivel->return[$i]->operadorniv . '</option>';
+$nivell = $client->call("consultarNivel",$prioridad);
+
+ if ($nivell=="") {
+        javaalert("lo sentimos no se pueden crear Areas, no existen sedes registradas, Consulte con el administrador");
+        iraURL('../pages/inbox.php');
+    }else{
+		$nivel=$nivell["return"];
+			if(isset($nivel[0])){
+				$reg = count($nivel);
+				for ($i = 0; $i < $reg; $i++) {
+       echo '<option value="' . $nivel->return[$i]['idniv'] . '">' . $nivel[$i]['operadorniv'] . '</option>';
 }
+			}
+			else{
+	   echo '<option value="' . $nivel['idniv'] . '">' . $nivel['operadorniv'] . '</option>';
+			}
+		
+	}
+
+
 ?>

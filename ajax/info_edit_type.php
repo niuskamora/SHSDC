@@ -26,19 +26,18 @@
     <?php
     session_start();
     try {
-        include("../recursos/funciones.php");
-        require_once('../lib/nusoap.php');
         $reg = 0;
         if (isset($_POST['usu']) && $_POST['usu'] != "" && $_POST['usu'] != NULL) {
             $aux = $_POST['usu'];
-            $wsdl_url = 'http://localhost:15362/SistemaDeCorrespondencia/CorrespondeciaWS?WSDL';
-            $client = new SOAPClient($wsdl_url);
-            $client->decode_utf8 = false;
+            $client = new nusoap_client($wsdl_sdc, 'wsdl');
+			$client->decode_utf8 = false;
             $datosU = array('user' => $aux);
-            $Bandeja = $client->consultarUsuarioXUser($datosU);
+            $Bandej = $client->call("consultarUsuarioXUser",$datosU);
+			
             $regs = 0;
-            if (isset($Bandeja->return)) {
-                $reg = count($Bandeja->return);
+            if ($Bandej!="") {
+				$Bandeja=$Bandej['return'];
+                $reg = count($Bandeja);
                 $_SESSION["usuedit"] = $aux;
             } else {
                 $reg = 0;
@@ -52,19 +51,19 @@
         iraURL('../index.php');
     }
     if ($reg != 0) {
-        echo "<h2> <strong>" . $Bandeja->return->nombreusu . " </strong> </h2>";
+        echo "<h2> <strong>" . $Bandeja['nombreusu'] . " </strong> </h2>";
         echo "<form method='post'> ";
         echo "<table class='footable table table-striped table-bordered'>
                                 <tr>
                                     <td style='text-align:center'>Nombre</td>
                                     <td style='text-align:center'>
-                                    <label>" . $Bandeja->return->nombreusu . "</label>
+                                    <label>" . $Bandeja['nombreusu'] . "</label>
                                     </td> 
                                 </tr>
                                 <tr>
                                     <td style='text-align:center'>Apellido</td>
                                     <td style='text-align:center'>
-                                    <label>" . $Bandeja->return->apellidousu . " </label> 
+                                    <label>" . $Bandeja['apellidousu'] . " </label> 
                                     </td> 
                                 </tr>
                                 <tr>

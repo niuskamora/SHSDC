@@ -89,7 +89,7 @@ if ($usu== "") {
                         <div class="tab-content" id="bandeja">
                             <?php
                             //Verificando que este vacio o sea null
-                            if (!isset($resultadoLista->return)) {
+                            if ($resultadoList=="") {
                                 echo '<div class="alert alert-block" align="center">';
                                 echo '<h2 style="color:rgb(255,255,255)" align="center">Atención</h2>';
                                 echo '<h4 align="center">No hay Buzones por editar</h4>';
@@ -115,37 +115,37 @@ if ($usu== "") {
                                             if ($bitacora > 1) {
                                                 for ($i = 0; $i < $bitacora; $i++) {
 													 $areaBuzon="Externo";$sedeBuzon="Externo";
-													if(isset($resultadoLista->return[$i]->idatr->nombreatr)){
-														$areaBuzon=$resultadoLista->return[$i]->idatr->nombreatr;
+													if(isset($resultadoLista[$i]['idatr']['nombreatr'])){
+														$areaBuzon=$resultadoLista[$i]['idatr']['nombreatr'];
 													}
-													if(isset($resultadoLista->return[$i]->idatr->idsed->nombresed)){
-														$sedeBuzon=$resultadoLista->return[$i]->idatr->idsed->nombresed;
+													if(isset($resultadoLista[$i]['idatr']['idsed']['nombresed'])){
+														$sedeBuzon=$resultadoLista[$i]['idatr']['idsed']['nombresed'];
 													}
 												?>
                                                     <tr>
-                                                        <td style="text-align:center"><?php echo $resultadoLista->return[$i]->nombrebuz; ?></td>
+                                                        <td style="text-align:center"><?php echo $resultadoLista[$i]['nombrebuz'] ?></td>
                                                         <td style="text-align:center"><?php echo $areaBuzon; ?></td>                   
                                                         <td style="text-align:center"><?php echo $sedeBuzon; ?></td>                                            	
-                                                        <td style="text-align:center"><a href='../pages/edit_mailbox.php?id=<?php echo $resultadoLista->return[$i]->idbuz?>'><button type='button' class='btn btn-info btn-primary' value='Editar'> Editar </button> </a></td>
+                                                        <td style="text-align:center"><a href='../pages/edit_mailbox.php?id=<?php echo $resultadoLista[$i]['idbuz']?>'><button type='button' class='btn btn-info btn-primary' value='Editar'> Editar </button> </a></td>
                                                         
                                                     </tr>
                                                         
                                                     <?php }
                                             } else { 
 											        $areaBuzon="Externo";$sedeBuzon="Externo";
-													if(isset($resultadoLista->return->idatr->nombreatr)){
-														$areaBuzon=$resultadoLista->return[$i]->idatr->nombreatr;
+													if(isset($resultadoLista['idatr']['nombreatr'])){
+														$areaBuzon=$resultadoLista[$i]['idatr']['nombreatr'];
 													}
-													if(isset($resultadoLista->return->idatr->idsed->nombresed)){
-														$sedeBuzon=$resultadoLista->return[$i]->idatr->idsed->nombresed;
+													if(isset($resultadoLista['idatr']['idsed']['nombresed'])){
+														$sedeBuzon=$resultadoLista[$i]['idatr']['idsed']['nombresed'];
 													}
 ?>
                                                     <tr>
-                                                        <td style="text-align:center"><?php echo $resultadoLista->return->nombrebuz ?></td>
+                                                        <td style="text-align:center"><?php echo $resultadoLista['nombrebuz'] ?></td>
                                                         <td style="text-align:center"><?php echo $areaBuzon; ?></td>                   
                                                         <td style="text-align:center"><?php echo $sedeBuzon; ?></td>                                            	
                                                   
-                                                        <td style="text-align:center"><a href='../pages/edit_mailbox.php?id=<?php echo $resultadoLista->return->idbuz?>'><button type='button' class='btn btn-info btn-primary' value='Editar'> Editar </button> </a></td>
+                                                        <td style="text-align:center"><a href='../pages/edit_mailbox.php?id=<?php echo $resultadoLista['idbuz']?>'><button type='button' class='btn btn-info btn-primary' value='Editar'> Editar </button> </a></td>
                                                         
                                                     </tr>
                                             <?php } ?>                                    

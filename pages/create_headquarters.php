@@ -7,29 +7,43 @@ require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
+
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+	$client->decode_utf8 = false;
+	$_SESSION["cli"]=$client;
 if (!isset($_SESSION["Usuario"])) {
     iraURL("../index.php");
 } elseif (!usuarioCreado()) {
     iraURL("../pages/create_user.php");
 }
 try {
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
-    $UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-    $SedeRol = $client->consultarSedeRol($UsuarioRol);
-    if (isset($SedeRol->return)) {
-        if ($SedeRol->return->idusu->tipousu != "1" && $SedeRol->return->idusu->tipousu != "2") {
+     
+     $UsuarioRol = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sede' => $_SESSION["Sede"]['nombresed']);
+      $SedeR = $client->call("consultarSedeRol",$UsuarioRol);
+	 $SedeRol=$SedeR['return'];
+    if ($SedeR!="") {
+        if ($SedeRol['idusu']['tipousu'] != "1" && $SedeRol['idusu']['tipousu'] != "2") {
             iraURL('../pages/inbox.php');
         }
     } else {
         iraURL('../pages/inbox.php');
     }
 
-    $org = $client->ConsultarOrganizaciones();
-    if (!isset($org->return)) {
+    $orga = $client->call("ConsultarOrganizaciones");
+    if ($orga=="") {
         javaalert("lo sentimos no se pueden crear sedes, no existen organizaciones registradas, consulte con el administrador");
         iraURL('../pages/inbox.php');
-    }
+    }else{
+		$org=$orga["return"];
+			if(isset($org[0])){
+				$reg = count($org);
+			}
+			else{
+				$reg = 1;
+			}
+		
+		
+	}
 
     if (isset($_POST["crear"])) {
         if (isset($_POST["nombre"]) && $_POST["nombre"] != "" && isset($_POST["direccion"]) && $_POST["direccion"] != "" && isset($_POST["telefono"]) && $_POST["telefono"] != "" && isset($_POST["codigo"]) && $_POST["codigo"] != "" && isset($_POST["organizacion"]) && $_POST["organizacion"] != "") {
@@ -37,8 +51,8 @@ try {
             $result = 0;
             try {
                 $datos = array('sede' => $_POST["nombre"]);
-                $Sedes = $client->consultarSedeExistente($datos);
-                $result = $Sedes->return;
+                $Sedes = $client->call("consultarSedeExistente",$datos);
+                $result = $Sedes['return'];
             } catch (Exception $e) {
                 
             }
@@ -63,9 +77,9 @@ try {
                     'codigosed' => $_POST["codigo"]
                 );
                 $parametros = array('registroSede' => $Sedenueva, 'idorg' => $_POST["organizacion"]);
-                $guardo = $client->insertarSede($parametros);
+                $guardo = $client->call("insertarSede",$parametros);
 
-                if ($guardo->return == 0) {
+                if ($guardo["return"] == 0) {
                     javaalert("No se han Guardado los datos de la sede, Consulte con el Admininistrador");
                 } else {
                     javaalert("Se han Guardado los datos de la sede");

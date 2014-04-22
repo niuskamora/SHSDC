@@ -112,11 +112,11 @@ if (!isset($org->return)) {
                                     <td style="text-align:center"><select  id="organizacion" name="organizacion" required  title="Seleccione la Organización a la que pertenece">
                                             <option value="" style="display:none">Seleccionar:</option>                                  
                                             <?php
-                                            if (count($org->return) == 1) {
-                                                echo '<option value="' . $org->return->idorg . '">' . $org->return->nombreorg . '</option>';
+                                            if ($reg == 1) {
+                                                echo '<option value="' . $org['idorg'] . '">' . $org['nombreorg'] . '</option>';
                                             } else {
-                                                for ($i = 0; $i < count($org->return); $i++) {
-                                                    echo '<option value="' . $org->return[$i]->idorg . '">' . $org->return[$i]->nombreorg . '</option>';
+                                                for ($i = 0; $i < $reg; $i++) {
+                                                    echo '<option value="' . $org[$i]['idorg'] . '">' . $org[$i]['nombreorg'] . '</option>';
                                                 }
                                             }
                                             ?>

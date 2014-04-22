@@ -49,21 +49,28 @@ $reg = 0;
 if (isset($_POST['idval']) && $_POST['idval'] != "" && $_POST['idval'] != "") {
     $aux = $_POST['idval'];
     $_SESSION["valdes"] = $aux;
-        $client = new SOAPClient($wsdl_sdc);
+    $client = new nusoap_client($wsdl_sdc, 'wsdl');
     $client->decode_utf8 = false;
-    $Val = array('codigo' => $aux, 'sede' => $_SESSION["Sede"]->return->nombresed);
-    $Valijac = $client->consultarValijaXIdOCodigoBarras($Val);
+    $Val = array('codigo' => $aux, 'sede' => $_SESSION["Sede"]['nombresed']);
+    $Valijac = $client->call("consultarValijaXIdOCodigoBarras",$Val);
     $regv = 0;
+	$reg = 0;
     if (isset($Valijac->return)) {
-        $Val = array('registroValija' => $Valijac->return->idval, 'sede' => $_SESSION["Sede"]->return->nombresed);
-        $Valija = $client->ConsultarPaquetesXValija($Val);
+        $Val = array('registroValija' => $Valijac['return']['idval'], 'sede' => $_SESSION["Sede"]['nombresed']);
+        $Valij = $client->call("ConsultarPaquetesXValija",$Val);
     }
-    if (isset($Valija->return)) {
-        $reg = count($Valija->return);
-        $_SESSION["RE"] = $reg;
-    } else {
-        $reg = 0;
-    }
+	
+	if($Valij != ""){
+		$Valija  = $Valija ['return'];
+		if(isset($Valija [0])){
+			$reg = count($Valija);
+			$_SESSION["RE"] = $reg;
+		}
+		else{
+			$reg = 1;
+		}
+	}
+	
 } else {
     javaalert('Debe ingresar el Codigo de una valija');
     iraURL('../pages/breakdown_valise.php');
@@ -90,42 +97,42 @@ if ($reg != 0) {
     if ($reg > 1) {
         $j = 0;
         while ($j < $reg) {
-            if (strlen($Valija->return[$j]->asuntopaq) > 10) {
-                $asunto = substr($Valija->return[$j]->asuntopaq, 0, 10) . "...";
+            if (strlen($Valija[$j]['asuntopaq']) > 10) {
+                $asunto = substr($Valija[$j]['asuntopaq'], 0, 10) . "...";
             } else {
-                $asunto = $Valija->return[$j]->asuntopaq;
+                $asunto = $Valija[$j]['asuntopaq'];
             }
-            echo "<td  style='text-align:center'>" . $Valija->return[$j]->destinopaq->idusu->nombreusu . "</td>";
+            echo "<td  style='text-align:center'>" . $Valija[$j]['destinopaq']['idusu']['nombreusu'] . "</td>";
             echo "<td  style='text-align:center'>" . $asunto . "</td>";
-            echo "<td style='text-align:center'>" . $Valija->return[$j]->iddoc->nombredoc . "</td>";
-            if ($Valija->return[$j]->respaq == 0) {
+            echo "<td style='text-align:center'>" . $Valija[$j]['iddoc']['nombredoc'] . "</td>";
+            if ($Valija[$j]['respaq'] == 0) {
                 echo "<td style='text-align:center'> No </td>";
             } else {
                 echo "<td style='text-align:center'> Si </td>";
             }
-            echo "<td style='text-align:center'>" . date("d/m/Y", strtotime(substr($Valija->return[$j]->fechapaq, 0, 10))) . "</td>";
-            echo "<td style='text-align:center' onmousedown='Rep(" . $j . ");'  width='15%'><input type='checkbox'  ' name='idc[" . $j . "]' id='idc[" . $j . "]' value='" . $Valija->return[$j]->idpaq . "' /></td>";
-            echo "<td style='text-align:center' width='15%'><input type='checkbox' name='idr[" . $j . "]' id='idr[" . $j . "]' ' value='" . $Valija->return[$j]->idpaq . "' /></td>";
+            echo "<td style='text-align:center'>" . date("d/m/Y", strtotime(substr($Valija[$j]['fechapaq'], 0, 10))) . "</td>";
+            echo "<td style='text-align:center' onmousedown='Rep(" . $j . ");'  width='15%'><input type='checkbox'  ' name='idc[" . $j . "]' id='idc[" . $j . "]' value='" . $Valija[$j]['idpaq'] . "' /></td>";
+            echo "<td style='text-align:center' width='15%'><input type='checkbox' name='idr[" . $j . "]' id='idr[" . $j . "]' ' value='" . $Valija[$j]['idpaq'] . "' /></td>";
             echo " </tr>";
             $j++;
         }
     } else {
-        if (strlen($Valija->return->asuntopaq) > 10) {
-            $asunto = substr($Valija->return->asuntopaq, 0, 10) . "...";
+        if (strlen($Valija['asuntopaq']) > 10) {
+            $asunto = substr($Valija['asuntopaq'], 0, 10) . "...";
         } else {
-            $asunto = $Valija->return->asuntopaq;
+            $asunto = $Valija['asuntopaq'];
         }
-        echo "<td  style='text-align:center'>" . $Valija->return->destinopaq->idusu->nombreusu . "</td>";
+        echo "<td  style='text-align:center'>" . $Valija['destinopaq']['idusu']['nombreusu'] . "</td>";
         echo "<td  style='text-align:center'>" . $asunto . "</td>";
-        echo "<td style='text-align:center'>" . $Valija->return->iddoc->nombredoc . "</td>";
-        if ($Valija->return->respaq == 0) {
+        echo "<td style='text-align:center'>" . $Valija['iddoc']['nombredoc'] . "</td>";
+        if ($Valija['respaq'] == 0) {
             echo "<td style='text-align:center'> No </td>";
         } else {
             echo "<td style='text-align:center'> Si </td>";
         }
-        echo "<td style='text-align:center'>" . date("d/m/Y", strtotime(substr($Valija->return->fechapaq, 0, 10))) . "</td>";
-        echo "<td style='text-align:center' width='15%'><input type='checkbox' name='idc[0]' id='idc[0]' value='" . $Valija->return->idpaq . "'></td>";
-        echo "<td style='text-align:center' width='15%'><input type='checkbox' name='idr[0]' id='idr[0]'  ' value='" . $Valija->return->idpaq . "'></td>";
+        echo "<td style='text-align:center'>" . date("d/m/Y", strtotime(substr($Valija['fechapaq'], 0, 10))) . "</td>";
+        echo "<td style='text-align:center' width='15%'><input type='checkbox' name='idc[0]' id='idc[0]' value='" . $Valija['idpaq'] . "'></td>";
+        echo "<td style='text-align:center' width='15%'><input type='checkbox' name='idr[0]' id='idr[0]'  ' value='" . $Valija['idpaq'] . "'></td>";
         echo "</tr>";
     }
     echo " </tbody>
