@@ -126,14 +126,14 @@ if (isset($_POST["reportarPaqExc"])) {
                         }
                         javaalert('Paquete Reportado y Reenviado');
                         llenarLog(7, "Paquete Excedente", $usuarioBitacora, $sede);
-                        //iraURL('../pages/breakdown_valise.php');
+                        iraURL('../pages/breakdown_valise.php');
                     } else {
                         javaalert('Paquete No Reportado y No Reenviado, verifique los datos');
-                        //iraURL('../pages/breakdown_valise.php');
+                        iraURL('../pages/breakdown_valise.php');
                     }
                 } else {
                     javaalert('Paquete No Reportado y No Reenviado, verifique los datoss');
-                    //iraURL('../pages/breakdown_valise.php');
+                    iraURL('../pages/breakdown_valise.php');
                 }
             }
         } catch (Exception $e) {
@@ -182,10 +182,10 @@ if (isset($_POST["reportarValija"])) {
                 }
                 javaalert('Valija Reportada y Reenviada');
                 llenarLog(7, "Valija Erronea", $usuarioBitacora, $sede);
-                //iraURL('../pages/breakdown_valise.php');
+                iraURL('../pages/breakdown_valise.php');
             } else {
                 javaalert('Valija No Reportada y No Reenviada, verifique los datos');
-                //iraURL('../pages/breakdown_valise.php');
+                iraURL('../pages/breakdown_valise.php');
             }
         } catch (Exception $e) {
             javaalert('Lo sentimos no hay conexion');

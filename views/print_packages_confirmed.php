@@ -87,7 +87,7 @@ if ($nomUsuario == "") {
                         <div class="tab-content" id="bandeja">
                             <?php
                             //Verificando que este vacio o sea null
-                            if (!isset($resultadoPaquetesConfirmados->return)) {
+                            if (!isset($resultadoPaquetesConfirmados)) {
                                 echo '<div class="alert alert-block" align="center">';
                                 echo '<h2 style="color:rgb(255,255,255)" align="center">Atención</h2>';
                                 echo '<h4 align="center">No Existen Registros para Imprimir Comprobante</h4>';
@@ -115,74 +115,74 @@ if ($nomUsuario == "") {
                                                 for ($i = 0; $i < $paquetes; $i++) {
                                                     ?>
                                                     <tr>
-                                                        <td style="text-align:center"><?php echo $resultadoPaquetesConfirmados->return[$i]->idpaq ?></td>
-                                                        <?php if (isset($resultadoPaquetesConfirmados->return[$i]->origenpaq->idusu->apellidousu)) { ?>
-                                                            <td><?php echo $resultadoPaquetesConfirmados->return[$i]->origenpaq->idusu->nombreusu . ' ' . $resultadoPaquetesConfirmados->return[$i]->origenpaq->idusu->apellidousu ?></td>
+                                                        <td style="text-align:center"><?php echo $resultadoPaquetesConfirmados[$i]['idpaq'] ?></td>
+                                                        <?php if (isset($resultadoPaquetesConfirmados[$i]['origenpaq']['idusu']['apellidousu'])) { ?>
+                                                            <td><?php echo utf8_encode($resultadoPaquetesConfirmados[$i]['origenpaq']['idusu']['nombreusu']) . ' ' . utf8_encode($resultadoPaquetesConfirmados[$i]['origenpaq']['idusu']['apellidousu']) ?></td>
                                                         <?php } else {
                                                             ?>
-                                                            <td><?php echo $resultadoPaquetesConfirmados->return[$i]->origenpaq->idusu->nombreusu ?></td>                                                    
+                                                            <td><?php echo utf8_encode($resultadoPaquetesConfirmados[$i]['origenpaq']['idusu']['nombreusu']) ?></td>                                                    
                                                             <?php
                                                         }
-                                                        if ($resultadoPaquetesConfirmados->return[$i]->destinopaq->tipobuz == '0') {
-                                                            if (isset($resultadoPaquetesConfirmados->return[$i]->destinopaq->idusu->apellidousu)) {
+                                                        if ($resultadoPaquetesConfirmados[$i]['destinopaq']['tipobuz'] == '0') {
+                                                            if (isset($resultadoPaquetesConfirmados[$i]['destinopaq']['idusu']['apellidousu'])) {
                                                                 ?>
-                                                                <td><?php echo $resultadoPaquetesConfirmados->return[$i]->destinopaq->idusu->nombreusu . ' ' . $resultadoPaquetesConfirmados->return[$i]->destinopaq->idusu->apellidousu ?></td>
+                                                                <td><?php echo utf8_encode($resultadoPaquetesConfirmados[$i]['destinopaq']['idusu']['nombreusu']) . ' ' . utf8_encode($resultadoPaquetesConfirmados[$i]['destinopaq']['idusu']['apellidousu']) ?></td>
                                                                 <?php
                                                             } else {
                                                                 ?>
-                                                                <td><?php echo $resultadoPaquetesConfirmados->return[$i]->destinopaq->idusu->nombreusu ?></td>																
+                                                                <td><?php echo utf8_encode($resultadoPaquetesConfirmados[$i]['destinopaq']['idusu']['nombreusu']) ?></td>																
                                                                 <?php
                                                             }
                                                         }
-                                                        if ($resultadoPaquetesConfirmados->return[$i]->destinopaq->tipobuz == '1') {
+                                                        if ($resultadoPaquetesConfirmados[$i]['destinopaq']['tipobuz'] == '1') {
                                                             ?>
-                                                            <td><?php echo $resultadoPaquetesConfirmados->return[$i]->destinopaq->nombrebuz ?></td>
+                                                            <td><?php echo utf8_encode($resultadoPaquetesConfirmados[$i]['destinopaq']['nombrebuz']) ?></td>
                                                         <?php } ?>                                                        
-                                                        <td style="text-align:center"><?php echo $resultadoPaquetesConfirmados->return[$i]->iddoc->nombredoc ?></td>
-                                                        <?php if ($resultadoPaquetesConfirmados->return[$i]->respaq == '0') { ?>
+                                                        <td style="text-align:center"><?php echo utf8_encode($resultadoPaquetesConfirmados[$i]['iddoc']['nombredoc']) ?></td>
+                                                        <?php if ($resultadoPaquetesConfirmados[$i]['respaq'] == '0') { ?>
                                                             <td style="text-align:center"><?php echo "No" ?></td>
                                                         <?php } else {
                                                             ?>
                                                             <td style="text-align:center"><?php echo "Si" ?></td>
                                                         <?php } ?>
-                                                        <?php echo '<td style="text-align:center"><input type="checkbox" name="ide[' . $i . ']" id="ide[' . $i . ']" value=' . $resultadoPaquetesConfirmados->return[$i]->idpaq . '></td>'; ?>			
+                                                        <?php echo '<td style="text-align:center"><input type="checkbox" name="ide[' . $i . ']" id="ide[' . $i . ']" value=' . $resultadoPaquetesConfirmados[$i]['idpaq'] . '></td>'; ?>			
                                                     </tr>
                                                     <?php
                                                 }
                                             } else {
                                                 ?>
                                                 <tr>
-                                                    <td style="text-align:center"><?php echo $resultadoPaquetesConfirmados->return->idpaq ?></td>
-                                                    <?php if (isset($resultadoPaquetesConfirmados->return->origenpaq->idusu->apellidousu)) { ?>
-                                                        <td><?php echo $resultadoPaquetesConfirmados->return->origenpaq->idusu->nombreusu . ' ' . $resultadoPaquetesConfirmados->return->origenpaq->idusu->apellidousu ?></td>
+                                                    <td style="text-align:center"><?php echo $resultadoPaquetesConfirmados['idpaq'] ?></td>
+                                                    <?php if (isset($resultadoPaquetesConfirmados['origenpaq']['idusu']['apellidousu'])) { ?>
+                                                        <td><?php echo utf8_encode($resultadoPaquetesConfirmados['origenpaq']['idusu']['nombreusu']) . ' ' . utf8_encode($resultadoPaquetesConfirmados['origenpaq']['idusu']['apellidousu']) ?></td>
                                                     <?php } else {
                                                         ?>
-                                                        <td><?php echo $resultadoPaquetesConfirmados->return->origenpaq->idusu->nombreusu ?></td>                                                    
+                                                        <td><?php echo utf8_encode($resultadoPaquetesConfirmados['origenpaq']['idusu']['nombreusu']) ?></td>                                                    
                                                         <?php
                                                     }
-                                                    if ($resultadoPaquetesConfirmados->return->destinopaq->tipobuz == '0') {
-                                                        if (isset($resultadoPaquetesConfirmados->return->destinopaq->idusu->apellidousu)) {
+                                                    if ($resultadoPaquetesConfirmados['destinopaq']['tipobuz'] == '0') {
+                                                        if (isset($resultadoPaquetesConfirmados['destinopaq']['idusu']['apellidousu'])) {
                                                             ?>
-                                                            <td><?php echo $resultadoPaquetesConfirmados->return->destinopaq->idusu->nombreusu . ' ' . $resultadoPaquetesConfirmados->return->destinopaq->idusu->apellidousu ?></td>
+                                                            <td><?php echo utf8_encode($resultadoPaquetesConfirmados['destinopaq']['idusu']['nombreusu']) . ' ' . utf8_encode($resultadoPaquetesConfirmados['destinopaq']['idusu']['apellidousu']) ?></td>
                                                             <?php
                                                         } else {
                                                             ?>
-                                                            <td><?php echo $resultadoPaquetesConfirmados->return->destinopaq->idusu->nombreusu ?></td>																
+                                                            <td><?php echo utf8_encode($resultadoPaquetesConfirmados['destinopaq']['idusu']['nombreusu']) ?></td>																
                                                             <?php
                                                         }
                                                     }
-                                                    if ($resultadoPaquetesConfirmados->return->destinopaq->tipobuz == '1') {
+                                                    if ($resultadoPaquetesConfirmados['destinopaq']['tipobuz'] == '1') {
                                                         ?>
-                                                        <td><?php echo $resultadoPaquetesConfirmados->return->destinopaq->nombrebuz ?></td>
+                                                        <td><?php echo utf8_encode($resultadoPaquetesConfirmados['destinopaq']['nombrebuz']) ?></td>
                                                     <?php } ?>
-                                                    <td style="text-align:center"><?php echo $resultadoPaquetesConfirmados->return->iddoc->nombredoc ?></td>
-                                                    <?php if ($resultadoPaquetesConfirmados->return->respaq == '0') { ?>
+                                                    <td style="text-align:center"><?php echo utf8_encode($resultadoPaquetesConfirmados['iddoc']['nombredoc']) ?></td>
+                                                    <?php if ($resultadoPaquetesConfirmados['respaq'] == '0') { ?>
                                                         <td style="text-align:center"><?php echo "No" ?></td>
                                                     <?php } else {
                                                         ?>
                                                         <td style="text-align:center"><?php echo "Si" ?></td>
                                                     <?php } ?>
-                                                    <?php echo '<td style="text-align:center"><input type="checkbox" name="ide[0]" id="ide[0]" value=' . $resultadoPaquetesConfirmados->return->idpaq . '></td>'; ?>
+                                                    <?php echo '<td style="text-align:center"><input type="checkbox" name="ide[0]" id="ide[0]" value=' . $resultadoPaquetesConfirmados['idpaq'] . '></td>'; ?>
                                                 </tr>
                                             <?php } ?>                                    
                                         </tbody>
