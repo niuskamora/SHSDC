@@ -87,7 +87,7 @@ require_once("../core/Crypt/AES.php");
                
                 echo "<td  style='text-align:center'>" . $Registro[$j]['origenpaq']['idusu']['nombreusu'] . "</td>";
                 echo "<td  style='text-align:center'>" . $Registro[$j]['destinopaq']['idusu']['nombreusu'] . "</td>";
-                echo "<td style='text-align:center'>" . $asunto . "</td>";
+              
                 if ($Registro[$j]['respaq'] == 0) {
                     echo "<td style='text-align:center'> No </td>";
                 } else {
@@ -103,7 +103,7 @@ require_once("../core/Crypt/AES.php");
             
             echo "<td  style='text-align:center'>" . $Registro['origenpaq']['idusu']['nombreusu'] . "</td>";
             echo "<td  style='text-align:center'>" . $Registro['destinopaq']['idusu']['nombreusu'] . "</td>";
-            echo "<td style='text-align:center'>" . $asunto . "</td>";
+            
             if ($Registro['respaq'] == 0) {
                 echo "<td style='text-align:center'> No </td>";
             } else {
