@@ -28,22 +28,30 @@
         include("../recursos/funciones.php");
         require_once('../lib/nusoap.php');
         $aux = $_POST['idusu'];
-$client = new SOAPClient($wsdl_sdc);
-        $client->decode_utf8 = false;
-
+		$client = new nusoap_client($wsdl_sdc, 'wsdl');
+		$client->decode_utf8 = false;
         $datosU = array('idUsuario' => $aux);
-        $Bandeja = $client->consultarUsuario($datosU);
-        $Roles = $client->consultarRoles();
+        $Bandej = $client->call("consultarUsuario",$datosU);
+        $Role = $client->call("consultarRoles");
         $regs = 0;
         $reg = 0;
-        if (isset($Bandeja->return) && isset($Roles->return)) {
-            $dau = array('idusu' => $Bandeja->return->idusu, 'sede' => $_SESSION["sedeb"]);
-            $sedeU = $client->consultarSedeRol($dau);
-            $reg = count($Bandeja->return);
-            $regs = count($sedeU->return);
+        if ($Bandej!="" && $Role!="") {
+			
+			$Bandeja=$Bandej['return'];
+			$Roles=$Role['return'];
+            $dau = array('idusu' => $Bandeja['idusu'], 'sede' => $_SESSION["sedeb"]);
+            $sedeUs = $client->call("consultarSedeRol",$dau);
+			
+			if($sedeUs!=""){
+				$sedeU=$sedeUs['return'];
+				$regs = count($sedeU->return);
+			}
+			
+            $reg = count($Bandeja);
+            
 
-            $regr = count($Roles->return);
-            $_SESSION["usuedit"] = $Bandeja->return->idusu;
+            $regr = count($Roles);
+            $_SESSION["usuedit"] = $Bandeja['idusu'];
         } else {
             $reg = 0;
         }
@@ -51,20 +59,20 @@ $client = new SOAPClient($wsdl_sdc);
         javaalert('Lo sentimos no hay conexion');
         iraURL('../index.php');
     }
-    echo "<h2> <strong>" . $Bandeja->return->nombreusu . " </strong> </h2>";
+    echo "<h2> <strong>" . $Bandeja['nombreusu'] . " </strong> </h2>";
     if ($reg != 0) {
         echo "<form method='post'> ";
         echo "<table class='footable table table-striped table-bordered'>
                                 <tr>
                                     <td style='text-align:center'>Nombre</td>
                                     <td style='text-align:center'>
-                                    <label>" . $Bandeja->return->nombreusu . "</label>
+                                    <label>" . $Bandeja['nombreusu'] . "</label>
                                     </td> 
                                 </tr>
                                 <tr>
                                     <td style='text-align:center'>Apellido</td>
                                     <td style='text-align:center'>
-                                    <label>" . $Bandeja->return->apellidousu . " </label>
+                                    <label>" . $Bandeja['apellidousu'] . " </label>
                                     </td> 
                                 </tr>
                                 <tr>
@@ -74,15 +82,15 @@ $client = new SOAPClient($wsdl_sdc);
         if ($regr > 1) {
             $i = 0;
             while ($regr > $i) {
-                if ($sedeU->return->idrol->idrol == $Roles->return[$i]->idrol) {
-                    echo "<option selected='selected' value='" . $Roles->return[$i]->idrol . "' >" . $Roles->return[$i]->nombrerol . "</option>";
+                if ($sedeU['idrol']['idrol'] == $Roles[$i]['idrol']) {
+                    echo "<option selected='selected' value='" . $Roles[$i]['idrol'] . "' >" . $Roles[$i]['nombrerol'] . "</option>";
                 } else {
-                    echo "<option value='" . $Roles->return[$i]->idrol . "' >" . $Roles->return[$i]->nombrerol . "</option>";
+                    echo "<option value='" . $Roles[$i]['idrol'] . "' >" . $Roles[$i]['nombrerol'] . "</option>";
                 }
                 $i++;
             }
         } else {
-            echo "<option value='" . $Roles->return->idrol . "' >" . $Roles->return->nombrerol . "</option>";
+            echo "<option value='" . $Roles['idrol'] . "' >" . $Roles['nombrerol'] . "</option>";
         }
         echo "</select>
             </tdt>

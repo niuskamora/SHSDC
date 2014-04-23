@@ -8,6 +8,10 @@ require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
 
+
+	$client = new nusoap_client($wsdl_sdc, 'wsdl');
+	$client->decode_utf8 = false;
+	$_SESSION["cli"]=$client;
     if (!isset($_SESSION["Usuario"])) {
         iraURL("../index.php");
     } elseif (!usuarioCreado()) {

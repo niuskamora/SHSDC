@@ -1,5 +1,5 @@
 <?php
-if (!isset($org->return)) {
+if ($org=="") {
     echo '<script language="javascript"> window.location = "../pages/inbox.php"; </script>';
 }
 ?>
@@ -104,11 +104,11 @@ if (!isset($org->return)) {
                                     <td style="text-align:center"><select  id="sede" name="sede" required  title="Seleccione la Sede a la que pertenece">
                                             <option value="" style="display:none">Seleccionar:</option>                                  
                                             <?php
-                                            if (count($org->return) == 1) {
-                                                echo '<option value="' . $org->return->idsed . '">' . $org->return->nombresed . '</option>';
+                                            if ($reg == 1) {
+                                                echo '<option value="' . $Sedes['idsed'] . '">' . $Sedes['nombresed'] . '</option>';
                                             } else {
-                                                for ($i = 0; $i < count($org->return); $i++) {
-                                                    echo '<option value="' . $org->return[$i]->idsed . '">' . $org->return[$i]->nombresed . '</option>';
+                                                for ($i = 0; $i < $reg; $i++) {
+                                          		echo '<option value="' . $Sedes[$i]['idsed'] . '">' . $Sedes[$i]['nombresed'] . '</option>';
                                                 }
                                             }
                                             ?>
