@@ -73,7 +73,7 @@ require_once("../core/Crypt/AES.php");
                                 <tr>
                                     <th style='width:20%; text-align:center' >Origen</th>
                                     <th style='width:20%; text-align:center'>Destino</th>
-                                    <th data-sort-ignore='true' style='width:15%; text-align:center'>Asunto</th>
+                                    
                                     <th style='width:10%; text-align:center'>C/R</th>
                                     <th  style='width:10%; text-align:center'>Fecha</th>
                                     <th  data-sort-ignore='true' style='width:30%; text-align:center'>Agregar</th>
@@ -84,11 +84,7 @@ require_once("../core/Crypt/AES.php");
         if ($reg > 1) {
             $j = 0;
             while ($j < $reg) {
-                if (strlen($Registro[$j]['asuntopaq']) > 10) {
-                    $asunto = substr($Registro->return[$j]->asuntopaq, 0, 10) . "...";
-                } else {
-                    $asunto = $Registro->return[$j]->asuntopaq;
-                }
+               
                 echo "<td  style='text-align:center'>" . $Registro[$j]['origenpaq']['idusu']['nombreusu'] . "</td>";
                 echo "<td  style='text-align:center'>" . $Registro[$j]['destinopaq']['idusu']['nombreusu'] . "</td>";
                 echo "<td style='text-align:center'>" . $asunto . "</td>";
@@ -97,18 +93,14 @@ require_once("../core/Crypt/AES.php");
                 } else {
                     echo "<td style='text-align:center'> Si </td>";
                 }
-                echo "<td style='text-align:center'>" . date("d/m/Y", strtotime(substr($Registro->return[$j]->fechapaq, 0, 10))) . "</td>";
+                echo "<td style='text-align:center'>" . date("d/m/Y", strtotime(substr($Registro[$j]['fechapaq'], 0, 10))) . "</td>";
                 echo '<td style="text-align:center" width="15%"><input type="checkbox" name="ide[' . $j . ']" id="ide[' . $j . ']" value=' . $Registro[$j]['idpaq'] . '></td>';
                 echo "</tr>";
                 $j++;
             }
         } else {
 
-            if (strlen($Registro['asuntopaq']) > 10) {
-                $asunto = substr($Registro['asuntopaq'], 0, 10) . "...";
-            } else {
-                $asunto = $Registro->return->asuntopaq;
-            }
+            
             echo "<td  style='text-align:center'>" . $Registro['origenpaq']['idusu']['nombreusu'] . "</td>";
             echo "<td  style='text-align:center'>" . $Registro['destinopaq']['idusu']['nombreusu'] . "</td>";
             echo "<td style='text-align:center'>" . $asunto . "</td>";
