@@ -109,10 +109,10 @@ $consumo = $client->call("confirmarCorrespondenciaExterna",$parametros);
                                                     }
                                                     ?>
                                                     <tr>     
-                                                        <td  style='text-align:center'><?php echo $PaquetesConfirmados["origenpaq"]["idusu"]["nombreusu"] . " " . $PaquetesConfirmados["origenpaq"]["idusu"]["apellidousu"]; ?></td>
+                                                        <td  style='text-align:center'><?php echo  utf8_encode($PaquetesConfirmados["origenpaq"]["idusu"]["nombreusu"] . " " . $PaquetesConfirmados["origenpaq"]["idusu"]["apellidousu"]); ?></td>
                                                         <td style='text-align:center'><?php echo $nombrebuz; ?></td>
                                                         <td style='text-align:center'><?php echo $asunto; ?></td>
-                                                        <td style='text-align:center'><?php echo $PaquetesConfirmados["iddoc"]["nombredoc"]; ?></td>
+                                                        <td style='text-align:center'><?php echo  utf8_encode($PaquetesConfirmados["iddoc"]["nombredoc"]); ?></td>
                                                         <td style='text-align:center'><?php echo $contenido; ?></td>
                                                         <td style='text-align:center'> <button type='button' class='btn btn-info btn-primary' onClick="Paquete(<?php echo $PaquetesConfirmados["idpaq"]; ?>);">  Confirmar </button></td>  
                                                     </tr>   

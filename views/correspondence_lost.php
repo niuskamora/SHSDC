@@ -84,12 +84,13 @@ if (!isset($SedeRol)) {
                         <div class="tab-content" id="bandeja">
                             <form class="form-search" id="formulario">
                                 <h2>Correspondencia Extraviada</h2>
-                                <?php
+                                <div id="data">
+								<?php
                                 if (isset($PaquetesExtraviados)) {
 
                                     echo "<br>";
                                     ?>
-                                    <table class='footable table table-striped table-bordered'  ddata-page-size=<?php echo $itemsByPage ?>>    
+                                    <table class='footable table table-striped table-bordered'  data-page-size=<?php echo $itemsByPage ?>>    
                                         <thead bgcolor='#FF0000'>
                                             <tr>	
                                                 <th style='width:7%; text-align:center'>Origen</th>
@@ -97,6 +98,7 @@ if (!isset($SedeRol)) {
                                                 <th style='width:7%; text-align:center' data-sort-ignore="true">Asunto </th>
                                                 <th style='width:7%; text-align:center' data-sort-ignore="true">Localización</th>
                                                 <th style='width:7%; text-align:center' data-sort-ignore="true">Fecha Emisión</th>
+												<th style='width:7%; text-align:center' data-sort-ignore="true">Ver Más</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -119,7 +121,9 @@ if (!isset($SedeRol)) {
                                                     <td style='text-align:center'><?php echo utf8_encode($asunto); ?></td>
                                                     <td style='text-align:center'><?php echo utf8_encode($PaquetesExtraviados["localizacionpaq"]); ?></td>
                                                     <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($PaquetesExtraviados["fechapaq"], 0, 10))); ?></td>
-                                                </tr>   
+												 <td style='text-align:center'> <button type='button' class='btn btn-info btn-primary' onClick="Paquete(<?php echo $PaquetesExtraviados["idpaq"]; ?>);">  Ver Más </button></td>  
+		
+												</tr>   
                                                 <?php
                                             } else {
                                                 for ($i = 0; $i < count($PaquetesExtraviados); $i++) {
@@ -140,7 +144,9 @@ if (!isset($SedeRol)) {
                                                         <td style='text-align:center'><?php echo utf8_encode($asunto); ?></td>
                                                         <td style='text-align:center'><?php echo utf8_encode($PaquetesExtraviados[$i]["localizacionpaq"]); ?></td>
                                                         <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($PaquetesExtraviados[$i]["fechapaq"], 0, 10))); ?></td>
-                                                    </tr>   
+												 <td style='text-align:center'> <button type='button' class='btn btn-info btn-primary' onClick="Paquete(<?php echo $PaquetesExtraviados[$i]["idpaq"]; ?>);">  Ver Más </button></td>  
+
+														</tr>   
                                                     <?php
                                                 }
                                             }//fin else
@@ -158,17 +164,34 @@ if (!isset($SedeRol)) {
 									</div> ";
                                 }
                                 ?>
+								</div>
                             </form>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
+		</div>
 
         <script src="../js/footable.js" type="text/javascript"></script>
         <script src="../js/footable.paginate.js" type="text/javascript"></script>
         <script src="../js/footable.sortable.js" type="text/javascript"></script>
         <script>
+		 function Paquete(idpaq) {
+                var parametros = {
+                    "idpaq": idpaq
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "../ajax/view_mje.php",
+                    data: parametros,
+                    dataType: "text",
+                    success: function(response) {
+                        $("#data").html(response);
+                    }
+                });
+
+            }
             window.onload = function() {
                 killerSession();
             }
