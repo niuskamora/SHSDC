@@ -34,7 +34,7 @@ if (isset($_POST["guardar"]) && isset($_POST["ide"])) {
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="ISO-8859-1">
+        <meta charset="utf-8">
         <title>Seguros Horizonte | HorizonLine</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
@@ -142,7 +142,7 @@ if (isset($_POST["guardar"]) && isset($_POST["ide"])) {
                                 <?php
                             } else {
                                 echo"<div class='alert alert-block' align='center'>
-									<h2 style='color:rgb(255,255,255)' align='center'>Atención</h2>
+									<h2 style='color:rgb(255,255,255)' align='center'>AtenciÃ³n</h2>
 									<h4 align='center'>No hay Paquetes para realizar Valija</h4>
 								</div> ";
                             }

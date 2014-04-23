@@ -6,7 +6,7 @@ if ($usuarioBitacora == "") {
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="ISO-8859-1">
+        <meta charset="utf-8">
         <title>Seguros Horizonte | HorizonLine</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
@@ -81,7 +81,7 @@ if ($usuarioBitacora == "") {
                         <ul class="nav nav-pills nav-stacked">
                             <li>   
                                 <a href="../pages/administration.php">
-                                    <?php echo "Atrás" ?>         
+                                    <?php echo "AtrÃ¡s" ?>         
                                 </a>
                             </li>
                         </ul>
@@ -93,7 +93,7 @@ if ($usuarioBitacora == "") {
                                 <strong> <h2 align="center">Reportar Paquete por extravi&oacute;</h2> </strong>                
                                 <div align="center">
                                     C&oacute;digo de Correspondencia:  
-                                    <input type="text" id="cPaquete" name="cPaquete" class="input-medium search-query" placeholder="Ej. 4246" title="Ingrese el código de Correspondencia" autocomplete="off" pattern="[0-9]{1,38}"> 
+                                    <input type="text" id="cPaquete" name="cPaquete" class="input-medium search-query" placeholder="Ej. 4246" title="Ingrese el cÃ³digo de Correspondencia" autocomplete="off" pattern="[0-9]{1,38}"> 
                                     <br>
                                     <br>                           
                                     Por favor detalle lo sucedido con el Paquete.
@@ -101,7 +101,7 @@ if ($usuarioBitacora == "") {
                                     <textarea rows="5" cols="5" id="datosPaquete" name="datosPaquete" style="width:600px"></textarea>
                                     <br>
                                     <br>
-                                    <button type="submit" class="btn" id="reportarPaqExc" name="reportarPaqExc" onclick="return confirm('¿Esta seguro que desea reportar por extravió la Correspondencia?')">Reportar</button>
+                                    <button type="submit" class="btn" id="reportarPaqExc" name="reportarPaqExc" onclick="return confirm('Â¿Esta seguro que desea reportar por extraviÃ³ la Correspondencia?')">Reportar</button>
                                     <h6>(se recomienda realizar el acta correspondiente)</h6>
                                 </div>               
                             </div>
@@ -109,7 +109,7 @@ if ($usuarioBitacora == "") {
                                 <strong> <h2 align="center">Reportar Valija por extravi&oacute;</h2> </strong>                
                                 <div align="center">
                                     C&oacute;digo de Valija:  
-                                    <input type="text" id="cValija" name="cValija" class="input-medium search-query" placeholder="Ej. 4246" title="Ingrese el código de la Valija" autocomplete="off" pattern="[0-9]{1,38}">
+                                    <input type="text" id="cValija" name="cValija" class="input-medium search-query" placeholder="Ej. 4246" title="Ingrese el cÃ³digo de la Valija" autocomplete="off" pattern="[0-9]{1,38}">
                                     <br>
                                     <br>
                                     Por favor detalle lo sucedido con la Valija.
@@ -117,7 +117,7 @@ if ($usuarioBitacora == "") {
                                     <textarea rows="5" cols="5" id="datosValija" name="datosValija" style="width:600px"></textarea>
                                     <br>
                                     <br>
-                                    <button type="submit" class="btn" id="reportarValija" name="reportarValija" onclick="return confirm('¿Esta seguro que desea reportar por extravió la Valija?')">Reportar</button>
+                                    <button type="submit" class="btn" id="reportarValija" name="reportarValija" onclick="return confirm('Â¿Esta seguro que desea reportar por extraviÃ³ la Valija?')">Reportar</button>
                                     <h6>(se recomienda realizar el acta correspondiente)</h6>
                                 </div>               
                             </div>	  

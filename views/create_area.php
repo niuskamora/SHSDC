@@ -6,7 +6,7 @@ if ($Ses=="") {
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="ISO-8859-1">
+        <meta charset="utf-8">
         <title>Seguros Horizonte | HorizonLine</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
@@ -89,7 +89,7 @@ if ($Ses=="") {
                             <table class='footable table table-striped table-bordered'>
                                 <tr>
                                     <td style="text-align:center" >Nombre de la &Aacute;rea</td>
-                                    <td style="text-align:center"><input type="text" name="nombre" id="nombre" autocomplete="off" maxlength="150" size="30" placeholder="Ej. Sistemas" title="Ingrese el nombre del Área"  autofocus required></td>
+                                    <td style="text-align:center"><input type="text" name="nombre" id="nombre" autocomplete="off" maxlength="150" size="30" placeholder="Ej. Sistemas" title="Ingrese el nombre del Ãrea"  autofocus required></td>
                                 </tr>
                                 <tr>
                                     <td style="text-align:center">Sede</td>
