@@ -43,7 +43,9 @@ try {
         } else {
             $bitacora = 1;
         }
-    }
+    } else {
+		$bitacora = 0;
+	}
 
     if (isset($_POST["vaciar"])) {
         $client = new nusoap_client($wsdl_sdc, 'wsdl');

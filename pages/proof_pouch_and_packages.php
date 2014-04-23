@@ -54,7 +54,7 @@ if ($idValija == "") {
         if ($consumoPaqXValija != "") {
             $resultadoPaquetesPorValija = $consumoPaqXValija['return'];
             if (isset($resultadoPaquetesPorValija[0])) {
-                $contadorPaquetes = count($resultadoPaquetesPorValija->return);
+                $contadorPaquetes = count($resultadoPaquetesPorValija);
             } else {
                 $contadorPaquetes = 1;
             }

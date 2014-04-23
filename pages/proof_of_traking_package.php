@@ -45,16 +45,16 @@ if ($idPaquete == "") {
         $consumoSeguimiento = $client->call("consultarSeguimientoXPaquete", $paquete);
         if ($consumoSeguimiento != "") {
             $resultadoPaquete = $consumoSeguimiento['return'];
-            if (isset($resultadoPaquete)) {
-                $segumientoPaquete = count($resultadoPaquete);
+            if (isset($resultadoPaquete[0])) {
+                $seguimientoPaquete = count($resultadoPaquete);
             } else {
-                $segumientoPaquete = 0;
+                $seguimientoPaquete = 1;
             }
         } else {
-            $segumientoPaquete = 0;
+            $seguimientoPaquete = 0;
         }
-        if ($segumientoPaquete > 1) {
-            for ($i = 0; $i < $segumientoPaquete; $i++) {
+        if ($seguimientoPaquete > 1) {
+            for ($i = 0; $i < $seguimientoPaquete; $i++) {
                 if (isset($resultadoPaquete[$i]['fechaseg'])) {
                     $fecha[$i] = FechaHora($resultadoPaquete[$i]['fechaseg']);
                 } else {
@@ -62,7 +62,7 @@ if ($idPaquete == "") {
                 }
                 $_SESSION["fecha"][$i] = $fecha[$i];
             }
-        } elseif ($segumientoPaquete == 1) {
+        } elseif ($seguimientoPaquete == 1) {
             if (isset($resultadoPaquete['fechaseg'])) {
                 $fecha = FechaHora($resultadoPaquete['fechaseg']);
             } else {

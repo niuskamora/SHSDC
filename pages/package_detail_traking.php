@@ -45,14 +45,14 @@ if ($idPaquete == "") {
 		if($consumoSeguimiento != ""){
 			$resultadoPaquete = $consumoSeguimiento['return'];		
 			if(isset($resultadoPaquete[0])){
-				$segumientoPaquete = count($resultadoPaquete);
+				$seguimientoPaquete = count($resultadoPaquete);
 			} else{
-				$segumientoPaquete = 1;
+				$seguimientoPaquete = 1;
 			}
 		} else{
-			$segumientoPaquete = 0;
+			$seguimientoPaquete = 0;
 		}
-        if ($segumientoPaquete > 1) {
+        if ($seguimientoPaquete > 1) {
             $idPaq = $resultadoPaquete[0]['idpaq']['idpaq'];
             if (isset($resultadoPaquete[0]['idpaq']['origenpaq']['idatr']['idsed']['nombresed'])) {
                 $origen = utf8_encode($resultadoPaquete[0]['idpaq']['origenpaq']['idatr']['idsed']['nombresed']);
@@ -103,7 +103,7 @@ if ($idPaquete == "") {
                     }
                 }
             }
-        } elseif ($segumientoPaquete == 1) {
+        } elseif ($seguimientoPaquete == 1) {
             $idPaq = $resultadoPaquete['idpaq']['idpaq'];
             if (isset($resultadoPaquete['idpaq']['origenpaq']['idatr']['idsed']['nombresed'])) {
                 $origen = utf8_encode($resultadoPaquete['idpaq']['origenpaq']['idatr']['idsed']['nombresed']);

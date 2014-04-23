@@ -40,12 +40,12 @@ if ($idPaquete == "") {
         if ($consumoSeguimiento != "") {
             $resultadoPaquete = $consumoSeguimiento['return'];
             if (isset($resultadoPaquete[0])) {
-                $segumientoPaquete = count($resultadoPaquete);
+                $seguimientoPaquete = count($resultadoPaquete);
             } else {
-                $segumientoPaquete = 1;
+                $seguimientoPaquete = 1;
             }
         } else {
-            $segumientoPaquete = 0;
+            $seguimientoPaquete = 0;
         }
         include("../views/see_package.php");
     } catch (Exception $e) {
