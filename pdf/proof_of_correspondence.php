@@ -15,27 +15,27 @@ if (isset($resultadoConsultarUltimoPaquete)) {
         $idPaqRes = "";
     }
     if (isset($resultadoConsultarUltimoPaquete['asuntopaq'])) {
-        $asunto = $resultadoConsultarUltimoPaquete['asuntopaq'];
+        $asunto = utf8_encode($resultadoConsultarUltimoPaquete['asuntopaq']);
     } else {
         $asunto = "";
     }
     if (isset($resultadoConsultarUltimoPaquete['textopaq'])) {
-        $texto = $resultadoConsultarUltimoPaquete['textopaq'];
+        $texto = utf8_encode($resultadoConsultarUltimoPaquete['textopaq']);
     } else {
         $texto = "";
     }
     if (isset($resultadoConsultarUltimoPaquete['iddoc']['nombredoc'])) {
-        $documento = $resultadoConsultarUltimoPaquete['iddoc']['nombredoc'];
+        $documento = utf8_encode($resultadoConsultarUltimoPaquete['iddoc']['nombredoc']);
     } else {
         $documento = "";
     }
     if (isset($resultadoConsultarUltimoPaquete['idpri']['nombrepri'])) {
-        $prioridad = $resultadoConsultarUltimoPaquete['idpri']['nombrepri'];
+        $prioridad = utf8_encode($resultadoConsultarUltimoPaquete['idpri']['nombrepri']);
     } else {
         $prioridad = "";
     }
     if (isset($resultadoConsultarUltimoPaquete['idsed']['nombresed'])) {
-        $sede = $resultadoConsultarUltimoPaquete['idsed']['nombresed'];
+        $sede = utf8_encode($resultadoConsultarUltimoPaquete['idsed']['nombresed']);
     } else {
         $sede = "";
     }
@@ -60,12 +60,12 @@ if (isset($resultadoConsultarUltimoPaquete)) {
 
 //Datos del Origen
     if (isset($resultadoConsultarUltimoPaquete['origenpaq']['idusu']['nombreusu'])) {
-        $nombreOrig = $resultadoConsultarUltimoPaquete['origenpaq']['idusu']['nombreusu'];
+        $nombreOrig = utf8_encode($resultadoConsultarUltimoPaquete['origenpaq']['idusu']['nombreusu']);
     } else {
         $nombreOrig = "";
     }
     if (isset($resultadoConsultarUltimoPaquete['origenpaq']['idusu']['direccionusu'])) {
-        $direccionOrig = $resultadoConsultarUltimoPaquete['origenpaq']['idusu']['direccionusu'];
+        $direccionOrig = utf8_encode($resultadoConsultarUltimoPaquete['origenpaq']['idusu']['direccionusu']);
     } else {
         $direccionOrig = "";
     }
@@ -79,12 +79,12 @@ if (isset($resultadoConsultarUltimoPaquete)) {
     if (isset($resultadoConsultarUltimoPaquete['destinopaq']['tipobuz'])) {
         if ($resultadoConsultarUltimoPaquete['destinopaq']['tipobuz'] == "0") {
             if (isset($resultadoConsultarUltimoPaquete['destinopaq']['idusu']['nombreusu'])) {
-                $nombreDest = $resultadoConsultarUltimoPaquete['destinopaq']['idusu']['nombreusu'];
+                $nombreDest = utf8_encode($resultadoConsultarUltimoPaquete['destinopaq']['idusu']['nombreusu']);
             } else {
                 $nombreDest = "";
             }
             if (isset($resultadoConsultarUltimoPaquete['destinopaq']['idusu']['direccionusu'])) {
-                $direccionDest = $resultadoConsultarUltimoPaquete['destinopaq']['idusu']['direccionusu'];
+                $direccionDest = utf8_encode($resultadoConsultarUltimoPaquete['destinopaq']['idusu']['direccionusu']);
             } else {
                 $direccionDest = "";
             }
@@ -98,12 +98,12 @@ if (isset($resultadoConsultarUltimoPaquete)) {
         }
         if ($resultadoConsultarUltimoPaquete['destinopaq']['tipobuz'] == "1") {
             if (isset($resultadoConsultarUltimoPaquete['destinopaq']['nombrebuz'])) {
-                $nombreDest = $resultadoConsultarUltimoPaquete['destinopaq']['nombrebuz'];
+                $nombreDest = utf8_encode($resultadoConsultarUltimoPaquete['destinopaq']['nombrebuz']);
             } else {
                 $nombreDest = "";
             }
             if (isset($resultadoConsultarUltimoPaquete['destinopaq']['direccionbuz'])) {
-                $direccionDest = $resultadoConsultarUltimoPaquete['destinopaq']['direccionbuz'];
+                $direccionDest = utf8_encode($resultadoConsultarUltimoPaquete['destinopaq']['direccionbuz']);
             } else {
                 $direccionDest = "";
             }

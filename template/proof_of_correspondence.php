@@ -62,7 +62,7 @@
                     <td colspan="2"><strong>Texto: </strong><?php echo $texto ?></td>
                 </tr>                
                 <tr>
-                    <td><strong>Fragil: </strong><?php echo $fragil ?></td>
+                    <td><strong>Frágil: </strong><?php echo $fragil ?></td>
                     <td><strong>Con Respuesta: </strong><?php echo $resp ?></td>
                 </tr>
                 <?php if ($idPaqRes != "") { ?>

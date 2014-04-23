@@ -154,17 +154,17 @@ if ($idValija == "" || $nomUsuario == "") {
                                                 ?>
                                                 <tr>
                                                     <td style='text-align:center'><?php echo $resultadoPaquetesPorValija[$i]['idpaq'] ?></td>
-                                                    <td style='text-align:center'><?php echo $resultadoPaquetesPorValija[$i]['origenpaq']['idatr']['idsed']['nombresed'] ?></td>
-                                                    <td style='text-align:center'><?php echo $resultadoPaquetesPorValija[$i]['origenpaq']['idusu']['nombreusu'] . " " . $resultadoPaquetesPorValija[$i]['origenpaq']['idusu']['apellidousu']; ?></td>
+                                                    <td style='text-align:center'><?php echo utf8_encode($resultadoPaquetesPorValija[$i]['origenpaq']['idatr']['idsed']['nombresed']) ?></td>
+                                                    <td style='text-align:center'><?php echo utf8_encode($resultadoPaquetesPorValija[$i]['origenpaq']['idusu']['nombreusu'] . " " . $resultadoPaquetesPorValija[$i]['origenpaq']['idusu']['apellidousu']); ?></td>
                                                     <?php
                                                     $paraDestino = "";
                                                     $nomDestino = "";
                                                     if ($resultadoPaquetesPorValija[$i]['destinopaq']['tipobuz'] == "0") {
-                                                        $paraDestino = $resultadoPaquetesPorValija[$i]['destinopaq']['idusu']['nombreusu'] . " " . $resultadoPaquetesPorValija[$i]['destinopaq']['idusu']['apellidousu'];
-                                                        $nomDestino = $resultadoPaquetesPorValija[$i]['destinopaq']['idatr']['idsed']['nombresed'];
+                                                        $paraDestino = utf8_encode($resultadoPaquetesPorValija[$i]['destinopaq']['idusu']['nombreusu'] . " " . $resultadoPaquetesPorValija[$i]['destinopaq']['idusu']['apellidousu']);
+                                                        $nomDestino = utf8_encode($resultadoPaquetesPorValija[$i]['destinopaq']['idatr']['idsed']['nombresed']);
                                                     } else {
-                                                        $paraDestino = $resultadoPaquetesPorValija[$i]['destinopaq']['nombrebuz'];
-                                                        $nomDestino = $resultadoPaquetesPorValija[$i]['destinopaq']['direccionbuz'];
+                                                        $paraDestino = utf8_encode($resultadoPaquetesPorValija[$i]['destinopaq']['nombrebuz']);
+                                                        $nomDestino = utf8_encode($resultadoPaquetesPorValija[$i]['destinopaq']['direccionbuz']);
                                                     }
                                                     ?>                            
                                                     <td style='text-align:center'><?php echo $paraDestino ?></td>
@@ -177,18 +177,18 @@ if ($idValija == "" || $nomUsuario == "") {
                                             ?>
                                             <tr>
                                                 <td style='text-align:center'><?php echo $resultadoPaquetesPorValija['idpaq'] ?></td>
-                                                <td style='text-align:center'><?php echo $resultadoPaquetesPorValija['origenpaq']['idatr']['idsed']['nombresed']; ?></td>
-                                                <td style='text-align:center'><?php echo $resultadoPaquetesPorValija['origenpaq']['idusu']['nombreusu'] . " " . $resultadoPaquetesPorValija['origenpaq']['idusu']['apellidousu']; ?></td>
+                                                <td style='text-align:center'><?php echo utf8_encode($resultadoPaquetesPorValija['origenpaq']['idatr']['idsed']['nombresed']); ?></td>
+                                                <td style='text-align:center'><?php echo utf8_encode($resultadoPaquetesPorValija['origenpaq']['idusu']['nombreusu'] . " " . $resultadoPaquetesPorValija['origenpaq']['idusu']['apellidousu']); ?></td>
                                                 <?php
                                                 $paraDestino = "";
                                                 $nomDestino = "";
                                                 if (isset($resultadoPaquetesPorValija['destinopaq']['tipobuz'])) {
                                                     if ($resultadoPaquetesPorValija['destinopaq']['tipobuz'] == "0") {
-                                                        $paraDestino = $resultadoPaquetesPorValija['destinopaq']['idusu']['nombreusu'] . " " . $resultadoPaquetesPorValija['destinopaq']['idusu']['apellidousu'];
-                                                        $nomDestino = $resultadoPaquetesPorValija['destinopaq']['idatr']['idsed']['nombresed'];
+                                                        $paraDestino = utf8_encode($resultadoPaquetesPorValija['destinopaq']['idusu']['nombreusu'] . " " . $resultadoPaquetesPorValija['destinopaq']['idusu']['apellidousu']);
+                                                        $nomDestino = utf8_encode($resultadoPaquetesPorValija['destinopaq']['idatr']['idsed']['nombresed']);
                                                     } else {
-                                                        $paraDestino = $resultadoPaquetesPorValija['destinopaq']['nombrebuz'];
-                                                        $nomDestino = $resultadoPaquetesPorValija['destinopaq']['direccionbuz'];
+                                                        $paraDestino = utf8_encode($resultadoPaquetesPorValija['destinopaq']['nombrebuz']);
+                                                        $nomDestino = utf8_encode($resultadoPaquetesPorValija['destinopaq']['direccionbuz']);
                                                     }
                                                 }
                                                 ?>                            

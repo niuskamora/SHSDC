@@ -50,7 +50,7 @@
                             <?php
                             $nomOrigen = "";
                             if (isset($resultadoPaquetesPorValija[$i]['origenpaq']['idatr']['idsed']['nombresed'])) {
-                                $nomOrigen = $resultadoPaquetesPorValija[$i]['origenpaq']['idatr']['idsed']['nombresed'];
+                                $nomOrigen = utf8_encode($resultadoPaquetesPorValija[$i]['origenpaq']['idatr']['idsed']['nombresed']);
                             } else {
                                 $nomOrigen = "";
                             }
@@ -60,12 +60,12 @@
                             $deOrigen = "";
                             $apellidoOrigen = "";
                             if (isset($resultadoPaquetesPorValija[$i]['origenpaq']['idusu']['nombreusu'])) {
-                                $deOrigen = $resultadoPaquetesPorValija[$i]['origenpaq']['idusu']['nombreusu'];
+                                $deOrigen = utf8_encode($resultadoPaquetesPorValija[$i]['origenpaq']['idusu']['nombreusu']);
                             } else {
                                 $deOrigen = "";
                             }
                             if (isset($resultadoPaquetesPorValija[$i]['origenpaq']['idusu']['apellidousu'])) {
-                                $apellidoOrigen = $resultadoPaquetesPorValija[$i]['origenpaq']['idusu']['apellidousu'];
+                                $apellidoOrigen = utf8_encode($resultadoPaquetesPorValija[$i]['origenpaq']['idusu']['apellidousu']);
                             } else {
                                 $apellidoOrigen = "";
                             }
@@ -78,29 +78,29 @@
                             if (isset($resultadoPaquetesPorValija[$i]['destinopaq']['tipobuz'])) {
                                 if ($resultadoPaquetesPorValija[$i]['destinopaq']['tipobuz'] == "0") {
                                     if (isset($resultadoPaquetesPorValija[$i]['destinopaq']['idusu']['nombreusu'])) {
-                                        $paraDestino = $resultadoPaquetesPorValija[$i]['destinopaq']['idusu']['nombreusu'];
+                                        $paraDestino = utf8_encode($resultadoPaquetesPorValija[$i]['destinopaq']['idusu']['nombreusu']);
                                     } else {
                                         $paraDestino = "";
                                     }
                                     if (isset($resultadoPaquetesPorValija[$i]['destinopaq']['idusu']['apellidousu'])) {
-                                        $apellidoDestino = $resultadoPaquetesPorValija[$i]['destinopaq']['idusu']['apellidousu'];
+                                        $apellidoDestino = utf8_encode($resultadoPaquetesPorValija[$i]['destinopaq']['idusu']['apellidousu']);
                                     } else {
                                         $apellidoDestino = "";
                                     }
                                     if (isset($resultadoPaquetesPorValija[$i]['destinopaq']['idatr']['idsed']['nombresed'])) {
-                                        $nomDestino = $resultadoPaquetesPorValija[$i]['destinopaq']['idatr']['idsed']['nombresed'];
+                                        $nomDestino = utf8_encode($resultadoPaquetesPorValija[$i]['destinopaq']['idatr']['idsed']['nombresed']);
                                     } else {
                                         $nomDestino = "";
                                     }
                                 }
                                 if ($resultadoPaquetesPorValija[$i]['destinopaq']['tipobuz'] == "1") {
                                     if (isset($resultadoPaquetesPorValija[$i]['destinopaq']['nombrebuz'])) {
-                                        $paraDestino = $resultadoPaquetesPorValija[$i]['destinopaq']['nombrebuz'];
+                                        $paraDestino = utf8_encode($resultadoPaquetesPorValija[$i]['destinopaq']['nombrebuz']);
                                     } else {
                                         $paraDestino = "";
                                     }
                                     if (isset($resultadoPaquetesPorValija[$i]['destinopaq']['direccionbuz'])) {
-                                        $nomDestino = $resultadoPaquetesPorValija[$i]['destinopaq']['direccionbuz'];
+                                        $nomDestino = utf8_encode($resultadoPaquetesPorValija[$i]['destinopaq']['direccionbuz']);
                                     } else {
                                         $nomDestino = "";
                                     }
@@ -119,7 +119,7 @@
                         <?php
                         $nomOrigen = "";
                         if (isset($resultadoPaquetesPorValija['origenpaq']['idatr']['idsed']['nombresed'])) {
-                            $nomOrigen = $resultadoPaquetesPorValija['origenpaq']['idatr']['idsed']['nombresed'];
+                            $nomOrigen = utf8_encode($resultadoPaquetesPorValija['origenpaq']['idatr']['idsed']['nombresed']);
                         } else {
                             $nomOrigen = "";
                         }
@@ -129,12 +129,12 @@
                         $deOrigen = "";
                         $apellidoOrigen = "";
                         if (isset($resultadoPaquetesPorValija['origenpaq']['idusu']['nombreusu'])) {
-                            $deOrigen = $resultadoPaquetesPorValija['origenpaq']['idusu']['nombreusu'];
+                            $deOrigen = utf8_encode($resultadoPaquetesPorValija['origenpaq']['idusu']['nombreusu']);
                         } else {
                             $deOrigen = "";
                         }
                         if (isset($resultadoPaquetesPorValija['origenpaq']['idusu']['apellidousu'])) {
-                            $apellidoOrigen = $resultadoPaquetesPorValija['origenpaq']['idusu']['apellidousu'];
+                            $apellidoOrigen = utf8_encode($resultadoPaquetesPorValija['origenpaq']['idusu']['apellidousu']);
                         } else {
                             $apellidoOrigen = "";
                         }
@@ -147,29 +147,29 @@
                         if (isset($resultadoPaquetesPorValija['destinopaq']['tipobuz'])) {
                             if ($resultadoPaquetesPorValija['destinopaq']['tipobuz'] == "0") {
                                 if (isset($resultadoPaquetesPorValija['destinopaq']['idusu']['nombreusu'])) {
-                                    $paraDestino = $resultadoPaquetesPorValija['destinopaq']['idusu']['nombreusu'];
+                                    $paraDestino = utf8_encode($resultadoPaquetesPorValija['destinopaq']['idusu']['nombreusu']);
                                 } else {
                                     $paraDestino = "";
                                 }
                                 if (isset($resultadoPaquetesPorValija['destinopaq']['idusu']['apellidousu'])) {
-                                    $apellidoDestino = $resultadoPaquetesPorValija['destinopaq']['idusu']['apellidousu'];
+                                    $apellidoDestino = utf8_encode($resultadoPaquetesPorValija['destinopaq']['idusu']['apellidousu']);
                                 } else {
                                     $apellidoDestino = "";
                                 }
                                 if (isset($resultadoPaquetesPorValija['destinopaq']['idatr']['idsed']['nombresed'])) {
-                                    $nomDestino = $resultadoPaquetesPorValija['destinopaq']['idatr']['idsed']['nombresed'];
+                                    $nomDestino = utf8_encode($resultadoPaquetesPorValija['destinopaq']['idatr']['idsed']['nombresed']);
                                 } else {
                                     $nomDestino = "";
                                 }
                             }
                             if ($resultadoPaquetesPorValija['destinopaq']['tipobuz'] == "1") {
                                 if (isset($resultadoPaquetesPorValija['destinopaq']['nombrebuz'])) {
-                                    $paraDestino = $resultadoPaquetesPorValija['destinopaq']['nombrebuz'];
+                                    $paraDestino = utf8_encode($resultadoPaquetesPorValija['destinopaq']['nombrebuz']);
                                 } else {
                                     $paraDestino = "";
                                 }
                                 if (isset($resultadoPaquetesPorValija['destinopaq']['direccionbuz'])) {
-                                    $nomDestino = $resultadoPaquetesPorValija['destinopaq']['direccionbuz'];
+                                    $nomDestino = utf8_encode($resultadoPaquetesPorValija['destinopaq']['direccionbuz']);
                                 } else {
                                     $nomDestino = "";
                                 }

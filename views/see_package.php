@@ -110,15 +110,15 @@ if ($idPaquete == "" || $usuario == "") {
                                         </thead>
                                         <tbody>
                                             <?php
-                                            if ($segumientoPaquete > 1) {
-                                                for ($i = 0; $i < $segumientoPaquete; $i++) {
+                                            if ($seguimientoPaquete > 1) {
+                                                for ($i = 0; $i < $seguimientoPaquete; $i++) {
                                                     ?>
                                                     <tr>
                                                         <?php if (isset($resultadoPaquete[$i]['iduse']['idusu']['apellidousu'])) { ?>
-                                                            <td><?php echo $resultadoPaquete[$i]['iduse']['idusu']['nombreusu'] . ' ' . $resultadoPaquete[$i]['iduse']['idusu']['apellidousu'] ?></td>
+                                                            <td><?php echo utf8_encode($resultadoPaquete[$i]['iduse']['idusu']['nombreusu'] . ' ' . $resultadoPaquete[$i]['iduse']['idusu']['apellidousu']) ?></td>
                                                         <?php } else {
                                                             ?>
-                                                            <td><?php echo $resultadoPaquete[$i]['iduse']['idusu']['nombreusu'] ?></td>
+                                                            <td><?php echo utf8_encode($resultadoPaquete[$i]['iduse']['idusu']['nombreusu']) ?></td>
                                                             <?php
                                                         }
                                                         $fecha[$i] = FechaHora($resultadoPaquete[$i]['fechaseg']);
@@ -146,7 +146,7 @@ if ($idPaquete == "" || $usuario == "") {
                                                         }
                                                         ?>
                                                         <td style="text-align:center"><?php echo $tipo ?></td>
-                                                        <td style="text-align:center"><?php echo $resultadoPaquete[$i]['nivelseg'] ?></td>
+                                                        <td style="text-align:center"><?php echo utf8_encode($resultadoPaquete[$i]['nivelseg']) ?></td>
                                                     </tr>
                                                     <?php
                                                 }
@@ -154,10 +154,10 @@ if ($idPaquete == "" || $usuario == "") {
                                                 ?>
                                                 <tr>
                                                     <?php if (isset($resultadoPaquete['iduse']['idusu']['apellidousu'])) { ?>
-                                                        <td><?php echo $resultadoPaquete['iduse']['idusu']['nombreusu'] . ' ' . $resultadoPaquete['iduse']['idusu']['apellidousu'] ?></td>
+                                                        <td><?php echo utf8_encode($resultadoPaquete['iduse']['idusu']['nombreusu'] . ' ' . $resultadoPaquete['iduse']['idusu']['apellidousu']) ?></td>
                                                     <?php } else {
                                                         ?>
-                                                        <td><?php echo $resultadoPaquete['iduse']['idusu']['nombreusu'] ?></td>
+                                                        <td><?php echo utf8_encode($resultadoPaquete['iduse']['idusu']['nombreusu']) ?></td>
                                                         <?php
                                                     }
                                                     $fecha = FechaHora($resultadoPaquete['fechaseg']);
@@ -185,7 +185,7 @@ if ($idPaquete == "" || $usuario == "") {
                                                     }
                                                     ?>
                                                     <td style="text-align:center"><?php echo $tipo ?></td>
-                                                    <td style="text-align:center"><?php echo $resultadoPaquete['nivelseg'] ?></td>
+                                                    <td style="text-align:center"><?php echo utf8_encode($resultadoPaquete['nivelseg']) ?></td>
                                                 </tr>
                                             <?php } ?>                               
                                         </tbody>

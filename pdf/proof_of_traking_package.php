@@ -65,7 +65,7 @@ if ($contadorPaquete > 1) {
             }
         }
     }
-} elseif ($segumientoPaquete == 1) {
+} elseif ($contadorPaquete == 1) {
     $idPaq = $resultadoPaquete['idpaq']['idpaq'];
     if (isset($resultadoPaquete['idpaq']['origenpaq']['idatr']['idsed']['nombresed'])) {
         $origen = utf8_encode($resultadoPaquete['idpaq']['origenpaq']['idatr']['idsed']['nombresed']);

@@ -43,10 +43,10 @@
                         ?>
                         <tr>
                             <?php if (isset($resultadoPaquete[$i]['iduse']['idusu']['apellidousu'])) { ?>
-                                <td><?php echo $resultadoPaquete[$i]['iduse']['idusu']['nombreusu'] . ' ' . $resultadoPaquete[$i]['iduse']['idusu']['apellidousu'] ?></td>
+                                <td><?php echo utf8_encode($resultadoPaquete[$i]['iduse']['idusu']['nombreusu'] . ' ' . $resultadoPaquete[$i]['iduse']['idusu']['apellidousu']) ?></td>
                             <?php } else {
                                 ?>
-                                <td><?php echo $resultadoPaquete[$i]['iduse']['idusu']['nombreusu'] ?></td>
+                                <td><?php echo utf8_encode($resultadoPaquete[$i]['iduse']['idusu']['nombreusu']) ?></td>
                             <?php } ?>
                             <td align="center"><?php echo $fecha[$i] ?></td>
                             <?php
@@ -71,7 +71,7 @@
                             }
                             ?>
                             <td align="center"><?php echo $tipo ?></td>
-                            <td align="center"><?php echo $resultadoPaquete[$i]['nivelseg'] ?></td>
+                            <td align="center"><?php echo utf8_encode($resultadoPaquete[$i]['nivelseg']) ?></td>
                         </tr>
                         <?php
                     }
@@ -79,10 +79,10 @@
                     ?>
                     <tr>
                         <?php if (isset($resultadoPaquete['iduse']['idusu']['apellidousu'])) { ?>
-                            <td><?php echo $resultadoPaquete['iduse']['idusu']['nombreusu'] . ' ' . $resultadoPaquete['iduse']['idusu']['apellidousu'] ?></td>
+                            <td><?php echo utf8_encode($resultadoPaquete['iduse']['idusu']['nombreusu'] . ' ' . $resultadoPaquete['iduse']['idusu']['apellidousu']) ?></td>
                         <?php } else {
                             ?>
-                            <td><?php echo $resultadoPaquete['iduse']['idusu']['nombreusu'] ?></td>
+                            <td><?php echo utf8_encode($resultadoPaquete['iduse']['idusu']['nombreusu']) ?></td>
                         <?php } ?>
                         <td align="center"><?php echo $fecha ?></td>
                         <?php
@@ -107,7 +107,7 @@
                         }
                         ?>
                         <td align="center"><?php echo $tipo ?></td>
-                        <td align="center"><?php echo $resultadoPaquete['nivelseg'] ?></td>
+                        <td align="center"><?php echo utf8_encode($resultadoPaquete['nivelseg']) ?></td>
                     </tr>
                 <?php }
                 ?>

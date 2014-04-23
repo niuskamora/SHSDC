@@ -100,7 +100,7 @@
                     ?>
                     <tr>
                         <td align="center"><?php echo $fechaEnvio ?></td>
-                        <td align="center"><?php echo $resultadoConsultarPaquetes->return->idpaq ?></td>
+                        <td align="center"><?php echo $resultadoConsultarPaquetes['idpaq'] ?></td>
                         <?php
                         $nomOrigen = "";
                         if (isset($resultadoConsultarPaquetes['origenpaq']['idatr']['idsed']['nombresed'])) {
