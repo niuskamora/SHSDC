@@ -6,7 +6,7 @@ if ($Ses=="") {
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
+        <meta charset="ISO-8859-1">
         <title>Seguros Horizonte | HorizonLine</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
@@ -78,18 +78,18 @@ if ($Ses=="") {
             <div class="row-fluid">
                 <div class="span2">
                     <ul class="nav nav-pills nav-stacked">
-                        <li> <a href="../pages/administration.php">Atrás</a> </li>
+                        <li> <a href="../pages/administration.php">Atr&aacute;s</a> </li>
                     </ul>
                 </div>
 
                 <div class="span10" align="center">
                     <div class="tab-content" id="lista" align="center"> 
                         <form id="formulario" method="post">
-                            <h2> Datos del Área de Trabajo </h2> 
+                            <h2> Datos del &Aacute;rea de Trabajo </h2> 
                             <table class='footable table table-striped table-bordered'>
                                 <tr>
-                                    <td style="text-align:center" >Nombre de la Área</td>
-                                    <td style="text-align:center"><input type="text" name="nombre" id="nombre" autocomplete="off" maxlength="150" size="30" placeholder="Ej. Sistemas" title="Ingrese el nombre del Área"  autofocus required></td>
+                                    <td style="text-align:center" >Nombre de la &Aacute;rea</td>
+                                    <td style="text-align:center"><input type="text" name="nombre" id="nombre" autocomplete="off" maxlength="150" size="30" placeholder="Ej. Sistemas" title="Ingrese el nombre del �rea"  autofocus required></td>
                                 </tr>
                                 <tr>
                                     <td style="text-align:center">Sede</td>

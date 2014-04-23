@@ -6,7 +6,7 @@ if (!isset($org->return)) {
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
+        <meta charset="ISO-8859-1">
         <title>Seguros Horizonte | HorizonLine</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
@@ -78,7 +78,7 @@ if (!isset($org->return)) {
             <div class="row-fluid">
                 <div class="span2">
                     <ul class="nav nav-pills nav-stacked">
-                        <li> <a href="../pages/administration.php">Atr√°s</a> </li>
+                        <li> <a href="../pages/administration.php">Atr&aacute;s</a> </li>
                     </ul>
                 </div>
 
@@ -89,27 +89,27 @@ if (!isset($org->return)) {
                             <table class='footable table table-striped table-bordered'>
                                 <tr>
                                     <td style="text-align:center" >Nombre de la Sede</td>
-                                    <td style="text-align:center"><input type="text" name="nombre" id="nombre" autocomplete="off" maxlength="150" size="30" placeholder="Ej. San Crist√≥bal" title="Ingrese el nombre la sede"   autofocus required></td>
+                                    <td style="text-align:center"><input type="text" name="nombre" id="nombre" autocomplete="off" maxlength="150" size="30" placeholder="Ej. San CristÛbal" title="Ingrese el nombre la sede"   autofocus required></td>
                                 </tr>
                                 <tr>
-                                    <td style="text-align:center" >Direcci√≥n</td>
+                                    <td style="text-align:center" >Direcci&oacute;n</td>
                                     <td style="text-align:center"><textarea style="width:500px;"   id="direccion" name="direccion" maxlength="2000"  style="width:800px" ></textarea></td>
                                 </tr>
                                 <tr>
                                     <td style="text-align:center">Codigo de sede:</td>
-                                    <td style="text-align:center"><input type="text" name="codigo" id="codigo" autocomplete="off" maxlength="4" size="30" title="Ingrese un n√∫mero de tel√©fono" placeholder="Ej. 0212"   ></td>
+                                    <td style="text-align:center"><input type="text" name="codigo" id="codigo" autocomplete="off" maxlength="4" size="30" title="Ingrese un n˙mero de telÈfono" placeholder="Ej. 0212"   ></td>
                                 </tr>
                                 <tr>
-                                    <td style="text-align:center">Tel√©fono</td>
-                                    <td style="text-align:center"><input type="tel" name="telefono" id="telefono" autocomplete="off" maxlength="50" size="30" title="Ingrese un n√∫mero de tel√©fono" placeholder="Ej. 04269876543"   ></td>
+                                    <td style="text-align:center">Tel&eacute;fono</td>
+                                    <td style="text-align:center"><input type="tel" name="telefono" id="telefono" autocomplete="off" maxlength="50" size="30" title="Ingrese un n˙mero de telÈfono" placeholder="Ej. 04269876543"   ></td>
                                 </tr>
                                 <tr>
-                                    <td style="text-align:center">Tel√©fono Adicional</td>
-                                    <td style="text-align:center"><input type="tel" name="telefono2" id="telefono2" autocomplete="off" maxlength="50" size="30" title="Ingrese un n√∫mero de tel√©fono adicional" placeholder="Ej. 04168674789"  ></td>
+                                    <td style="text-align:center">Tel&eacute;fono Adicional</td>
+                                    <td style="text-align:center"><input type="tel" name="telefono2" id="telefono2" autocomplete="off" maxlength="50" size="30" title="Ingrese un n˙mero de telÈfono adicional" placeholder="Ej. 04168674789"  ></td>
                                 </tr>
                                 <tr>
-                                    <td style="text-align:center">Organizaci√≥n</td>
-                                    <td style="text-align:center"><select  id="organizacion" name="organizacion" required  title="Seleccione la Organizaci√≥n a la que pertenece">
+                                    <td style="text-align:center">Organizaci&oacute;n</td>
+                                    <td style="text-align:center"><select  id="organizacion" name="organizacion" required  title="Seleccione la OrganizaciÛn a la que pertenece">
                                             <option value="" style="display:none">Seleccionar:</option>                                  
                                             <?php
                                             if ($reg == 1) {

@@ -6,7 +6,7 @@ if ($usuarioBitacora == "") {
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
+        <meta charset="ISO-8859-1">
         <title>Seguros Horizonte | HorizonLine</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
@@ -81,7 +81,7 @@ if ($usuarioBitacora == "") {
                         <ul class="nav nav-pills nav-stacked">
                             <li>   
                                 <a href="../pages/administration.php">
-                                    <?php echo "Atr√°s" ?>         
+                                    <?php echo "Atr·s" ?>         
                                 </a>
                             </li>
                         </ul>
@@ -90,10 +90,10 @@ if ($usuarioBitacora == "") {
                     <div class="span10">
                         <form class="form-search" method="post">
                             <div class="tab-content" id="bandeja">
-                                <strong> <h2 align="center">Reportar Paquete por extravi√≥</h2> </strong>                
+                                <strong> <h2 align="center">Reportar Paquete por extravi&oacute;</h2> </strong>                
                                 <div align="center">
-                                    C√≥digo de Correspondencia:  
-                                    <input type="text" id="cPaquete" name="cPaquete" class="input-medium search-query" placeholder="Ej. 4246" title="Ingrese el c√≥digo de Correspondencia" autocomplete="off" pattern="[0-9]{1,38}"> 
+                                    C&oacute;digo de Correspondencia:  
+                                    <input type="text" id="cPaquete" name="cPaquete" class="input-medium search-query" placeholder="Ej. 4246" title="Ingrese el cÛdigo de Correspondencia" autocomplete="off" pattern="[0-9]{1,38}"> 
                                     <br>
                                     <br>                           
                                     Por favor detalle lo sucedido con el Paquete.
@@ -101,15 +101,15 @@ if ($usuarioBitacora == "") {
                                     <textarea rows="5" cols="5" id="datosPaquete" name="datosPaquete" style="width:600px"></textarea>
                                     <br>
                                     <br>
-                                    <button type="submit" class="btn" id="reportarPaqExc" name="reportarPaqExc" onclick="return confirm('¬øEsta seguro que desea reportar por extravi√≥ la Correspondencia?')">Reportar</button>
+                                    <button type="submit" class="btn" id="reportarPaqExc" name="reportarPaqExc" onclick="return confirm('øEsta seguro que desea reportar por extraviÛ la Correspondencia?')">Reportar</button>
                                     <h6>(se recomienda realizar el acta correspondiente)</h6>
                                 </div>               
                             </div>
                             <div class="tab-content" id="bandeja">
-                                <strong> <h2 align="center">Reportar Valija por extravi√≥</h2> </strong>                
+                                <strong> <h2 align="center">Reportar Valija por extravi&oacute;</h2> </strong>                
                                 <div align="center">
-                                    C√≥digo de Valija:  
-                                    <input type="text" id="cValija" name="cValija" class="input-medium search-query" placeholder="Ej. 4246" title="Ingrese el c√≥digo de la Valija" autocomplete="off" pattern="[0-9]{1,38}">
+                                    C&oacute;digo de Valija:  
+                                    <input type="text" id="cValija" name="cValija" class="input-medium search-query" placeholder="Ej. 4246" title="Ingrese el cÛdigo de la Valija" autocomplete="off" pattern="[0-9]{1,38}">
                                     <br>
                                     <br>
                                     Por favor detalle lo sucedido con la Valija.
@@ -117,7 +117,7 @@ if ($usuarioBitacora == "") {
                                     <textarea rows="5" cols="5" id="datosValija" name="datosValija" style="width:600px"></textarea>
                                     <br>
                                     <br>
-                                    <button type="submit" class="btn" id="reportarValija" name="reportarValija" onclick="return confirm('¬øEsta seguro que desea reportar por extravi√≥ la Valija?')">Reportar</button>
+                                    <button type="submit" class="btn" id="reportarValija" name="reportarValija" onclick="return confirm('øEsta seguro que desea reportar por extraviÛ la Valija?')">Reportar</button>
                                     <h6>(se recomienda realizar el acta correspondiente)</h6>
                                 </div>               
                             </div>	  

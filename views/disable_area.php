@@ -6,7 +6,7 @@ if (!isset($Sedes->return)) {
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
+        <meta charset="ISO-8859-1">
         <title>Seguros Horizonte | HorizonLine</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
@@ -132,7 +132,7 @@ if (!isset($Sedes->return)) {
                 <div class="row-fluid">
                     <div class="span2">
                         <ul class="nav nav-pills nav-stacked">
-                            <li> <a href="../pages/administration.php">Atrás</a> </li>
+                            <li> <a href="../pages/administration.php">Atr&aacute;s</a> </li>
                         </ul>
                     </div>
 
@@ -211,7 +211,7 @@ if (!isset($Sedes->return)) {
         if (allowSubmit) {
         } else {
             tField.value = "";
-            alert("Usted sólo puede subir archivos con extensiones " + (extArray.join(" ")) + "\nPor favor seleccione un nuevo archivo");
+            alert("Usted s�lo puede subir archivos con extensiones " + (extArray.join(" ")) + "\nPor favor seleccione un nuevo archivo");
         }
     }
 </script>

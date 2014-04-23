@@ -34,7 +34,7 @@ if (isset($_POST["guardar"]) && isset($_POST["ide"])) {
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
+        <meta charset="ISO-8859-1">
         <title>Seguros Horizonte | HorizonLine</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
@@ -110,7 +110,7 @@ if (isset($_POST["guardar"]) && isset($_POST["ide"])) {
                 <div class="row-fluid">
                     <div class="span2">
                         <ul class="nav nav-pills nav-stacked">
-                            <li> <a href="inbox.php">Atrás</a> <li>
+                            <li> <a href="inbox.php">Atr&aacute;s</a> <li>
                             <li> <a href="confirm_valise.php">Confirmar valija</a> <li>
                         </ul>
                     </div>
@@ -142,7 +142,7 @@ if (isset($_POST["guardar"]) && isset($_POST["ide"])) {
                                 <?php
                             } else {
                                 echo"<div class='alert alert-block' align='center'>
-									<h2 style='color:rgb(255,255,255)' align='center'>Atención</h2>
+									<h2 style='color:rgb(255,255,255)' align='center'>Atenci�n</h2>
 									<h4 align='center'>No hay Paquetes para realizar Valija</h4>
 								</div> ";
                             }

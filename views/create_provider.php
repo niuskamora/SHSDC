@@ -6,7 +6,7 @@ if ($org=="") {
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
+        <meta charset="ISO-8859-1">
         <title>Seguros Horizonte | HorizonLine</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
@@ -78,7 +78,7 @@ if ($org=="") {
             <div class="row-fluid">
                 <div class="span2">
                     <ul class="nav nav-pills nav-stacked">
-                        <li> <a href="../pages/administration.php">Atrás</a> </li>
+                        <li> <a href="../pages/administration.php">Atr&aacute;s</a> </li>
                     </ul>
                 </div>
 
@@ -92,11 +92,11 @@ if ($org=="") {
                                     <td style="text-align:center"><input type="text" name="nombre" id="nombre" autocomplete="off" maxlength="150" size="30" title="Ingrese el nombre del Proveedor" placeholder="Ej. Zoom"  autofocus required></td>
                                 </tr>
                                 <tr>
-                                    <td style="text-align:center">Teléfono</td>
-                                    <td style="text-align:center"><input type="tel" name="telefono" id="telefono" autocomplete="off" maxlength="50" size="30" title="Ingrese el número de teléfono" placeholder="Ej. 04269876543"   ></td>
+                                    <td style="text-align:center">Tel&eacute;fono</td>
+                                    <td style="text-align:center"><input type="tel" name="telefono" id="telefono" autocomplete="off" maxlength="50" size="30" title="Ingrese el n�mero de tel�fono" placeholder="Ej. 04269876543"   ></td>
                                 </tr>
                                 <tr>
-                                    <td style="text-align:center">Código <h6> en caso de mensajero  </h6></td>
+                                    <td style="text-align:center">C&oacute;digo <h6> en caso de mensajero  </h6></td>
                                     <td style="text-align:center"><input type="text" name="codigo" id="codigo" autocomplete="off" maxlength="50" size="30" placeholder="Ej. 98654"  ></td>
                                 </tr>
                                 <tr>

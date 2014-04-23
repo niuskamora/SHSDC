@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
+        <meta charset="ISO-8859-1">
         <title>Seguros Horizonte | HorizonLine</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
@@ -74,7 +74,7 @@
                 <div class="row-fluid">
                     <div class="span2">
                         <ul class="nav nav-pills nav-stacked">
-                            <li> <a href="../pages/administration.php">Atrás</a> <li>
+                            <li> <a href="../pages/administration.php">Atr&aacute;s</a> <li>
                         </ul>
                     </div>
 
