@@ -78,7 +78,7 @@ if (!isset($SedeRol)) {
                         </ul>
                     </div>
 
-                    <div class="span10" align="center">
+                    <div class="span10">
                         <form class="form-signin" method="post" name="formulario" id="formulario">
                             <div class="tab-content">
                                 <div class="row-fluid">
@@ -152,7 +152,10 @@ if (!isset($SedeRol)) {
                                                 </tbody>
                                             </table>
                                             <ul id="pagination" class="footable-nav"><span>Pag:</span></ul>	
-                                            <button class="btn" type="button" id="enviar" name="enviar" onClick="Paquete();">Seleccionar</button>										
+											<br><br>
+											<div align='center'>
+											 <button class="btn" type="button" id="enviar" name="enviar" onClick="Paquete();">Seleccionar</button>
+											</div>
 
                                             <?php
                                         } else {

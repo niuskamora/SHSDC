@@ -62,9 +62,6 @@ try {
 			$paramBuzonP= array('idbuz' => $idbuz);
 			$consumo = $client->call("consultarBuzon",$paramBuzonP);
 			$buzonPara = $consumo['return'];
-            if (!isset($propioBuzon[0])) {
-                $tipobuz = $propioBuzon["tipobuz"];
-            }
             //if (isset($usuarioBuzon->return)) {
             if ($buzonPara["tipobuz"] == "0") {
                 if (!isset($_POST["rta"])) {
@@ -110,7 +107,7 @@ try {
           //  $bandejaorigen = $client->insertarBandejaOrigen($paq);
             $consumo = $client->call("insertarBandejaOrigen",$paq);
 			$bandejaorigen = $consumo['return'];
-			if ($tipobuz == 0) {
+			if ($buzonPara["tipobuz"] == 0) {
 			  $consumo = $client->call("insertarBandejaDestino",$paq);
 			  $bandejaD = $consumo['return'];
                // $bandejaD = $client->insertarBandejaDestino($paq);
@@ -146,7 +143,7 @@ try {
 			  // $Rta = $client->insertarAdjunto($par);
             }
             if ($envio == "1" && $bandejaorigen == "1" && $bandejaDestino == "1") {
-                if ($tipobuz == 1) {
+                if ($buzonPara["tipobuz"] == "1") {
                     javaalert("La correspondencia ha sido enviada, como el buzón es externo no tendra respuesta del paquete");
                 } else {
                     javaalert("La correspondencia ha sido enviada");

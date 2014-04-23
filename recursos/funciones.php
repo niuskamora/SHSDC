@@ -146,7 +146,7 @@ function Menu($SedeRol) {
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="../pages/correspondence_overdue.php">Paquetes Enviados y Recibidos</a></li>
                                 <?php
-                                if ($SedeRol["idrol"]["idrol"] != "6") {
+                                if ($SedeRol["idrol"]["idrol"] != "6" && $SedeRol["idrol"]["idrol"] != "4") {
                                     ?>
                                     <li class="divider"></li>
                                     <li><a href="../pages/tracing_overdue.php">Paquetes por Confirmar</a></li>

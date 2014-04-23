@@ -47,13 +47,13 @@ require_once("../core/Crypt/AES.php");
                 $registroUsu =
                         array(
                             'idusu' => $Usuario["idusu"],
-                            'nombreusu' => $_POST["nombre"],
-                            'apellidousu' => $_POST["apellido"],
-                            'correousu' => $correo,
-                            'direccionusu' => $direccion1,
-                            'telefonousu' => $telefono1,
-                            'telefono2usu' => $telefono2,
-                            'userusu' => $Usuario["userusu"]);
+                            'nombreusu' => utf8_decode($_POST["nombre"]),
+                            'apellidousu' => utf8_decode($_POST["apellido"]),
+                            'correousu' => utf8_decode($correo),
+                            'direccionusu' => utf8_decode($direccion1),
+                            'telefonousu' => utf8_decode($telefono1),
+                            'telefono2usu' => utf8_decode($telefono2),
+                            'userusu' => utf8_decode($Usuario["userusu"]));
                 $registroU = array('registroUsuario' => $registroUsu);
                	$consumo = $client->call("editarUsuario",$registroU);
 				if($consumo!=""){

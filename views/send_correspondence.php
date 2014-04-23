@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+<head>
+    
         <meta charset="utf-8">
         <title>Seguros Horizonte | HorizonLine</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,83 +16,22 @@
         <script type='text/javascript' src="../js/modernizr.min.js"></script>
         <script type='text/javascript' src="../js/custom.js"></script>
         <script type='text/javascript' src="../js/jquery.fancybox.pack.js"></script>
-        <!-- javascript para el funcionamiento del calendario -->
-        <link rel="stylesheet" type="text/css" href="../js/ui-lightness/jquery-ui-1.10.3.custom.css" media="all" />
-        <script type="text/javascript" src="../js/jquery-ui-1.10.3.custom.js" ></script> 
-        <script type="text/javascript" src="../js/calendarioValidado.js" ></script> 
         <!-- styles -->
         <link rel="shortcut icon" href="../images/faviconsh.ico">
-
-
-        <link rel="shortcut icon" href="../images/faviconsh.ico">
-
         <link href="../css/bootstrap.css" rel="stylesheet">
         <link href="../css/bootstrap-combined.min.css" rel="stylesheet">
         <link href="../css/bootstrap-responsive.css" rel="stylesheet">
         <link href="../css/style.css" rel="stylesheet">
         <link href="../css/jquery.fancybox.css" rel="stylesheet">
-        <!-- [if IE 7]>
-          <link rel="stylesheet" href="font-awesome/css/font-awesome-ie7.min.css">
-        <![endif]--> 
-
+    
         <!--Load fontAwesome css-->
         <link rel="stylesheet" type="text/css" media="all" href="../font-awesome/css/font-awesome.min.css">
         <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
 
-
-        <!-- [if IE 7]>
-        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome-ie7.min.css">
-        <![endif]-->
         <link href="../css/footable-0.1.css" rel="stylesheet" type="text/css" />
         <link href="../css/footable.sortable-0.1.css" rel="stylesheet" type="text/css" />
         <link href="../css/footable.paginate.css" rel="stylesheet" type="text/css" />
-        <script>
-            function areas(idsede) {
-			
-                var parametros = {
-                    "ed": idsede
-                };
-                $.ajax({
-                    type: "POST",
-                    url: "../ajax/info_assign_headquarters_area.php",
-                    data: parametros,
-                    dataType: "text",
-                    success: function(response) {
-                        $("#area").html(response);
-                    }
-                });
-            }
-            function usuarios() {
-                var parametros = {
-                    "nom": $("#nom").val(),
-                    "ape": $("#ape").val(),
-                    "area": $("#area").val()
-                };
-                $.ajax({
-                    type: "POST",
-                    url: "../ajax/user_mailbox.php",
-                    data: parametros,
-                    dataType: "text",
-                    success: function(response) {
-                        $("#tusu").html(response);
-                    }
-                });
-            }
-            function seleccionar(id, nombre) {
-                $('#myModal').modal('hide');
-                $('#contacto').val(nombre);
-                $('#vista').val(nombre);
-                $('#id').val(id);
-
-            }
-            function limpiar() {
-                $('#nom').val('');
-                $('#ape').val('');
-                $('#tusu').html('');
-
-            }
-            ;
-        </script>
+  
     </head>
 
     <body class="appBg">
@@ -264,7 +204,53 @@
                     </div>
                 </div>
             </div>
+      <script>
+            function areas(idsede) {
+			
+                var parametros = {
+                    "ed": idsede
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "../ajax/info_assign_headquarters_area.php",
+                    data: parametros,
+                    dataType: "text",
+                    success: function(response) {
+                        $("#area").html(response);
+                    }
+                });
+            }
+            function usuarios() {
+                var parametros = {
+                    "nom": $("#nom").val(),
+                    "ape": $("#ape").val(),
+                    "area": $("#area").val()
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "../ajax/user_mailbox.php",
+                    data: parametros,
+                    dataType: "text",
+                    success: function(response) {
+                        $("#tusu").html(response);
+                    }
+                });
+            }
+            function seleccionar(id, nombre) {
+                $('#myModal').modal('hide');
+                $('#contacto').val(nombre);
+                $('#vista').val(nombre);
+                $('#id').val(id);
 
+            }
+            function limpiar() {
+                $('#nom').val('');
+                $('#ape').val('');
+                $('#tusu').html('');
+
+            }
+            ;
+        </script>
             <script>
             window.onload = function() {
                 killerSession();

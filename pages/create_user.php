@@ -56,15 +56,15 @@ try {
                     $direccion1 = $_POST["direccion1"];
                 }
                 $Usuario = array(
-                    'nombreusu' => $_POST["nombre"],
-                    'apellidousu' => $_POST["apellido"],
-                    'correousu' => $correo,
-                    'direccionusu' => $direccion1,
-                    'telefonousu' => $telefono1,
-                    'telefono2usu' => $telefono2,
+                    'nombreusu' => utf8_decode($_POST["nombre"]),
+                    'apellidousu' => utf8_decode($_POST["apellido"]),
+                    'correousu' => utf8_decode($correo),
+                    'direccionusu' => utf8_decode($direccion1),
+                    'telefonousu' => utf8_decode($telefono1),
+                    'telefono2usu' => utf8_decode($telefono2),
                     'tipousu' => "0",
-                    'cargousu' => $cargo,
-                    'userusu' => $usernuevo,
+                    'cargousu' => utf8_decode($cargo),
+                    'userusu' => utf8_decode($usernuevo),
                     'statususu' => "1",
                     'borradousu' => "0");
                 $parametros = array('registroUsuario' => $Usuario);
@@ -108,4 +108,4 @@ try {
     javaalert('Error al crear el usuario');
     iraURL('../index.php');
 }
-?
+?>

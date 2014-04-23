@@ -12,14 +12,14 @@ try {
 
     if (!isset($_SESSION["Usuario"])) {
     iraURL("../index.php");
-} elseif (!usuarioCreado()) {
-    iraURL("../pages/create_user.php");
-} elseif (!isset($_POST['idpaq'])) {
-    iraURL("../pages/inbox.php");
-}      
+	} elseif (!usuarioCreado()) {
+		iraURL("../pages/create_user.php");
+	} elseif (!isset($_POST['idpaq'])) {
+		iraURL("../pages/inbox.php");
+	}      
     $idPaquete = array('idPaquete' => $_POST['idpaq']);
    // $rowPaquete = $client->ConsultarPaqueteXId($idPaquete);
-   $consumo = $client->call("ConsultarPaqueteXId",$idPaquete);
+   $consumo = $client->call("consultarPaqueteXId",$idPaquete);
 	if ($consumo!="") {
 	$rowPaquete = $consumo['return'];   
 	}
@@ -63,15 +63,15 @@ try {
             } else {
                 $rta = "Si";
             }
-            if (strlen($rowPaquete["textopaq"]) > 10) {
-                $contenido = substr($rowPaquete["textopaq"], 0, 10) . "...";
+            if (strlen(utf8_encode($rowPaquete["textopaq"])) > 10) {
+                $contenido = substr(utf8_encode($rowPaquete["textopaq"]), 0, 10) . "...";
             } else {
-                $contenido = $rowPaquete["textopaq"];
+                $contenido = utf8_encode($rowPaquete["textopaq"]);
             }
-            if (strlen($rowPaquete["asuntopaq"]) > 10) {
-                $asunto = substr($rowPaquete["asuntopaq"], 0, 10) . "...";
+            if (strlen(utf8_encode($rowPaquete["asuntopaq"])) > 10) {
+                $asunto = substr(utf8_encode($rowPaquete["asuntopaq"]), 0, 10) . "...";
             } else {
-                $asunto = $rowPaquete["asuntopaq"];
+                $asunto = utf8_encode($rowPaquete["asuntopaq"]);
             }
             echo "<br>";
             ?>  <h2>Correspondencia seleccionada</h2>
@@ -90,8 +90,8 @@ try {
                     
                     <tr>   
                         <td  style='text-align:center'><?php echo $rowPaquete["idpaq"]; ?></td>	
-                        <td  style='text-align:center'><?php echo $rowPaquete["origenpaq"]["idusu"]["nombreusu"] . " " . $rowPaquete["origenpaq"]["idusu"]["apellidousu"]; ?></td>
-                        <td style='text-align:center'><?php echo $rowPaquete["destinopaq"]["nombrebuz"]; ?></td>
+                        <td  style='text-align:center'><?php echo utf8_encode($rowPaquete["origenpaq"]["idusu"]["nombreusu"] . " " . $rowPaquete["origenpaq"]["idusu"]["apellidousu"]); ?></td>
+                        <td style='text-align:center'><?php echo utf8_encode($rowPaquete["destinopaq"]["nombrebuz"]); ?></td>
                         <td style='text-align:center'><?php echo $asunto; ?></td>
                         <td style='text-align:center'><?php echo $rta; ?></td>
                         <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($rowPaquete["fechapaq"], 0, 10))); ?></td>
@@ -106,11 +106,11 @@ try {
                     if (isset($resultadoProveedor[0])) {
                         $i = 0;
                         while (count($resultadoProveedor) > $i) {
-                            echo "<option value='" . $resultadoProveedor[$i]["nombrepro"] . "' >" . $resultadoProveedor[$i]["nombrepro"]. "</option>";
+                            echo "<option value='" . utf8_encode($resultadoProveedor[$i]["nombrepro"]) . "' >" .utf8_encode($resultadoProveedor[$i]["nombrepro"]). "</option>";
                             $i++;
                         }
                     } else {
-                        echo "<option value='" . $resultadoProveedor["nombrepro"] . "' >" . $resultadoProveedor["nombrepro"] . "</option>";
+                        echo "<option value='" . utf8_encode($resultadoProveedor["nombrepro"]) . "' >" . utf8_encode($resultadoProveedor["nombrepro"]) . "</option>";
                     }
                     ?>
                 </select>

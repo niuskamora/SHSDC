@@ -19,7 +19,7 @@ try {
 	$consumo = $client->call("consultarSedeRol",$UsuarioRol);
 	if ($consumo!="") {
 	$SedeRol = $consumo['return'];  
-	if ($SedeRol["idrol"]["idrol"] == "6") {
+	if ($SedeRol["idrol"]["idrol"] == "6" || $SedeRol["idrol"]["idrol"] == "4") {
             iraURL('../pages/inbox.php');
         }
     } else {

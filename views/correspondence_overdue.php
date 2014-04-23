@@ -151,8 +151,8 @@ if (!isset($SedeRol)) {
                                                     }
                                                 }//fin else
                                             }
-                                            if (!isset($PaquetesOrigen[0])) {
-                                                if (count($PaquetesOrigen) == 1) {
+                                            if (isset($PaquetesOrigen)) {
+                                                if (!isset($PaquetesOrigen[0])) {
                                                     if (strlen(utf8_encode($PaquetesOrigen["asuntopaq"])) > 10) {
                                                         $asunto = substr(utf8_encode($PaquetesOrigen["asuntopaq"]), 0, 10) . "...";
                                                     } else {

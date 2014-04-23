@@ -29,7 +29,7 @@ try {
     }
     $idPaquete = array('idPaquete' => $_POST['idpaq']);
    // $Paquete = $client->ConsultarPaqueteXId($idPaquete);
-	$consumo = $client->call("ConsultarPaqueteXId",$idPaquete);
+	$consumo = $client->call("consultarPaqueteXId",$idPaquete);
 	if ($consumo!="") {
 	$Paquete = $consumo['return'];   
 	}
@@ -40,7 +40,7 @@ try {
         $parametros = array('registroPaquete' => $idPaquete,
             'registroUsuario' => $usu,
             'registroSede' => $sede,
-            'localizacion' => $_POST['localizacion']);
+            'localizacion' => utf8_decode($_POST['localizacion']));
 		$consumo = $client->call("seguimientoExterno",$parametros);
 		if ($consumo!="") {
 		$seg = $consumo['return'];   
@@ -101,7 +101,7 @@ try {
 
     <?php
 } catch (Exception $e) {
-    javaalert('Lo sentimos no hay conexion');
+    javaalert('Lo sentimos no hay conexión');
     iraURL('../pages/inbox.php');
 }
 ?>  
