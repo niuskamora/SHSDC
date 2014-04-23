@@ -12,11 +12,11 @@ if (isset($_POST["guardar"]) && isset($_POST["ide"])) {
         $sede = array('idsed' => $_SESSION["Sede"]['idsed']);
         for ($j = 0; $j < $_SESSION["reg"]; $j++) {
             if (isset($registrosAValija[$j])) {
-                $datosAct = array('idpaq' => $registrosAValija[$j], 'idval' => $idValija->return);
+                $datosAct = array('idpaq' => $registrosAValija[$j], 'idval' => $idValija['return']);
                 $client->call("ActualizacionLocalizacionyValijaDelPaquete",$datosAct);
                 $idPaquete = array('idpaq' => $registrosAValija[$j]);
                 $parametros = array('registroPaquete' => $idPaquete, 'registroUsuario' => $usu, 'registroSede' => $sede, 'Caso' => "0");
-                $seg = $client->call(registroSeguimiento,$parametros);
+                $seg = $client->call("registroSeguimiento",$parametros);
             }
         }
         echo"<script>window.open('../pages/proof_pouch.php');</script>";
