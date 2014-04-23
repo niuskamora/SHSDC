@@ -29,7 +29,7 @@ try {
         iraURL('../pages/inbox.php');
     }
 
-    $Ses = $client->call("consultarSedes");
+    $Ses = $client->call("ConsultarSedes");
 	
     if ($Ses=="") {
         javaalert("lo sentimos no se pueden deshabilitar Areas, no existen sedes registradas, Consulte con el administrador");
