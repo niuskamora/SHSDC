@@ -77,7 +77,7 @@ if ($usuario == "") {
                     <div class="span2">
                         <ul class="nav nav-pills nav-stacked">
                             <li>   
-                                <a href="../pages/inbox.php">
+                                <a href="../pages/lost_bag.php">
                                     <?php echo "Atrás" ?>         
                                 </a>
                             </li>
@@ -88,115 +88,72 @@ if ($usuario == "") {
                         <div class="tab-content" id="lista">
                             <?php
                             //Verificando que este vacio o sea null
-                            if (!isset($resultadoConsultarValijas)) {
+                            if (!isset($resultadoIncidente)) {
                                 echo '<div class="alert alert-block" align="center">';
                                 echo '<h2 style="color:rgb(255,255,255)" align="center">Atención</h2>';
-                                echo '<h4 align="center">No Existen Registros de Valijas Extraviadas</h4>';
+                                echo '<h4 align="center">No Existen Registros de Incidentes para esta Valija</h4>';
                                 echo '</div>';
                             }
                             //Si existen registros muestro la tabla
                             else {
                                 ?>                        
-                                <strong> <h2 align="center">Valijas Extraviadas</h2> </strong>                                
+                                <strong> <h2 align="center">Incidentes de Valija</h2> </strong>                                
                                 <table class='footable table table-striped table-bordered' data-page-size=<?php echo $itemsByPage ?>>
                                     <thead bgcolor='#FF0000'>
                                         <tr>
-                                            <th style="text-align:center">Fecha y Hora de Envio</th>
-                                            <th style="text-align:center">Nro de Valija</th>
-                                            <th style="text-align:center" data-sort-ignore="true">Nro de Guía</th>
-                                            <th style="text-align:center" data-sort-ignore="true">Origen</th>
-                                            <th style="text-align:center" data-sort-ignore="true">Tipo</th>
-                                            <th style="text-align:center" data-sort-ignore="true">Destino</th>
-                                            <th style="text-align:center" data-sort-ignore="true">Ver más</th>
-                                            <th style="text-align:center" data-sort-ignore="true">Ver incidente</th>
+                                            <th style="text-align:center">Incidente</th>
+                                            <th style="text-align:center" data-sort-ignore="true">Nombre</th>
+                                            <th style="text-align:center" data-sort-ignore="true">Descripción</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        if ($valijas > 1) {
-                                            for ($i = 0; $i < $valijas; $i++) {
+                                        if ($incidente > 1) {
+                                            for ($i = 0; $i < $incidente; $i++) {
                                                 ?>
                                                 <tr>
-                                                    <?php
-                                                    if (isset($resultadoConsultarValijas[$i]['fechaval'])) {
-                                                        $fechaEnvio = FechaHora($resultadoConsultarValijas[$i]['fechaval']);
-                                                    } else {
-                                                        $fechaEnvio = "";
-                                                    }
-                                                    ?>
-                                                    <td style="text-align:center"><?php echo $fechaEnvio ?></td>
-                                                    <td style="text-align:center"><?php echo $resultadoConsultarValijas[$i]['idval'] ?></td>
-                                                    <?php if (isset($resultadoConsultarValijas[$i]['codproveedorval'])) { ?>
-                                                        <td align="center"><?php echo $resultadoConsultarValijas[$i]['codproveedorval'] ?></td>
+                                                    <td style="text-align:center"><?php echo $resultadoIncidente[$i]['idinc'] ?></td>
+                                                    <?php if (isset($resultadoIncidente[$i]['nombreinc'])) { ?>
+                                                        <td><?php echo utf8_encode($resultadoIncidente[$i]['nombreinc']) ?></td>
                                                     <?php } else {
                                                         ?>
                                                         <td><?php echo "" ?></td>
                                                     <?php } ?>
-                                                    <td><?php echo $nombreSede[$i] ?></td>
                                                     <?php
-                                                    if (isset($resultadoConsultarValijas[$i]['tipoval'])) {
+                                                    if (isset($resultadoIncidente[$i]['descripcioninc'])) {
                                                         ?>
-                                                        <td><?php echo utf8_encode($resultadoConsultarValijas[$i]['tipoval']) ?></td>
+                                                        <td><?php echo utf8_encode($resultadoIncidente[$i]['descripcioninc']) ?></td>
                                                     <?php } else {
                                                         ?>
                                                         <td><?php echo "" ?></td>
                                                         <?php
                                                     }
-                                                    if (isset($resultadoConsultarValijas[$i]['destinoval']['nombresed'])) {
-                                                        ?>
-                                                        <td><?php echo utf8_encode($resultadoConsultarValijas[$i]['destinoval']['nombresed']) ?></td>
-                                                    <?php } else {
-                                                        ?>
-                                                        <td><?php echo "" ?></td>
-                                                        <?php
-                                                    }
-                                                    ?>
-                                                    <td style='text-align:center'><a href='../pages/bag_and_pack.php?id=<?php echo $resultadoConsultarValijas[$i]['idval']; ?>'><button type='button' class='btn btn-info btn-primary'>Ver más</button> </a></td>
-                                                    <td style='text-align:center'><a href='../pages/see_incident.php?id=<?php echo $resultadoConsultarValijas[$i]['idval']; ?>'><button type='button' class='btn btn-info btn-primary'>Ver incidente</button> </a></td>                                               
+                                                    ?>                                               
                                                 </tr>
                                                 <?php
                                             }
                                         } else {
                                             ?>
                                             <tr>
-                                                <?php
-                                                if (isset($resultadoConsultarValijas['fechaval'])) {
-                                                    $fechaEnvio = FechaHora($resultadoConsultarValijas['fechaval']);
-                                                } else {
-                                                    $fechaEnvio = "";
-                                                }
-                                                ?>
-                                                <td style="text-align:center"><?php echo $fechaEnvio ?></td>
-                                                <td style="text-align:center"><?php echo $resultadoConsultarValijas['idval'] ?></td>
-                                                <?php if (isset($resultadoConsultarValijas['codproveedorval'])) { ?>
-                                                    <td align="center"><?php echo $resultadoConsultarValijas['codproveedorval'] ?></td>
+                                                <td style="text-align:center"><?php echo $resultadoIncidente['idinc'] ?></td>
+                                                <?php if (isset($resultadoIncidente['nombreinc'])) { ?>
+                                                    <td><?php echo utf8_encode($resultadoIncidente['nombreinc']) ?></td>
                                                 <?php } else {
                                                     ?>
                                                     <td><?php echo "" ?></td>
                                                 <?php } ?>
-                                                <td><?php echo $nombreSede ?></td>
                                                 <?php
-                                                if (isset($resultadoConsultarValijas['tipoval'])) {
+                                                if (isset($resultadoIncidente['descripcioninc'])) {
                                                     ?>
-                                                    <td><?php echo utf8_encode($resultadoConsultarValijas['tipoval']) ?></td>
+                                                    <td><?php echo utf8_encode($resultadoIncidente['descripcioninc']) ?></td>
                                                 <?php } else {
                                                     ?>
                                                     <td><?php echo "" ?></td>
                                                     <?php
                                                 }
-                                                if (isset($resultadoConsultarValijas['destinoval']['nombresed'])) {
-                                                    ?>
-                                                    <td><?php echo utf8_encode($resultadoConsultarValijas['destinoval']['nombresed']) ?></td>
-                                                <?php } else {
-                                                    ?>
-                                                    <td><?php echo "" ?></td>
-                                                    <?php
-                                                }
-                                                ?>
-                                                <td style='text-align:center'><a href='../pages/bag_and_pack.php?id=<?php echo $resultadoConsultarValijas['idval']; ?>'><button type='button' class='btn btn-info btn-primary'>Ver más</button> </a></td>
-                                                <td style='text-align:center'><a href='../pages/see_incident.php?id=<?php echo $resultadoConsultarValijas['idval']; ?>'><button type='button' class='btn btn-info btn-primary'>Ver incidente</button> </a></td>
+                                                ?>                                               
                                             </tr>
-                                        <?php } ?>                                  
+                                        <?php } ?>                                    
                                     </tbody>
                                 </table>
                                 <ul id="pagination" class="footable-nav"><span>Pag:</span></ul>
