@@ -6,7 +6,7 @@ if ($org=="") {
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="ISO-8859-1">
+        <meta charset="utf-8">
         <title>Seguros Horizonte | HorizonLine</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
@@ -93,7 +93,7 @@ if ($org=="") {
                                 </tr>
                                 <tr>
                                     <td style="text-align:center">Tel&eacute;fono</td>
-                                    <td style="text-align:center"><input type="tel" name="telefono" id="telefono" autocomplete="off" maxlength="50" size="30" title="Ingrese el número de teléfono" placeholder="Ej. 04269876543"   ></td>
+                                    <td style="text-align:center"><input type="tel" name="telefono" id="telefono" autocomplete="off" maxlength="50" size="30" title="Ingrese el nÃºmero de telÃ©fono" placeholder="Ej. 04269876543"   ></td>
                                 </tr>
                                 <tr>
                                     <td style="text-align:center">C&oacute;digo <h6> en caso de mensajero  </h6></td>

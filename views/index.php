@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="ISO-8859-1">
+        <meta charset="utf-8">
         <title>Seguros Horizonte | HorizonLine</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
@@ -82,10 +82,10 @@
                 <div class="tab-content">
                     <div id="logueo" align="center">
                         <form class="form-signin" method="post">
-                            <h3 class="form-signin-heading">Por favor, inicie sesión</h3>
+                            <h3 class="form-signin-heading">Por favor, inicie sesiÃ³n</h3>
                             <input type="text" class="input-block-level" placeholder="Usuario" name="usuario" id="usuario" maxlength="34"  autofocus required>
-                            <input type="password" class="input-block-level" placeholder="Contraseña" name="password" id="password" maxlength="34"  required>
-                            <button class="btn btn-large btn-info" type="submit" name="Biniciar">Iniciar Sesión</button>
+                            <input type="password" class="input-block-level" placeholder="ContraseÃ±a" name="password" id="password" maxlength="34"  required>
+                            <button class="btn btn-large btn-info" type="submit" name="Biniciar">Iniciar SesiÃ³n</button>
                         </form>
                     </div>
                 </div>

@@ -6,7 +6,7 @@ if (!isset($Sedes->return)) {
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="ISO-8859-1">
+        <meta charset="utf-8">
         <title>Seguros Horizonte | HorizonLine</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
@@ -211,7 +211,7 @@ if (!isset($Sedes->return)) {
         if (allowSubmit) {
         } else {
             tField.value = "";
-            alert("Usted sólo puede subir archivos con extensiones " + (extArray.join(" ")) + "\nPor favor seleccione un nuevo archivo");
+            alert("Usted sÃ³lo puede subir archivos con extensiones " + (extArray.join(" ")) + "\nPor favor seleccione un nuevo archivo");
         }
     }
 </script>

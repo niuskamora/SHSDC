@@ -57,7 +57,7 @@ if (isset($_POST["guardar"])) {
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="ISO-8859-1">
+        <meta charset="utf-8">
         <title>Seguros Horizonte | HorizonLine</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
@@ -140,7 +140,7 @@ if (isset($_POST["guardar"])) {
                         <div class="tab-content" id="lista">
                             <h2> <strong> Desglosar Valija </strong> </h2>
                             <form class="form-Dvalija" method="post" id="fval">
-                                C&oacute;digo de Valija:  <input type="text" placeholder="Ej. 4246" title="Ingrese el código de Valija" autocomplete="off" style="width:140px ;height:28px" onkeypress="return isNumberKey(event)" pattern="[0-9]{1,38}" id="idval" name="idval" class="input-medium search-query">
+                                C&oacute;digo de Valija:  <input type="text" placeholder="Ej. 4246" title="Ingrese el cÃ³digo de Valija" autocomplete="off" style="width:140px ;height:28px" onkeypress="return isNumberKey(event)" pattern="[0-9]{1,38}" id="idval" name="idval" class="input-medium search-query">
                                 <button type="button"  onClick="Valija();" class="btn" >Buscar</button>
                             </form>
 
@@ -148,7 +148,7 @@ if (isset($_POST["guardar"])) {
                             </div>
 
 						<?php /* ?><div class='alert alert-block' align='center'>
-  							<h2 style='color:rgb(255,255,255)' align='center'>Atención</h2>
+  							<h2 style='color:rgb(255,255,255)' align='center'>AtenciÃ³n</h2>
   							<h4 align='center'>No hay usuarios </h4><?php */ ?>
                         </div>
 
@@ -189,7 +189,7 @@ if (isset($_POST["guardar"])) {
 
                         });
                     } else {
-                        alert('Debe ingresar el código de la Valija')
+                        alert('Debe ingresar el cÃ³digo de la Valija')
                     }
                 }
             </script>

@@ -6,7 +6,7 @@ if (!isset($org->return)) {
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="ISO-8859-1">
+        <meta charset="utf-8">
         <title>Seguros Horizonte | HorizonLine</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
@@ -89,7 +89,7 @@ if (!isset($org->return)) {
                             <table class='footable table table-striped table-bordered'>
                                 <tr>
                                     <td style="text-align:center" >Nombre de la Sede</td>
-                                    <td style="text-align:center"><input type="text" name="nombre" id="nombre" autocomplete="off" maxlength="150" size="30" placeholder="Ej. San Cristóbal" title="Ingrese el nombre la sede"   autofocus required></td>
+                                    <td style="text-align:center"><input type="text" name="nombre" id="nombre" autocomplete="off" maxlength="150" size="30" placeholder="Ej. San CristÃ³bal" title="Ingrese el nombre la sede"   autofocus required></td>
                                 </tr>
                                 <tr>
                                     <td style="text-align:center" >Direcci&oacute;n</td>
@@ -97,19 +97,19 @@ if (!isset($org->return)) {
                                 </tr>
                                 <tr>
                                     <td style="text-align:center">Codigo de sede:</td>
-                                    <td style="text-align:center"><input type="text" name="codigo" id="codigo" autocomplete="off" maxlength="4" size="30" title="Ingrese un número de teléfono" placeholder="Ej. 0212"   ></td>
+                                    <td style="text-align:center"><input type="text" name="codigo" id="codigo" autocomplete="off" maxlength="4" size="30" title="Ingrese un nÃºmero de telÃ©fono" placeholder="Ej. 0212"   ></td>
                                 </tr>
                                 <tr>
                                     <td style="text-align:center">Tel&eacute;fono</td>
-                                    <td style="text-align:center"><input type="tel" name="telefono" id="telefono" autocomplete="off" maxlength="50" size="30" title="Ingrese un número de teléfono" placeholder="Ej. 04269876543"   ></td>
+                                    <td style="text-align:center"><input type="tel" name="telefono" id="telefono" autocomplete="off" maxlength="50" size="30" title="Ingrese un nÃºmero de telÃ©fono" placeholder="Ej. 04269876543"   ></td>
                                 </tr>
                                 <tr>
                                     <td style="text-align:center">Tel&eacute;fono Adicional</td>
-                                    <td style="text-align:center"><input type="tel" name="telefono2" id="telefono2" autocomplete="off" maxlength="50" size="30" title="Ingrese un número de teléfono adicional" placeholder="Ej. 04168674789"  ></td>
+                                    <td style="text-align:center"><input type="tel" name="telefono2" id="telefono2" autocomplete="off" maxlength="50" size="30" title="Ingrese un nÃºmero de telÃ©fono adicional" placeholder="Ej. 04168674789"  ></td>
                                 </tr>
                                 <tr>
                                     <td style="text-align:center">Organizaci&oacute;n</td>
-                                    <td style="text-align:center"><select  id="organizacion" name="organizacion" required  title="Seleccione la Organización a la que pertenece">
+                                    <td style="text-align:center"><select  id="organizacion" name="organizacion" required  title="Seleccione la OrganizaciÃ³n a la que pertenece">
                                             <option value="" style="display:none">Seleccionar:</option>                                  
                                             <?php
                                             if ($reg == 1) {
