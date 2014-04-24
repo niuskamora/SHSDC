@@ -26,7 +26,11 @@ if ($contadorPaquetes > 1) {
         $guia = "";
     }
     if (isset($resultadoPaquetesPorValija[0]['idval']['tipoval'])) {
-        $tipo = utf8_encode($resultadoPaquetesPorValija[0]['idval']['tipoval']);
+        if ($resultadoPaquetesPorValija[0]['idval']['tipoval'] == "1") {
+            $tipo = "Documento";
+        } elseif ($resultadoPaquetesPorValija[0]['idval']['tipoval'] == "2") {
+            $tipo = "Mercancía";
+        }
     } else {
         $tipo = "";
     }
@@ -43,7 +47,11 @@ if ($contadorPaquetes > 1) {
         $guia = "";
     }
     if (isset($resultadoPaquetesPorValija['idval']['tipoval'])) {
-        $tipo = utf8_encode($resultadoPaquetesPorValija['idval']['tipoval']);
+        if ($resultadoPaquetesPorValija['idval']['tipoval'] == "1") {
+            $tipo = "Documento";
+        } elseif ($resultadoPaquetesPorValija['idval']['tipoval'] == "2") {
+            $tipo = "Mercancía";
+        }
     } else {
         $tipo = "";
     }

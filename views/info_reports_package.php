@@ -117,8 +117,8 @@ if ($usuario == "") {
                                 <table class='footable table table-striped table-bordered' data-page-size=<?php echo $itemsByPage ?>>
                                     <thead bgcolor='#FF0000'>
                                         <tr>
-                                            <th style="text-align:center">Fecha y Hora de Envio</th>
-                                            <th style="text-align:center">Nro de Paquete</th>
+                                            <th style="text-align:center">Fecha y Hora <br> de Envio</th>
+                                            <th style="text-align:center">Nro de <br> Paquete</th>
                                             <th style="text-align:center">Origen</th>
                                             <th style="text-align:center" data-sort-ignore="true">De</th>
                                             <th style="text-align:center" data-sort-ignore="true">Para</th>

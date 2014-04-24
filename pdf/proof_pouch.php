@@ -16,7 +16,11 @@ if (isset($resultadoConsultarUltimaValija)) {
         $sede = "";
     }
     if (isset($resultadoConsultarUltimaValija['tipoval'])) {
-        $tipo = utf8_encode($resultadoConsultarUltimaValija['tipoval']);
+        if ($resultadoConsultarUltimaValija['tipoval'] == "1") {
+            $tipo = "Documento";
+        } elseif ($resultadoConsultarUltimaValija['tipoval'] == "2") {
+            $tipo = "Mercancía";
+        }
     } else {
         $tipo = "";
     }

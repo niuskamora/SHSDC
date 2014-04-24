@@ -81,6 +81,7 @@ if (isset($_POST["reportarPaqExc"])) {
                         }
                     }
                     $idPaq = $rowPaquete['idpaq'];
+                    $tipoPaq = $rowPaquete['iddoc']['iddoc'];
                     $parametros = array('registroPaquete' => $idPaq,
                         'registroUsuario' => $usuarioBitacora,
                         'registroSede' => $sede,
@@ -94,7 +95,7 @@ if (isset($_POST["reportarPaqExc"])) {
                     if ($reportarPaqExc == 1) {
 
                         //Creación de Valija
-                        $datosValija = array('idusu' => $usuarioBitacora, 'sorigen' => $sede, 'sdestino' => $sedeDestino, 'fechaapaq' => date('Y-m-d', strtotime(str_replace('/', '-', "27/03/2014"))));
+                        $datosValija = array('idusu' => $usuarioBitacora, 'sorigen' => $sede, 'sdestino' => $sedeDestino, 'tipoval' => $tipoPaq);
                         $client = new nusoap_client($wsdl_sdc, 'wsdl');
                         $consumoValija = $client->call("insertarValija", $datosValija);
                         if ($consumoValija != "") {
@@ -137,7 +138,7 @@ if (isset($_POST["reportarPaqExc"])) {
                 }
             }
         } catch (Exception $e) {
-            javaalert('Lo sentimos no hay conexión');
+            javaalert('Lo sentimos no hay conexion');
             iraURL('../pages/breakdown_valise.php');
         }
     } else {

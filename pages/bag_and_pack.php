@@ -74,7 +74,11 @@ if ($idValija == "") {
                 $guia = $resultadoPaquetesPorValija['idval']['codproveedorval'];
             }
             if (isset($resultadoPaquetesPorValija['idval']['tipoval'])) {
-                $tipo = utf8_encode($resultadoPaquetesPorValija['idval']['tipoval']);
+                if ($resultadoPaquetesPorValija['idval']['tipoval'] == "1") {
+                    $tipo = "Documento";
+                } elseif ($resultadoPaquetesPorValija['idval']['tipoval'] == "2") {
+                    $tipo = "Mercancía";
+                }
             }
             if (isset($resultadoPaquetesPorValija['idval']['destinoval']['nombresed'])) {
                 $destino = utf8_encode($resultadoPaquetesPorValija['idval']['destinoval']['nombresed']);
@@ -105,7 +109,11 @@ if ($idValija == "") {
                 $guia = $resultadoPaquetesPorValija[0]['idval']['codproveedorval'];
             }
             if (isset($resultadoPaquetesPorValija[0]['idval']['tipoval'])) {
-                $tipo = utf8_encode($resultadoPaquetesPorValija[0]['idval']['tipoval']);
+                if ($resultadoPaquetesPorValija[0]['idval']['tipoval'] == "1") {
+                    $tipo = "Documento";
+                } elseif ($resultadoPaquetesPorValija[0]['idval']['tipoval'] == "2") {
+                    $tipo = "Mercancía";
+                }
             }
             if (isset($resultadoPaquetesPorValija[0]['idval']['destinoval']['nombresed'])) {
                 $destino = utf8_encode($resultadoPaquetesPorValija[0]['idval']['destinoval']['nombresed']);

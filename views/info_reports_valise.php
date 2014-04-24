@@ -118,14 +118,14 @@ if ($usuario == "") {
                                 <table class='footable table table-striped table-bordered' data-page-size=<?php echo $itemsByPage ?>>
                                     <thead bgcolor='#FF0000'>
                                         <tr>
-                                            <th style="text-align:center">Fecha y Hora de Envio</th>
-                                            <th style="text-align:center">Nro de Valija</th>
+                                            <th style="text-align:center">Fecha y Hora <br> de Envio</th>
+                                            <th style="text-align:center">Nro de <br> Valija</th>
                                             <th style="text-align:center" data-sort-ignore="true">Nro de Guía</th>
                                             <th style="text-align:center">Origen</th>
                                             <th style="text-align:center" data-sort-ignore="true">Realizado por</th>
                                             <th style="text-align:center">Tipo</th>
                                             <th style="text-align:center">Destino</th>
-                                            <th style="text-align:center" data-sort-ignore="true">Fecha y Hora de Recibido</th>
+                                            <th style="text-align:center" data-sort-ignore="true">Fecha y Hora <br> de Recibido</th>
                                             <th style="text-align:center" data-sort-ignore="true">Ver más</th>
                                         </tr>
                                     </thead>
@@ -158,14 +158,17 @@ if ($usuario == "") {
                                                         <td><?php echo utf8_encode($resultadoConsultarValijas[$i]['iduse']['idusu']['nombreusu']) ?></td>                                                    
                                                         <?php
                                                     }
+                                                    $tipo = "";
                                                     if (isset($resultadoConsultarValijas[$i]['tipoval'])) {
-                                                        ?>
-                                                        <td><?php echo utf8_encode($resultadoConsultarValijas[$i]['tipoval']) ?></td>
-                                                    <?php } else {
-                                                        ?>
-                                                        <td><?php echo "" ?></td>
-                                                        <?php
+                                                        if ($resultadoConsultarValijas[$i]['tipoval'] == "1") {
+                                                            $tipo = "Documento";
+                                                        } elseif ($resultadoConsultarValijas[$i]['tipoval'] == "2") {
+                                                            $tipo = "Mercancía";
+                                                        }
                                                     }
+                                                    ?>
+                                                    <td><?php echo $tipo ?></td>
+                                                    <?php
                                                     if (isset($resultadoConsultarValijas[$i]['destinoval']['nombresed'])) {
                                                         ?>
                                                         <td><?php echo utf8_encode($resultadoConsultarValijas[$i]['destinoval']['nombresed']) ?></td>
@@ -211,14 +214,17 @@ if ($usuario == "") {
                                                     <td><?php echo utf8_encode($resultadoConsultarValijas['iduse']['idusu']['nombreusu']) ?></td>                                                    
                                                     <?php
                                                 }
+                                                $tipo = "";
                                                 if (isset($resultadoConsultarValijas['tipoval'])) {
-                                                    ?>
-                                                    <td><?php echo utf8_encode($resultadoConsultarValijas['tipoval']) ?></td>
-                                                <?php } else {
-                                                    ?>
-                                                    <td><?php echo "" ?></td>
-                                                    <?php
+                                                    if ($resultadoConsultarValijas['tipoval'] == "1") {
+                                                        $tipo = "Documento";
+                                                    } elseif ($resultadoConsultarValijas['tipoval'] == "2") {
+                                                        $tipo = "Mercancía";
+                                                    }
                                                 }
+                                                ?>
+                                                <td><?php echo $tipo ?></td>
+                                                <?php
                                                 if (isset($resultadoConsultarValijas['destinoval']['nombresed'])) {
                                                     ?>
                                                     <td><?php echo utf8_encode($resultadoConsultarValijas['destinoval']['nombresed']) ?></td>

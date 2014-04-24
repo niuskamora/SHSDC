@@ -47,7 +47,7 @@
                 </tr>
                 <tr>
                     <td><strong>Número de la Valija: </strong><?php echo $idVal ?></td>
-                    <td><strong>Fecha y Hora de Envio: </strong><?php echo $fecha ?></td>                    
+                    <td><strong>Fecha y Hora de Envio: </strong><?php echo $fecha ?></td>        
                 </tr>
                 <tr>
                     <td><strong>Tipo: </strong><?php echo $tipo ?></td>
