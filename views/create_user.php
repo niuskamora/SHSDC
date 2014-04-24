@@ -75,8 +75,7 @@ if (!isset($Sedes)) {
                 <ul class="nav nav-pills">
                     <li class="pull-left">
                         <div class="modal-header" style="width:1135px;">
-                            <h3> Correspondencia    
-                                <span>SH</span> Bienvenido
+                            <h3> Correspondencia 
                                 <div class="btn-group  pull-right">
                                     <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"> <span class="icon-cog" style="color:rgb(255,255,255)"> Configuración </span> </button>
                                     <ul class="dropdown-menu" role="menu">

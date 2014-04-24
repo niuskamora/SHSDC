@@ -34,8 +34,8 @@ if (isset($_POST["Biniciar"])) {
 		$userparam['user'] = $_POST["usuario"];
 	
 		$userResp = $client->call("consultarUsuarioXUser",$userparam);
-        $valorUser = $userResp['return'];
 		if ($userResp!="") {
+		$valorUser = $userResp['return'];
             $_SESSION["Usuario"] = $valorUser;
 			$idusu['idusu'] =$valorUser["idusu"];
 			$registroUsu["registroUsuario"]=$idusu;
