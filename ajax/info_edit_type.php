@@ -25,6 +25,11 @@
 
     <?php
     session_start();
+	include("../recursos/funciones.php");
+	require_once("../lib/nusoap.php");
+	require_once("../config/wsdl.php");
+	require_once("../config/definitions.php");
+	require_once("../core/Crypt/AES.php");
     try {
         $reg = 0;
         if (isset($_POST['usu']) && $_POST['usu'] != "" && $_POST['usu'] != NULL) {

@@ -123,9 +123,9 @@ if ($usu== "") {
 													}
 												?>
                                                     <tr>
-                                                        <td style="text-align:center"><?php echo $resultadoLista[$i]['nombrebuz'] ?></td>
-                                                        <td style="text-align:center"><?php echo $areaBuzon; ?></td>                   
-                                                        <td style="text-align:center"><?php echo $sedeBuzon; ?></td>                                            	
+                                                        <td style="text-align:center"><?php echo utf8_encode ($resultadoLista[$i]['nombrebuz']) ?></td>
+                                                        <td style="text-align:center"><?php echo utf8_encode ($areaBuzon); ?></td>                   
+                                                        <td style="text-align:center"><?php echo utf8_encode ($sedeBuzon); ?></td>                                            	
                                                         <td style="text-align:center"><a href='../pages/edit_mailbox.php?id=<?php echo $resultadoLista[$i]['idbuz']?>'><button type='button' class='btn btn-info btn-primary' value='Editar'> Editar </button> </a></td>
                                                         
                                                     </tr>
@@ -141,9 +141,9 @@ if ($usu== "") {
 													}
 ?>
                                                     <tr>
-                                                        <td style="text-align:center"><?php echo $resultadoLista['nombrebuz'] ?></td>
-                                                        <td style="text-align:center"><?php echo $areaBuzon; ?></td>                   
-                                                        <td style="text-align:center"><?php echo $sedeBuzon; ?></td>                                            	
+                                                        <td style="text-align:center"><?php echo utf8_encode ( $resultadoLista['nombrebuz']) ?></td>
+                                                        <td style="text-align:center"><?php echo utf8_encode ($areaBuzon); ?></td>                   
+                                                        <td style="text-align:center"><?php echo utf8_encode ($sedeBuzon); ?></td>                                            	
                                                   
                                                         <td style="text-align:center"><a href='../pages/edit_mailbox.php?id=<?php echo $resultadoLista['idbuz']?>'><button type='button' class='btn btn-info btn-primary' value='Editar'> Editar </button> </a></td>
                                                         
