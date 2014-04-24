@@ -85,8 +85,8 @@ require_once("../core/Crypt/AES.php");
             $j = 0;
             while ($j < $reg) {
                
-                echo "<td  style='text-align:center'>" . $Registro[$j]['origenpaq']['idusu']['nombreusu'] . "</td>";
-                echo "<td  style='text-align:center'>" . $Registro[$j]['destinopaq']['idusu']['nombreusu'] . "</td>";
+                echo "<td  style='text-align:center'>" . utf8_encode($Registro[$j]['origenpaq']['idusu']['nombreusu']) . "</td>";
+                echo "<td  style='text-align:center'>" . utf8_encode($Registro[$j]['destinopaq']['idusu']['nombreusu']) . "</td>";
               
                 if ($Registro[$j]['respaq'] == 0) {
                     echo "<td style='text-align:center'> No </td>";
@@ -101,8 +101,8 @@ require_once("../core/Crypt/AES.php");
         } else {
 
             
-            echo "<td  style='text-align:center'>" . $Registro['origenpaq']['idusu']['nombreusu'] . "</td>";
-            echo "<td  style='text-align:center'>" . $Registro['destinopaq']['idusu']['nombreusu'] . "</td>";
+            echo "<td  style='text-align:center'>" . utf8_encode($Registro['origenpaq']['idusu']['nombreusu']) . "</td>";
+            echo "<td  style='text-align:center'>" .utf8_encode($Registro['destinopaq']['idusu']['nombreusu']) . "</td>";
             
             if ($Registro['respaq'] == 0) {
                 echo "<td style='text-align:center'> No </td>";

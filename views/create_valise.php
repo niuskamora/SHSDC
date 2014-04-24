@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST["guardar"]) && isset($_POST["ide"])) {
+if (isset($_POST["guardar"]) && isset($_POST["ide"]) && isset($_POST["tipo"]) ) {
     try {
         $registrosAValija = $_POST["ide"];
         $contadorAceptados = 0;
@@ -27,8 +27,10 @@ if (isset($_POST["guardar"]) && isset($_POST["ide"])) {
     }
     //javaalert("Los registros han sido habilitados");
     //iraURL('inbox.php');
-} else if (isset($_POST["guardar"])) {
+} else if (isset($_POST["guardar"]) && isset($_POST["tipo"])) {
     javaalert("Debe seleccionar al menos un registro");
+}else  if (isset($_POST["guardar"])){
+	 javaalert("Debe seleccionar el tipo de Valija");
 }
 ?>
 
@@ -137,9 +139,13 @@ if (isset($_POST["guardar"]) && isset($_POST["ide"])) {
                                         </select>
                                     </div> 
                                     <div class="span6" align="left" >
-                                     Tipo de Valija:    
-                                     Mercancia <input align="top" type="radio" name="tipo" id="tipo" value="1"  title="Valija tipo Mercancia">
-                                     Documento  <input align="top" type="radio" name="tipo" id="tipo" value="2" title="Valija tipo Documento">
+                                     Tipo de Valija:<select id="tipo" name="tipo"> <option value="" style="display:none">Seleccionar:</option> 
+                                            
+                                 <option value="1"> Mercancia</option>
+                                 <option value="2"> Documento</option>
+                                
+                                          
+                                        </select>
                                     </div>
                                 </form>
                                 <br>

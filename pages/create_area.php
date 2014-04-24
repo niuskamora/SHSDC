@@ -50,7 +50,7 @@ try {
 
             $result = 0;
             try {
-                $datos = array('area' => $_POST["nombre"], 'sede' => $_POST["sede"]);
+                $datos = array('area' => utf8_decode($_POST["nombre"]), 'sede' => utf8_decode($_POST["sede"]));
                 $areas = $client->call("consultarAreaExistente",$datos);
                 $result = $areas["return"];
             } catch (Exception $e) {
@@ -58,7 +58,7 @@ try {
             }
             if ($result == 0) {
                 $areanueva = array(
-                    'nombreatr' => $_POST["nombre"],
+                    'nombreatr' => utf8_decode ($_POST["nombre"]),
                     'idsed' => $_POST["sede"]);
                 $parametros = array('registroArea' => $areanueva, 'idsed' => $_POST["sede"]);
                 $guardo = $client->call("insertarArea",$parametros);

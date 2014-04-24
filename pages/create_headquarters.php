@@ -50,7 +50,7 @@ try {
 
             $result = 0;
             try {
-                $datos = array('sede' => $_POST["nombre"]);
+                $datos = array('sede' => utf8_decode($_POST["nombre"]));
                 $Sedes = $client->call("consultarSedeExistente",$datos);
                 $result = $Sedes['return'];
             } catch (Exception $e) {
@@ -68,8 +68,8 @@ try {
                     $direccion = $_POST["direccion"];
                 }
                 $Sedenueva = array(
-                    'nombresed' => $_POST["nombre"],
-                    'direccionsed' => $direccion,
+                    'nombresed' =>utf8_decode ($_POST["nombre"]),
+                    'direccionsed' => utf8_encode($direccion),
                     'telefonosed' => $telefono,
                     'telefono2sed' => $telefono2,
                     'idorg' => $_POST["organizacion"],
@@ -83,7 +83,7 @@ try {
                     javaalert("No se han Guardado los datos de la sede, Consulte con el Admininistrador");
                 } else {
                     javaalert("Se han Guardado los datos de la sede");
-                    llenarLog(1, "Inserción de Sede", $_SESSION["Usuario"]->return->idusu, $_SESSION["Sede"]->return->idsed);
+                    llenarLog(1, "Inserción de Sede", $_SESSION["Usuario"]['idusu'], $_SESSION["Sede"]['idsed']);
                 }
                 iraURL('../pages/inbox.php');
             } else {

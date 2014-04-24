@@ -113,10 +113,10 @@ if ($org=="") {
                                             <option value="" style="display:none">Seleccionar:</option>                                  
                                             <?php
                                             if ($reg == 1) {
-                                                echo '<option value="' . $org['idorg'] . '">' . $org['nombreorg'] . '</option>';
+                                                echo '<option value="' . $org['idorg'] . '">' .utf8_encode($org['nombreorg']) . '</option>';
                                             } else {
                                                 for ($i = 0; $i < $reg; $i++) {
-                                                    echo '<option value="' . $org[$i]['idorg'] . '">' . $org[$i]['nombreorg'] . '</option>';
+                                                    echo '<option value="' . $org[$i]['idorg'] . '">' . utf8_encode($org[$i]['nombreorg']) . '</option>';
                                                 }
                                             }
                                             ?>
