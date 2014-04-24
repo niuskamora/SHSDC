@@ -16,7 +16,16 @@ try {
         iraURL('../pages/inbox.php');
     }else{
 		$Areas = $Areass['return'];
-    	$reg = count($Areas);
+			
+		if(isset($Areas[0])){
+			$reg = count($Areas);
+		}
+		else{
+			$reg = 1;
+		}
+		
+		
+    	
 	}
 } catch (Exception $e) {
     javaalert('Error al deshabilitar la Area');

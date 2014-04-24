@@ -54,8 +54,8 @@ if ($Usua=="") {
     $telefono = "";
 
 
-    if (isset($Usuario['telefonousu'])) {
-        $telefono = $Usuario['telefonousu'];
+    if (isset($Usuario['telefonobuz'])) {
+        $telefono = $Usuario['telefonobuz'];
     }
     ?>
     <body class="appBg">
@@ -102,8 +102,9 @@ utf8_encode($Usuario['nombrebuz']); ?>" maxlength="150" size="30"  autofocus req
                                     </tr>
                                     <tr>
                                         <td style="text-align:center">Dirección</td>
-                                        <td style="text-align:center"><input type="text" name="direccion" id="direccion" autocomplete="off" value="<?php echo 
-utf8_encode($Usuario['direccionbuz']); ?>" maxlength="150" size="30"  ></td>
+                                        <td style="text-align:center">
+                                        <textarea  style="width:500px;"  id="direccion" name="direccion" maxlength="2000"  style="width:800px" > <?php echo utf8_encode($Usuario['direccionbuz']); ?> </textarea>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td style="text-align:center">Teléfono </td>

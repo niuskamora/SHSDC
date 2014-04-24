@@ -25,10 +25,10 @@ echo "<option value='' style='display:none'>Seleccionar:</option>";
 if ($reg > 1) {
     $i = 0;
     while ($reg > $i) {
-        echo '<option value="' . $Usuarios[$i]['idusu'] . '">' . $Usuarios[$i]['userusu'] . '</option>';
+        echo '<option value="' . $Usuarios[$i]['idusu'] . '">' .utf8_encode( $Usuarios[$i]['userusu']) . '</option>';
         $i++;
     }
 } else {
-    echo '<option value="' . $Usuarios['idusu'] . '">' . $Usuarios['userusu'] . '</option>';
+    echo '<option value="' . $Usuarios['idusu'] . '">' . utf8_encode($Usuarios['userusu']) . '</option>';
 }
 ?>
