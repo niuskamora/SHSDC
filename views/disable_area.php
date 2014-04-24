@@ -55,7 +55,7 @@ if ($Ses=="") {
                 };
                 $.ajax({
                     type: "POST",
-                    url: "../ajax/ajaxareas.php",
+                    url: "../ajax/disable_area.php",
                     data: parametros,
                     dataType: "text",
                     success: function(response) {
@@ -66,7 +66,7 @@ if ($Ses=="") {
             function buscarSedes() {
                 $.ajax({
                     type: "POST",
-                    url: "../ajax/ajaxsedes.php",
+                    url: "../ajax/disable_headquarters.php",
                     dataType: "text",
                     success: function(response) {
                         $("#contenedor").html(response);
@@ -79,7 +79,7 @@ if ($Ses=="") {
                 };
                 $.ajax({
                     type: "POST",
-                    url: "../ajax/ajaxcambioestado.php",
+                    url: "../ajax/changestate.php",
                     data: parametros,
                     dataType: "text",
                     success: function(response) {

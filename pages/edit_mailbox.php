@@ -29,9 +29,9 @@ require_once("../core/Crypt/AES.php");
                 $telefono = $_POST["telefono"];
             }
             $registroUsu = array(
-                'idbuz' => $Usuario->return->idbuz,
-                'nombrebuz' => $_POST["nombre"],
-                'direccionbuz' => $_POST["direccion"],
+                'idbuz' => $Usuario['idbuz'],
+                'nombrebuz' => utf8_decode($_POST["nombre"]),
+                'direccionbuz' => utf8_decode($_POST["direccion"]),
                 'telefonobuz' => $telefono);
             $registroU = array('registroBuzon' => $registroUsu);
             $guardo = $client->call("editarBuzon",$registroU);
