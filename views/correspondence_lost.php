@@ -184,7 +184,7 @@ if (!isset($SedeRol)) {
                 };
                 $.ajax({
                     type: "POST",
-                    url: "../ajax/view_mje2.php",
+                    url: "../ajax/view_mje.php",
                     data: parametros,
                     dataType: "text",
                     success: function(response) {

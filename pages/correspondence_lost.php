@@ -30,7 +30,7 @@ try {
 	$PaquetesExtraviados = $consumo['return'];   
     } 
 
-	include("../views/correspondence_lost2.php");
+	include("../views/correspondence_lost.php");
 } catch (Exception $e) {
     javaalert('Lo sentimos no hay conexion');
     iraURL('../pages/inbox.php');
