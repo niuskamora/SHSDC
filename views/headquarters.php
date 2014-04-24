@@ -67,7 +67,7 @@
                     <ul class="nav nav-pills">
                         <li class="pull-left">
                             <div class="modal-header">
-                                <h3>Correspondencia <span> SH</span> <?php echo "- Bienvenido, " . $_SESSION["Usuario"]->return->nombreusu; ?>
+                                <h3>Correspondencia  <?php echo '-'.utf8_encode( $_SESSION["Usuario"]["nombreusu"]) ?>
                                 </h3>
                             </div>
                         </li>
@@ -83,8 +83,8 @@
                             <select name="sede" required  title="Seleccione la Sede a la que pertenece">
                                 <option value="" style="display:none">Seleccionar:</option>                                  
                                 <?php
-                                for ($i = 0; $i < count($Sedes->return); $i++) {
-                                    echo '<option value="' . $Sedes->return[$i]->idsed . '">' . $Sedes->return[$i]->nombresed . '</option>';
+                                for ($i = 0; $i < count($Sedes); $i++) {
+                                    echo '<option value="' . $Sedes[$i]["idsed"] . '">' .utf8_encode( $Sedes[$i]["nombresed"] ). '</option>';
                                 }
                                 ?>
                             </select>

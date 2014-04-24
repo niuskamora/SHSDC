@@ -7,18 +7,12 @@ require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
 
 
-
+if (isset($_POST["Biniciar"])) {
+	
+    try {
 	$client = new nusoap_client($wsdl_sdc, 'wsdl');
 	$client->decode_utf8 = false;
-
-	
 	$_SESSION["cli"]=$client;
-//if (isset($_SESSION["Usuario"]) || isset($_SESSION["User"])) {
-//    eliminarSesion();
-//}
-
-if (isset($_POST["Biniciar"])) {
-    try {
 		/*$client = new SOAPClient($wsdl_sdc);
         $client->decode_utf8 = false;
         $Usuario = array('user' => $_POST["usuario"]);*/
@@ -41,37 +35,28 @@ if (isset($_POST["Biniciar"])) {
 	
 		$userResp = $client->call("consultarUsuarioXUser",$userparam);
         $valorUser = $userResp['return'];
-	//if (isset($UsuarioLogIn->return)) {
 		if ($userResp!="") {
-			
             $_SESSION["Usuario"] = $valorUser;
-          //  $idUsu = array('idusu' => $UsuarioLogIn->return->idusu);
-           // $registroUsu = array('registroUsuario' => $idUsu);
 			$idusu['idusu'] =$valorUser["idusu"];
 			$registroUsu["registroUsuario"]=$idusu;
-           
-		   // $Sedes = $client->consultarSedeDeUsuario($registroUsu);
-           $consumo = $client->call("consultarSedeDeUsuario",$registroUsu);
-		   $Sedes = $consumo['return'];
-		   if (!isset($Sedes[0])) {
+            $consumo = $client->call("consultarSedeDeUsuario",$registroUsu);
+		   if($consumo!=""){
+		    $Sedes = $consumo['return'];
+			 if (!isset($Sedes[0])) {
                 $_SESSION["Sede"] = $Sedes;
                iraURL("../pages/inbox.php");
             } else {
                 $_SESSION["Sedes"] = $Sedes;
                 iraURL("../pages/headquarters.php");
             }
+		   }else{
+			javaalert('No esta asignado a ninguna sede, consulte con el administrador');
+		   }
+  
         } else {
-            $_SESSION["User"] = $_POST["usuario"];
+           $_SESSION["User"] = $_POST["usuario"];
            iraURL("../pages/create_user.php");
         }
-			
-	//}else{
-	//		javaalert('No pertenece a la organizacion');
-     //         iraURL('index.php');
-			
-	//}
-		
-       
     } catch (Exception $e) {
         javaalert('Lo sentimos no hay conexion');
     }

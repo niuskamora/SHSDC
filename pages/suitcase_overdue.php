@@ -39,7 +39,7 @@ try {
 			 $consumo = $client->call("consultaNombreSedeXId",$parametros);
 			if ($consumo!="") {
 			$nombreSede = $consumo['return']; 
-			$ValijasOrigen["origenval"] = utf8_encode($nombreSede);
+			$ValijasOrigen["origenval"] = $nombreSede;
 			}
             
         } else {
@@ -47,8 +47,8 @@ try {
                 $parametros = array('Id' => $ValijasOrigen[$i]["origenval"]);
 				$consumo = $client->call("consultaNombreSedeXId",$parametros);
 				if ($consumo!="") {
-				$nombreSede = $consumo['return'];  
-				$ValijasOrigen[$i]["origenval"] = utf8_encode($nombreSede);
+				$nombreSede = $consumo['return'];
+				$ValijasOrigen[$i]["origenval"] = $nombreSede;
 				}         
 				
             }

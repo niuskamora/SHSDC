@@ -36,12 +36,11 @@ $consumo = $client->call("confirmarCorrespondenciaExterna",$parametros);
      if($confirmo==0){
 	 javaalert("Paquete no confirmado ,consulte con el administrador");
 	}elseif($confirmo==1){
-	javaalert("Se ha confirmado el paquete exitósamente");
+	utf8_encode(javaalert("Se ha confirmado el paquete exitósamente"));
 
 	}
 	 $sede = array('idsed' => $_SESSION["Sede"]["idsed"]);
     $parametros = array('sede' => $sede);
-   // $PaquetesConfirmados = $client->consultarPaquetesXConfirmarExternos($parametros);
 	$consumo = $client->call("consultarPaquetesXConfirmarExternos",$parametros);
 	if ($consumo!="") {
 	$PaquetesConfirmados = $consumo['return'];   
@@ -168,7 +167,7 @@ echo"<div class='alert alert-block' align='center'>
 
 <?php
  } catch (Exception $e) {
-					javaalert('Lo sentimos no hay conexión');
+					utf8_encode(javaalert("Lo sentimos no hay conexión"));
 					iraURL('../pages/inbox.php');
 }
  ?>  

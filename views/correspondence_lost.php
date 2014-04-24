@@ -83,8 +83,8 @@ if (!isset($SedeRol)) {
                     <div class="span10">
                         <div class="tab-content" id="bandeja">
                             <form class="form-search" id="formulario">
-                                <h2>Correspondencia Extraviada</h2>
-                                <div id="data">
+                                
+                                <div id="data"><h2>Correspondencia Extraviada</h2>
 								<?php
                                 if (isset($PaquetesExtraviados)) {
 
@@ -93,12 +93,12 @@ if (!isset($SedeRol)) {
                                     <table class='footable table table-striped table-bordered'  data-page-size=<?php echo $itemsByPage ?>>    
                                         <thead bgcolor='#FF0000'>
                                             <tr>	
-                                                <th style='width:7%; text-align:center'>Origen</th>
-                                                <th style='width:7%; text-align:center'>Destino</th>
-                                                <th style='width:7%; text-align:center' data-sort-ignore="true">Asunto </th>
-                                                <th style='width:7%; text-align:center' data-sort-ignore="true">Localización</th>
-                                                <th style='width:7%; text-align:center' data-sort-ignore="true">Fecha Emisión</th>
-												<th style='width:7%; text-align:center' data-sort-ignore="true">Ver Más</th>
+                                                <th style=' text-align:center'>Origen</th>
+                                                <th style=' text-align:center'>Destino</th>
+                                                <th style=' text-align:center' data-sort-ignore="true">Asunto </th>
+                                                <th style=' text-align:center' data-sort-ignore="true">Localización</th>
+                                                <th style=' text-align:center' data-sort-ignore="true">Fecha Emisión</th>
+												<th style='text-align:center' data-sort-ignore="true">Ver Más</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -153,6 +153,7 @@ if (!isset($SedeRol)) {
                                             ?>
                                         </tbody>
                                     </table>
+									
                                     <ul id="pagination" class="footable-nav"><span>Pag:</span></ul>			
 
                                     <?php
@@ -183,7 +184,7 @@ if (!isset($SedeRol)) {
                 };
                 $.ajax({
                     type: "POST",
-                    url: "../ajax/view_mje.php",
+                    url: "../ajax/view_mje2.php",
                     data: parametros,
                     dataType: "text",
                     success: function(response) {

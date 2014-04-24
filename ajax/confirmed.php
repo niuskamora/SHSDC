@@ -30,7 +30,6 @@ try {
             'registroUsuario' => $usu,
             'registroSede' => $sede,
             'Caso' => "Confirmar");
-        //$seg = $client->registroSeguimiento($parametros);
 		$consumo = $client->call("registroSeguimiento",$parametros);
 		if ($consumo!="") {
 		 $seg =$consumo['return'];
@@ -48,7 +47,7 @@ try {
 			<h4 align='center'>Paquete con seguimiento errado ,consulte con el administrador </h4>
 		</div> ";
         } elseif ($seg == 1) {
-            javaalert("Se ha confirmado el paquete exitósamente");
+            utf8_encode(javaalert("Se ha confirmado el paquete exitósamente"));
         }
     } else {
         echo "<br>";

@@ -56,6 +56,7 @@ $consumo = $client->call("listarMensajesXPaquete",$parametros);
 	<link href="../css/footable.paginate.css" rel="stylesheet" type="text/css" />
 
 <div id="data">
+<h2>Mensajes de la Correspondencia Extraviada</h2>
 	<?php
      if (isset($mje)) {
 
@@ -64,9 +65,9 @@ $consumo = $client->call("listarMensajesXPaquete",$parametros);
                                         <table class='footable table table-striped table-bordered'  data-page-size=<?php echo $itemsByPage ?>>    
                                             <thead bgcolor='#FF0000'>
                                                 <tr>	
-                                                    <th style='width:7%; text-align:center'>Código</th>
-                                                    <th style='width:7%; text-align:center' data-sort-ignore="true">Nombre</th>
-                                                    <th style='width:7%; text-align:center' data-sort-ignore="true">Descripción </th>
+                                                    <th style=' text-align:center'>Código</th>
+                                                    <th style=' text-align:center' data-sort-ignore="true">Nombre</th>
+                                                    <th style=' text-align:center' data-sort-ignore="true">Descripción </th>
 
                                                 </tr>
                                             </thead>
@@ -77,14 +78,12 @@ $consumo = $client->call("listarMensajesXPaquete",$parametros);
                                                     <tr>     
                                                         <td  style='text-align:center'><?php echo  $mje["idmen"] ; ?></td>
                                                         <td style='text-align:center'><?php echo utf8_encode($mje["nombremen"] ); ?></td>
-                                                        <td style='text-align:center'><?php echo utf8_encode($mje["descripcionmen"] ); ?></td>
+                                                        <td style=' text-align:center'><?php echo utf8_encode($mje["descripcionmen"] ); ?></td>
                                                     
                                                     </tr>   
                                                     <?php
                                                 } else {
-                                                    for ($i = 0; $i < count($mje); $i++) {
-
-                                              
+                                                    for ($i = 0; $i < count($mje); $i++) {        
                                                         ?>
                                                         <tr>     
                                                            <td  style='text-align:center'><?php echo  $mje[$i]["idmen"] ; ?></td>
@@ -103,7 +102,7 @@ $consumo = $client->call("listarMensajesXPaquete",$parametros);
                                     }else{
 echo"<div class='alert alert-block' align='center'>
 			<h2 style='color:rgb(255,255,255)' align='center'>Atención</h2>
-			<h4 align='center'>No hay paquetes Externos por Confirmar en estos momentos </h4>
+			<h4 align='center'>El paquete extraviado no tiene mensajes en estos momentos </h4>
 		</div> ";
 }
 ?>

@@ -257,7 +257,7 @@ try {
 
     <?php
 } catch (Exception $e) {
-    javaalert('Lo sentimos no hay conexion');
+    utf8_encode(javaalert("Lo sentimos no hay conexion"));
     iraURL('../pages/inbox.php');
 }
 ?>

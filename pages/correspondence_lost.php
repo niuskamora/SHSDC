@@ -29,9 +29,8 @@ try {
     if ($consumo!="") {
 	$PaquetesExtraviados = $consumo['return'];   
     } 
-	//$PaquetesExtraviados = $client->consultarStatusPaquete($parametros);
-    //echo '<pre>';print_r($PaquetesExtraviados);
-	include("../views/correspondence_lost.php");
+
+	include("../views/correspondence_lost2.php");
 } catch (Exception $e) {
     javaalert('Lo sentimos no hay conexion');
     iraURL('../pages/inbox.php');
