@@ -81,19 +81,19 @@
         iraURL('../index.php');
     }
     if ($reg != 0) {
-        echo "<h2> <strong>" . $Bandeja['nombreusu'] . " </strong> </h2>";
+        echo "<h2> <strong>" . utf8_encode($Bandeja['nombreusu']) . " </strong> </h2>";
         echo "<form method='post'> ";
         echo "<table class='footable table table-striped table-bordered'>
                                 <tr>
                                     <td style='text-align:center'>Nombre</td>
                                     <td style='text-align:center'>
-                                    <label>" . $Bandeja['nombreusu'] . "</label>
+                                    <label>" .utf8_encode($Bandeja['nombreusu']) . "</label>
                                     </td> 
                                 </tr>
                                 <tr>
                                     <td style='text-align:center'>Apellido</td>
                                     <td style='text-align:center'>
-                                    <label>" . $Bandeja['apellidousu'] . " </label>
+                                    <label>" . utf8_encode($Bandeja['apellidousu']) . " </label>
                                     </td> 
                                 </tr>";
 								if($SedeMia!=""){
@@ -106,7 +106,7 @@
 									}else{
 									echo $SedeMia[0]['nombresed'];
 									   for ($i = 1; $i < $Sereg; $i++) {
-									  echo ",".$SedeMia[$i]['nombresed'];
+									  echo ",".utf8_encode($SedeMia[$i]['nombresed']);
 									  }
 									}
 									echo" </label>
@@ -121,11 +121,11 @@
         if ($regr > 1) {
             $i = 0;
             while ($regr > $i) {
-                echo "<option value='" . $Sedes[$i]['nombresed'] . "' >" . $Sedes[$i]['nombresed'] . "</option>";
+                echo "<option value='" . $Sedes[$i]['nombresed'] . "' >" .utf8_encode( $Sedes[$i]['nombresed'] ). "</option>";
                 $i++;
             }
         } else {
-            echo "<option value='" . $Sedes['nombresed'] . "' >" . $Sedes['nombresed'] . "</option>";
+            echo "<option value='" . $Sedes['nombresed'] . "' >" . utf8_encode($Sedes['nombresed'] ). "</option>";
         }
         echo "</select>
             </tdt>

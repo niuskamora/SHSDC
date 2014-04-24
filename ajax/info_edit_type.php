@@ -28,7 +28,7 @@
     try {
         $reg = 0;
         if (isset($_POST['usu']) && $_POST['usu'] != "" && $_POST['usu'] != NULL) {
-            $aux = $_POST['usu'];
+            $aux = utf8_encode($_POST['usu']);
             $client = new nusoap_client($wsdl_sdc, 'wsdl');
 			$client->decode_utf8 = false;
             $datosU = array('user' => $aux);
@@ -51,19 +51,19 @@
         iraURL('../index.php');
     }
     if ($reg != 0) {
-        echo "<h2> <strong>" . $Bandeja['nombreusu'] . " </strong> </h2>";
+        echo "<h2> <strong>" .utf8_encode( $Bandeja['nombreusu']) . " </strong> </h2>";
         echo "<form method='post'> ";
         echo "<table class='footable table table-striped table-bordered'>
                                 <tr>
                                     <td style='text-align:center'>Nombre</td>
                                     <td style='text-align:center'>
-                                    <label>" . $Bandeja['nombreusu'] . "</label>
+                                    <label>" .utf8_encode( $Bandeja['nombreusu']) . "</label>
                                     </td> 
                                 </tr>
                                 <tr>
                                     <td style='text-align:center'>Apellido</td>
                                     <td style='text-align:center'>
-                                    <label>" . $Bandeja['apellidousu'] . " </label> 
+                                    <label>" . utf8_encode($Bandeja['apellidousu'] ). " </label> 
                                     </td> 
                                 </tr>
                                 <tr>

@@ -122,8 +122,8 @@ if ($reg != 0) {
         } else {
             $asunto = $Valija['asuntopaq'];
         }
-        echo "<td  style='text-align:center'>" . $Valija['destinopaq']['idusu']['nombreusu'] . "</td>";
-        echo "<td  style='text-align:center'>" . $asunto . "</td>";
+        echo "<td  style='text-align:center'>" . utf8_encode($Valija['destinopaq']['idusu']['nombreusu']) . "</td>";
+        echo "<td  style='text-align:center'>" .utf8_encode( $asunto ). "</td>";
         echo "<td style='text-align:center'>" . $Valija['iddoc']['nombredoc'] . "</td>";
         if ($Valija['respaq'] == 0) {
             echo "<td style='text-align:center'> No </td>";
@@ -149,27 +149,7 @@ if ($reg != 0) {
 		</div> ";
 }
 ?>
-    <script  type="text/javascript">
-        function Rep(id) {
-            rd = document.getElementsByName("idr");
-            document.nombe_forma.idr[0].disabled = true;
-        }
-
-        function Con(id) {
-            var parametros = {
-                "idpaq": idpaq
-            };
-            $.ajax({
-                type: "POST",
-                url: "../ajax/packeges_report_confirm.php",
-                data: parametros,
-                dataType: "text",
-                success: function(response) {
-                    $("#alert").html(response);
-                }
-            });
-        }
-    </script>
+   
 
     <script src="../js/footable.js" type="text/javascript"></script>
     <script src="../js/footable.paginate.js" type="text/javascript"></script>

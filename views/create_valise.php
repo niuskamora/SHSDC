@@ -124,7 +124,7 @@ if (isset($_POST["guardar"]) && isset($_POST["ide"]) && isset($_POST["tipo"]) ) 
                             <?php if ($reg != 0) { ?>
                                 <form class="form-Cvalija">
                                     <div class="span6" >
-                                        Elija el destino:  <select onChange="sede();" name="Destinos"> <option value="" style="display:none">Seleccionar:</option> 
+                                        Elija el destino:  <select onChange="sede();" id="destinos" name="destinos"> <option value="" style="display:none">Seleccionar:</option> 
                                             <?php
                                             if ($reg > 1) {
                                                 $i = 0;
@@ -174,7 +174,7 @@ if (isset($_POST["guardar"]) && isset($_POST["ide"]) && isset($_POST["tipo"]) ) 
 			$.ajax({
 				type: "POST",
 				url: "../ajax/create_valise.php",
-				data: {'sed': $("#lista option:selected").text()},
+				data: {'sed': $("#destinos option:selected").text()},
                 dataType: "text",
 				success: function(response) {
 					$("#registro").html(response);
