@@ -112,8 +112,8 @@ if ($usu== "") {
                                         </thead>
                                         <tbody>
                                             <?php
-                                            if ($bitacora > 1) {
-                                                for ($i = 0; $i < $bitacora; $i++) {
+                                            if ($reg > 1) {
+                                                for ($i = 0; $i < $reg; $i++) {
 													 $areaBuzon="Externo";$sedeBuzon="Externo";
 													if(isset($resultadoLista[$i]['idatr']['nombreatr'])){
 														$areaBuzon=$resultadoLista[$i]['idatr']['nombreatr'];
@@ -123,9 +123,9 @@ if ($usu== "") {
 													}
 												?>
                                                     <tr>
-                                                        <td style="text-align:center"><?php echo $resultadoLista[$i]['nombrebuz'] ?></td>
-                                                        <td style="text-align:center"><?php echo $areaBuzon; ?></td>                   
-                                                        <td style="text-align:center"><?php echo $sedeBuzon; ?></td>                                            	
+                                                        <td style="text-align:center"><?php echo utf8_encode ($resultadoLista[$i]['nombrebuz']) ?></td>
+                                                        <td style="text-align:center"><?php echo utf8_encode ($areaBuzon); ?></td>                   
+                                                        <td style="text-align:center"><?php echo utf8_encode ($sedeBuzon); ?></td>                                            	
                                                         <td style="text-align:center"><a href='../pages/edit_mailbox.php?id=<?php echo $resultadoLista[$i]['idbuz']?>'><button type='button' class='btn btn-info btn-primary' value='Editar'> Editar </button> </a></td>
                                                         
                                                     </tr>
@@ -134,16 +134,16 @@ if ($usu== "") {
                                             } else { 
 											        $areaBuzon="Externo";$sedeBuzon="Externo";
 													if(isset($resultadoLista['idatr']['nombreatr'])){
-														$areaBuzon=$resultadoLista[$i]['idatr']['nombreatr'];
+														$areaBuzon=$resultadoLista['idatr']['nombreatr'];
 													}
 													if(isset($resultadoLista['idatr']['idsed']['nombresed'])){
-														$sedeBuzon=$resultadoLista[$i]['idatr']['idsed']['nombresed'];
+														$sedeBuzon=$resultadoLista['idatr']['idsed']['nombresed'];
 													}
 ?>
                                                     <tr>
-                                                        <td style="text-align:center"><?php echo $resultadoLista['nombrebuz'] ?></td>
-                                                        <td style="text-align:center"><?php echo $areaBuzon; ?></td>                   
-                                                        <td style="text-align:center"><?php echo $sedeBuzon; ?></td>                                            	
+                                                        <td style="text-align:center"><?php echo utf8_encode ( $resultadoLista['nombrebuz']) ?></td>
+                                                        <td style="text-align:center"><?php echo utf8_encode ($areaBuzon); ?></td>                   
+                                                        <td style="text-align:center"><?php echo utf8_encode ($sedeBuzon); ?></td>                                            	
                                                   
                                                         <td style="text-align:center"><a href='../pages/edit_mailbox.php?id=<?php echo $resultadoLista['idbuz']?>'><button type='button' class='btn btn-info btn-primary' value='Editar'> Editar </button> </a></td>
                                                         

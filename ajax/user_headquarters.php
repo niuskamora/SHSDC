@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 include("../recursos/funciones.php");
 require_once("../lib/nusoap.php");

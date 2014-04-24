@@ -7,7 +7,9 @@ require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
-
+	$client = new nusoap_client($wsdl_sdc, 'wsdl');
+	$client->decode_utf8 = false;
+	$_SESSION["cli"]=$client;
 if (!isset($_SESSION["Usuario"])) {
     iraURL("../index.php");
 } elseif (!usuarioCreado()) {
@@ -15,10 +17,16 @@ if (!isset($_SESSION["Usuario"])) {
 }
 
 try {
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
-    $UsuarioRol = array('idusu' => $_SESSION["Usuario"]->return->idusu, 'sede' => $_SESSION["Sede"]->return->nombresed);
-    $SedeRol = $client->consultarSedeRol($UsuarioRol);
+       
+    $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"], 'sede' => $_SESSION["Sede"]["nombresed"]);
+ $consumo = $client->call("consultarSedeRol",$UsuarioRol);
+	if ($consumo!="") {
+	$SedeRol = $consumo['return'];   
+        
+    } else {
+        iraURL('../pages/inbox.php');
+    }
+   
 
     if (isset($_POST["crear"])) {
         if (isset($_POST["nombre"]) && $_POST["nombre"] != "" && isset($_POST["correo"]) && $_POST["correo"] != "" && isset($_POST["cedularif"]) && $_POST["cedularif"] != "" && isset($_POST["telefono"]) && $_POST["telefono"] != "" && isset($_POST["direccion"]) && $_POST["direccion"] != "") {
@@ -33,20 +41,20 @@ try {
                     $direccion = $_POST["direccion"];
                 }
                 $Buzon = array(
-                    'nombrebuz' => $_POST["nombre"],
-                    'identificacionbuz' => $_POST["cedularif"],
+                    'nombrebuz' =>  utf8_decode($_POST["nombre"]),
+                    'identificacionbuz' =>  $_POST["cedularif"],
                     'correobuz' => $correo,
-                    'direccionbuz' => $direccion,
+                    'direccionbuz' => utf8_decode($direccion),
                     'telefonobuz' => $telefono,
                     'tipobuz' => "1",
                     'borradobuz' => "0");
-                $parametros = array('buzon' => $Buzon, 'idusu' => $_SESSION["Usuario"]->return->idusu, 'idsed' => $_SESSION["Sede"]->return->idsed);
-                $guardo = $client->insertarBuzonExterno($parametros);
+                $parametros = array('buzon' => $Buzon, 'idusu' => $_SESSION["Usuario"]['idusu'], 'idsed' => $_SESSION["Sede"]['idsed']);
+                $guardo = $client->call("insertarBuzonExterno",$parametros);
                 if ($guardo->return == 0) {
                     javaalert("No se han Guardado los datos del Buzon externo, Consulte con el Admininistrador");
                 } else {
                     javaalert("Se han Guardado los datos del Buzon externo");
-                    llenarLog(1, "Creacion de buzon externo", $_SESSION["Usuario"]->return->idusu, $_SESSION["Sede"]->return->idsed);
+                    llenarLog(1, "Creacion de buzon externo", $_SESSION["Usuario"]['idusu'], $_SESSION["Sede"]['idsed']);
                 }
                 iraURL('../pages/send_correspondence.php');
             } else {

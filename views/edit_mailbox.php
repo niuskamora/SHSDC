@@ -97,11 +97,13 @@ if ($Usua=="") {
                                 <table class='footable table table-striped table-bordered'>
                                     <tr>
                                         <td style="text-align:center" >Nombre</td>
-                                        <td style="text-align:center"><input type="text" name="nombre" id="nombre" autocomplete="off" value="<?php echo $Usuario['nombrebuz']; ?>" maxlength="150" size="30"  autofocus required></td>
+                                        <td style="text-align:center"><input type="text" name="nombre" id="nombre" autocomplete="off" value="<?php echo 
+utf8_encode($Usuario['nombrebuz']); ?>" maxlength="150" size="30"  autofocus required></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align:center">Dirección</td>
-                                        <td style="text-align:center"><input type="text" name="direccion" id="direccion" autocomplete="off" value="<?php echo $Usuario['direccionbuz']; ?>" maxlength="150" size="30"  ></td>
+                                        <td style="text-align:center"><input type="text" name="direccion" id="direccion" autocomplete="off" value="<?php echo 
+utf8_encode($Usuario['direccionbuz']); ?>" maxlength="150" size="30"  ></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align:center">Teléfono </td>

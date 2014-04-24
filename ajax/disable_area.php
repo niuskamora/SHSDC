@@ -1,4 +1,9 @@
 <?php
+include("../recursos/funciones.php");
+require_once("../lib/nusoap.php");
+require_once("../config/wsdl.php");
+require_once("../config/definitions.php");
+require_once("../core/Crypt/AES.php");
 $idsede = $_POST['idsede'];
 
 try {
@@ -46,8 +51,8 @@ if ($reg > 0) {
                     </button></td>
                 <?php
             } else {
-                echo "<td style='text-align:center' data-sort-ignore='true'>" . $Areas[$j]['idatr'] . "</td>";
-                echo "<td style='text-align:left;'>" . $Areas[$j]['nombreatr'] . "</td>";
+                echo "<td style='text-align:center' data-sort-ignore='true'>" . utf8_encode($Areas[$j]['idatr']) . "</td>";
+                echo "<td style='text-align:left;'>" . utf8_encode($Areas[$j]['nombreatr']) . "</td>";
                 ?>
                 <td style="text-align:center"> 
                     <button class='btn' onClick="cambiar('<?php echo $Areas[$j]['idatr']; ?>', this);">

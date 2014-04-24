@@ -19,9 +19,19 @@ require_once("../core/Crypt/AES.php");
   
     $i = 0;
     $Sede = array('sede' => $_SESSION["Sede"]['nombresed']);
-    $UsuarioRol = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sede' => $_SESSION["Sede"]['nombresed']);
-    $SedeR = $client->call("consultarSedeRol",$UsuarioRol);
-	$SedeRol=$SedeR['return'];
+ 
+	
+	$UsuarioRol = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sede' => $_SESSION["Sede"]['nombresed']);
+     $SedeR = $client->call("consultarSedeRol",$UsuarioRol);
+	 
+	 
+    if ($SedeR!="") {
+		$SedeRol=$SedeR['return'];
+       
+    } else {
+        iraURL('../pages/inbox.php');
+    }
+	
 } catch (Exception $e) {
     javaalert('Lo sentimos no hay conexion');
     iraURL('../pages/inbox.php');
