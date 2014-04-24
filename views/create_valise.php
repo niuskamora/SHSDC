@@ -29,7 +29,7 @@ if (isset($_POST["guardar"]) && isset($_POST["ide"]) && isset($_POST["tipo"]) ) 
     //iraURL('inbox.php');
 } else if (isset($_POST["guardar"]) && isset($_POST["tipo"])) {
     javaalert("Debe seleccionar al menos un registro");
-}else  if (isset($_POST["guardar"])){
+}else  if (isset($_POST["guardar"])  && !isset($_POST["tipo"])){
 	 javaalert("Debe seleccionar el tipo de Valija");
 }
 ?>
