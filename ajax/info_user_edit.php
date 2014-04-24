@@ -39,12 +39,12 @@
 			
 			$Bandeja=$Bandej['return'];
 			$Roles=$Role['return'];
-            $dau = array('idusu' => $Bandeja['idusu'], 'sede' => $_SESSION["sedeb"]);
+            $dau = array('idusu' => utf8_decode($Bandeja['idusu']), 'sede' => utf8_decode($_SESSION["sedeb"]));
             $sedeUs = $client->call("consultarSedeRol",$dau);
 			
 			if($sedeUs!=""){
 				$sedeU=$sedeUs['return'];
-				$regs = count($sedeU->return);
+				$regs = count($sedeU);
 			}
 			
             $reg = count($Bandeja);
@@ -59,20 +59,20 @@
         javaalert('Lo sentimos no hay conexion');
         iraURL('../index.php');
     }
-    echo "<h2> <strong>" . $Bandeja['nombreusu'] . " </strong> </h2>";
+    echo "<h2> <strong>" . utf8_encode($Bandeja['nombreusu']) . " </strong> </h2>";
     if ($reg != 0) {
         echo "<form method='post'> ";
         echo "<table class='footable table table-striped table-bordered'>
                                 <tr>
                                     <td style='text-align:center'>Nombre</td>
                                     <td style='text-align:center'>
-                                    <label>" . $Bandeja['nombreusu'] . "</label>
+                                    <label>" . utf8_encode($Bandeja['nombreusu']) . "</label>
                                     </td> 
                                 </tr>
                                 <tr>
                                     <td style='text-align:center'>Apellido</td>
                                     <td style='text-align:center'>
-                                    <label>" . $Bandeja['apellidousu'] . " </label>
+                                    <label>" .utf8_encode( $Bandeja['apellidousu']) . " </label>
                                     </td> 
                                 </tr>
                                 <tr>
@@ -83,14 +83,14 @@
             $i = 0;
             while ($regr > $i) {
                 if ($sedeU['idrol']['idrol'] == $Roles[$i]['idrol']) {
-                    echo "<option selected='selected' value='" . $Roles[$i]['idrol'] . "' >" . $Roles[$i]['nombrerol'] . "</option>";
+                    echo "<option selected='selected' value='" . $Roles[$i]['idrol'] . "' >" .utf8_encode( $Roles[$i]['nombrerol']) . "</option>";
                 } else {
-                    echo "<option value='" . $Roles[$i]['idrol'] . "' >" . $Roles[$i]['nombrerol'] . "</option>";
+                    echo "<option value='" . $Roles[$i]['idrol'] . "' >" .utf8_encode( $Roles[$i]['nombrerol']) . "</option>";
                 }
                 $i++;
             }
         } else {
-            echo "<option value='" . $Roles['idrol'] . "' >" . $Roles['nombrerol'] . "</option>";
+            echo "<option value='" . $Roles['idrol'] . "' >" . utf8_encode($Roles['nombrerol']) . "</option>";
         }
         echo "</select>
             </tdt>

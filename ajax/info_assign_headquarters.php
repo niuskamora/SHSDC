@@ -31,7 +31,8 @@
             $aux = $_POST['usu'];
             $datosU = array('user' => $aux);
            
-		   
+		    $client = new nusoap_client($wsdl_sdc, 'wsdl');
+			$client->decode_utf8 = false;
             $Bandej = $client->call("consultarUsuarioXUser",$datosU);
 			$u = array('idusu' => $Bandeja['return']['idusu']);
 			$usu= array('registroUsuario' => $u);

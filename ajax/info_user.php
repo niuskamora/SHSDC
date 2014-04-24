@@ -30,51 +30,54 @@ require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
     $aux = $_POST['idusu'];
-        $client = new SOAPClient($wsdl_sdc);
-    $client->decode_utf8 = false;
+    
+	$client = new nusoap_client($wsdl_sdc, 'wsdl');
+	$client->decode_utf8 = false;
+	$_SESSION["cli"]=$client;
 
-    $datosU = array('idUsuario' => $aux);
-    $Bandeja = $client->consultarUsuario($datosU);
+    $datosU = array('idUsuario' => utf8_decode($aux));
+    $Bandej = $client->call("consultarUsuario",$datosU);
     $reg = 0;
-    if (isset($Bandeja->return)) {
-        $reg = count($Bandeja->return);
-        $_SESSION["usubox"] = $Bandeja->return->idusu;
+    if ($Bandej!="") {
+		$Bandeja=$Bandej['return'];
+        $reg = count($Bandeja);
+        $_SESSION["usubox"] = $Bandeja['idusu'];
     } else {
         $reg = 0;
     }
-    echo "<h2> <strong>" . $Bandeja->return->nombreusu . " </strong> </h2>";
+    echo "<h2> <strong>" . utf8_encode($Bandeja['nombreusu'] ). " </strong> </h2>";
     if ($reg != 0) {
         echo "<form method='post'> ";
         echo "<table class='footable table table-striped table-bordered'>
                                 <tr>
                                     <td style='text-align:center'>Nombre</td>
                                     <td style='text-align:center'>
-                                    <label>" . $Bandeja->return->nombreusu . "</label> 
+                                    <label>" . utf8_encode($Bandeja['nombreusu']) . "</label> 
                                 </tr>
                                 <tr>
                                     <td style='text-align:center'>Apellido</td>
                                     <td style='text-align:center'>
-                                    <label>" . $Bandeja->return->apellidousu . " </label> 
+                                    <label>" .utf8_encode( $Bandeja['apellidousu']) . " </label> 
                                 </tr>
                                 <tr>
                                     <td style='text-align:center'>Correo</td>
                                     <td style='text-align:center'>
-                                    <label>" . $Bandeja->return->correousu . " </label> 
+                                    <label>" . $Bandeja['correousu'] . " </label> 
                                 </tr>
                                 <tr>
                                     <td style='text-align:center'>Telefono</td>
                                     <td style='text-align:center'>
-                                    <label>" . $Bandeja->return->telefonousu . " </label> 
+                                    <label>" . $Bandeja['telefonousu'] . " </label> 
                                 </tr>
                                 <tr>
                                     <td style='text-align:center'>Telefono auxiliar</td>
                                     <td style='text-align:center'>
-                                    <label>" . $Bandeja->return->telefono2usu . " </label> 
+                                    <label>" . $Bandeja['telefono2usu'] . " </label> 
                                 </tr>
                                 <tr>
                                     <td style='text-align:center'>Direccion</td>
                                     <td style='text-align:center'>
-                                    <label>" . $Bandeja->return->direccionusu . " </label> 
+                                    <label>" .utf8_encode( $Bandeja['direccionusu']) . " </label> 
                                 </tr>
                                 
                             </table>

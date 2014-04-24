@@ -29,8 +29,7 @@
         $reg = 0;
         if (isset($_POST['usu']) && $_POST['usu'] != "" && $_POST['usu'] != NULL) {
             $aux = utf8_encode($_POST['usu']);
-            $client = new nusoap_client($wsdl_sdc, 'wsdl');
-			$client->decode_utf8 = false;
+           $client = new nusoap_client($wsdl_sdc, 'wsdl');
             $datosU = array('user' => $aux);
             $Bandej = $client->call("consultarUsuarioXUser",$datosU);
 			

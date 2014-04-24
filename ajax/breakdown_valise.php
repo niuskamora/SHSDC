@@ -8,17 +8,7 @@ require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
 ?>		 
 
-<!-- javascript -->
-<script type='text/javascript' src="../js/jquery-1.9.1.js"></script>
-<script type='text/javascript' src="../js/bootstrap.js"></script>
-<script type='text/javascript' src="../js/bootstrap-transition.js"></script>
-<script type='text/javascript' src="../js/bootstrap-tooltip.js"></script>
-<script type='text/javascript' src="../js/modernizr.min.js"></script>
-<!--<script type='text/javascript' src="../js/togglesidebar.js"></script>-->	
-<script type='text/javascript' src="../js/custom.js"></script>
-<script type='text/javascript' src="../js/jquery.fancybox.pack.js"></script>
 
-<!-- styles -->
 <link rel="shortcut icon" href="../images/faviconsh.ico">
 
 <link href="../css/bootstrap.css" rel="stylesheet">

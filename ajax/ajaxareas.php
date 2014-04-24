@@ -60,7 +60,7 @@ if ($reg > 0) {
         }
     } else {
         if ($Areas['borradoatr'] == 0) {
-            echo "<td style='background-color: rgb(206, 200, 200);	text-align:center' data-sort-ignore='true'>" . $Areas->return->idatr . "</td>";
+            echo "<td style='background-color: rgb(206, 200, 200);	text-align:center' data-sort-ignore='true'>" . $Areas['idatr'] . "</td>";
             echo "<td style='text-align:left; background-color: rgb(206, 200, 200);'>" . $Areas['nombreatr'] . "</td>";
             ?>
             <td style='background-color: rgb(206, 200, 200); text-align:center'> 

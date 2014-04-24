@@ -10,7 +10,7 @@ $nivell = $client->call("consultarNivel",$prioridad);
         javaalert("lo sentimos no se pueden crear Areas, no existen sedes registradas, Consulte con el administrador");
         iraURL('../pages/inbox.php');
     }else{
-		$nivel=$nivell["return"];
+		$nivel=$nivell['return'];
 			if(isset($nivel[0])){
 				$reg = count($nivel);
 				for ($i = 0; $i < $reg; $i++) {

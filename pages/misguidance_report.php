@@ -54,7 +54,7 @@ try {
                 $parametros = array('registroPaquete' => $_POST["cPaquete"],
                     'registroUsuario' => $idUsuario,
                     'registroSede' => $sede,
-                    'datosPaquete' => $_POST["datosPaquete"]);
+                    'datosPaquete' =>  utf8_decode($_POST["datosPaquete"]));
                
                 $reportarPaqExc = $client->call("reportarPaqueteExtravio",$parametros);
 
@@ -63,7 +63,7 @@ try {
                     llenarLog(7, "Paquete Extraviado", $usuarioBitacora, $sede);
                     iraURL('../pages/administration.php');
                 } else {
-                    javaalert('no se pudo dar de baja el paquete, verifique la informaciÃ³n o consulte con el administrador');
+                    javaalert('no se pudo dar de baja el paquete, verifique la información o consulte con el administrador');
                     iraURL('../pages/administration.php');
                 }
             } catch (Exception $e) {
@@ -83,7 +83,7 @@ try {
                 $parametros = array('registroValija' => $_POST["cValija"],
                     'registroUsuario' => $idUsuario,
                     'registroSede' => $sede,
-                    'datosValija' => $_POST["datosValija"]);
+                    'datosValija' => utf8_decode($_POST["datosValija"]));
                 
                 $reportarValija = $client->call("reportarValijaExtravio",$parametros);
 

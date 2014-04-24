@@ -90,11 +90,11 @@
                                         $i = 0;
                                         while ($reg > $i) {
 
-                                            echo '<option value="' . $Sedes['nombresed'] . '" >' . $Sedes[$i]['nombresed'] . '</option>';
+                                            echo '<option value="' . $Sedes['nombresed'] . '" >' . utf8_encode($Sedes[$i]['nombresed']). '</option>';
                                             $i++;
                                         }
                                     } else {
-                                        echo '<option value="' . $Sedes['nombresed'] . '" >' . $Sedes['nombresed'] . '</option>';
+                                        echo '<option value="' . $Sedes['nombresed'] . '" >' . utf8_encode($Sedes['nombresed']) . '</option>';
                                     }
                                     ?>
                                 </select>
