@@ -40,7 +40,7 @@ if ($reg > 1) {
 				echo "<td style='text-align:left'>" . $Sedes[$j]['nombresed'] . "</td>";
 				?>
 				<td style="text-align:center"> 
-					 <button class='btn' onClick="buscarAreas('<?php echo $Sedes[$j]['idsed']; ?>');">
+					 <button class='btn' onClick="buscarAreas('<?php echo utf8_encode( $Sedes[$j]['idsed']); ?>');">
 						<span class="icon-home" > </span>
 					</button></td>
 				<?php
@@ -51,7 +51,7 @@ if ($reg > 1) {
 	}else{
 		
 		echo "<td text-align:center' data-sort-ignore='true'>" . $Sedes['idsed'] . "</td>";
-				echo "<td style='text-align:left'>" . $Sedes['nombresed'] . "</td>";
+				echo "<td style='text-align:left'>" . utf8_encode($Sedes['nombresed'] ). "</td>";
 				?>
 				<td style="text-align:center"> 
 					 <button class='btn' onClick="buscarAreas('<?php echo $Sedes['idsed']; ?>');">

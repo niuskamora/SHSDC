@@ -112,8 +112,8 @@ if ($usu== "") {
                                         </thead>
                                         <tbody>
                                             <?php
-                                            if ($bitacora > 1) {
-                                                for ($i = 0; $i < $bitacora; $i++) {
+                                            if ($reg > 1) {
+                                                for ($i = 0; $i < $reg; $i++) {
 													 $areaBuzon="Externo";$sedeBuzon="Externo";
 													if(isset($resultadoLista[$i]['idatr']['nombreatr'])){
 														$areaBuzon=$resultadoLista[$i]['idatr']['nombreatr'];
@@ -134,10 +134,10 @@ if ($usu== "") {
                                             } else { 
 											        $areaBuzon="Externo";$sedeBuzon="Externo";
 													if(isset($resultadoLista['idatr']['nombreatr'])){
-														$areaBuzon=$resultadoLista[$i]['idatr']['nombreatr'];
+														$areaBuzon=$resultadoLista['idatr']['nombreatr'];
 													}
 													if(isset($resultadoLista['idatr']['idsed']['nombresed'])){
-														$sedeBuzon=$resultadoLista[$i]['idatr']['idsed']['nombresed'];
+														$sedeBuzon=$resultadoLista['idatr']['idsed']['nombresed'];
 													}
 ?>
                                                     <tr>

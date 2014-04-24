@@ -17,7 +17,17 @@ require_once("../core/Crypt/AES.php");
         iraURL("../pages/create_user.php");
     }
     $UsuarioRol = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sede' => $_SESSION["Sede"]['nombresed']);
-    $SedeRol = $client->call("$UsuarioRol",$UsuarioRol);
+    $SedeR = $client->call("consultarSedeRol",$UsuarioRol);
+	 
+	 
+    if ($SedeR!="") {
+		$SedeRol=$SedeR['return'];
+       
+    } else {
+        iraURL('../pages/inbox.php');
+    }
+	
+	
     $Buzon = array('idbuz' => $_GET["id"]);
     $Usua = $client->call("consultarBuzon",$Buzon);
 	$Usuario=$Usua['return'];

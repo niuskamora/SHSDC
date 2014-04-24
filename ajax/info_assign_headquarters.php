@@ -39,7 +39,7 @@ require_once("../core/Crypt/AES.php");
 		    $client = new nusoap_client($wsdl_sdc, 'wsdl');
 			$client->decode_utf8 = false;
             $Bandej = $client->call("consultarUsuarioXUser",$datosU);
-			$u = array('idusu' => $Bandeja['return']['idusu']);
+			$u = array('idusu' => $Bandej['return']['idusu']);
 			$usu= array('registroUsuario' => $u);
 			$SedeM = $client->call("consultarSedeDeUsuario",$usu);
 			$SedeMia = $SedeM['return'];

@@ -18,9 +18,10 @@ try {
        
     $UsuarioRol = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sede' => $_SESSION["Sede"]['nombresed']);
      $SedeR = $client->call("consultarSedeRol",$UsuarioRol);
-	 $SedeRol=$SedeR['return'];
+	 
 	 
     if ($SedeR!="") {
+		$SedeRol=$SedeR['return'];
         if ($SedeRol['idusu']['tipousu'] != "1" && $SedeRol['idusu']['tipousu'] != "2") {
             iraURL('../pages/inbox.php');
         }
