@@ -6,26 +6,30 @@ require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
-$client = new SOAPClient($wsdl_sdc);
-$client->decode_utf8 = false;
+	$client = new nusoap_client($wsdl_sdc, 'wsdl');
+	$client->decode_utf8 = false;
 $aux = $_POST['sed'];
 
 $Sede = array('sede' => $aux);
 $_SESSION["sedeb"] = $aux;
-$Usuarios = $client->consultarUsuariosXSede($Sede);
+$UsuariosR = $client->call("consultarUsuariosXSede",$Sede);
 
 $reg = 0;
-if (isset($Usuarios->return)) {
-    $reg = count($Usuarios->return);
+if (($UsuariosR!="")) {
+	$Usuarios=$UsuariosR['return'];
+    $reg = count($Usuarios);
+}else{
+	 javaalert('no posee usuarios esta sede');
+        iraURL('../pages/use_role.php');
 }
 echo "<option value='' style='display:none'>Seleccionar:</option>";
 if ($reg > 1) {
     $i = 0;
     while ($reg > $i) {
-        echo '<option value="' . $Usuarios->return[$i]->idusu . '">' . $Usuarios->return[$i]->userusu . '</option>';
+        echo '<option value="' . $Usuarios[$i]['idusu'] . '">' . $Usuarios[$i]['userusu'] . '</option>';
         $i++;
     }
 } else {
-    echo '<option value="' . $Usuarios->return->idusu . '">' . $Usuarios->return->userusu . '</option>';
+    echo '<option value="' . $Usuarios['idusu'] . '">' . $Usuarios['userusu'] . '</option>';
 }
 ?>

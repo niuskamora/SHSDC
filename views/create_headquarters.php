@@ -1,5 +1,5 @@
 <?php
-if (!isset($org->return)) {
+if ($org=="") {
     echo '<script language="javascript"> window.location = "../pages/inbox.php"; </script>';
 }
 ?>

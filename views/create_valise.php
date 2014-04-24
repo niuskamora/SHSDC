@@ -3,7 +3,8 @@ if (isset($_POST["guardar"]) && isset($_POST["ide"])) {
     try {
         $registrosAValija = $_POST["ide"];
         $contadorAceptados = 0;
-        $datosValija = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sorigen' => $_SESSION["Sede"]['idsed'], 'sdestino' => $_SESSION["seded"], 'fechaapaq' => date('Y-m-d', strtotime(str_replace('/', '-', "27/03/2014"))));
+		
+        $datosValija = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sorigen' => $_SESSION["Sede"]['idsed'], 'sdestino' => $_SESSION["seded"], 'tipoval' => $_POST["tipo"]);
        $client = new nusoap_client($wsdl_sdc, 'wsdl');
         $client->decode_utf8 = false;
         $idValija = $client->call("insertarValija",$datosValija);
@@ -135,7 +136,10 @@ if (isset($_POST["guardar"]) && isset($_POST["ide"])) {
                                             ?>
                                         </select>
                                     </div> 
-                                    <div class="span6" >
+                                    <div class="span6" align="left" >
+                                     Tipo de Valija:    
+                                     Mercancia <input align="top" type="radio" name="tipo" id="tipo" value="1"  title="Valija tipo Mercancia">
+                                     Documento  <input align="top" type="radio" name="tipo" id="tipo" value="2" title="Valija tipo Documento">
                                     </div>
                                 </form>
                                 <br>

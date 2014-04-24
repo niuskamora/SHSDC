@@ -1,5 +1,5 @@
 <?php
-if ($org=="") {
+if ($Ses=="") {
     echo '<script language="javascript"> window.location = "../pages/inbox.php"; </script>';
 }
 ?>
