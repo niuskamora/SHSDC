@@ -83,7 +83,7 @@ if ($idPaq == "") {
             //iraURL('../pdf/proof_of_correspondence.php');
         }
     } catch (Exception $e) {
-        javaalert('Lo sentimos no hay conexion');
+        utf8_decode(javaalert('Lo sentimos no hay conexión'));
         iraURL('../pages/inbox.php');
     }
     echo "<script languaje='javascript' type='text/javascript'>window.close();</script>";

@@ -143,7 +143,7 @@ if ($usuarioBitacora == "") {
                                     <br>
                                     <?php if ($_SESSION["Usuario"]['tipousu'] == "2") { ?>
                                         <div align="right">                      
-                                            <button type="submit" class="btn" id="vaciar" name="vaciar" onclick="return confirm('¿Esta seguro que desea vaciar la Bitacora?')">Vaciar Bitácora</button>
+                                            <button type="submit" class="btn" id="vaciar" name="vaciar" onclick="return confirm('¿Esta seguro que desea vaciar la Bitácora?')">Vaciar Bitácora</button>
 
                                         </div>
                                     <?php } ?>

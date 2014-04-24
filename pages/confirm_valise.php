@@ -82,7 +82,7 @@ if (isset($_POST["confirmar"])) {
                 iraURL('../pages/create_valise.php');
             }
         } catch (Exception $e) {
-            javaalert('Lo sentimos no hay conexion');
+            utf8_decode(javaalert('Lo sentimos no hay conexión'));
             iraURL('../pages/create_valise.php');
         }
     } else {

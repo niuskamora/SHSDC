@@ -68,7 +68,7 @@ try {
     }
     include("../views/info_reports_package.php");
 } catch (Exception $e) {
-    javaalert('Lo sentimos no hay conexion');
+    utf8_decode(javaalert('Lo sentimos no hay conexión'));
     iraURL('../pages/reports_package.php');
 }
 ?>

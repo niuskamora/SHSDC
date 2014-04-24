@@ -114,7 +114,7 @@ if ($sede == '0') {
         }
         include("../graphics/reports_package_horizontally.php");
     } catch (Exception $e) {
-        javaalert('Lo sentimos no hay conexion');
+        utf8_decode(javaalert('Lo sentimos no hay conexión'));
         iraURL('../pages/reports_package.php');
     }
 } else {
@@ -134,7 +134,7 @@ if ($sede == '0') {
         }
         include("../graphics/reports_package_vertical.php");
     } catch (Exception $e) {
-        javaalert('Lo sentimos no hay conexion');
+        utf8_decode(javaalert('Lo sentimos no hay conexión'));
         iraURL('../pages/reports_package.php');
     }
 }

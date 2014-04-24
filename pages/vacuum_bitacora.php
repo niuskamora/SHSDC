@@ -52,17 +52,17 @@ try {
         $consumoVacioBitacora = $client->call("vaciarBitacora");
         $resultadoVacioBitacora = $consumoVacioBitacora['return'];
         if (isset($resultadoVacioBitacora) == 1) {
-            javaalert('Bitacora Vacia');
+            utf8_decode(javaalert('Bitácora Vacia'));
             llenarLog(8, "Vacio de Bitácora", $usuarioBitacora, $sede);
             iraURL('../pages/administration.php');
         } else {
-            javaalert('Bitacora No Vacia');
+            utf8_decode(javaalert('Bitácora No Vacia'));
             iraURL('../pages/administration.php');
         }
     }
     include("../views/vacuum_bitacora.php");
 } catch (Exception $e) {
-    javaalert('Lo sentimos no hay conexion');
+    utf8_decode(javaalert('Lo sentimos no hay conexión'));
     iraURL('../pages/administration.php');
 }
 ?>

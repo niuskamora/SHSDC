@@ -90,7 +90,7 @@ if ($idVal == "") {
             //iraURL('../pdf/proof_pouch.php');
         }
     } catch (Exception $e) {
-        javaalert('Lo sentimos no hay conexion');
+        utf8_decode(javaalert('Lo sentimos no hay conexión'));
         iraURL('../pages/breakdown_valise.php');
     }
     echo "<script languaje='javascript' type='text/javascript'>window.close();</script>";

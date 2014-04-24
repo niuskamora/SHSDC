@@ -54,7 +54,7 @@ if ($idValija == "") {
         }
         include("../views/see_incident.php");
     } catch (Exception $e) {
-        javaalert('Lo sentimos no hay conexion');
+        utf8_decode(javaalert('Lo sentimos no hay conexión'));
         iraURL('../pages/inbox.php');
     }
 }

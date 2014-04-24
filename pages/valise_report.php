@@ -138,7 +138,7 @@ if (isset($_POST["reportarPaqExc"])) {
                 }
             }
         } catch (Exception $e) {
-            javaalert('Lo sentimos no hay conexion');
+            utf8_decode(javaalert('Lo sentimos no hay conexión'));
             iraURL('../pages/breakdown_valise.php');
         }
     } else {
@@ -189,7 +189,7 @@ if (isset($_POST["reportarValija"])) {
                 iraURL('../pages/breakdown_valise.php');
             }
         } catch (Exception $e) {
-            javaalert('Lo sentimos no hay conexion');
+            utf8_decode(javaalert('Lo sentimos no hay conexión'));
             iraURL('../pages/breakdown_valise.php');
         }
     } else {

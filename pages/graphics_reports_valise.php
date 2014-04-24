@@ -117,7 +117,7 @@ if ($sede == '0') {
         }
         include("../graphics/reports_valise_horizontally.php");
     } catch (Exception $e) {
-        javaalert('Lo sentimos no hay conexion');
+        utf8_decode(javaalert('Lo sentimos no hay conexión'));
         iraURL('../pages/reports_valise.php');
     }
 } else {
@@ -137,7 +137,7 @@ if ($sede == '0') {
         }
         include("../graphics/reports_valise_vertical.php");
     } catch (Exception $e) {
-        javaalert('Lo sentimos no hay conexion');
+        utf8_decode(javaalert('Lo sentimos no hay conexión'));
         iraURL('../pages/reports_valise.php');
     }
 }

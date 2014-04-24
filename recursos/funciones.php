@@ -69,7 +69,6 @@ function llenarLog($accion, $observacion, $usuario, $sede) {
     $parametros["idUsu"] = $usuario;
     $parametros["accion"] = utf8_decode($accion);
     $parametros["observacion"] = utf8_decode($observacion);
-	//$client = new nusoap_client($wsdl_sdc, 'wsdl');
     $consumo = $_SESSION["cli"]->call("insertarBitacora",$parametros);
 	$Bitacora = $consumo['return'];
 }
