@@ -55,21 +55,23 @@ if (isset($_POST['idval']) && $_POST['idval'] != "" && $_POST['idval'] != "") {
     $Valijac = $client->call("consultarValijaXIdOCodigoBarras",$Val);
     $regv = 0;
 	$reg = 0;
-    if (isset($Valijac->return)) {
+    if (isset($Valijac['return'])) {
         $Val = array('registroValija' => $Valijac['return']['idval'], 'sede' => $_SESSION["Sede"]['nombresed']);
         $Valij = $client->call("ConsultarPaquetesXValija",$Val);
-    }
-	
-	if($Valij != ""){
-		$Valija  = $Valij['return'];
-		if(isset($Valija [0])){
-			$reg = count($Valija);
-			$_SESSION["RE"] = $reg;
-		}
-		else{
-			$reg = 1;
-		}
+			
+			if($Valij != ""){
+				$Valija  = $Valij['return'];
+				if(isset($Valija [0])){
+					$reg = count($Valija);
+					$_SESSION["RE"] = $reg;
+				}
+				else{
+					$reg = 1;
+				}
+			}
 	}
+	
+	
 	
 } else {
     javaalert('Debe ingresar el Codigo de una valija');
