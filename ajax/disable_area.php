@@ -15,6 +15,7 @@ try {
         javaalert("No existen areas registradas");
         iraURL('../pages/inbox.php');
     }else{
+		$reg = 0;
 		$Areas = $Areass['return'];
 			
 		if(isset($Areas[0])){

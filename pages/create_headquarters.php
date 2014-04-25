@@ -79,7 +79,7 @@ try {
                 $parametros = array('registroSede' => $Sedenueva, 'idorg' => $_POST["organizacion"]);
                 $guardo = $client->call("insertarSede",$parametros);
 
-                if ($guardo["return"] == 0) {
+                if ($guardo['return'] == 0) {
                     javaalert("No se han Guardado los datos de la sede, Consulte con el Admininistrador");
                 } else {
                     javaalert("Se han Guardado los datos de la sede");

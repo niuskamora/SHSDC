@@ -21,7 +21,7 @@ $puerto = "7001";
 //$ip = "10.10.80.2"; 
 //$puerto = "8181";
 
-$ws_sdc              = "http://" . $ip . ":" . $puerto . "/SistemaDeCorrespondencia/CorrespondeciaWS?WSDL";
+$ws_sdc              = "http://" . $ip . ":" . $puerto . "/SistemaDeCorrespondencia/SistemaDeCorrespondenciaWS?WSDL";
 
 $cachesdc = new wsdlcache('../cache', 864000000);
 

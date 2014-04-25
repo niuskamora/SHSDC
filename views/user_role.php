@@ -82,27 +82,28 @@
                         <div class="tab-content" id="lista" align="center">
                             <h2> Asignar Rol</h2>                   
                             <h2>
-                                Seleccione la Sede:
-                                <select onChange="sede();" name="lista" id="lista"  required  title="Seleccione la Tipo de usuario">
-                                    <option value="" style="display:none">Seleccionar:</option>
+                                 Seleccione la Sede:
+                                <select onChange="sede();" name="listas" id="listas"  required  title="Seleccione la Sede">
+                                    <option value="0" style="display:none">Seleccionar:</option>
                                     <?php
                                     if ($reg > 1) {
                                         $i = 0;
                                         while ($reg > $i) {
 
-                                            echo '<option value="' . $Sedes['nombresed'] . '" >' . utf8_encode($Sedes[$i]['nombresed']). '</option>';
+                                            echo '<option value="'.utf8_encode($Sedes[$i]['nombresed']) . '" >' . utf8_encode($Sedes[$i]['nombresed']). '</option>';
                                             $i++;
                                         }
                                     } else {
-                                        echo '<option value="' . $Sedes['nombresed'] . '" >' . utf8_encode($Sedes['nombresed']) . '</option>';
+                                        echo '<option value="' .utf8_encode($Sedes['nombresed']) . '" >' . utf8_encode($Sedes['nombresed']) . '</option>';
                                     }
                                     ?>
                                 </select>
                                 Seleccione el Usuario:
-                                <select onChange="usuario();" id="listau" name="listau"  required  title="Seleccione la Tipo de usuario">
+                                <select onChange="usuario();" id="listau" name="listau"  required  title="Seleccione la Sede">
                                     <option value="" style="display:none">Seleccionar:</option>  
 
                                 </select>
+                             
                             </h2>
                             <div id="datos">
 
@@ -129,7 +130,7 @@
             <script language="JavaScript">
                 function sede() {
                     //posicion
-                    var $selectedOption = $('#lista').find('option:selected');
+                    var $selectedOption = $('#listas').find('option:selected');
                     var id = $selectedOption.val();
                     $.ajax({
                         type: "POST",

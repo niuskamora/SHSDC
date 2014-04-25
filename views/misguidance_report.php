@@ -21,8 +21,7 @@ if ($usuarioBitacora == "") {
 <!--<script type='text/javascript' src="../js/togglesidebar.js"></script>-->	
         <script type='text/javascript' src="../js/custom.js"></script>
         <script type='text/javascript' src="../js/jquery.fancybox.pack.js"></script>
-        <script src="http://code.highcharts.com/highcharts.js"></script>
-        <script src="http://code.highcharts.com/modules/exporting.js"></script>
+      
 
         <!-- styles -->
         <link rel="shortcut icon" href="../images/faviconsh.ico">

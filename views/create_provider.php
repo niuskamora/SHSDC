@@ -105,10 +105,10 @@ if ($Ses=="") {
                                             <option value="" style="display:none">Seleccionar:</option>                                  
                                             <?php
                                             if ($reg == 1) {
-                                                echo '<option value="' . $Sedes['idsed'] . '">' . utf8_encode($Sedes['nombresed']) . '</option>';
+                                            echo '<option value="' . $Sedes['idsed'] . '">' . utf8_encode($Sedes['nombresed']) . '</option>';
                                             } else {
                                                 for ($i = 0; $i < $reg; $i++) {
-                                          		echo '<option value="' . $Sedes[$i]['idsed'] . '">' . utf8_encode($Sedes[$i]['nombresed']) . '</option>';
+                                          	echo '<option value="' . $Sedes[$i]['idsed'] . '">' . utf8_encode($Sedes[$i]['nombresed']) . '</option>';
                                                 }
                                             }
                                             ?>

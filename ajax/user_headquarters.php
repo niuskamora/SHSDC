@@ -5,23 +5,18 @@ require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
-	$client = new nusoap_client($wsdl_sdc, 'wsdl');
-	$client->decode_utf8 = false;
-$aux = $_POST['sed'];
-
-$Sede = array('sede' => utf8_decode($aux));
+	
+$aux = utf8_decode($_POST['sed']);
+$Sed["sede"] =$aux;
+$client = new nusoap_client($wsdl_sdc, 'wsdl');	
 $_SESSION["sedeb"] = $aux;
-$UsuariosR = $client->call("consultarUsuariosXSede",$Sede);
+$UsuariosR = $client->call("consultarUsuariosXSede",$Sed);
 
 $reg = 0;
-if ($UsuariosR!="") {
-	$Usuarios=$UsuariosR['return'];
-    $reg = count($Usuarios);
-}else{
-	 javaalert('no posee usuarios esta sede');
-        iraURL('../pages/user_role.php');
-}
-echo "<option value='' style='display:none'>Seleccionar:</option>";
+			if ($UsuariosR!="") {
+				$Usuarios=$UsuariosR['return'];
+				$reg = count($Usuarios);
+				echo "<option value='' style='display:none'>Seleccionar:</option>";
 if ($reg > 1) {
     $i = 0;
     while ($reg > $i) {
@@ -31,4 +26,13 @@ if ($reg > 1) {
 } else {
     echo '<option value="' . $Usuarios['idusu'] . '">' . utf8_encode($Usuarios['userusu']) . '</option>';
 }
+				
+				
+				
+				
+			}else{
+				 javaalert('no posee usuarios esta sede');
+					iraURL('../pages/user_role.php');
+			}
+
 ?>

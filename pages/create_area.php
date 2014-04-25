@@ -62,7 +62,7 @@ try {
                     'idsed' => $_POST["sede"]);
                 $parametros = array('registroArea' => $areanueva, 'idsed' => $_POST["sede"]);
                 $guardo = $client->call("insertarArea",$parametros);
-                if ($guardo["return"] == 0) {
+                if ($guardo['return'] == 0) {
                     javaalert("No se han Guardado los datos de la Area, Consulte con el Admininistrador");
                 } else {
                     javaalert("Se han Guardado los datos de la Area");

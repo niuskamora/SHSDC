@@ -71,7 +71,7 @@ try {
                     'codigopro' => $codigo,
                     'idsed' => $_POST["sede"]);
                 $parametros = array('registroProveedor' => $Sedenueva);
-                $guardo = $client->insertarProveedor($parametros);
+                $guardo = $client->call("insertarProveedor",$parametros);
                 if ($guardo['return'] == 0) {
                     javaalert("No se han Guardado los datos del Proveedor, Consulte con el Admininistrador");
                 } else {
