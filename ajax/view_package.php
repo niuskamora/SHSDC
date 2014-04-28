@@ -231,7 +231,7 @@ try {
 
     <script>
         function Confirma() {
-            var idpaq = '<?= $_POST['idpaq'] ?>';
+            var idpaq = '<?= $rowPaquete["idpaq"] ?>';
             var parametros = {
                 "idpaq": idpaq
             };
