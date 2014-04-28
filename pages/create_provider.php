@@ -35,7 +35,7 @@ try {
         javaalert("lo sentimos no existen sedes registradas, Consulte con el administrador");
         iraURL('../pages/inbox.php');
     }else{
-		$Sedes=$Ses["return"];
+		$Sedes=$Ses['return'];
 			if(isset($Sedes[0])){
 				$reg = count($Sedes);
 			}
@@ -51,8 +51,8 @@ try {
             // si ya existe ese proveedor en esa sede
             $result = 0;
             try {
-                $datos = array('nombre' => $_POST["nombre"]);
-                $prov = $client->call("consultarProveedorXNombre",$datos);
+                $datos = array('nombre' =>utf8_decode( $_POST["nombre"]),'idsed' => $_POST["sede"]);
+                $prov = $client->call("consultarProveedorexistente",$datos);
                 if ($prov!="") {
 					
                     $result = 1;
@@ -66,7 +66,7 @@ try {
                     $codigo = $_POST["codigo"];
                 }
                 $Sedenueva = array(
-                    'nombrepro' => $_POST["nombre"],
+                    'nombrepro' => utf8_decode($_POST["nombre"]),
                     'telefonopro' => $_POST["telefono"],
                     'codigopro' => $codigo,
                     'idsed' => $_POST["sede"]);

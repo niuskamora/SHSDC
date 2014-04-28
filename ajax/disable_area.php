@@ -10,6 +10,7 @@ try {
     $client = new nusoap_client($wsdl_sdc, 'wsdl');
 	$client->decode_utf8 = false;
     $areasede = array('sede' => $idsede);
+	$reg = 0;
     $Areass = $client->call("consultarAreasXSede",$areasede);
     if ($Areass=="") {
         javaalert("No existen areas registradas");
@@ -76,7 +77,7 @@ if ($reg > 0) {
     } else {
         if ($Areas['borradoatr'] == 0) {
             echo "<td style='background-color: rgb(206, 200, 200);	text-align:center' data-sort-ignore='true'>" . $Areas['idatr'] . "</td>";
-            echo "<td style='text-align:left; background-color: rgb(206, 200, 200);'>" . $Areas['nombreatr'] . "</td>";
+            echo "<td style='text-align:left; background-color: rgb(206, 200, 200);'>" .utf8_encode( $Areas['nombreatr'] ). "</td>";
             ?>
             <td style='background-color: rgb(206, 200, 200); text-align:center'> 
                 <button class='btn' onClick="cambiar('<?php echo $Areas['idatr']; ?>', this);">
@@ -85,7 +86,7 @@ if ($reg > 0) {
             <?php
         } else {
             echo "<td style='text-align:center' data-sort-ignore='true'>" . $Areas['idatr'] . "</td>";
-            echo "<td style='text-align:left;'>" . $Areas['nombreatr'] . "</td>";
+            echo "<td style='text-align:left;'>" . utf8_encode($Areas['nombreatr']) . "</td>";
             ?>
             <td style="text-align:center"> 
                 <button class='btn' onClick="cambiar('<?php echo $Areas['idatr']; ?>', this);">

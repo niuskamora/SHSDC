@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST["guardar"]) && isset($_POST["ide"]) && isset($_POST["tipo"]) ) {
+if (isset($_POST["guardar"]) && isset($_POST["ide"]) && ($_POST["tipo"]!="") ) {
     try {
         $registrosAValija = $_POST["ide"];
         $contadorAceptados = 0;
@@ -27,9 +27,9 @@ if (isset($_POST["guardar"]) && isset($_POST["ide"]) && isset($_POST["tipo"]) ) 
     }
     //javaalert("Los registros han sido habilitados");
     //iraURL('inbox.php');
-} else if (isset($_POST["guardar"]) && isset($_POST["tipo"])) {
+} else if (isset($_POST["guardar"]) && ($_POST["tipo"]!="")) {
     javaalert("Debe seleccionar al menos un registro");
-}else  if (isset($_POST["guardar"])  && !isset($_POST["tipo"])){
+}else  if (isset($_POST["guardar"])  && ($_POST["tipo"]=="")){
 	 javaalert("Debe seleccionar el tipo de Valija");
 }
 ?>

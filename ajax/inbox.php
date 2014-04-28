@@ -100,20 +100,20 @@ require_once("../core/Crypt/AES.php");
                     $asunto = $Bandeja['return'][$j]['asuntopaq'];
                 }
                 if ($aux == "Por Recibir" || $aux == "Recibidas") {
-                    echo "<td  style='text-align:center'>" . $Bandeja['return'][$j]['origenpaq']['idusu']['nombreusu'] . " ".$Bandeja['return'][$j]['origenpaq']['idusu']['apellidousu']. "</td>";
+                    echo "<td  style='text-align:center'>" . utf8_encode($Bandeja['return'][$j]['origenpaq']['idusu']['nombreusu']) . " ". utf8_encode($Bandeja['return'][$j]['origenpaq']['idusu']['apellidousu']). "</td>";
                 } else if ($aux == "Por Entregar" || $aux == "Entregadas") {
                     if ($Bandeja['return'][$j]['destinopaq']['tipobuz'] == "1") {
-                        echo "<td  style='text-align:center'>" . $Bandeja['return'][$j]['destinopaq']['nombrebuz'] . "</td>";
+                        echo "<td  style='text-align:center'>" .utf8_encode( $Bandeja['return'][$j]['destinopaq']['nombrebuz'] ). "</td>";
                     } else {
-                        echo "<td  style='text-align:center'>" . $Bandeja['return'][$j]['destinopaq']['idusu']['nombreusu'] ." ".$Bandeja['return'][$j]['destinopaq']['idusu']['apellidousu']. "</td>";
+                        echo "<td  style='text-align:center'>" .utf8_encode( $Bandeja['return'][$j]['destinopaq']['idusu']['nombreusu']) ." ". utf8_encode($Bandeja['return'][$j]['destinopaq']['idusu']['apellidousu']). "</td>";
                     }
                 }
                 if ($aux != "Por Recibir") {
-                    echo "<td  style='text-align:center'>" . $asunto . "</td>";
+                    echo "<td  style='text-align:center'>" .utf8_encode( $asunto) . "</td>";
                 } else {
                     echo "<th style='width:7%; text-align:center' data-sort-ignore='true'>" . $Bandeja['return'][$j]['idpaq'] . "</th>";
                 }
-                echo "<td style='text-align:center'>" . $Bandeja['return'][$j]['iddoc']['nombredoc'] . "</td>";
+                echo "<td style='text-align:center'>" .utf8_encode( $Bandeja['return'][$j]['iddoc']['nombredoc']) . "</td>";
                 if ($Bandeja['return'][$j]['respaq'] == 1 || $Bandeja['return'][$j]['respaq'] == 2) {
                     echo "<td style='text-align:center'> Si </td>";
                 } else {
@@ -121,7 +121,7 @@ require_once("../core/Crypt/AES.php");
                 }
                 echo "<td style='text-align:center'>" . date("d/m/Y", strtotime(substr($Bandeja['return'][$j]['fechapaq'], 0, 10))) . "</td>";
                 if ($aux != "Recibidas") {
-                    echo "<td style='text-align:center'>" . $Bandeja['return'][$j]['localizacionpaq'] . "</td>";
+                    echo "<td style='text-align:center'>" .utf8_encode( $Bandeja['return'][$j]['localizacionpaq']) . "</td>";
                 }
                 echo "<td style='text-align:center'><a href='../pages/see_package.php?id=" . $Bandeja['return'][$j]['idpaq']. "'><button type='button' class='btn btn-info btn-primary' value='Realizar Valija'>  Ver Más </button> </a></td>";
                 if ($aux == "Por Recibir") {
@@ -148,20 +148,20 @@ require_once("../core/Crypt/AES.php");
                 $asunto = $Bandeja['return']['asuntopaq'];
             }
 			 if ($aux == "Por Recibir" || $aux == "Recibidas") {
-                    echo "<td  style='text-align:center'>" . $Bandeja['return']['origenpaq']['idusu']['nombreusu'] . " ".$Bandeja['return']['origenpaq']['idusu']['apellidousu']. "</td>";
+                    echo "<td  style='text-align:center'>" .utf8_encode( $Bandeja['return']['origenpaq']['idusu']['nombreusu']) . " ". utf8_encode($Bandeja['return']['origenpaq']['idusu']['apellidousu']). "</td>";
                 } else if ($aux == "Por Entregar" || $aux == "Entregadas") {
                     if ($Bandeja['return']['destinopaq']['tipobuz'] == "1") {
-                        echo "<td  style='text-align:center'>" . $Bandeja['return']['destinopaq']['nombrebuz'] . "</td>";
+                        echo "<td  style='text-align:center'>" . utf8_encode($Bandeja['return']['destinopaq']['nombrebuz']) . "</td>";
                     } else {
-                        echo "<td  style='text-align:center'>" . $Bandeja['return']['destinopaq']['idusu']['nombreusu'] ." ".$Bandeja['return']['destinopaq']['idusu']['apellidousu']. "</td>";
+                        echo "<td  style='text-align:center'>" .utf8_encode( $Bandeja['return']['destinopaq']['idusu']['nombreusu']) ." ". utf8_encode($Bandeja['return']['destinopaq']['idusu']['apellidousu']). "</td>";
                     }
                 }
                 if ($aux != "Por Recibir") {
-                    echo "<td  style='text-align:center'>" . $asunto . "</td>";
+                    echo "<td  style='text-align:center'>" .utf8_encode( $asunto) . "</td>";
                 } else {
                     echo "<th style='width:7%; text-align:center' data-sort-ignore='true'>" . $Bandeja['return']['idpaq'] . "</th>";
                 }
-                echo "<td style='text-align:center'>" . $Bandeja['return']['iddoc']['nombredoc'] . "</td>";
+                echo "<td style='text-align:center'>" .utf8_encode( $Bandeja['return']['iddoc']['nombredoc'] ). "</td>";
                 if ($Bandeja['return']['respaq'] == 1 || $Bandeja['return']['respaq'] == 2) {
                     echo "<td style='text-align:center'> Si </td>";
                 } else {
@@ -169,7 +169,7 @@ require_once("../core/Crypt/AES.php");
                 }
                 echo "<td style='text-align:center'>" . date("d/m/Y", strtotime(substr($Bandeja['return']['fechapaq'], 0, 10))) . "</td>";
                 if ($aux != "Recibidas") {
-                    echo "<td style='text-align:center'>" . $Bandeja['return']['localizacionpaq'] . "</td>";
+                    echo "<td style='text-align:center'>" .utf8_encode( $Bandeja['return']['localizacionpaq'] ). "</td>";
                 }
                 echo "<td style='text-align:center'><a href='../pages/see_package.php?id=" . $Bandeja['return']['idpaq']. "'><button type='button' class='btn btn-info btn-primary' value='Realizar Valija'>  Ver Más </button> </a></td>";
                 if ($aux == "Por Recibir") {

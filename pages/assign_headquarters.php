@@ -35,7 +35,7 @@ require_once("../core/Crypt/AES.php");
 			}
 		
 	}
-     $UsuarioRol = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sede' => $_SESSION["Sede"]['nombresed']);
+     $UsuarioRol = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sede' =>utf8_decode( $_SESSION["Sede"]['nombresed']));
      $SedeR = $client->call("consultarSedeRol",$UsuarioRol);
 	 $SedeRol=$SedeR['return'];
     if ($SedeRol!="") {

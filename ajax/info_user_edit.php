@@ -25,8 +25,11 @@
     <?php
     session_start();
     try {
-        include("../recursos/funciones.php");
-        require_once('../lib/nusoap.php');
+     	include("../recursos/funciones.php");
+		require_once("../lib/nusoap.php");
+		require_once("../config/wsdl.php");
+		require_once("../config/definitions.php");
+		require_once("../core/Crypt/AES.php");
         $aux = $_POST['idusu'];
 		$client = new nusoap_client($wsdl_sdc, 'wsdl');
 		$client->decode_utf8 = false;
@@ -59,8 +62,9 @@
         javaalert('Lo sentimos no hay conexion');
         iraURL('../index.php');
     }
-    echo "<h2> <strong>" . utf8_encode($Bandeja['nombreusu']) . " </strong> </h2>";
+  
     if ($reg != 0) {
+		echo "<h2> <strong>" . utf8_encode($Bandeja['nombreusu']) . " </strong> </h2>";
         echo "<form method='post'> ";
         echo "<table class='footable table table-striped table-bordered'>
                                 <tr>

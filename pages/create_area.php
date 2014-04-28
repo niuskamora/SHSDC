@@ -49,14 +49,22 @@ try {
         if (isset($_POST["nombre"]) && $_POST["nombre"] != "" && isset($_POST["sede"]) && $_POST["sede"] != "") {
 
             $result = 0;
-            try {
+           
                 $datos = array('area' => utf8_decode($_POST["nombre"]), 'sede' => utf8_decode($_POST["sede"]));
                 $areas = $client->call("consultarAreaExistente",$datos);
-                $result = $areas["return"];
-            } catch (Exception $e) {
                 
-            }
-            if ($result == 0) {
+				if ($result=="") {
+					$correcto=0;
+       
+				}else{
+					 javaalert("lo sentimos esta Area ya ha sido creada esta sede");
+					iraURL('../pages/create_area.php');
+						
+							$correcto= 1;
+					
+				}
+            
+            if ($correcto == 0) {
                 $areanueva = array(
                     'nombreatr' => utf8_decode ($_POST["nombre"]),
                     'idsed' => $_POST["sede"]);

@@ -69,7 +69,7 @@ try {
                 }
                 $Sedenueva = array(
                     'nombresed' =>utf8_decode ($_POST["nombre"]),
-                    'direccionsed' => utf8_encode($direccion),
+                    'direccionsed' => utf8_decode($direccion),
                     'telefonosed' => $telefono,
                     'telefono2sed' => $telefono2,
                     'idorg' => $_POST["organizacion"],
