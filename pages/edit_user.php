@@ -2,29 +2,29 @@
 
 session_start();
 try {
-include("../recursos/funciones.php");
-require_once("../lib/nusoap.php");
-require_once("../config/wsdl.php");
-require_once("../config/definitions.php");
-require_once("../core/Crypt/AES.php");
-  $client = new nusoap_client($wsdl_sdc, 'wsdl');
-	$_SESSION["cli"]=$client;
-	if (!isset($_SESSION["Usuario"])) {
-    iraURL("../index.php");
-	} elseif (!usuarioCreado()) {
-		iraURL("../pages/create_user.php");
-	}
+    include("../recursos/funciones.php");
+    require_once("../lib/nusoap.php");
+    require_once("../config/wsdl.php");
+    require_once("../config/definitions.php");
+    require_once("../core/Crypt/AES.php");
+    $client = new nusoap_client($wsdl_sdc, 'wsdl');
+    $_SESSION["cli"] = $client;
+    if (!isset($_SESSION["Usuario"])) {
+        iraURL("../index.php");
+    } elseif (!usuarioCreado()) {
+        iraURL("../pages/create_user.php");
+    }
     $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"], 'sede' => $_SESSION["Sede"]["nombresed"]);
-	$consumo = $client->call("consultarSedeRol",$UsuarioRol);
-	if ($consumo!="") {
-	$SedeRol = $consumo['return'];   
+    $consumo = $client->call("consultarSedeRol", $UsuarioRol);
+    if ($consumo != "") {
+        $SedeRol = $consumo['return'];
     } else {
         iraURL('../pages/inbox.php');
-    }   
+    }
     $usuario = array('user' => $_SESSION["Usuario"]["userusu"]);
-	$consumo = $client->call("consultarUsuarioXUser",$usuario);
-	if ($consumo!="") {
-	$Usuario = $consumo['return'];   
+    $consumo = $client->call("consultarUsuarioXUser", $usuario);
+    if ($consumo != "") {
+        $Usuario = $consumo['return'];
     }
     if (isset($_POST["guardar"])) {
         if (isset($_POST["nombre"]) && $_POST["nombre"] != "" && isset($_POST["apellido"]) && $_POST["apellido"] != "" && isset($_POST["correo"]) && $_POST["correo"] != "") {
@@ -54,24 +54,23 @@ require_once("../core/Crypt/AES.php");
                             'telefono2usu' => utf8_decode($telefono2),
                             'userusu' => utf8_decode($Usuario["userusu"]));
                 $registroU = array('registroUsuario' => $registroUsu);
-               	$consumo = $client->call("editarUsuario",$registroU);
-				if($consumo!=""){
-				$guardo=$consumo["return"];
-				$userparam['user'] = $_SESSION["Usuario"]["userusu"];
-				$userResp = $client->call("consultarUsuarioXUser",$userparam);
-				 $_SESSION["Usuario"] = $userResp['return'];
-				}
-				if(isset($guardo)){
-					 if ($guardo == 0) {
-						javaalert("No se han Guardado los datos del Usuario, Consulte con el Admininistrador");
-					} else {
-						javaalert("Se han Guardado los datos del Usuario");
-						 llenarLog(9, "Edición de Usuario", $_SESSION["Usuario"]["idusu"], $_SESSION["Sede"]["idsed"]);
-					}
-				}else{
-				javaalert("No se han Guardado los datos del Usuario, Consulte con el Admininistrador");
-
-				}
+                $consumo = $client->call("editarUsuario", $registroU);
+                if ($consumo != "") {
+                    $guardo = $consumo["return"];
+                    $userparam['user'] = $_SESSION["Usuario"]["userusu"];
+                    $userResp = $client->call("consultarUsuarioXUser", $userparam);
+                    $_SESSION["Usuario"] = $userResp['return'];
+                }
+                if (isset($guardo)) {
+                    if ($guardo == 0) {
+                        javaalert("No se han Guardado los datos del Usuario, Consulte con el Admininistrador");
+                    } else {
+                        javaalert("Se han Guardado los datos del Usuario");
+                        llenarLog(9, "Edicion de Usuario", $_SESSION["Usuario"]["idusu"], $_SESSION["Sede"]["idsed"]);
+                    }
+                } else {
+                    javaalert("No se han Guardado los datos del Usuario, Consulte con el Admininistrador");
+                }
                 iraURL('../pages/inbox.php');
             }
         } else {
