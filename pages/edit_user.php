@@ -66,7 +66,7 @@ require_once("../core/Crypt/AES.php");
 						javaalert("No se han Guardado los datos del Usuario, Consulte con el Admininistrador");
 					} else {
 						javaalert("Se han Guardado los datos del Usuario");
-						llenarLog(9, "Edición de Usuario", $_SESSION["Usuario"]["idusu"], $_SESSION["Sede"]["idsed"]);
+						 llenarLog(9, "Edición de Usuario", $_SESSION["Usuario"]["idusu"], $_SESSION["Sede"]["idsed"]);
 					}
 				}else{
 				javaalert("No se han Guardado los datos del Usuario, Consulte con el Admininistrador");
