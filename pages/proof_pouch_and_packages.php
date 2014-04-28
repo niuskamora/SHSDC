@@ -58,6 +58,7 @@ if ($idValija == "") {
             } else {
                 $contadorPaquetes = 1;
             }
+			$_SESSION["paquetesXValija"] = $resultadoPaquetesPorValija;
         } else {
             $contadorPaquetes = 0;
         }
@@ -115,7 +116,6 @@ if ($idValija == "") {
 
         $_SESSION["fechaEnvio"] = $fechaEnvio;
         $_SESSION["fechaRecibido"] = $fechaRecibido;
-        $_SESSION["paquetesXValija"] = $resultadoPaquetesPorValija;
         $_SESSION["origenValija"] = $origen;
 
         if (isset($resultadoPaquetesPorValija)) {

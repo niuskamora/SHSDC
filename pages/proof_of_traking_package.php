@@ -39,7 +39,6 @@ if ($idPaquete == "") {
     iraURL('../pages/inbox.php');
 } else {
     try {
-        $paquete = array('idPaquete' => $idPaquete);
         $client = new nusoap_client($wsdl_sdc, 'wsdl');
         $paquete = array('idPaquete' => $idPaquete);
         $consumoSeguimiento = $client->call("consultarSeguimientoXPaquete", $paquete);
@@ -50,6 +49,7 @@ if ($idPaquete == "") {
             } else {
                 $seguimientoPaquete = 1;
             }
+			$_SESSION["trakingPaquete"] = $resultadoPaquete;
         } else {
             $seguimientoPaquete = 0;
         }
@@ -70,7 +70,6 @@ if ($idPaquete == "") {
             }
             $_SESSION["fecha"] = $fecha;
         }
-        $_SESSION["trakingPaquete"] = $resultadoPaquete;
 
         if (isset($resultadoPaquete)) {
             llenarLog(6, "Comprobante de Traking de Paquete", $usuarioBitacora, $ideSede);

@@ -66,7 +66,9 @@ if ($idPaq == "") {
             }
             if (isset($resultadoConsultarSede)) {
                 $codigoSede = $resultadoConsultarSede['codigosed'];
-            }
+            } else {
+				$codigoSede = "";
+			}
 
             $idpaq = $resultadoConsultarPaquete['idpaq'];
 

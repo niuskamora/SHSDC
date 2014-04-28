@@ -58,11 +58,11 @@ try {
             $consumoPaquete = $client->call("consultarPaqueteXId", $idPaquete);
             if ($consumoPaquete != "") {
                 $resultadoPaquete = $consumoPaquete['return'];
+				$paquetesTotales[$i] = $resultadoPaquete;
+            	$_SESSION["paquetesTotales"][$i] = $paquetesTotales[$i];
+            	$i++;
+            	$contadorPaq++;
             }
-            $paquetesTotales[$i] = $resultadoPaquete;
-            $_SESSION["paquetesTotales"][$i] = $paquetesTotales[$i];
-            $i++;
-            $contadorPaq++;
         }
         if ($contadorPaq == count($paquetes)) {
             break;

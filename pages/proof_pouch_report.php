@@ -71,7 +71,10 @@ if ($idVal == "") {
                 $resultadoConsultarSede = $consumoSede['return'];
                 if (isset($resultadoConsultarSede)) {
                     $codigoSede = $resultadoConsultarSede['codigosed'];
-                }
+					$_SESSION["origen"] = $resultadoConsultarSede;
+                } else {
+					$codigoSede = "";
+				}
             }
 
             $idval = $resultadoConsultarValija['idval'];
@@ -82,7 +85,6 @@ if ($idVal == "") {
 
             $_SESSION["valija"] = $resultadoConsultarValija;
             $_SESSION["codigo"] = $codigoTotal;
-            $_SESSION["origen"] = $resultadoConsultarSede;
             $_SESSION["fecha"] = $fecha;
 
             llenarLog(6, "Comprobante de Valija", $usuarioBitacora, $ideSede);

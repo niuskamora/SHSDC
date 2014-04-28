@@ -54,6 +54,7 @@ try {
         } else {
             $paquetes = 1;
         }
+		$_SESSION["paquetesConfirmados"] = $resultadoPaquetesConfirmados;
     } else {
         $paquetes = 0;
     }
@@ -101,7 +102,6 @@ if (isset($_POST["imprimir"])) {
                 $_SESSION["codigos"][$i] = $codigoTotal[$i];
             }
         }
-        $_SESSION["paquetesConfirmados"] = $resultadoPaquetesConfirmados;
         $_SESSION["paquetes"] = $imprimirPaquetes;
         iraURL('../pages/proof_package_confirmed.php');
     } else {
