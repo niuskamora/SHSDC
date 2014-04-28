@@ -53,11 +53,10 @@ try {
         } else {
             $valijas = 1;
         }
+		$_SESSION["valijas"] = $resultadoConsultarValijas;
     } else {
         $valijas = 0;
     }
-
-    $_SESSION["valijas"] = $resultadoConsultarValijas;
 
     if ($valijas > 0) {
         $reporte = $_SESSION["Reporte"];

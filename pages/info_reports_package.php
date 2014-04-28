@@ -50,11 +50,10 @@ try {
         } else {
             $paquetes = 1;
         }
+		$_SESSION["paquetes"] = $resultadoConsultarPaquetes;
     } else {
         $paquetes = 0;
     }
-
-    $_SESSION["paquetes"] = $resultadoConsultarPaquetes;
 
     if ($paquetes > 0) {
         $reporte = $_SESSION["Reporte"];
