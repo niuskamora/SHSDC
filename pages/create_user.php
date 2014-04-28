@@ -2,15 +2,14 @@
 
 session_start();
 
+
+
+try {
 include("../recursos/funciones.php");
 require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
-require_once("../core/Crypt/AES.php");
-
-try {
-//$_SESSION["User"]="aaaa";
-    $client = new nusoap_client($wsdl_sdc, 'wsdl');
+require_once("../core/Crypt/AES.php");    $client = new nusoap_client($wsdl_sdc, 'wsdl');
 	$_SESSION["cli"]=$client;
 
     if (!isset($_SESSION["User"])) {
@@ -31,7 +30,7 @@ try {
 	if ($consumo!="") {
 	$Sedes = $consumo['return'];   
 	}else{
-	javaalert("Lo sentimos no se puede crear el usuario porque no hay sedes registradas,Consulte con el Administrador");
+	javaalert("Lo sentimos no se puede crear el usuario en estos momentos,Consulte con el Administrador");
         iraURL('../index.php');
 	}
 

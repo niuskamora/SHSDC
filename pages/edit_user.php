@@ -22,7 +22,6 @@ require_once("../core/Crypt/AES.php");
         iraURL('../pages/inbox.php');
     }   
     $usuario = array('user' => $_SESSION["Usuario"]["userusu"]);
-    //$Usuario = $client->consultarUsuarioXUser($usuario);
 	$consumo = $client->call("consultarUsuarioXUser",$usuario);
 	if ($consumo!="") {
 	$Usuario = $consumo['return'];   
@@ -62,13 +61,17 @@ require_once("../core/Crypt/AES.php");
 				$userResp = $client->call("consultarUsuarioXUser",$userparam);
 				 $_SESSION["Usuario"] = $userResp['return'];
 				}
-			   // $guardo = $client->editarUsuario($registroU);
-                if ($guardo == 0) {
-                    javaalert("No se han Guardado los datos del Usuario, Consulte con el Admininistrador");
-                } else {
-                    javaalert("Se han Guardado los datos del Usuario");
-                    llenarLog(9, "Edición de Usuario", $_SESSION["Usuario"]["idusu"], $_SESSION["Sede"]["idsed"]);
-                }
+				if(isset($guardo)){
+					 if ($guardo == 0) {
+						javaalert("No se han Guardado los datos del Usuario, Consulte con el Admininistrador");
+					} else {
+						javaalert("Se han Guardado los datos del Usuario");
+						llenarLog(9, "Edición de Usuario", $_SESSION["Usuario"]["idusu"], $_SESSION["Sede"]["idsed"]);
+					}
+				}else{
+				javaalert("No se han Guardado los datos del Usuario, Consulte con el Admininistrador");
+
+				}
                 iraURL('../pages/inbox.php');
             }
         } else {
