@@ -1,24 +1,24 @@
 <?php
 
 session_start();
+
+
+try {
 include("../recursos/funciones.php");
 require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
-
-try {
 	$client = new nusoap_client($wsdl_sdc, 'wsdl');
 	$_SESSION["cli"]=$client;
-if (!isset($_SESSION["Usuario"])) {
-    iraURL("../index.php");
-} elseif (!usuarioCreado()) {
-    iraURL("../pages/create_user.php");
-}elseif (!isset($_SESSION["Sedes"])) {
-    iraURL("../pages/index.php");
-}
-
-$Sedes = $_SESSION["Sedes"];
+		if (!isset($_SESSION["Usuario"])) {
+			iraURL("../index.php");
+		} elseif (!usuarioCreado()) {
+			iraURL("../pages/create_user.php");
+		}elseif (!isset($_SESSION["Sedes"])) {
+			iraURL("../pages/index.php");
+		}
+	$Sedes = $_SESSION["Sedes"];
     if (isset($_POST["Biniciar"])) {
         if (isset($_POST["sede"]) && $_POST["sede"] != "") {
             for ($i = 0; $i < count($Sedes); $i++) {
@@ -27,14 +27,15 @@ $Sedes = $_SESSION["Sedes"];
                     break;
                 }
             }
-
             $id = array('idSede' => $_SESSION["Sede"]["idsed"]);
-           // $_SESSION["Sede"] = $client->consultarSedeXId($id);
-			 $consumo = $client->call("consultarSedeXId",$id);
+			$consumo = $client->call("consultarSedeXId",$id);
 		   if($consumo!=""){
 		    $_SESSION["Sede"] = $consumo['return'];
+			iraURL('../pages/index.php');
+		   }else{
+		    javaalert('No se puede seleccionar la sede en estos momentos , consulte con el administrador');
+		    iraURL('../pages/inbox.php');
 		   }
-            iraURL('../pages/inbox.php');
         } else {
             javaalert('Debe escojer la sede');
         }

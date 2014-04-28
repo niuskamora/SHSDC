@@ -1,13 +1,12 @@
 <?php
 session_start();
-
+try {
 include("../recursos/funciones.php");
 require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
 
-try {
 $client = new nusoap_client($wsdl_sdc, 'wsdl');
 $_SESSION["cli"]=$client;
 	if (!isset($_SESSION["Usuario"])) {
@@ -17,7 +16,7 @@ $_SESSION["cli"]=$client;
 	} elseif (!isset($_GET['idpaqr'])) {
 		iraURL("../pages/inbox.php");
 	}
-     $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"], 'sede' => $_SESSION["Sede"]["nombresed"]);
+    $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"], 'sede' => $_SESSION["Sede"]["nombresed"]);
 	$consumo = $client->call("consultarSedeRol",$UsuarioRol);
 	if ($consumo!="") {
 	$SedeRol = $consumo['return'];   
@@ -29,8 +28,6 @@ $consumo = $client->call("ConsultarPaqueteXId",$idPaquete);
 	if ($consumo!="") {
 	$Paquete = $consumo['return'];   
     }
-//$Paquete = $client->ConsultarPaqueteXId($idPaquete);
-
 if (!isset($Paquete)) {
     iraURL('../pages/inbox.php');
 } elseif ($Paquete["statuspaq"] != "1" && $Paquete["destinopaq"]["idusu"]["idusu"] != $_SESSION["Usuario"]["idusu"]) {
@@ -39,13 +36,10 @@ if (!isset($Paquete)) {
 $contacto = array('idusu' => $Paquete["origenpaq"]["idusu"]["idusu"]);
 $dueno = array('idusu' => $Paquete["destinopaq"]["idusu"]["idusu"]);
 
-
-//$rowDocumentos = $client->listarDocumentos();
 $consumo = $client->call("listarDocumentos");
 	if ($consumo!="") {
 	$Paquete = $consumo['return'];   
     }
-//$rowPrioridad = $client->listarPrioridad();
 $consumo = $client->call("listarPrioridad");
 	if ($consumo!="") {
 	$Paquete = $consumo['return'];   
@@ -65,7 +59,8 @@ if (isset($_POST["enviar"])) {
                 $fra = "1";
             } else {
                 $fra = "0";
-            }		 $origenpaq = array('idbuz' => $Paquete["destinopaq"]["idbuz"]);
+            }		 
+			$origenpaq = array('idbuz' => $Paquete["destinopaq"]["idbuz"]);
             $destinopaq = array('idbuz' => $Paquete["origenpaq"]["idbuz"]);
             $prioridad = array('idpri' => $_POST["prioridad"]);
             $documento = array('iddoc' => $_POST["doc"]);
@@ -85,10 +80,10 @@ if (isset($_POST["enviar"])) {
                 'idsed' => $sede,
                 'idpaqres' => $idPadre);
             $registro = array('registroPaquete' => $paquete);
-            $consumo = $client->call("crearPaquete",$registro);
+			$consumo = $client->call("crearPaquete",$registro);
+           if($consumo !="")){
 			$envio = $consumo['return'];
             $paramUltimo = array('idUsuario' => $Paquete["destinopaq"]["idusu"]["idusu"]);
-//            $idPaquete = $client->ultimoPaqueteXOrigen($paramUltimo);
 			$consumo = $client->call("ultimoPaqueteXOrigen",$paramUltimo);
 				if ($consumo!="") {
 				$idPaquete = $consumo['return'];   
@@ -102,10 +97,7 @@ if (isset($_POST["enviar"])) {
 				if ($consumo!="") {
 				$bandejaDestino = $consumo['return'];   
 				}	
-			//$bandejaorigen = $client->insertarBandejaOrigen($paq);
-            //$bandejaDestino = $client->insertarBandejaDestino($paq);
             $paramPadre = array('idpaq' => $_GET['idpaqr']);
-           // $ResPadre = $client->editarRespuestaPaquete($paramPadre);
             $consumo = $client->call("editarRespuestaPaquete",$paramPadre);
 				if ($consumo!="") {
 				$ResPadre = $consumo['return'];   
@@ -130,8 +122,7 @@ if (isset($_POST["enviar"])) {
                     'urladj' => $Ruta,
                     'idpaq' => $paq);
                 $par = array('registroAdj' => $adj);
-                //$Rta = $client->insertarAdjunto($par);
-				 $consumo = $client->call("insertarAdjunto",$par);
+				$consumo = $client->call("insertarAdjunto",$par);
 				if ($consumo!="") {
 				$Rta = $consumo['return'];   
 				}	
@@ -150,7 +141,11 @@ if (isset($_POST["enviar"])) {
                     llenarLog(1, "Envio de Respuesta de Correspondencia", $_SESSION["Usuario"]["idusu"], $_SESSION["Sede"]["idsed"]);
                 }
             }
-            iraURL('../pages/inbox.php');
+		   }else{
+		      javaalert("La correspondencia no ha podido ser enviada correctamente , por favor consulte con el administrador");
+
+		   }
+           iraURL('../pages/inbox.php');
         
     } else {
         javaalert("Debe agregar todos los campos obligatorios, por favor verifique");

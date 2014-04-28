@@ -165,8 +165,12 @@
                                     </tr>
                                     <tr>
                                         <td>Sede:</td>
+										       <?php
+												if(isset($Sedes)){
+												 ?>
                                         <td><select name="sede" id="sede" onChange="areas(this.value)"   title="Seleccione Sede">
-                                                <option value="" style="display:none">Seleccionar Sede:</option>                                  
+
+												<option value="" style="display:none">Seleccionar Sede:</option>                                  
                                                 <?php
                                                 if (!isset($Sedes[0])) {
                                                     echo '<option value="' . utf8_encode($Sedes["nombresed"]) . '">' .utf8_encode( $Sedes["nombresed"]) . '</option>';
@@ -175,15 +179,38 @@
                                                         echo '<option value="' . utf8_encode($Sedes[$i]["nombresed"]) . '">' . utf8_encode($Sedes[$i]["nombresed"]) . '</option>';
                                                     }
                                                 }
-                                                ?>
+												
+												?>
+												
                                             </select><br>
-                                        </td>
-                                        <td>Áreas:</td>
+											 <?php
+												}else{
+												 ?>
+												   <td><select name="sede" id="sede" onChange="areas(this.value)"   title="Seleccione Sede" disabled> 
+												   <option value="" style="display:none">No hay Sedes:</option>
+												   </select><br>
+												 
+												  <?php
+												}
+												 ?>
+                                        </td> <td>Áreas:</td>
+										 <?php
+												if(isset($Sedes)){
+												 ?>
+                                       
                                         <td><select name="area" id="area"   title="Seleccione Area">
                                                 <option value="">Seleccione Área</option> 
-
                                             </select><br>
-                                        </td>
+                                         <?php
+												}else{
+												 ?>
+												 <td><select name="area" id="area"   title="Seleccione Area" disabled>
+                                                <option value="">No se puede seleccionar</option> 
+                                                </select><br>
+												  <?php
+												}
+												 ?>
+										</td>
                                     </tr>
                                     <tr>
                                         <td>

@@ -165,7 +165,6 @@ if (!isset($SedeRol)) {
 											</div> ";
                                         }
                                         ?>
-                                        <br><br>
                                     </div>
                                 </div>
                             </div>

@@ -2,13 +2,12 @@
 
 session_start();
 
+try {
 include("../recursos/funciones.php");
 require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
-
-try {
     $client = new nusoap_client($wsdl_sdc, 'wsdl');
 	$_SESSION["cli"]=$client;
 	if (!isset($_SESSION["Usuario"])) {
@@ -27,15 +26,13 @@ try {
         iraURL('../pages/inbox.php');
     }
     $parametros = array('idSede' => $_SESSION["Sede"]["idsed"]);
-   // $ValijasOrigen = $client->valijasXFechaVencidaXUsuarioOrigen($parametros);
-	 $consumo = $client->call("valijasXFechaVencidaXUsuarioOrigen",$parametros);
+	$consumo = $client->call("valijasXFechaVencidaXUsuarioOrigen",$parametros);
 	if ($consumo!="") {
 	$ValijasOrigen = $consumo['return'];  
 	}
     if (isset($ValijasOrigen)) {
         if (!isset($ValijasOrigen[0])) {
             $parametros = array('Id' => $ValijasOrigen["origenval"]);
-            //$nombreSede = $client->consultaNombreSedeXId($parametros);
 			 $consumo = $client->call("consultaNombreSedeXId",$parametros);
 			if ($consumo!="") {
 			$nombreSede = $consumo['return']; 
@@ -56,7 +53,6 @@ try {
     }
     $sede = array('idsed' => $_SESSION["Sede"]["idsed"]);
     $parametros = array('registroSede' => $sede);
-   // $ValijasDestino = $client->valijasXFechaVencidaXUsuarioDestino($parametros);
 	$consumo = $client->call("valijasXFechaVencidaXUsuarioDestino",$parametros);
 				if ($consumo!="") {
 				$ValijasDestino = $consumo['return'];  

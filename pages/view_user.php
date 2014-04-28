@@ -19,13 +19,16 @@ require_once("../core/Crypt/AES.php");
 	$consumo = $client->call("consultarSedeRol",$UsuarioRol);
 	if ($consumo!="") {
 	$SedeRol = $consumo['return']; 
-	}
+	} else {
+        iraURL('../pages/inbox.php');
+    }
     $usuario = array('user' => $_SESSION["Usuario"]["userusu"]);
-   // $Usuario = $client->consultarUsuarioXUser($usuario);
     $consumo = $client->call("consultarUsuarioXUser",$usuario);
 	if ($consumo!="") {
 	$Usuario = $consumo['return']; 
-	}
+	} else {
+        iraURL('../pages/inbox.php');
+    }
 	include("../views/view_user.php");
 } catch (Exception $e) {
     javaalert('Lo sentimos no hay conexion');

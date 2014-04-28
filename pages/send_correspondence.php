@@ -17,12 +17,9 @@ try {
 		iraURL("../pages/create_user.php");
 	}
     $UsuarioRol = array('idusu' => $_SESSION["Usuario"]["idusu"], 'sede' => $_SESSION["Sede"]["nombresed"]);
-	//$UsuarioRol["idusu"] = $_SESSION["Usuario"]["idusu"];
-	//$UsuarioRol["sede"] = $_SESSION["Sede"]["nombresed"];
     $consumo = $client->call("consultarSedeRol",$UsuarioRol);
     $SedeRol = $consumo['return'];
 	$sedemia = array('idSede' => $_SESSION["Sede"]["idsed"]);
-    //$Sedes = $client->listarSedesParaEnvio($sedemia);
 	$consumo = $client->call("listarSedesParaEnvio",$sedemia);
     $Sedes = $consumo['return'];
     $consumo = $client->call("listarDocumentos");
@@ -57,12 +54,10 @@ try {
         if ($_POST["contacto"] != "" && isset($_POST["asunto"]) && $_POST["asunto"] != "" && isset($_POST["doc"]) && $_POST["doc"] != "" && isset($_POST["prioridad"]) && $_POST["prioridad"] != "" && isset($_POST["elmsg"]) && $_POST["elmsg"] != "") {
 
             $idbuz = $_POST["id"];
-        
             $origenpaq = array('idbuz' => $propioBuzon["idbuz"]);
 			$paramBuzonP= array('idbuz' => $idbuz);
 			$consumo = $client->call("consultarBuzon",$paramBuzonP);
 			$buzonPara = $consumo['return'];
-            //if (isset($usuarioBuzon->return)) {
             if ($buzonPara["tipobuz"] == "0") {
                 if (!isset($_POST["rta"])) {
                     $rta = "0";
@@ -95,77 +90,81 @@ try {
                 'idsed' => $sede);
 				
             $registro = array('registroPaquete' => $paquete);
-			//echo '<pre>';print_r($registro);
-            //$envio = $client->crearPaquete($registro);  //pilas ismael
+
 			$consumo = $client->call("crearPaquete",$registro);
-			$envio = $consumo['return'];
-            $paramUltimo = array('idUsuario' => $_SESSION["Usuario"]["idusu"]);
-            $consumo = $client->call("ultimoPaqueteXOrigen",$paramUltimo);
-			$idPaquete = $consumo['return'];
-			//$idPaquete = $client->ultimoPaqueteXOrigen($paramUltimo);
-            $paq = array('idpaq' => $idPaquete["idpaq"]);
-          //  $bandejaorigen = $client->insertarBandejaOrigen($paq);
-            $consumo = $client->call("insertarBandejaOrigen",$paq);
-			$bandejaorigen = $consumo['return'];
-			if ($buzonPara["tipobuz"] == 0) {
-			  $consumo = $client->call("insertarBandejaDestino",$paq);
-			  $bandejaD = $consumo['return'];
-               // $bandejaD = $client->insertarBandejaDestino($paq);
-                $bandejaDestino = $bandejaD;
-            } else {
-                $bandejaDestino = "1";
-            }
+			if($consumo!=""){
+				$envio = $consumo['return'];
+				$paramUltimo = array('idUsuario' => $_SESSION["Usuario"]["idusu"]);
+				$consumo = $client->call("ultimoPaqueteXOrigen",$paramUltimo);
+				if($consumo!=""){
+					$idPaquete = $consumo['return'];
+				}
+				$paq = array('idpaq' => $idPaquete["idpaq"]);
+				$consumo = $client->call("insertarBandejaOrigen",$paq);
+				if($consumo!=""){
+				$bandejaorigen = $consumo['return'];
+				}		
+				
+				if ($buzonPara["tipobuz"] == 0) {
+				  $consumo = $client->call("insertarBandejaDestino",$paq);
+				  if($consumo!=""){	  
+				  $bandejaD = $consumo['return'];
+				  $bandejaDestino = $bandejaD;
+				  }
+			
+				} else {
+					$bandejaDestino = "1";
+				}
 
-            if ($_FILES['imagen']['name'] != "") {
-                $imagenName = $_FILES['imagen']['name'];
-                $caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"; //posibles caracteres a usar
-                $numerodeletras = 5; //numero de letras para generar el texto
-                $cadena = ""; //variable para almacenar la cadena generada
-                for ($i = 0; $i < $numerodeletras; $i++) {
-                    $cadena .= substr($caracteres, rand(0, strlen($caracteres)), 1); /* Extraemos 1 caracter de los caracteres 
-                      entre el rango 0 a Numero de letras que tiene la cadena */
-                }
+				if ($_FILES['imagen']['name'] != "") {
+					$imagenName = $_FILES['imagen']['name'];
+					$caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"; //posibles caracteres a usar
+					$numerodeletras = 5; //numero de letras para generar el texto
+					$cadena = ""; //variable para almacenar la cadena generada
+					for ($i = 0; $i < $numerodeletras; $i++) {
+						$cadena .= substr($caracteres, rand(0, strlen($caracteres)), 1); /* Extraemos 1 caracter de los caracteres 
+						  entre el rango 0 a Numero de letras que tiene la cadena */
+					}
 
-                $direccion = "../images"; //para cargar
-                $direccion2 = "../images"; //para guardar
-                $tipo = explode('/', $_FILES['imagen']['type']);
-                $uploadfile = $direccion . "/adjunto/" . $cadena . "." . $tipo[1];
-                $Ruta = $direccion2 . "/adjunto/" . $cadena . "." . $tipo[1];
-                $imagen = $_FILES['imagen']['tmp_name'];
-                move_uploaded_file($imagen, $uploadfile);
+					$direccion = "../images"; //para cargar
+					$direccion2 = "../images"; //para guardar
+					$tipo = explode('/', $_FILES['imagen']['type']);
+					$uploadfile = $direccion . "/adjunto/" . $cadena . "." . $tipo[1];
+					$Ruta = $direccion2 . "/adjunto/" . $cadena . "." . $tipo[1];
+					$imagen = $_FILES['imagen']['tmp_name'];
+					move_uploaded_file($imagen, $uploadfile);
 
-                $adj = array('nombreadj' => $imagenName,
-                    'urladj' => $Ruta,
-                    'idpaq' => $paq);
-                $par = array('registroAdj' => $adj);
-				$consumo = $client->call("insertarAdjunto",$par);
-				$Rta = $consumo['return'];               
-			  // $Rta = $client->insertarAdjunto($par);
-            }
-            if ($envio == "1" && $bandejaorigen == "1" && $bandejaDestino == "1") {
-                if ($buzonPara["tipobuz"] == "1") {
-                    javaalert("La correspondencia ha sido enviada, como el buzón es externo no tendra respuesta del paquete");
-                } else {
-                    javaalert("La correspondencia ha sido enviada");
-                }
-                $usuario = array('idusu' => $_SESSION["Usuario"]["idusu"]);
-                $parametros = array('registroPaquete' => $paq,
-                    'registroUsuario' => $usuario,
-                    'registroSede' => $sede,
-                    'Caso' => "Envio");
-                
-			//	$seg = $client->registroSeguimiento($parametros);
-				$consumo = $client->call("registroSeguimiento",$parametros);
-                llenarLog(1, "Envio de Correspondencia", $_SESSION["Usuario"]["idusu"], $_SESSION["Sede"]["idsed"]);
-                echo"<script>window.open('../pages/proof_of_correspondence.php');</script>";
-            } else {
-                javaalert("La correspondencia no ha podido ser enviada correctamente , por favor consulte con el administrador");
-            }
-            //iraURL('../pages/inbox.php');
-            /* } else {
+					$adj = array('nombreadj' => $imagenName,
+						'urladj' => $Ruta,
+						'idpaq' => $paq);
+					$par = array('registroAdj' => $adj);
+					$consumo = $client->call("insertarAdjunto",$par);
+					$Rta = $consumo['return'];               
+				}
+				if (isset($envio) || isset($bandejaorigen) || isset($bandejaDestino) ) {
+					if ($envio == "1" && $bandejaorigen == "1" && $bandejaDestino == "1") {
+						if ($buzonPara["tipobuz"] == "1") {
+							javaalert("La correspondencia ha sido enviada, como el buzón es externo no tendra respuesta del paquete");
+						} else {
+							javaalert("La correspondencia ha sido enviada");
+						}
+						$usuario = array('idusu' => $_SESSION["Usuario"]["idusu"]);
+						$parametros = array('registroPaquete' => $paq,
+							'registroUsuario' => $usuario,
+							'registroSede' => $sede,
+							'Caso' => "Envio");
+						$consumo = $client->call("registroSeguimiento",$parametros);
+						llenarLog(1, "Envio de Correspondencia", $_SESSION["Usuario"]["idusu"], $_SESSION["Sede"]["idsed"]);
+						echo"<script>window.open('../pages/proof_of_correspondence.php');</script>";
+					} else {
+						javaalert("La correspondencia no ha podido ser enviada correctamente , por favor consulte con el administrador");
+					}
+				}
+			}else{
+			javaalert("La correspondencia no ha podido ser enviada correctamente , por favor consulte con el administrador");
+			}
+			
 
-              javaalert("El buzón al que desea enviar la correspondencia no esta registrado en sus contactos, por favor verifique");
-              } */
         } else {
             javaalert("Debe agregar todos los campos obligatorios, por favor verifique");
         }
