@@ -94,7 +94,9 @@ if (isset($_POST["imprimir"])) {
                 }
                 if (isset($resultadoConsultarSede)) {
                     $codigoSede = $resultadoConsultarSede['codigosed'];
-                }
+                } else {
+					$codigoSede = "";
+				}
 
                 //Código total codigosede+añopaquete+idpaquete
                 $codigoTotal[$i] = $codigoSede . $fechaCod . $idpaq[$i];
