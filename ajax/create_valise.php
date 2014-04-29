@@ -53,13 +53,24 @@ require_once("../core/Crypt/AES.php");
 		}
 	
 	
-    echo "<br>";
-    echo "<br>";
-    echo "<h2> <strong>" . $aux . "</h2> </strong>";
+    
+    
+   
     echo "</div>";
+	echo "<br>";
     if ($reg != 0) {
         echo "<form method='post'>		 
-       <br>";
+       
+	    Tipo de Valija:  <select id='tipo' name='tipo'> <option value='0' style='display:none'>Seleccionar:</option> 
+                                            
+                                 <option value='1'> Mercancia</option>
+                                 <option value='2'> Documento</option>
+                                
+                                          
+                                        </select>
+	   <br>";
+	    echo "<h2> <strong>" . $aux . "</h2> </strong>";
+		echo "<br>";
         echo "<table class='footable table table-striped table-bordered' align='center'  data-page-size=".$itemsByPage.">
     	 <thead bgcolor='#FF0000'>		
                                 <tr>
