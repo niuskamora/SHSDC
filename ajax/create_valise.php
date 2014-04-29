@@ -32,7 +32,7 @@ require_once("../core/Crypt/AES.php");
     $aux = $_POST['sed'];
     $client = new nusoap_client($wsdl_sdc, 'wsdl');
     $client->decode_utf8 = false;
-    $Sedes = array('sede' =>utf8_decode($_SESSION["Sede"]['nombresed']), 'sedeDestino' =>utf8_decode($aux));
+    $Sedes = array('sede' =>$_SESSION["Sede"]['nombresed'], 'sedeDestino' =>utf8_decode($aux));
     $Regist = $client->call("ConsultarPaquetesParaValija",$Sedes);
     $reg = 0;
 	

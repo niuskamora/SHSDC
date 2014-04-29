@@ -126,11 +126,11 @@ if (isset($_POST["guardar"]) && isset($_POST["ide"]) && ($_POST["tipo"]==1  || $
                                             if ($reg > 1) {
                                                 $i = 0;
                                                 while ($reg > $i) {
-                                                    echo '<option value="' . utf8_decode($Sedes[$i]) . '">' . utf8_encode($Sedes[$i]) . '</option>';
+                                                    echo '<option value="' . $Sedes[$i] . '">' . utf8_encode($Sedes[$i]) . '</option>';
                                                     $i++;
                                                 }
                                             } else {
-                                                echo '<option value="' . utf8_decode($Sedes) . '">' . utf8_encode($Sedes). '</option>';
+                                                echo '<option value="' . $Sedes . '">' . utf8_encode($Sedes). '</option>';
                                             }
                                             ?>
                                         </select>
