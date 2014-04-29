@@ -43,7 +43,7 @@ if (isset($_POST["guardar"]) && isset($_POST["ide"]) && ($_POST["tipo"]!="") ) {
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <!-- javascript -->
+          <!-- javascript -->
         <script type='text/javascript' src="../js/jquery-1.9.1.js"></script>
         <script type='text/javascript' src="../js/bootstrap.js"></script>
         <script type='text/javascript' src="../js/bootstrap-transition.js"></script>
@@ -53,10 +53,7 @@ if (isset($_POST["guardar"]) && isset($_POST["ide"]) && ($_POST["tipo"]!="") ) {
         <script type='text/javascript' src="../js/custom.js"></script>
         <script type='text/javascript' src="../js/jquery.fancybox.pack.js"></script>
 
-        <!-- javascript para el funcionamiento del calendario -->
-        <link rel="stylesheet" type="text/css" href="../js/ui-lightness/jquery-ui-1.10.3.custom.css" media="all" />
-        <script type="text/javascript" src="../js/jquery-ui-1.10.3.custom.js" ></script> 
-        <script type="text/javascript" src="../js/calendarioValidado.js" ></script> 
+
         <!-- styles -->
         <link rel="shortcut icon" href="../images/faviconsh.ico">
 

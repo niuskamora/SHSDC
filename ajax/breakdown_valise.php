@@ -30,8 +30,6 @@ require_once("../core/Crypt/AES.php");
 <link href="../css/footable-0.1.css" rel="stylesheet" type="text/css" />
 <link href="../css/footable.sortable-0.1.css" rel="stylesheet" type="text/css" />
 <link href="../css/footable.paginate.css" rel="stylesheet" type="text/css" />
-<link href="SpryAssets/SpryValidationRadio.css" rel="stylesheet" type="text/css">
-<script src="SpryAssets/SpryValidationRadio.js" type="text/javascript"></script>
 <body class="appBg">
 
 <?php

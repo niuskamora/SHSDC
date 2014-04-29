@@ -48,15 +48,19 @@ try {
     if (isset($_POST["crear"])) {
         if (isset($_POST["nombre"]) && $_POST["nombre"] != "" && isset($_POST["direccion"]) && $_POST["direccion"] != "" && isset($_POST["telefono"]) && $_POST["telefono"] != "" && isset($_POST["codigo"]) && $_POST["codigo"] != "" && isset($_POST["organizacion"]) && $_POST["organizacion"] != "") {
 
-            $result = 0;
-            try {
-                $datos = array('sede' => utf8_decode($_POST["nombre"]));
-                $Sedes = $client->call("consultarSedeExistente",$datos);
-                $result = $Sedes['return'];
-            } catch (Exception $e) {
-                
-            }
-            if ($result == 0) {
+            
+                $nombre= utf8_decode($_POST["nombre"]);
+                $datos = array('sede' =>$nombre);
+                $result= $client->call("consultarSedeExistente",$datos);
+               if ($result['return']=="0") {
+					$correcto=0;
+       
+				}else{
+					$correcto= 1;
+					
+				}
+           
+            if ($correcto == 0) {
                 $telefono2 = "";
                 if (isset($_POST["telefono"])) {
                     $telefono = $_POST["telefono"];
@@ -67,8 +71,9 @@ try {
                 if (isset($_POST["direccion"])) {
                     $direccion = $_POST["direccion"];
                 }
+				 
                 $Sedenueva = array(
-                    'nombresed' =>utf8_decode ($_POST["nombre"]),
+                    'nombresed' =>$nombre,
                     'direccionsed' => utf8_decode($direccion),
                     'telefonosed' => $telefono,
                     'telefono2sed' => $telefono2,
@@ -76,6 +81,7 @@ try {
                     'borradosed' => "0",
                     'codigosed' => $_POST["codigo"]
                 );
+				
                 $parametros = array('registroSede' => $Sedenueva, 'idorg' => $_POST["organizacion"]);
                 $guardo = $client->call("insertarSede",$parametros);
 
@@ -88,7 +94,7 @@ try {
                 iraURL('../pages/inbox.php');
             } else {
                 javaalert('Este nombre de sede ya ha sido usado');
-                iraURL('../pages/inbox.php');
+                iraURL('../pages/create_headquarters.php');
             }
         } else {
             javaalert("Debe agregar todos los campos obligatorios, por favor verifique");

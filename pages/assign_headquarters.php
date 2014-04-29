@@ -37,9 +37,10 @@ require_once("../core/Crypt/AES.php");
 	}
      $UsuarioRol = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sede' =>utf8_decode( $_SESSION["Sede"]['nombresed']));
      $SedeR = $client->call("consultarSedeRol",$UsuarioRol);
-	 $SedeRol=$SedeR['return'];
-    if ($SedeRol!="") {
-        if ($SedeRol['idusu']['tipousu'] != "1" && $SedeRol['idusu']['tipousu'] != "2") {
+	 
+    if ($SedeR!="") {
+		$SedeRol=$SedeR['return'];
+        if ($SedeRol['idusu']['tipousu'] != "1" && $SedeRol['idusu']['tipousu'] != "2"){
             iraURL('../pages/inbox.php');
         }
     } else {

@@ -1,10 +1,4 @@
-<!-- javascript -->
-<script type='text/javascript' src="../js/jquery-1.9.1.js"></script>
-<link rel="stylesheet" type="text/css" href="../js/ui-lightness/jquery-ui-1.10.3.custom.css" media="all" />
-<script type="text/javascript" src="../js/jquery-ui-1.10.3.custom.js" ></script> 
-<script type="text/javascript" src="../js/calendarioValidado.js" ></script> 
 
-<!-- styles -->
 <link rel="shortcut icon" href="../images/faviconsh.ico">
 
 <link href="../css/bootstrap.css" rel="stylesheet">
@@ -26,8 +20,6 @@
 <link href="../css/footable-0.1.css" rel="stylesheet" type="text/css" />
 <link href="../css/footable.sortable-0.1.css" rel="stylesheet" type="text/css" />
 <link href="../css/footable.paginate.css" rel="stylesheet" type="text/css" />
-
-<body class="appBg">
 
     <?php
     session_start();

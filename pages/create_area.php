@@ -48,25 +48,22 @@ try {
     if (isset($_POST["crear"])) {
         if (isset($_POST["nombre"]) && $_POST["nombre"] != "" && isset($_POST["sede"]) && $_POST["sede"] != "") {
 
-            $result = 0;
+                 $nombre=utf8_decode($_POST["nombre"]);
            
-                $datos = array('area' => utf8_decode($_POST["nombre"]), 'sede' => utf8_decode($_POST["sede"]));
-                $areas = $client->call("consultarAreaExistente",$datos);
+                $datos = array('area' => $nombre, 'sede' => utf8_decode($_POST["sede"]));
+                $result = $client->call("consultarAreaExistente",$datos);
                 
-				if ($result=="") {
+				if ($result['return']=="0") {
 					$correcto=0;
        
 				}else{
-					 javaalert("lo sentimos esta Area ya ha sido creada esta sede");
-					iraURL('../pages/create_area.php');
-						
-							$correcto= 1;
+					$correcto= 1;
 					
 				}
             
             if ($correcto == 0) {
                 $areanueva = array(
-                    'nombreatr' => utf8_decode ($_POST["nombre"]),
+                    'nombreatr' =>$nombre,
                     'idsed' => $_POST["sede"]);
                 $parametros = array('registroArea' => $areanueva, 'idsed' => $_POST["sede"]);
                 $guardo = $client->call("insertarArea",$parametros);
@@ -79,7 +76,7 @@ try {
                 iraURL('../pages/inbox.php');
             } else {
                 javaalert('Este nombre de Area ya ha sido usado en esta sede');
-                iraURL('../pages/inbox.php');
+                iraURL('../pages/create_area.php');
             }
         } else {
             javaalert("Debe agregar todos los campos obligatorios, por favor verifique");
