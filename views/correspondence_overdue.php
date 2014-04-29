@@ -121,8 +121,8 @@ if (!isset($SedeRol)) {
                                                     ?>
                                                     <tr class="success">     
                                                         <td  style='text-align:center'><?php echo utf8_encode($PaquetesDestino["origenpaq"]["idusu"]["nombreusu"] . " " . $PaquetesDestino["origenpaq"]["idusu"]["apellidousu"]); ?></td>
-                                                        <td  style='text-align:center'><?php echo utf8_encode($nombrebuz); ?></td>
-                                                        <td style='text-align:center'><?php echo utf8_encode($asunto); ?></td>
+                                                        <td  style='text-align:center'><?php echo $nombrebuz; ?></td>
+                                                        <td style='text-align:center'><?php echo $asunto; ?></td>
                                                         <td style='text-align:center'><?php echo utf8_encode($PaquetesDestino["iddoc"]["nombredoc"]);?></td>
                                                         <td style='text-align:center'><?php echo date("d/m/Y", strtotime(substr($PaquetesDestino["fechapaq"], 0, 10))); ?></td>
                                                     </tr>   
