@@ -92,7 +92,7 @@ function Menu($SedeRol) {
             <li class="pull-left">
                 <div class="modal-header" style="width:1135px;">
                     <h3> Correspondencia    
-                        <span></span> <?php echo " - " . $_SESSION["Usuario"]["nombreusu"] ." ". $_SESSION["Usuario"]["apellidousu"]; ?>
+                        <span></span> <?php echo " - " . utf8_encode($_SESSION["Usuario"]["nombreusu"]) ." ". utf8_encode($_SESSION["Usuario"]["apellidousu"]); ?>
                         <div class="btn-group  pull-right">
                             <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"> <span class="icon-cog" style="color:rgb(255,255,255)"> Configuración </span> </button>
                             <ul class="dropdown-menu" role="menu">

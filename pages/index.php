@@ -16,7 +16,7 @@ if (isset($_POST["Biniciar"])) {
 		/*$client = new SOAPClient($wsdl_sdc);
         $client->decode_utf8 = false;
         $Usuario = array('user' => $_POST["usuario"]);*/
-		$UsuarioC = array('user' => $_POST["usuario"], 'password' => $_POST["password"]);
+		$UsuarioC = array('user' => utf8_decode($_POST["usuario"]), 'password' => $_POST["password"]);
 		//$auto=$client->auntenticarLDAP($UsuarioC);
 		
 		
@@ -31,7 +31,7 @@ if (isset($_POST["Biniciar"])) {
 		//$UsuarioLogIn = $client->consultarUsuarioXUser($Usuario);
 		
 		
-		$userparam['user'] = $_POST["usuario"];
+		$userparam['user'] = utf8_decode($_POST["usuario"]);
 	
 		$userResp = $client->call("consultarUsuarioXUser",$userparam);
 		if ($userResp!="") {

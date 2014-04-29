@@ -2,15 +2,14 @@
 
 session_start();
 
-
-
 try {
 include("../recursos/funciones.php");
 require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
-require_once("../core/Crypt/AES.php");    $client = new nusoap_client($wsdl_sdc, 'wsdl');
-	$_SESSION["cli"]=$client;
+require_once("../core/Crypt/AES.php");    
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$_SESSION["cli"]=$client;
 
     if (!isset($_SESSION["User"])) {
         iraURL('../index.php');
