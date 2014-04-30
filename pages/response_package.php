@@ -24,7 +24,7 @@ $_SESSION["cli"]=$client;
         iraURL('../pages/inbox.php');
     }
 $idPaquete = array('idPaquete' => $_GET['idpaqr']);
-$consumo = $client->call("ConsultarPaqueteXId",$idPaquete);
+$consumo = $client->call("consultarPaqueteXId",$idPaquete);
 	if ($consumo!="") {
 	$Paquete = $consumo['return'];   
     }
@@ -38,11 +38,11 @@ $dueno = array('idusu' => $Paquete["destinopaq"]["idusu"]["idusu"]);
 
 $consumo = $client->call("listarDocumentos");
 	if ($consumo!="") {
-	$Paquete = $consumo['return'];   
+	$rowDocumentos = $consumo['return'];   
     }
 $consumo = $client->call("listarPrioridad");
 	if ($consumo!="") {
-	$Paquete = $consumo['return'];   
+	$rowPrioridad = $consumo['return'];   
     }
 if (!isset($rowDocumentos)) {
     javaalert("Lo sentimos no se puede enviar correspondencia porque no hay Tipos de documentos registrados, Consulte con el Administrador");
@@ -81,7 +81,7 @@ if (isset($_POST["enviar"])) {
                 'idpaqres' => $idPadre);
             $registro = array('registroPaquete' => $paquete);
 			$consumo = $client->call("crearPaquete",$registro);
-           if($consumo !="")){
+           if($consumo !=""){
 			$envio = $consumo['return'];
             $paramUltimo = array('idUsuario' => $Paquete["destinopaq"]["idusu"]["idusu"]);
 			$consumo = $client->call("ultimoPaqueteXOrigen",$paramUltimo);

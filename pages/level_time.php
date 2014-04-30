@@ -54,7 +54,7 @@ try {
                 javaalert("No se ha Guardado el tiempo de la Area, Consulte con el Admininistrador");
             } else {
                 javaalert("Se ha Guardado el tiempo de la Area");
-                llenarLog(1, "Inserción tiempo de area", $_SESSION["Usuario"]['return']['idusu'], $_SESSION["Sede"]['return']['idsed']);
+                llenarLog(1, "Inserción tiempo de área", $_SESSION["Usuario"]["idusu"], $_SESSION["Sede"]["idsed"]);
             }
             iraURL('../pages/inbox.php');
         } else {

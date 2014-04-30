@@ -97,10 +97,10 @@ if ($usu == "") {
                                                 <option value="" style="display:none">Seleccionar:</option>                                  
                                                 <?php
                                                 if ($reg == 1) {
-                                                    echo '<option value="' . $rowPrioridad['idpri'] . '">' . $rowPrioridad['nombrepri'] . '</option>';
+                                                    echo '<option value="' . $rowPrioridad['idpri'] . '">' . utf8_encode($rowPrioridad['nombrepri']) . '</option>';
                                                 } else {
                                                     for ($i = 0; $i < $reg; $i++) {
-                                                        echo '<option value="' . $rowPrioridad[$i]['idpri'] . '">' . $rowPrioridad[$i]['nombrepri'] . '</option>';
+                                                        echo '<option value="' . $rowPrioridad[$i]['idpri'] . '">' . utf8_encode($rowPrioridad[$i]['nombrepri']) . '</option>';
                                                     }
                                                 }
                                                 ?>

@@ -49,13 +49,19 @@ try {
                     'tipobuz' => "1",
                     'borradobuz' => "0");
                 $parametros = array('buzon' => $Buzon, 'idusu' => $_SESSION["Usuario"]['idusu'], 'idsed' => $_SESSION["Sede"]['idsed']);
-                $guardo = $client->call("insertarBuzonExterno",$parametros);
-                if ($guardo->return == 0) {
-                    javaalert("No se han Guardado los datos del Buzon externo, Consulte con el Admininistrador");
-                } else {
-                    javaalert("Se han Guardado los datos del Buzon externo");
-                    llenarLog(1, "Creacion de buzon externo", $_SESSION["Usuario"]['idusu'], $_SESSION["Sede"]['idsed']);
-                }
+                $consumo = $client->call("insertarBuzonExterno",$parametros);
+                if($consumo!=""){
+				$guardo=$consumo["return"];
+					if ($guardo == 0) {
+                     utf8_decode(javaalert("No se han Guardado los datos del Buzón externo, Consulte con el Admininistrador"));
+					} else {
+						utf8_decode(javaalert("Se han Guardado los datos del Buzón externo"));
+						llenarLog(1, "Creación de buzón externo", $_SESSION["Usuario"]['idusu'], $_SESSION["Sede"]['idsed']);
+					}
+				}else{
+				utf8_decode(javaalert("No se han Guardado los datos del Buzón externo, Consulte con el Admininistrador"));
+				}
+
                 iraURL('../pages/send_correspondence.php');
             } else {
                 javaalert("El formato del correo es incorrecto, por favor verifique");
