@@ -159,7 +159,7 @@ try {
                                                             $rta = "Si";
                                                         }
                                                         if (strlen(utf8_encode($PaquetesConfirmados[$i]["textopaq"])) > 25) {
-                                                            $contenido = utf8_encode(substr($PaquetesConfirmados[$i]["textopaq"]), 0, 23). "...";
+                                                            $contenido = substr(utf8_encode($PaquetesConfirmados[$i]["textopaq"]), 0, 23). "...";
                                                         } else {
                                                             $contenido = utf8_encode($PaquetesConfirmados[$i]["textopaq"]);
                                                         }

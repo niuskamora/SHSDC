@@ -153,7 +153,7 @@ if ($Ses=="") {
                                 $j = 0;
                                 while ($j < $reg) {
                                     echo "<td style='text-align:center'>" . $Sedes[$j]['idsed'] . "</td>";
-                                    echo "<td style='text-align:left'>" . $Sedes[$j]['nombresed'] . "</td>";
+                                    echo "<td style='text-align:left'>" . utf8_encode($Sedes[$j]['nombresed']) . "</td>";
                                     ?>
                                     <td style="text-align:center"> 
                                         <button class='btn' onClick="buscarAreas('<?php echo $Sedes[$j]['idsed']; ?>');">

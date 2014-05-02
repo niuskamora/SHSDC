@@ -112,8 +112,8 @@ if (!isset($SedeRol)) {
                                                     } else {
                                                         $rta = "Si";
                                                     }
-                                                    if (strlen(utf8_encode($PaquetesConfirmados["textopaq"])) > 10) {
-                                                        $contenido = substr(utf8_encode($PaquetesConfirmados["textopaq"]), 0, 10) . "...";
+                                                    if (strlen(utf8_encode($PaquetesConfirmados["textopaq"])) > 20) {
+                                                        $contenido = substr(utf8_encode($PaquetesConfirmados["textopaq"]), 0, 17) . "...";
                                                     } else {
                                                         $contenido = utf8_encode($PaquetesConfirmados["textopaq"]);
                                                     }
@@ -144,8 +144,8 @@ if (!isset($SedeRol)) {
                                                         } else {
                                                             $rta = "Si";
                                                         }
-                                                        if (strlen(utf8_encode($PaquetesConfirmados[$i]["textopaq"])) > 25) {
-                                                            $contenido = substr(utf8_encode($PaquetesConfirmados[$i]["textopaq"]), 0, 23) . "...";
+                                                        if (strlen(utf8_encode($PaquetesConfirmados[$i]["textopaq"])) > 20) {
+                                                            $contenido = substr(utf8_encode($PaquetesConfirmados[$i]["textopaq"]), 0, 17) . "...";
                                                         } else {
                                                             $contenido = utf8_encode($PaquetesConfirmados[$i]["textopaq"]);
                                                         }
