@@ -136,7 +136,7 @@ if ($contadorPaquete > 0) {
     //Esta línea es para hacer la página del PDF más grande
     $dompdf->set_paper('carta', 'portrait');
     $dompdf->render();
-    $nom = 'Comprobante Traking de Paquete No ' . $idPaq . '.pdf';
+    $nom = 'Comprobante Tracking de Paquete No ' . $idPaq . '.pdf';
     $dompdf->stream($nom);
 }//Fin del IF general
 ?>
