@@ -80,8 +80,8 @@
                         <div class="tab-content" id="lista" align="center">
                             <h2> <strong> Asignar Buz&oacute;n Adicional </strong> </h2>
                             <h2>
-                                <form class="form-Dvalija" method="post" id="fval">
-                                    Usuario:  <input placeholder="Ejm. jose.fuentes" type="text" id="usuario" name="usuario" class="input-medium search-query">
+                                <form class="form-Dvalija" id="fval">
+                                    Usuario:  <input placeholder="Ejm. jose.fuentes" type="text" id="usuario" name="usuario" title="Ingrese el Nombre de Usuario" class="input-medium search-query"  required>
                                     <button type="button"  onClick="Editar();" class="btn">Buscar</button>
                                 </form>
                             </h2>
@@ -107,21 +107,35 @@
             </script>
 
             <script>
+									function Enter(evt)
+                                    {
+								
+                                        var charCode = event.keyCode
+                                        if (charCode == 13) {	
+                                            Editar();
+                                        }
+                                    
+                                    }
                 function Editar() {
-                    var usu = document.forms.fval.usuario.value;
-                    var parametros = {
-                        "usu": usu
-                    };
-                    $.ajax({
-                        type: "POST",
-                        url: "../ajax/info_assign_headquarters.php",
-                        data: parametros,
-                        dataType: "text",
-                        success: function(response) {
-                            $("#datos").html(response);
-                        }
+                    if(document.forms.fval.usuario.value!=""){
+						var usu = document.forms.fval.usuario.value;						
+						var parametros = {
+							"usu": usu
+						};
+						$.ajax({
+							type: "POST",
+							url: "../ajax/info_assign_headquarters.php",
+							data: parametros,
+							dataType: "text",
+							success: function(response) {
+								$("#datos").html(response);
+							}
 
-                    });
+						});
+					}else{
+					alert('Debe agregar el nombre de usuario');
+					}
+					
                 }
             </script>
     </body>

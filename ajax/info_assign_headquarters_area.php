@@ -34,7 +34,7 @@ require_once("../core/Crypt/AES.php");
         $reg = 0;
         if (isset($_POST['ed']) && $_POST['ed'] != "" && $_POST['ed'] != NULL) {
             $aux = utf8_decode($_POST['ed']);
-            $datosU["sede"] =$aux;
+            $datosU["sede"] =utf8_decode($_POST['ed']);
 			$client = new nusoap_client($wsdl_sdc, 'wsdl');	
 						//javaalert($aux);
 
