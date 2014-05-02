@@ -82,16 +82,20 @@ try {
                     'codigosed' => $_POST["codigo"]
                 );
 				
-                $parametros = array('registroSede' => $Sedenueva, 'idorg' => $_POST["organizacion"]);
-                $guardo = $client->call("insertarSede",$parametros);
-
+	
+                $parametros = array('registroS' =>$Sedenueva);
+				
+                $guardo = $client->call("insertarNuevaSede",$parametros);
+			
+				
+				
                 if ($guardo['return'] == 0) {
                     javaalert("No se han Guardado los datos de la sede, Consulte con el Admininistrador");
                 } else {
                     javaalert("Se han Guardado los datos de la sede");
                     llenarLog(1, "Inserción de Sede", $_SESSION["Usuario"]['idusu'], $_SESSION["Sede"]['idsed']);
                 }
-                iraURL('../pages/inbox.php');
+                //iraURL('../pages/inbox.php');
             } else {
                 javaalert('Este nombre de sede ya ha sido usado');
                 iraURL('../pages/create_headquarters.php');
