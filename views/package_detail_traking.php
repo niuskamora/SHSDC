@@ -90,7 +90,7 @@ if ($idPaquete == "" || $usuario == "") {
                             if (!isset($resultadoPaquete)) {
                                 echo '<div class="alert alert-block" align="center">';
                                 echo '<h2 style="color:rgb(255,255,255)" align="center">Atención</h2>';
-                                echo '<h4 align="center">No Existen Registros del Traking del Paquete</h4>';
+                                echo '<h4 align="center">No Existen Registros del Tracking del Paquete</h4>';
                                 echo '</div>';
                             }
                             //Si existen registros muestro la tabla
@@ -118,7 +118,7 @@ if ($idPaquete == "" || $usuario == "") {
                                     </tbody>
                                 </table>
                                 <br>
-                                <strong> <h2 align="center">Traking del Paquete</h2> </strong>
+                                <strong> <h2 align="center">Tracking del Paquete</h2> </strong>
                                 <table class='footable table table-striped table-bordered' data-page-size=<?php echo $itemsByPage ?>>
                                     <thead bgcolor='#FF0000'>
                                         <tr>

@@ -28,7 +28,7 @@
                 </tr>
             </table>
             <br>
-            <h3 align="center">Traking del Paquete</h3>
+            <h3 align="center">Tracking del Paquete</h3>
             <table align="center" width="500" border="1" rules="all">
                 <tr>
                     <td align="center"><strong>Usuario</strong></td>
