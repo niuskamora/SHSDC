@@ -55,29 +55,20 @@ try {
                 
 				if ($result['return']=="0") {
 					$correcto=0;
-       
-				}else{
-					$correcto= 1;
+       					 javaalert("No se han Guardado los datos de la Area, Consulte con el Admininistrador");
+						  iraURL('../pages/create_area.php');
+				}else if($result['return']=="2"){
 					
-				}
-            
-            if ($correcto == 0) {
-                $areanueva = array(
-                    'nombreatr' =>$nombre,
-                    'idsed' => $_POST["sede"]);
-                $parametros = array('registroArea' => $areanueva, 'idsed' => $_POST["sede"]);
-                $guardo = $client->call("insertarArea",$parametros);
-                if ($guardo['return'] == 0) {
-                    javaalert("No se han Guardado los datos de la Area, Consulte con el Admininistrador");
-                } else {
-                    javaalert("Se han Guardado los datos de la Area");
+					 javaalert("Se han Guardado los datos de la Area");
                     llenarLog(1, "Inserción de Area", $_SESSION["Usuario"]['idusu'], $_SESSION["Sede"]['idsed']);
-                }
-                iraURL('../pages/inbox.php');
-            } else {
+                
+                    iraURL('../pages/create_area.php');
+					
+				}else if ($result['return']=="1") {
+			
                 javaalert('Este nombre de Area ya ha sido usado en esta sede');
                 iraURL('../pages/create_area.php');
-            }
+                 }
         } else {
             javaalert("Debe agregar todos los campos obligatorios, por favor verifique");
         }

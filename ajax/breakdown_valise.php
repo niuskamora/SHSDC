@@ -55,6 +55,7 @@ if (isset($_POST['idval']) && $_POST['idval'] != "" && $_POST['idval'] != "") {
 				}
 				else{
 					$reg = 1;
+					$_SESSION["RE"] = $reg;
 				}
 			}
 	}

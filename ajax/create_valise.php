@@ -46,6 +46,8 @@ require_once("../core/Crypt/AES.php");
 			}
 			else{
 				$reg = 1;
+				$_SESSION["reg"] = $reg;
+                $_SESSION["seded"] = $aux;
 			}
 		}else{
 			
