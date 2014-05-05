@@ -50,9 +50,19 @@ try {
             $result = $client->call("consultarSedeExistente", $datos);
             if ($result['return'] == "0") {
                 $correcto = 0;
+							$codigo = utf8_decode($_POST["codigo"]);
+						$datos = array('codigo' => $codigo);
+						$result = $client->call("consultarSedeCodigo", $datos);
+						if ($result['return'] == "0") {
+							$correcto = 0;
+						} else {
+							$correcto = 1;
+						}
             } else {
                 $correcto = 1;
             }
+			
+			
 
             if ($correcto == 0) {
                 $telefono2 = "";
@@ -84,7 +94,7 @@ try {
                 }
                 iraURL('../pages/administration.php');
             } else {
-                javaalert('Este nombre de sede ya ha sido usado');
+                javaalert('Este nombre o codigo de sede ya ha sido usado');
                 iraURL('../pages/create_headquarters.php');
             }
         } else {
