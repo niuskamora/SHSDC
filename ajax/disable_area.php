@@ -33,7 +33,7 @@ try {
     utf8_decode(javaalert('Error al deshabiltar el área'));
     iraURL('../pages/inbox.php');
 }
-echo "<h2> <strong>áreas</strong> </h2>";
+echo "<h2> <strong>Áreas</strong> </h2>";
 echo " <a href='../pages/disable_area.php'> <button class='btn primary''>
                                 <span class='icon-backward'>Regresar</span>
                  </button> </a>";
