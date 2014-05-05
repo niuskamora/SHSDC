@@ -116,9 +116,9 @@ if ($usu== "") {
                                                 for ($i = 0; $i < $bitacora; $i++) { ?>
                                                     <tr>
                                                         <td style="text-align:center"><?php echo $resultadoLista[$i]['idpaq'] ?></td>
-                                                        <td style="text-align:center"><?php echo $resultadoLista[$i]['origenpaq']['idusu']['nombreusu'] ?></td>                                            	
-                                                        <td style="text-align:center"><?php echo $resultadoLista[$i]['destinopaq']['idusu']['nombreusu'] ?></td>
-                                                        <td style="text-align:center"><?php echo $resultadoLista[$i]['asuntopaq'] ?></td>
+                                                        <td style="text-align:center"><?php echo utf8_encode($resultadoLista[$i]['origenpaq']['idusu']['nombreusu']) ?></td>                                            	
+                                                        <td style="text-align:center"><?php echo utf8_encode($resultadoLista[$i]['destinopaq']['idusu']['nombreusu']) ?></td>
+                                                        <td style="text-align:center"><?php echo utf8_encode($resultadoLista[$i]['asuntopaq']) ?></td>
                                                         
                                                     </tr>
                                                         <
@@ -127,9 +127,9 @@ if ($usu== "") {
                                                 <tr>
                                                     <tr>
                                                         <td style="text-align:center"><?php echo $resultadoLista['idpaq'] ?></td>
-                                                        <td style="text-align:center"><?php echo $resultadoLista['origenpaq']['idusu']['nombreusu'] ?></td>                                            	
-                                                        <td style="text-align:center"><?php echo $resultadoLista['destinopaq']['idusu']['nombreusu'] ?></td>
-                                                        <td style="text-align:center"><?php echo $resultadoLista['asuntopaq'] ?></td>
+                                                        <td style="text-align:center"><?php echo utf8_encode($resultadoLista['origenpaq']['idusu']['nombreusu']) ?></td>                                            	
+                                                        <td style="text-align:center"><?php echo utf8_encode($resultadoLista['destinopaq']['idusu']['nombreusu']) ?></td>
+                                                        <td style="text-align:center"><?php echo utf8_encode($resultadoLista['asuntopaq']) ?></td>
                                                         
                                                     </tr>
                                             <?php } ?>                                    
