@@ -20,7 +20,7 @@ $client->decode_utf8 = false;
            
             $res = $client->call("insertarUsuarioSedeXAdicional",$datosB);
             if ($res['return'] == 1) {
-                javaalert('Buzon asignado con exito');
+                utf8_decode(javaalert('Buzón asignado con exito'));
                 iraURL('../pages/administration.php');
             } elseif($res['return'] == 2) {
                 javaalert('El usuario ya esta en esa sede, Seleccione otra sede');
