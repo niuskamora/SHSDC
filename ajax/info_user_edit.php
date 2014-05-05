@@ -42,9 +42,10 @@
 			
 			$Bandeja=$Bandej['return'];
 			$Roles=$Role['return'];
-            $dau = array('idusu' => utf8_decode($Bandeja['idusu']), 'sede' => $_SESSION["sedeb"]);
+			$sede=$_SESSION["sedeb"];
+            $dau = array('idusu' => $Bandeja['idusu'], 'sede' => $sede);
             $sedeUs = $client->call("consultarSedeRol",$dau);
-			
+			echo 'pre';print_r($sedeUs);
 			if($sedeUs!=""){
 				$sedeU=$sedeUs['return'];
 				$regs = count($sedeU);
