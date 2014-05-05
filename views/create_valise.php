@@ -22,6 +22,7 @@ if (isset($_POST["guardar"]) && isset($_POST["ide"]) && ($_POST["tipo"]==1  || $
                 $seg = $client->call("registroSeguimiento",$parametros);
             }
         }
+		javaalert("Valija Creada");
         echo"<script>window.open('../pages/proof_pouch.php');</script>";
 	   }
     } catch (Exception $e) {
