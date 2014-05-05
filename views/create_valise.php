@@ -4,10 +4,12 @@ if (isset($_POST["guardar"]) && isset($_POST["ide"]) && ($_POST["tipo"]==1  || $
         $registrosAValija = $_POST["ide"];
         $contadorAceptados = 0;
 		
-        $datosValija = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sorigen' => $_SESSION["Sede"]['idsed'], 'sdestino' => $_SESSION["seded"], 'tipoval' => $_POST["tipo"]);
+        $datosValija = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sorigen' => utf8_decode($_SESSION["Sede"]['idsed']), 'sdestino' => utf8_decode($_SESSION["seded"]), 'tipoval' => $_POST["tipo"]);
        $client = new nusoap_client($wsdl_sdc, 'wsdl');
         $client->decode_utf8 = false;
         $idValija = $client->call("insertarValija",$datosValija);
+		
+		if($idValija !=""){
 		
         $usu = array('idusu' => $_SESSION["Usuario"]['idusu']);
         $sede = array('idsed' => $_SESSION["Sede"]['idsed']);
@@ -21,8 +23,9 @@ if (isset($_POST["guardar"]) && isset($_POST["ide"]) && ($_POST["tipo"]==1  || $
             }
         }
         echo"<script>window.open('../pages/proof_pouch.php');</script>";
+	   }
     } catch (Exception $e) {
-        javaalert('Lo sentimos no hay conexion');
+        utf8_decode(javaalert('Lo sentimos no hay conexión'));
         iraURL('../index.php');
     }
     //javaalert("Los registros han sido habilitados");

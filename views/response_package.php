@@ -153,6 +153,14 @@ if (!isset($rowDocumentos)) {
             </div>
         </form>
     </div>
+	    <script>
+    	window.onload = function() {
+        	killerSession();
+        }
+        function killerSession() {
+        	setTimeout("window.open('../recursos/cerrarsesion.php','_top');", 300000);
+        }
+    </script>
     <script>
                                         function LimitAttach(tField) {
                                             file = imagen.value;

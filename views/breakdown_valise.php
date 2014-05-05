@@ -45,7 +45,7 @@ if (isset($_POST["guardar"])) {
         unset($_SESSION["valdes"]);
         javaalert("Confimada la valija");
     } catch (Exception $e) {
-        javaalert('Lo sentimos no hay conexion');
+        utf8_decode(javaalert('Lo sentimos no hay conexión'));
         iraURL('../index.php');
     }
     //javaalert("Los registros han sido habilitados");

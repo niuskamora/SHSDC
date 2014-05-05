@@ -101,7 +101,7 @@ if ($usuarioBitacora == "") {
                                     <br>
                                     <div class="span5" align="right">Proveedor:</div>
                                     <div class="span3" align="left">
-                                        <select name='proveedor' id='proveedor' required  title='Seleccione el Proveedor'>
+                                        <select onChange="proveedores();" name='proveedor' id='proveedor' required  title='Seleccione el Proveedor'>
                                             <option value='' style='display:none'>Seleccionar:</option>
                                             <?php
                                             if ($proveedor > 1) {
@@ -119,8 +119,8 @@ if ($usuarioBitacora == "") {
                                     <br>
                                     <br>
                                     <div class="span5" align="right">Código del Proveedor:</div>
-                                    <div class="span3" align="left">
-                                        <input type="text" class="input-block-level" name="cProveedor" id="cProveedor" placeholder="Ej. 1234" title="Ingrese el código de Guía" autocomplete="off" required>
+                                   <div id="campos" class="span3" align="left">
+                                        
                                     </div>
                                     <br>
                                     <br>
@@ -146,7 +146,7 @@ if ($usuarioBitacora == "") {
                                     <br>
                                     <div class="span5" align="right">Proveedor:</div>
                                     <div class="span3" align="left">
-                                        <select name='proveedor' id='proveedor' required  title='Seleccione el Proveedor'>
+                                        <select onChange="proveedoresv();" name='proveedorv' id='proveedorv' required  title='Seleccione el Proveedor'>
                                             <option value='' style='display:none'>Seleccionar:</option>
                                             <?php
                                             if ($proveedor > 1) {
@@ -164,8 +164,8 @@ if ($usuarioBitacora == "") {
                                     <br>
                                     <br>
                                     <div class="span5" align="right">Código del Proveedor:</div>
-                                    <div class="span3" align="left">
-                                        <input type="text" class="input-block-level" name="cProveedor" id="cProveedor" placeholder="Ej. 1234" title="Ingrese el código de Guía" autocomplete="off" required>
+                                    <div id="camposv" class="span3" align="left">
+                                        
                                     </div>
                                     <br>
                                     <br>
@@ -189,6 +189,38 @@ if ($usuarioBitacora == "") {
                                             function killerSession() {
                                                 setTimeout("window.open('../recursos/cerrarsesion.php','_top');", 300000);
                                             }
+											
+                function proveedores() {
+                    //posicion
+                    var $selectedOption = $('#proveedor').find('option:selected');
+                    var idpro = $selectedOption.val();
+                    $.ajax({
+                        type: "POST",
+                        url: "../ajax/provider.php",
+                        data: {'pro': idpro},
+                        dataType: "text",
+                        success: function(response) {
+                            $("#campos").html(response);
+							
+                        }
+                    });
+                }
+				
+				 function proveedoresv() {
+                    //posicion
+                    var $selectedOption = $('#proveedorv').find('option:selected');
+                    var idpro = $selectedOption.val();
+                    $.ajax({
+                        type: "POST",
+                        url: "../ajax/provider.php",
+                        data: {'pro': idpro},
+                        dataType: "text",
+                        success: function(response) {
+                            $("#camposv").html(response);
+							
+                        }
+                    });
+                }
         </script>
 
         <script src="../js/footable.js" type="text/javascript"></script>

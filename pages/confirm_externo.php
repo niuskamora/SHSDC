@@ -36,7 +36,7 @@ if (!isset($_SESSION["Usuario"])) {
    // $PaquetesConfirmados = $client->consultarPaquetesXConfirmarExternos($parametros);
     include("../views/confirm_externo.php");
 } catch (Exception $e) {
-    javaalert('Lo sentimos no hay conexion');
+    utf8_decode(javaalert('Lo sentimos no hay conexión'));
     iraURL('../pages/inbox.php');
 }
 ?>

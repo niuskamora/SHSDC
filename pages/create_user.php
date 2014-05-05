@@ -78,7 +78,6 @@ $_SESSION["cli"]=$client;
 					if(isset($consumo)){
 					$guardo=$consumo["return"];
 					}
-              //  $guardo = $client->insertarUsuarioSedeXDefecto($RegUsuSede);
 
                 if ($guardo == 0) {
                     javaalert("No se han Guardado los datos del Usuario, Consulte con el Admininistrador");
@@ -88,7 +87,6 @@ $_SESSION["cli"]=$client;
                     if(isset($consumo)){
 					$UsuarioLogIn=$consumo["return"];
 					}
-					//$UsuarioLogIn = $client->consultarUsuarioXUser($Usuario);
                     $_SESSION["Usuario"] = $UsuarioLogIn;
                     javaalert("Se han Guardado los datos del Usuario");
                     llenarLog(1, "Inserción de Usuario", $_SESSION["Usuario"]["idusu"], $_POST["sede"]);

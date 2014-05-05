@@ -34,7 +34,7 @@ $client->decode_utf8 = false;
         
     }
 } catch (Exception $e) {
-    javaalert('Lo sentimos no hay conexion');
+    utf8_decode(javaalert('Lo sentimos no hay conexión'));
     iraURL('../index.php');
 }
 ?>

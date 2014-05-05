@@ -8,7 +8,7 @@ require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
     $aux = $_POST['ed'];
-    $datosB = array('idusu' =>utf8_encode( $_SESSION["usuedit"]), 'rol' => $aux, 'sede' => utf8_decode($_SESSION["sedeb"]));
+    $datosB = array('idusu' =>utf8_decode( $_SESSION["usuedit"]), 'rol' => $aux, 'sede' => utf8_decode($_SESSION["sedeb"]));
     if ($aux == "") {
         javaalert('Debe seleccionar un rol');
         iraURL('../pages/edit_type_user.php');
@@ -25,7 +25,7 @@ require_once("../core/Crypt/AES.php");
         }
     }
 } catch (Exception $e) {
-    javaalert('Lo sentimos no hay conexion');
+    utf8_decode(javaalert('Lo sentimos no hay conexión'));
     iraURL('../index.php');
 }
 ?>

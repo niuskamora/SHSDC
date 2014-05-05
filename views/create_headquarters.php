@@ -141,23 +141,6 @@ if ($org=="") {
                 setTimeout("window.open('../recursos/cerrarsesion.php','_top');", 300000);
             }
         </script>
-
-        <script>
-            function areas() {
-                //posicion
-                var $selectedOption = $('#sede').find('option:selected');
-                var id = $selectedOption.val();
-                $.ajax({
-                    type: "POST",
-                    url: "../ajax/user_headquarters_mail.php",
-                    data: {'sed': id},
-                    dataType: "text",
-                    success: function(response) {
-                        $("#area").html(response);
-                    }
-                });
-            }
-        </script>
         <script src="../js/footable.js" type="text/javascript"></script>
         <script src="../js/footable.paginate.js" type="text/javascript"></script>
         <script src="../js/footable.sortable.js" type="text/javascript"></script>

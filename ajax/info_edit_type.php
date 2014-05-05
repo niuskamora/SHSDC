@@ -51,7 +51,7 @@
             iraURL('../pages/edit_type_user.php');
         }
     } catch (Exception $e) {
-        javaalert('Lo sentimos no hay conexion');
+        utf8_decode(javaalert('Lo sentimos no hay conexión'));
         iraURL('../index.php');
     }
     if ($reg != 0) {

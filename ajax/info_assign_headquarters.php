@@ -35,16 +35,17 @@ require_once("../core/Crypt/AES.php");
         if (isset($_POST['usu']) && $_POST['usu'] != "" && $_POST['usu'] != NULL) {
             $aux = $_POST['usu'];
             $datosU = array('user' => $aux);
-           
 		    $client = new nusoap_client($wsdl_sdc, 'wsdl');
 			$client->decode_utf8 = false;
             $Bandej = $client->call("consultarUsuarioXUser",$datosU);
-			$u = array('idusu' => $Bandej['return']['idusu']);
+			if($Bandej!=""){
+				$u = array('idusu' => $Bandej['return']['idusu']);
 			$usu= array('registroUsuario' => $u);
 			$SedeM = $client->call("consultarSedeDeUsuario",$usu);
-			$SedeMia = $SedeM['return'];
             $Ses = $client->call("listarSedes");
             $regs = 0;
+			}
+		
             if (($Bandej!="") && ($Ses!="") && ($SedeM !="")) {
 				
 			
@@ -63,8 +64,7 @@ require_once("../core/Crypt/AES.php");
 			else{
 				$reg = 1;
 			}
-			
-			$SedeMia=$SedeM["return"];
+			$SedeMia = $SedeM['return'];
 			if(isset($SedeMia[0])){
 				$Sereg = count($SedeMia);
 			}
@@ -74,6 +74,7 @@ require_once("../core/Crypt/AES.php");
 			
                 $_SESSION["usuedit"] = $Bandeja['idusu'];
             } else {
+			  javaalert('No se encuentra registrado el usuario, por favor verifique');
                 $reg = 0;
 				$Sereg = 0;
 				$regr=0;
@@ -83,9 +84,9 @@ require_once("../core/Crypt/AES.php");
             iraURL('../pages/assign_headquarters.php');
         }
     } catch (Exception $e) {
-        javaalert('Lo sentimos no hay conexion');
+        utf8_decode(javaalert('Lo sentimos no hay conexión'));
         iraURL('../index.php');
-    }
+    } 
     if ($reg != 0) {
         echo "<h2> <strong>" . utf8_encode($Bandeja['nombreusu']) . " </strong> </h2>";
         echo "<form method='post'> ";
@@ -108,11 +109,11 @@ require_once("../core/Crypt/AES.php");
                                     <td style='text-align:center'>
                                     <label>"; 
 									if($Sereg==1){
-									echo $SedeMia['nombresed'];
+									echo utf8_encode( $SedeMia['nombresed']);
 									}else{
-									echo $SedeMia[0]['nombresed'];
+									echo utf8_encode($SedeMia[0]['nombresed']);
 									   for ($i = 1; $i < $Sereg; $i++) {
-									  echo ",".utf8_encode($SedeMia[$i]['nombresed']);
+									  echo ", ".utf8_encode($SedeMia[$i]['nombresed']);
 									  }
 									}
 									echo" </label>
@@ -127,18 +128,18 @@ require_once("../core/Crypt/AES.php");
         if ($regr > 1) {
             $i = 0;
             while ($regr > $i) {
-                echo "<option value='" . $Sedes[$i]['nombresed'] . "' >" .utf8_encode( $Sedes[$i]['nombresed'] ). "</option>";
+                echo "<option value='" . utf8_encode($Sedes[$i]['nombresed']) . "' >" .utf8_encode( $Sedes[$i]['nombresed'] ). "</option>";
                 $i++;
             }
         } else {
-            echo "<option value='" . $Sedes['nombresed'] . "' >" . utf8_encode($Sedes['nombresed'] ). "</option>";
+            echo "<option value='" . utf8_encode($Sedes['nombresed']) . "' >" . utf8_encode($Sedes['nombresed'] ). "</option>";
         }
         echo "</select>
             </tdt>
             </tr>
             <tr>
-            <td style='text-align:center'>  Seleccionar Area de Trabajo: </td>
-            <td style='text-align:center'>  <select  name='area' id='area'  required  title='Seleccione una Area de Trabajo'>
+            <td style='text-align:center'>  Seleccionar Área de Trabajo: </td>
+            <td style='text-align:center'>  <select  name='area' id='area'  required  title='Seleccione un Área de Trabajo'>
             <option value='' style='display:none'> Seleccionar:</option>
             </select>
             </tdt>

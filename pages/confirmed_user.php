@@ -35,7 +35,7 @@ if (!isset($_SESSION["Usuario"])) {
     //$PaquetesConfirmados = $client->consultarPaquetesConfirmadosXUsuarioSede($parametros);
     include("../views/confirmed_user.php");
 } catch (Exception $e) {
-    javaalert('Lo sentimos no hay conexion');
+    utf8_decode(javaalert('Lo sentimos no hay conexión'));
     iraURL('../pages/inbox.php');
 }
 ?>

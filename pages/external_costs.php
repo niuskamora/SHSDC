@@ -33,7 +33,7 @@ require_once("../core/Crypt/AES.php");
 	}
     include("../views/external_costs.php");
 } catch (Exception $e) {
-    javaalert('Lo sentimos no hay conexion');
+    utf8_decode(javaalert('Lo sentimos no hay conexión'));
     iraURL('../pages/inbox.php');
 }
 ?>

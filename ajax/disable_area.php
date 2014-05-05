@@ -30,10 +30,10 @@ try {
     	
 	}
 } catch (Exception $e) {
-    javaalert('Error al deshabilitar la Area');
+    javaalert('Error al deshabilitar el a<rea');
     iraURL('../pages/inbox.php');
 }
-echo "<h2> <strong>Areas</strong> </h2>";
+echo "<h2> <strong>Áreas</strong> </h2>";
 echo " <a href='../pages/disable_area.php'> <button class='btn primary''>
                                 <span class='icon-backward'>Regresar</span>
                  </button> </a>";
@@ -54,7 +54,7 @@ if ($reg > 0) {
             //verifico si esta borrada
             if ($Areas[$j]['borradoatr'] == 0) {
                 echo "<td style='background-color: rgb(206, 200, 200);	text-align:center' data-sort-ignore='true'>" . $Areas[$j]['idatr'] . "</td>";
-                echo "<td style='text-align:left; background-color: rgb(206, 200, 200);'>" . $Areas[$j]['nombreatr'] . "</td>";
+                echo "<td style='text-align:left; background-color: rgb(206, 200, 200);'>" . utf8_encode($Areas[$j]['nombreatr']) . "</td>";
                 ?>
                 <td style='background-color: rgb(206, 200, 200); text-align:center'>
                     <button class='btn' onClick="cambiar('<?php echo $Areas[$j]['idatr']; ?>', this);">

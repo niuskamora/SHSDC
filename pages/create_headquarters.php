@@ -19,7 +19,7 @@ if (!isset($_SESSION["Usuario"])) {
 try {
      
      $UsuarioRol = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sede' => $_SESSION["Sede"]['nombresed']);
-      $SedeR = $client->call("consultarSedeRol",$UsuarioRol);
+     $SedeR = $client->call("consultarSedeRol",$UsuarioRol);
 	 $SedeRol=$SedeR['return'];
     if ($SedeR!="") {
         if ($SedeRol['idusu']['tipousu'] != "1" && $SedeRol['idusu']['tipousu'] != "2") {
@@ -47,11 +47,14 @@ try {
 
     if (isset($_POST["crear"])) {
         if (isset($_POST["nombre"]) && $_POST["nombre"] != "" && isset($_POST["direccion"]) && $_POST["direccion"] != "" && isset($_POST["telefono"]) && $_POST["telefono"] != "" && isset($_POST["codigo"]) && $_POST["codigo"] != "" && isset($_POST["organizacion"]) && $_POST["organizacion"] != "") {
+			
+			
 
-            
+            	
+					
                 $nombre= utf8_decode($_POST["nombre"]);
                 $datos = array('sede' =>$nombre);
-                $result= $client->call("consultarSedeExistente",$datos);
+		        $result= $client->call("consultarSedeExistente",$datos);
                if ($result['return']=="0") {
 					$correcto=0;
        
@@ -61,33 +64,39 @@ try {
 				}
            
             if ($correcto == 0) {
-                $telefono2 = "";
+                
+				$telefono2 = "";
                 if (isset($_POST["telefono"])) {
-                    $telefono = $_POST["telefono"];
+                    $telefono = utf8_decode($_POST["telefono"]);
                 }
                 if (isset($_POST["telefono2"])) {
-                    $telefono2 = $_POST["telefono2"];
+                    $telefono2 = utf8_decode($_POST["telefono2"]);
                 }
                 if (isset($_POST["direccion"])) {
-                    $direccion = $_POST["direccion"];
+                    $direccion = utf8_decode($_POST["direccion"]);
                 }
 				 
-                $Sedenueva = array(
-                    'nombresed' =>$nombre,
-                    'direccionsed' => utf8_decode($direccion),
+             //   $Sedenueva = array(
+//                    'nombresed' =>$nombre,
+//                    'direccionsed' => utf8_decode($direccion),
+//                    'telefonosed' => $telefono,
+//                    'telefono2sed' => $telefono2,
+//                    'idorg' => $_POST["organizacion"],
+//                    'borradosed' => "0",
+//                    'codigosed' => $_POST["codigo"]
+//                );
+//				
+	
+                $parametros = array('nombresed' =>$nombre,
+                    'direccionsed' => $direccion,
                     'telefonosed' => $telefono,
                     'telefono2sed' => $telefono2,
                     'idorg' => $_POST["organizacion"],
                     'borradosed' => "0",
-                    'codigosed' => $_POST["codigo"]
-                );
+                    'codigosed' => $_POST["codigo"]);
 				
-	
-                $parametros = array('registroS' =>$Sedenueva);
-				
-                $guardo = $client->call("insertarNuevaSede",$parametros);
-			
-				
+			     $guardo = $client->call("insertarNuevaSede",$parametros);
+					
 				
                 if ($guardo['return'] == 0) {
                     javaalert("No se han Guardado los datos de la sede, Consulte con el Admininistrador");
@@ -98,7 +107,7 @@ try {
                 //iraURL('../pages/inbox.php');
             } else {
                 javaalert('Este nombre de sede ya ha sido usado');
-                iraURL('../pages/create_headquarters.php');
+              //  iraURL('../pages/create_headquarters.php');
             }
         } else {
             javaalert("Debe agregar todos los campos obligatorios, por favor verifique");

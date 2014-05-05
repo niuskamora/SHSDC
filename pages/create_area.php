@@ -59,10 +59,10 @@ try {
 						  iraURL('../pages/create_area.php');
 				}else if($result['return']=="2"){
 					
-					 javaalert("Se han Guardado los datos de la Area");
-                    llenarLog(1, "Inserción de Area", $_SESSION["Usuario"]['idusu'], $_SESSION["Sede"]['idsed']);
+					 utf8_decode(javaalert("Se han Guardado los datos de la Área"));
+                    llenarLog(1, "Inserción de Área", $_SESSION["Usuario"]['idusu'], $_SESSION["Sede"]['idsed']);
                 
-                    iraURL('../pages/create_area.php');
+                    iraURL('../pages/administration.php');
 					
 				}else if ($result['return']=="1") {
 			
