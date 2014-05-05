@@ -14,7 +14,7 @@ try {
 
     include("../views/disable_area.php");
 } catch (Exception $e) {
-    javaalert('Error al deshabiltar el area');
+    utf8_decode(javaalert('Error al deshabiltar el área'));
     iraURL('../pages/inbox.php');
 }
 ?>

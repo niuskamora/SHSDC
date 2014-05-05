@@ -5,7 +5,7 @@ try {
     $Ses = $client->call("consultarSedes");
 	$Sedes = $Ses["return"];
    if ($Ses=="") {
-        javaalert("lo sentimos no se pueden deshabilitar Areas, no existen sedes registradas, Consulte con el administrador");
+        utf8_decode(javaalert("Lo sentimos no se pueden deshabilitar áreas, no existen sedes registradas, Consulte con el administrador"));
         iraURL('../pages/inbox.php');
     }else{
 		$Sedes=$Ses["return"];
@@ -19,7 +19,7 @@ try {
 	}
     include("../views/disable_area.php");
 } catch (Exception $e) {
-    javaalert('Error al deshabilitar el area');
+    utf8_decode(javaalert('Error al deshabilitar el área'));
     iraURL('../pages/inbox.php');
 }
 echo "<h2> <strong>Sedes</strong> </h2>";
