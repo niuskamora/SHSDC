@@ -7,44 +7,40 @@ require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
 
-	$client = new nusoap_client($wsdl_sdc, 'wsdl');
-	$client->decode_utf8 = false;
-	$_SESSION["cli"]=$client;
+$client = new nusoap_client($wsdl_sdc, 'wsdl');
+$client->decode_utf8 = false;
+$_SESSION["cli"] = $client;
 if (!isset($_SESSION["Usuario"])) {
     iraURL("../index.php");
 } elseif (!usuarioCreado()) {
     iraURL("../pages/create_user.php");
 }
 
- 	 $UsuarioRol = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sede' => $_SESSION["Sede"]['nombresed']);
-     $SedeR = $client->call("consultarSedeRol",$UsuarioRol);
-	 $SedeRol=$SedeR['return'];
-	 
-    if ($SedeR!="") {
-        if ($SedeRol['idusu']['tipousu'] != "1" && $SedeRol['idusu']['tipousu'] != "2") {
-            iraURL('../pages/inbox.php');
-        }
-    } else {
+$UsuarioRol = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sede' => $_SESSION["Sede"]['nombresed']);
+$SedeR = $client->call("consultarSedeRol", $UsuarioRol);
+$SedeRol = $SedeR['return'];
+
+if ($SedeR != "") {
+    if ($SedeRol['idusu']['tipousu'] != "1" && $SedeRol['idusu']['tipousu'] != "2") {
         iraURL('../pages/inbox.php');
     }
+} else {
+    iraURL('../pages/inbox.php');
+}
 
 $nomUsuario = $_SESSION["Usuario"]['userusu'];
 $usuarioBitacora = $_SESSION["Usuario"]['idusu'];
 $sede = $_SESSION["Sede"]['idsed'];
 
 try {
-
-
     $usuario = array('user' => $nomUsuario);
-    $resultadoConsultarUsuario = $client->call("consultarUsuarioXUser",$usuario);
-    if ($resultadoConsultarUsuario=="") {
+    $resultadoConsultarUsuario = $client->call("consultarUsuarioXUser", $usuario);
+    if ($resultadoConsultarUsuario == "") {
         $usua = 0;
     } else {
         $usua = $resultadoConsultarUsuario['return'];
-		$idUsuario = $usua['idusu'];
+        $idUsuario = $usua['idusu'];
     }
-   
-
 
     if (isset($_POST["reportarPaqExc"])) {
 
@@ -54,23 +50,23 @@ try {
                 $parametros = array('registroPaquete' => $_POST["cPaquete"],
                     'registroUsuario' => $idUsuario,
                     'registroSede' => $sede,
-                    'datosPaquete' =>  utf8_decode($_POST["datosPaquete"]));
-               
-                $reportarPaqExc = $client->call("reportarPaqueteExtravio",$parametros);
+                    'datosPaquete' => utf8_decode($_POST["datosPaquete"]));
+
+                $reportarPaqExc = $client->call("reportarPaqueteExtravio", $parametros);
 
                 if ($reportarPaqExc['return'] == 1) {
-                    javaalert('Paquete dado de baja por extravió con exito');
+                    utf8_decode(javaalert('Paquete dado de baja por extraviÃ³ con exito'));
                     llenarLog(7, "Paquete Extraviado", $usuarioBitacora, $sede);
                     iraURL('../pages/administration.php');
-                } else if($reportarPaqExc['return'] == 2){
-					javaalert('El paquete ya habia sido dado de Baja, verifique la información o consulte con el administrador');
-					 iraURL('../pages/misguidance_report.php');
-				}else{
-                    javaalert('no se pudo dar de baja el paquete, verifique la información o consulte con el administrador');
-                     iraURL('../pages/misguidance_report.php');
+                } else if ($reportarPaqExc['return'] == 2) {
+                    utf8_decode(javaalert('El paquete ya habia sido dado de Baja, verifique la informaciÃ³n o consulte con el administrador'));
+                    iraURL('../pages/misguidance_report.php');
+                } else {
+                    utf8_decode(javaalert('No se pudo dar de baja el paquete, verifique la informaciÃ³n o consulte con el administrador'));
+                    iraURL('../pages/misguidance_report.php');
                 }
             } catch (Exception $e) {
-                utf8_decode(javaalert('Lo sentimos no hay conexión'));
+                utf8_decode(javaalert('Lo sentimos no hay conexiÃ³n'));
                 iraURL('../pages/administration.php');
             }
         } else {
@@ -87,21 +83,22 @@ try {
                     'registroUsuario' => $idUsuario,
                     'registroSede' => $sede,
                     'datosValija' => utf8_decode($_POST["datosValija"]));
-                
-                $reportarValija = $client->call("reportarValijaExtravio",$parametros);
+
+                $reportarValija = $client->call("reportarValijaExtravio", $parametros);
 
                 if ($reportarValija['return'] == 1) {
-                    javaalert('Valija dada de baja por extravió');
+                    utf8_decode(javaalert('Valija dada de baja por extraviÃ³ con exito'));
                     llenarLog(7, "Valija Extraviada", $usuarioBitacora, $sede);
                     iraURL('../pages/administration.php');
-                } else if($reportarValija['return'] == 2){
-					javaalert('La Valija ya habia sido dado de Baja, verifique la información o consulte con el administrador');
-					 iraURL('../pages/misguidance_report.php');
-				}else{ javaalert('No se pudo dar de baja la Valija, verifique la informacion o consulte con el administrador');
+                } else if ($reportarValija['return'] == 2) {
+                    utf8_decode(javaalert('La Valija ya habia sido dado de Baja, verifique la informaciÃ³n o consulte con el administrador'));
+                    iraURL('../pages/misguidance_report.php');
+                } else {
+                    utf8_decode(javaalert('No se pudo dar de baja la Valija, verifique la informaciÃ³n o consulte con el administrador'));
                     iraURL('../pages/administration.php');
                 }
             } catch (Exception $e) {
-                utf8_decode(javaalert('Lo sentimos no hay conexión'));
+                utf8_decode(javaalert('Lo sentimos no hay conexiÃ³n'));
                 iraURL('../pages/administration.php');
             }
         } else {
@@ -110,7 +107,7 @@ try {
     }
     include("../views/misguidance_report.php");
 } catch (Exception $e) {
-    utf8_decode(javaalert('Lo sentimos no hay conexión'));
+    utf8_decode(javaalert('Lo sentimos no hay conexiÃ³n'));
     iraURL('../pages/administration.php');
 }
 ?>
