@@ -24,9 +24,9 @@ $client->decode_utf8 = false;
                 iraURL('../pages/administration.php');
             } elseif($res['return'] == 2) {
                 javaalert('El usuario ya esta en esa sede, Seleccione otra sede');
-                //iraURL('../pages/administration.php');
+                iraURL('../pages/administration.php');
             }else {
-                javaalert('Error al realizar la operacion');
+                utf8_decode(javaalert('Error al realizar la operación'));
                 iraURL('../pages/administration.php');
             }
         }

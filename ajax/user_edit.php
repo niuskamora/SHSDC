@@ -20,7 +20,7 @@ require_once("../core/Crypt/AES.php");
             javaalert('Rol asignado con exito');
             iraURL('../pages/administration.php');
         } else {
-            javaalert('Error al realizar la operacion');
+            utf8_decode(javaalert('Error al realizar la operación'));
             iraURL('../pages/administration.php');
         }
     }
