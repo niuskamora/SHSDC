@@ -46,7 +46,7 @@ try {
                 utf8_decode(javaalert("No se han Guardado los datos del buzón, Consulte con el Admininistrador"));
             } else {
                 utf8_decode(javaalert("Se han Guardado los datos del buzón"));
-                llenarLog(9, "Edicion de Buzon", $_SESSION["Usuario"]['idusu'], $_SESSION["Sede"]['idsed']);
+                llenarLog(9, "Edición de Buzón", $_SESSION["Usuario"]['idusu'], $_SESSION["Sede"]['idsed']);
             }
             iraURL('../pages/mailboxs.php');
         } else {
