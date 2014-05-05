@@ -44,7 +44,7 @@ if (isset($_POST['idval']) && $_POST['idval'] != "" && $_POST['idval'] != "") {
     $regv = 0;
 	$reg = 0;
     if (isset($Valijac['return'])) {
-        $Val = array('registroValija' => $Valijac['return']['idval'], 'sede' => $_SESSION["Sede"]['nombresed']);
+        $Val = array('registroValija' => $Valijac['return']['idval'], 'sede' =>$_SESSION["Sede"]['nombresed']);
         $Valij = $client->call("ConsultarPaquetesXValija",$Val);
 			
 			if($Valij != ""){

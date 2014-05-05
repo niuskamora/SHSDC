@@ -99,6 +99,11 @@ require_once("../core/Crypt/AES.php");
                 } else {
                     echo "<td style='text-align:center'> Si </td>";
                 }
+				 if ($Registro[$j]['iddoc'] == 1) {
+                echo "<td style='text-align:center'> Documento </td>";
+            } else {
+                echo "<td style='text-align:center'> Mercancia </td>";
+            }
                 echo "<td style='text-align:center'>" . date("d/m/Y", strtotime(substr($Registro[$j]['fechapaq'], 0, 10))) . "</td>";
                 echo '<td style="text-align:center" width="15%"><input type="checkbox" name="ide[' . $j . ']" id="ide[' . $j . ']" value=' . $Registro[$j]['idpaq'] . '></td>';
                 echo "</tr>";

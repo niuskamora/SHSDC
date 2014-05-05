@@ -199,6 +199,7 @@ if (isset($_POST["guardar"])) {
                     var parametros = {
                         "idpaq": idpaq
                     };
+					
                     $.ajax({
                         type: "POST",
                         url: "../ajax/packeges_report.php",
@@ -214,6 +215,7 @@ if (isset($_POST["guardar"])) {
                     var parametros = {
                         "idpaq": idpaq
                     };
+					var idval = document.forms.fval.idr[0].disabled;
                     $.ajax({
                         type: "POST",
                         url: "../ajax/packeges_report_confirm.php",
