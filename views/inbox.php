@@ -138,7 +138,20 @@ $usuario = $_SESSION["Usuario"]['idusu'];
 						});
 					}
 					
-					
+					function Confirmar(idpaq) {
+						var parametros = {
+							"idpaq": idpaq
+						};
+						$.ajax({
+							type: "POST",
+							url: "../ajax/packeges_confirm.php",
+							data: parametros,
+							dataType: "text",
+							success: function(response) {
+								$("#footer").html(response);
+							}
+						});
+					}
                 </script> 
                 
                 <script>

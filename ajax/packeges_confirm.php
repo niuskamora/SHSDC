@@ -9,12 +9,15 @@ require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
 
 $aux = $_POST['idpaq'];
-$client = new SOAPClient($wsdl_sdc);
-$client->decode_utf8 = false;
+   $client = new nusoap_client($wsdl_sdc, 'wsdl');
+	$_SESSION["cli"]=$client;
 $paq = array('idpaq' => $aux);
-$Valija = $client->actualizarBandeja($paq);
+$consumo = $client->call("actualizarBandeja",$paq);
+if($consumo!=""){
+	$Valija = $consumo['return'];
+	}  
 
-if ($Valija->return) {
+if ($Valija) {
     javaalert("Paquete confirmado con exito");
     iraURL("../pages/inbox.php");
 }
