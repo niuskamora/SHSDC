@@ -139,6 +139,7 @@ if (isset($_POST["enviar"])) {
                     'Caso' => "Envio");
 					$consumo = $client->call("registroSeguimiento",$parametros);
                     llenarLog(1, "Envio de Respuesta de Correspondencia", $_SESSION["Usuario"]["idusu"], $_SESSION["Sede"]["idsed"]);
+					echo"<script>window.open('../pages/proof_of_correspondence.php');</script>";
                 }
             }
 		   }else{
