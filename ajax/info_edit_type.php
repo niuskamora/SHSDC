@@ -83,7 +83,12 @@
             </table>	
 	<button class='btn' id='crear' onClick='editar();' name='crear' type='button'>Guardar</button>		  
 		</form>";
-    }
+    }else{
+	echo"<div class='alert alert-block' align='center'>
+			<h2 style='color:rgb(255,255,255)' align='center'>Atención</h2>
+			<h4 align='center'>No existen registros con ese nombre de  usuario </h4>
+		</div> ";
+	}
     ?>
 
     <script language="JavaScript">

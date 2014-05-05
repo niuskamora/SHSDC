@@ -19,6 +19,11 @@ require_once("../core/Crypt/AES.php");
 		$client->decode_utf8 = false;
         $res = $client->call("editarTipoUsuario",$datosB);
         if ($res['return'] == 1) {
+		$userparam['user'] = utf8_decode($_SESSION["Usuario"]["userusu"]);
+		$consumo = $client->call("consultarUsuarioXUser",$userparam);
+		if ($consumo!="") {
+			$_SESSION["Usuario"]=$consumo['return'];
+			}
             javaalert('Tipo de usuario asignado con exito');
             iraURL('../pages/administration.php');
         } else {
