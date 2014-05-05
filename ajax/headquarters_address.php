@@ -23,13 +23,13 @@
 <body class="appBg">
     
     <?php
+
     session_start();
 include("../recursos/funciones.php");
 require_once("../lib/nusoap.php");
 require_once("../config/wsdl.php");
 require_once("../config/definitions.php");
 require_once("../core/Crypt/AES.php");
-   
     $aux = $_POST['sed'];
     
 	$client = new nusoap_client($wsdl_sdc, 'wsdl');
@@ -44,10 +44,7 @@ require_once("../core/Crypt/AES.php");
     } else {
         $reg = 0;
     }
-  
+ 
     if ($reg != 0) {
-         echo '
-		
-		
-                                        <input type="hidden" value='.$Bandeja['direcccionsed'].' class="input-block-level" name="dsede" id="dsede">';
+ echo ' <textarea style="width:500px;"  id="direccion1" name="direccion1" maxlength="2000"  style="width:800px" > '.utf8_encode($Bandeja['direccionsed']).' </textarea>  ';
 		    }

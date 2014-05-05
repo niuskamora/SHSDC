@@ -126,7 +126,7 @@ if (!isset($Sedes)) {
                                 </tr>
                                 <tr>
                                     <td style="text-align:center">Sede</td>
-                                    <td style="text-align:center"><select onChange="areas(); dire(); direccion();
+                                    <td style="text-align:center"><select onChange="areas();
                                             " id="sede" name="sede" required  title="Seleccione la Sede a la que pertenece">
                                             <option value="" style="display:none">Seleccionar:</option>                                  
                                             <?php
@@ -153,9 +153,9 @@ if (!isset($Sedes)) {
                                 <tr>
                                     <td style="text-align:center" >Dirección</td>
                                     <td style="text-align:center" >
-                                    
+                                    <div id="dato">
                                     <textarea style="width:500px;"  id="direccion1" name="direccion1" maxlength="2000"  style="width:800px" >  </textarea>  
-                                     
+                                     </div>
                                     </td>
                                 </tr>
                             </table>
@@ -163,8 +163,7 @@ if (!isset($Sedes)) {
                             <div class="span11" align="center"><button class="btn" id="crear" name="crear" type="submit">Guardar</button></div>
                             <br>
                             
-                            <div id="dato">
-                            </div>
+                          
                         </form>  
                     </div>
                 </div>
@@ -186,7 +185,18 @@ if (!isset($Sedes)) {
                 //posicion
                 var $selectedOption = $('#sede').find('option:selected');
                 var id = $selectedOption.val();
-                $.ajax({
+             
+				$.ajax({
+                    type: "POST",
+                    url: "../ajax/headquarters_address.php",
+                    data: {'sed': id},
+                    dataType: "text",
+                    success: function(response) {
+                        $("#dato").html(response);
+                    }
+
+                });
+				$.ajax({
                     type: "POST",
                     url: "../ajax/user_headquarters_mail.php",
                     data: {'sed': id},
@@ -196,27 +206,11 @@ if (!isset($Sedes)) {
                     }
 
                 });
-
+		
 
             }
-            function dire() {
-                var $selectedOption = $('#sede').find('option:selected');
-                var id = $selectedOption.val();
-                $.ajax({
-                    type: "POST",
-                    url: "../ajax/headquarters_address.php",
-                    data: {'sed': id},
-                    dataType: "text",
-                    success: function(response) {
-                        $("dato").html(response);
-                    }
-
-                });
-            }
-			
-			 function direccion() {
-                document.forms.formulario.direccion1.value = document.forms.formulario.dsede.value;
-            }
+           
+            
         </script>
         <script src="../js/footable.js" type="text/javascript"></script>
         <script src="../js/footable.paginate.js" type="text/javascript"></script>
