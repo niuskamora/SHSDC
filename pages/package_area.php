@@ -43,8 +43,17 @@ try {
     if ($resultadoList=="") {
         $bitacora = 0;
     } else {
-		$$resultadoLista=$resultadoList['return'];
-        $bitacora = count($resultadoLista);
+		$resultadoLista=$resultadoList['return'];
+		
+		if(isset($resultadoLista[0])){
+					  $bitacora  = count($resultadoLista);
+					
+				}
+				else{
+					  $bitacora  = 1;
+					
+				}
+       
     }
     include("../views/package_area.php");
 } catch (Exception $e) {

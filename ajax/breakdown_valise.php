@@ -63,7 +63,7 @@ if (isset($_POST['idval']) && $_POST['idval'] != "" && $_POST['idval'] != "") {
 	
 	
 } else {
-    javaalert('Debe ingresar el Codigo de una valija');
+    utf8_encode(javaalert('Debe ingresar el código de una valija'));
     iraURL('../pages/breakdown_valise.php');
 }
 if ($reg != 0) {
@@ -95,7 +95,7 @@ if ($reg != 0) {
             }
             echo "<td  style='text-align:center'> " . utf8_encode($Valija[$j]['destinopaq']['idusu']['nombreusu'] ). "</td>";
             echo "<td  style='text-align:center'>" .utf8_encode( $asunto ). "</td>";
-            echo "<td style='text-align:center'>" . $Valija[$j]['iddoc']['nombredoc'] . "</td>";
+            echo "<td style='text-align:center'>" . utf8_encode($Valija[$j]['iddoc']['nombredoc']) . "</td>";
             if ($Valija[$j]['respaq'] == 0) {
                 echo "<td style='text-align:center'> No </td>";
             } else {
@@ -115,7 +115,7 @@ if ($reg != 0) {
         }
         echo "<td  style='text-align:center'>" . utf8_encode($Valija['destinopaq']['idusu']['nombreusu']) . "</td>";
         echo "<td  style='text-align:center'>" .utf8_encode( $asunto ). "</td>";
-        echo "<td style='text-align:center'>" . $Valija['iddoc']['nombredoc'] . "</td>";
+        echo "<td style='text-align:center'>" . utf8_encode($Valija['iddoc']['nombredoc']) . "</td>";
         if ($Valija['respaq'] == 0) {
             echo "<td style='text-align:center'> No </td>";
         } else {
@@ -136,7 +136,7 @@ if ($reg != 0) {
     echo "<br>";
     echo"<div class='alert alert-block' align='center'>
 			<h2 style='color:rgb(255,255,255)' align='center'>Atención</h2>
-			<h4 align='center'>la Valija ya fue desglosada o no existe</h4>
+			<h4 align='center'>La Valija ya fue desglosada o no existe</h4>
 		</div> ";
 }
 ?>

@@ -89,7 +89,7 @@ if ($usu== "") {
                         <div class="tab-content" id="bandeja">
                             <?php
                             //Verificando que este vacio o sea null
-                            if (!isset($resultadoLista->return)) {
+                            if ($bitacora == 0) {
                                 echo '<div class="alert alert-block" align="center">';
                                 echo '<h2 style="color:rgb(255,255,255)" align="center">Atención</h2>';
                                 echo '<h4 align="center">No hay paquetes por buscar</h4>';
@@ -115,10 +115,10 @@ if ($usu== "") {
                                             if ($bitacora > 1) {
                                                 for ($i = 0; $i < $bitacora; $i++) { ?>
                                                     <tr>
-                                                        <td style="text-align:center"><?php echo $resultadoLista->return[$i]->idpaq ?></td>
-                                                        <td style="text-align:center"><?php echo $resultadoLista->return[$i]->origenpaq->idusu->nombreusu ?></td>                                            	
-                                                        <td style="text-align:center"><?php echo $resultadoLista->return[$i]->destinopaq->idusu->nombreusu ?></td>
-                                                        <td style="text-align:center"><?php echo $resultadoLista->return[$i]->asuntopaq ?></td>
+                                                        <td style="text-align:center"><?php echo $resultadoLista[$i]['idpaq'] ?></td>
+                                                        <td style="text-align:center"><?php echo $resultadoLista[$i]['origenpaq']['idusu']['nombreusu'] ?></td>                                            	
+                                                        <td style="text-align:center"><?php echo $resultadoLista[$i]['destinopaq']['idusu']['nombreusu'] ?></td>
+                                                        <td style="text-align:center"><?php echo $resultadoLista[$i]['asuntopaq'] ?></td>
                                                         
                                                     </tr>
                                                         <
@@ -126,10 +126,10 @@ if ($usu== "") {
                                             } else { ?>
                                                 <tr>
                                                     <tr>
-                                                        <td style="text-align:center"><?php echo $resultadoLista->return->idpaq ?></td>
-                                                        <td style="text-align:center"><?php echo $resultadoLista->return->origenpaq->idusu->nombreusu ?></td>                                            	
-                                                        <td style="text-align:center"><?php echo $resultadoLista->return->destinopaq->idusu->nombreusu ?></td>
-                                                        <td style="text-align:center"><?php echo $resultadoLista->return->asuntopaq ?></td>
+                                                        <td style="text-align:center"><?php echo $resultadoLista['idpaq'] ?></td>
+                                                        <td style="text-align:center"><?php echo $resultadoLista['origenpaq']['idusu']['nombreusu'] ?></td>                                            	
+                                                        <td style="text-align:center"><?php echo $resultadoLista['destinopaq']['idusu']['nombreusu'] ?></td>
+                                                        <td style="text-align:center"><?php echo $resultadoLista['asuntopaq'] ?></td>
                                                         
                                                     </tr>
                                             <?php } ?>                                    
