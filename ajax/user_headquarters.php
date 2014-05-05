@@ -9,7 +9,7 @@ require_once("../core/Crypt/AES.php");
 $aux = utf8_decode($_POST['sed']);
 $Sed["sede"] =$aux;
 $client = new nusoap_client($wsdl_sdc, 'wsdl');	
-$_SESSION["sedeb"] = $aux;
+$_SESSION["sedeb"] = utf8_decode($aux);
 $UsuariosR = $client->call("consultarUsuariosXSede",$Sed);
 
 $reg = 0;

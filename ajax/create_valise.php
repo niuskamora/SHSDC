@@ -80,6 +80,7 @@ require_once("../core/Crypt/AES.php");
                                     <th style='width:20%; text-align:center'>Destino</th>
                                     
                                     <th style='width:10%; text-align:center'>C/R</th>
+									<th style='width:10%; text-align:center'>Tipo</th>
                                     <th  style='width:10%; text-align:center'>Fecha</th>
                                     <th  data-sort-ignore='true' style='width:30%; text-align:center'>Agregar</th>
                                 </tr>
@@ -114,6 +115,12 @@ require_once("../core/Crypt/AES.php");
             } else {
                 echo "<td style='text-align:center'> Si </td>";
             }
+			 if ($Registro['tipopaq'] == 1) {
+                echo "<td style='text-align:center'> Documento </td>";
+            } else {
+                echo "<td style='text-align:center'> Mercancia </td>";
+            }
+		
             echo "<td style='text-align:center'>" . date("d/m/Y", strtotime(substr($Registro['fechapaq'], 0, 10))) . "</td>";
             echo '<td style="text-align:center" width="15%"> <input type="checkbox" name="ide[0]" id="ide[0]" value=' . $Registro['idpaq'] . '></td>';
             echo "</tr>";

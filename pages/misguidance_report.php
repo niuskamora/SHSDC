@@ -59,12 +59,15 @@ try {
                 $reportarPaqExc = $client->call("reportarPaqueteExtravio",$parametros);
 
                 if ($reportarPaqExc['return'] == 1) {
-                    javaalert('Paquete dado de baja por extravió');
+                    javaalert('Paquete dado de baja por extravió con exito');
                     llenarLog(7, "Paquete Extraviado", $usuarioBitacora, $sede);
                     iraURL('../pages/administration.php');
-                } else {
+                } else if($reportarPaqExc['return'] == 2){
+					javaalert('El paquete ya habia sido dado de Baja, verifique la información o consulte con el administrador');
+					 iraURL('../pages/misguidance_report.php');
+				}else{
                     javaalert('no se pudo dar de baja el paquete, verifique la información o consulte con el administrador');
-                    iraURL('../pages/administration.php');
+                     iraURL('../pages/misguidance_report.php');
                 }
             } catch (Exception $e) {
                 javaalert('Lo sentimos no hay conexion');
@@ -91,8 +94,10 @@ try {
                     javaalert('Valija dada de baja por extravió');
                     llenarLog(7, "Valija Extraviada", $usuarioBitacora, $sede);
                     iraURL('../pages/administration.php');
-                } else {
-                    javaalert('No se pudo dar de baja la Valija, verifique la informacion o consulte con el administrador');
+                } else if($reportarValija['return'] == 2){
+					javaalert('La Valija ya habia sido dado de Baja, verifique la información o consulte con el administrador');
+					 iraURL('../pages/misguidance_report.php');
+				}else{ javaalert('No se pudo dar de baja la Valija, verifique la informacion o consulte con el administrador');
                     iraURL('../pages/administration.php');
                 }
             } catch (Exception $e) {
