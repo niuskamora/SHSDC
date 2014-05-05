@@ -54,8 +54,9 @@ try {
                 $datos = array('nombre' =>utf8_decode( $_POST["nombre"]),'idsed' => $_POST["sede"]);
                 $prov = $client->call("consultarProveedorexistente",$datos);
                 if ($prov!="") {
-					
-                    $result = 1;
+					if($prov==1){
+					$result = 1;
+					}                    
                 }
             } catch (Exception $e) {
                 
@@ -68,20 +69,22 @@ try {
                 $Sedenueva = array(
                     'nombrepro' => utf8_decode($_POST["nombre"]),
                     'telefonopro' => $_POST["telefono"],
-                    'codigopro' => $codigo,
-                    'idsed' => $_POST["sede"]);
+                    'codigopro' => $codigo);
+				$idsed = array('idsed' =>$_POST["sede"]);
                 $parametros = array('registroProveedor' => $Sedenueva);
                 $guardo = $client->call("insertarProveedor",$parametros);
+				$parametros = array('registroSede' => $idsed);				
+				$guardo = $client->call("insertarProveedorSede",$parametros);
                 if ($guardo['return'] == 0) {
                     javaalert("No se han Guardado los datos del Proveedor, Consulte con el Admininistrador");
                 } else {
                     javaalert("Se han Guardado los datos del Proveedor");
                     llenarLog(1, "Inserción de Proveedor", $_SESSION["Usuario"]['idusu'], $_SESSION["Sede"]['idsed']);
                 }
-                iraURL('../pages/inbox.php');
+               // iraURL('../pages/inbox.php');
             } else {
                 javaalert('Este nombre del proveedor ya ha sido usado');
-                iraURL('../pages/inbox.php');
+                //iraURL('../pages/inbox.php');
             }
         } else {
             javaalert("Debe agregar todos los campos obligatorios, por favor verifique");

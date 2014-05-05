@@ -35,7 +35,7 @@ require_once("../core/Crypt/AES.php");
 			}
 		
 	}
-     $UsuarioRol = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sede' =>utf8_decode( $_SESSION["Sede"]['nombresed']));
+     $UsuarioRol = array('idusu' => $_SESSION["Usuario"]['idusu'], 'sede' => $_SESSION["Sede"]['nombresed']);
      $SedeR = $client->call("consultarSedeRol",$UsuarioRol);
 	 
     if ($SedeR!="") {
@@ -46,9 +46,10 @@ require_once("../core/Crypt/AES.php");
     } else {
         iraURL('../pages/inbox.php');
     }
+	include("../views/assign_headquarters.php");
 } catch (Exception $e) {
     javaalert('Lo sentimos no hay conexion');
     iraURL('../pages/index.php');
 }
-include("../views/assign_headquarters.php");
+
 ?>

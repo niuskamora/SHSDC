@@ -42,18 +42,18 @@
 			
 			$Bandeja=$Bandej['return'];
 			$Roles=$Role['return'];
-            $dau = array('idusu' => utf8_decode($Bandeja['idusu']), 'sede' => utf8_decode($_SESSION["sedeb"]));
+            $dau = array('idusu' => utf8_decode($Bandeja['idusu']), 'sede' => $_SESSION["sedeb"]);
             $sedeUs = $client->call("consultarSedeRol",$dau);
 			
 			if($sedeUs!=""){
 				$sedeU=$sedeUs['return'];
 				$regs = count($sedeU);
 			}
-			
-            $reg = count($Bandeja);
-            
-
-            $regr = count($Roles);
+			if(isset($Roles[0])){
+			$regr = count($Roles);
+			}else{
+			$regr=1;
+			}
             $_SESSION["usuedit"] = $Bandeja['idusu'];
         } else {
             $reg = 0;
@@ -63,7 +63,7 @@
         iraURL('../index.php');
     }
   
-    if ($reg != 0) {
+    if (isset($Bandeja)) {
 		echo "<h2> <strong>" . utf8_encode($Bandeja['nombreusu']) . " </strong> </h2>";
         echo "<form method='post'> ";
         echo "<table class='footable table table-striped table-bordered'>
@@ -81,7 +81,7 @@
                                 </tr>
                                 <tr>
                                     <td style='text-align:center'>  Rol en la sede: </td>
-                                    <td style='text-align:center'>  <select  name='lis' id='lis'  required  title='Seleccione la Tipo de usuario'>
+                                    <td style='text-align:center'>  <select  name='lis' id='lis'  required  title='Seleccione el tipo de usuario'>
                                     <option value='' style='display:none'> Seleccionar:</option>";
         if ($regr > 1) {
             $i = 0;

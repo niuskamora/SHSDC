@@ -145,7 +145,7 @@ if ($Ses=="") {
                             <tr>";
                             echo "<th style='width:10%; text-align:center'>Id</th>";
                             echo "<th data-sort-ignore='true'>Nombre </th>";
-                            echo "<th style='width:10%; text-align:center' data-sort-ignore='true'>Area</th>
+                            echo "<th style='width:10%; text-align:center' data-sort-ignore='true'>Área</th>
          					</thead>
         					<tbody>
         					<tr>";

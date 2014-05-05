@@ -19,7 +19,7 @@ try {
 	}
     include("../views/disable_area.php");
 } catch (Exception $e) {
-    javaalert('Error al deshabiltar el area');
+    javaalert('Error al deshabilitar el area');
     iraURL('../pages/inbox.php');
 }
 echo "<h2> <strong>Sedes</strong> </h2>";

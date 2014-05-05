@@ -46,12 +46,12 @@ require_once("../core/Crypt/AES.php");
             $registroU = array('registroBuzon' => $registroUsu);
             $guardo = $client->call("editarBuzon",$registroU);
             if ($guardo== "") {
-                javaalert("No se han Guardado los datos del Usuario, Consulte con el Admininistrador");
+                javaalert("No se han Guardado los datos del buzón, Consulte con el Admininistrador");
             } else {
-                javaalert("Se han Guardado los datos del Buzon");
-                llenarLog(9, "Edición de Buzon", $_SESSION["Usuario"]['idusu'], $_SESSION["Sede"]['idsed']);
+                javaalert("Se han Guardado los datos del buzon");
+                llenarLog(9, "Edicion de Buzon", $_SESSION["Usuario"]['idusu'], $_SESSION["Sede"]['idsed']);
             }
-            iraURL('../pages/inbox.php');
+            iraURL('../pages/mailboxs.php');
         } else {
             javaalert("Debe agregar todos los campos obligatorios, por favor verifique");
         }

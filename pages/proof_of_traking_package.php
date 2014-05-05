@@ -72,7 +72,7 @@ if ($idPaquete == "") {
         }
 
         if (isset($resultadoPaquete)) {
-            llenarLog(6, "Comprobante de Traking de Paquete", $usuarioBitacora, $ideSede);
+            llenarLog(6, "Comprobante de Tracking de Paquete", $usuarioBitacora, $ideSede);
             echo"<script>window.open('../pdf/proof_of_traking_package.php');</script>";
             //iraURL('../pdf/proof_of_traking_package.php');
         }
