@@ -65,10 +65,10 @@ try {
             $resultadoConsultarSede = $consumoSede['return'];
             if (isset($resultadoConsultarSede)) {
                 $codigoSede = $resultadoConsultarSede['codigosed'];
-				$_SESSION["origen"] = $resultadoConsultarSede;
+                $_SESSION["origen"] = $resultadoConsultarSede;
             } else {
-				$codigoSede = "";
-			}
+                $codigoSede = "";
+            }
         }
 
         $idval = $resultadoConsultarUltimaValija['idval'];

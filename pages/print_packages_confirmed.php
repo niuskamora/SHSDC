@@ -54,7 +54,7 @@ try {
         } else {
             $paquetes = 1;
         }
-		$_SESSION["paquetesConfirmados"] = $resultadoPaquetesConfirmados;
+        $_SESSION["paquetesConfirmados"] = $resultadoPaquetesConfirmados;
     } else {
         $paquetes = 0;
     }
@@ -95,8 +95,8 @@ if (isset($_POST["imprimir"])) {
                 if (isset($resultadoConsultarSede)) {
                     $codigoSede = $resultadoConsultarSede['codigosed'];
                 } else {
-					$codigoSede = "";
-				}
+                    $codigoSede = "";
+                }
 
                 //Código total codigosede+añopaquete+idpaquete
                 $codigoTotal[$i] = $codigoSede . $fechaCod . $idpaq[$i];

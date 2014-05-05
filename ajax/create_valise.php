@@ -115,7 +115,7 @@ require_once("../core/Crypt/AES.php");
             } else {
                 echo "<td style='text-align:center'> Si </td>";
             }
-			 if ($Registro['tipopaq'] == 1) {
+			 if ($Registro['iddoc'] == 1) {
                 echo "<td style='text-align:center'> Documento </td>";
             } else {
                 echo "<td style='text-align:center'> Mercancia </td>";
