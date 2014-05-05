@@ -153,7 +153,7 @@ if (isset($_POST["enviar"])) {
 }
 include("../views/response_package.php");
  } catch (Exception $e) {
-  javaalert('Lo sentimos no hay conexion');
+  utf8_decode(javaalert('Lo sentimos no hay conexión'));
   iraURL('../pages/inbox.php');
   } 
 ?>

@@ -79,12 +79,35 @@
                                     <?php
                                     $i++;
                                 }
-                                ?>
+								
+								$parametros = array('idusu' => $_SESSION["Usuario"]["idusu"],
+        'idsede' => $_SESSION["Sede"]["idsed"]);
+	$consumo = $client->call("consultarStatusPaquete",$parametros);	
+    $PaquetesExtraviados=0;
+	if ($consumo!="") {
+	  ?>
+                                
                                 <li> <a href="../pages/correspondence_lost.php" id="pextraviada"  > Extraviadas</a></li>
-                                <?php
-                                if ($SedeRol['idrol']['idrol'] == "4" || $SedeRol['idrol']['idrol'] == "5") {
+                                <?php  
+    } 
+	
+	
+	$ideSede = $_SESSION["Sede"]['idsed'];
+$usuario = $_SESSION["Usuario"]['idusu'];
+    $Con = array('idusu' => $usuario,
+        'idsede' => $ideSede);
+    $consumoValijas = $client->call("consultarStatusValija", $Con);
+
+    if ($consumoValijas != "") {
+      
+             if ($SedeRol['idrol']['idrol'] == "4" || $SedeRol['idrol']['idrol'] == "5") {
                                     echo '<li> <a href="../pages/lost_bag.php" id="vextraviada"  > Valijas Extraviadas</a></li>';
                                 }
+    } else {
+        $valijas = 0;
+    }
+	
+                               
                                 ?>
 
                             </ul>

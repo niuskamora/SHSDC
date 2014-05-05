@@ -25,7 +25,7 @@ if (isset($_POST["guardar"]) && isset($_POST["ide"]) && ($_POST["tipo"]==1  || $
         echo"<script>window.open('../pages/proof_pouch.php');</script>";
 	   }
     } catch (Exception $e) {
-        javaalert('Lo sentimos no hay conexion');
+        utf8_decode(javaalert('Lo sentimos no hay conexión'));
         iraURL('../index.php');
     }
     //javaalert("Los registros han sido habilitados");

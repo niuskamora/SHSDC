@@ -49,7 +49,7 @@ $client = new SOAPClient($wsdl_sdc);
 		
        
     } catch (Exception $e) {
-        javaalert('Lo sentimos no hay conexion');
+        utf8_decode(javaalert('Lo sentimos no hay conexión'));
     }
 }
 include("/views/index.php");

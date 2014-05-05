@@ -121,13 +121,25 @@ require_once("../core/Crypt/AES.php");
                 }
                 echo "<td style='text-align:center'>" . date("d/m/Y", strtotime(substr($Bandeja['return'][$j]['fechapaq'], 0, 10))) . "</td>";
                 if ($aux != "Recibidas") {
-                    echo "<td style='text-align:center'>" .utf8_encode( $Bandeja['return'][$j]['localizacionpaq']) . "</td>";
+					$client = new nusoap_client($wsdl_sdc, 'wsdl');
+					$Upaq = array('idpaq'=>$Bandeja['return'][$j]['idpaq']);
+					$local = $client->call("localizacionPaquete",$Upaq);
+					if($local['return']=="1"){
+                    echo "<td style='text-align:center'>" .utf8_encode( $Bandeja['return'][$j]['localizacionpaq']) . "  Destino </td>";
+					}else{
+					echo "<td style='text-align:center'>" .utf8_encode( $Bandeja['return'][$j]['localizacionpaq']) . "</td>";	
+					}
                 }
                 echo "<td style='text-align:center'><a href='../pages/see_package.php?id=" . $Bandeja['return'][$j]['idpaq']. "'><button type='button' class='btn btn-info btn-primary' value='Realizar Valija'>  Ver Más </button> </a></td>";
                 if ($aux == "Por Recibir") {
+					if($local['return']=="1"){
 					
                     echo"<th style='width:7%; text-align:center' data-sort-ignore='true'>
 			<form> <button type='button' class='btn btn-info btn-primary' onClick='Confirmar(" . $Bandeja['return'][$j]['idpaq'] . ");' value='Realizar Valija'>  Confirmar </button> </form> </th>";
+					}else{
+					echo"<th style='width:7%; text-align:center' data-sort-ignore='true'>
+			<form> <button type='button' class='btn btn-info btn-primary' onClick='Confirmar(" . $Bandeja['return'][$j]['idpaq'] . ");' value='Realizar Valija' disabled>  Confirmar </button> </form>  </th>";	
+					}
 			
                 }
                 if ($aux == "Recibidas") {
@@ -169,13 +181,26 @@ require_once("../core/Crypt/AES.php");
                 }
                 echo "<td style='text-align:center'>" . date("d/m/Y", strtotime(substr($Bandeja['return']['fechapaq'], 0, 10))) . "</td>";
                 if ($aux != "Recibidas") {
-                    echo "<td style='text-align:center'>" .utf8_encode( $Bandeja['return']['localizacionpaq'] ). "</td>";
-                }
+					$client = new nusoap_client($wsdl_sdc, 'wsdl');
+                   $Upaq = array('idpaq'=>$Bandeja['return']['idpaq']);
+					$local = $client->call("localizacionPaquete",$Upaq);
+					if($local['return']=="1"){
+                    echo "<td style='text-align:center'>" .utf8_encode( $Bandeja['return']['localizacionpaq']) . "  Destino </td>";
+					}else{
+					echo "<td style='text-align:center'>" .utf8_encode( $Bandeja['return']['localizacionpaq']) . "</td>";	
+                   }
+				}
                 echo "<td style='text-align:center'><a href='../pages/see_package.php?id=" . $Bandeja['return']['idpaq']. "'><button type='button' class='btn btn-info btn-primary' value='Realizar Valija'>  Ver Más </button> </a></td>";
                 if ($aux == "Por Recibir") {
 					
+                  if($local['return']=="1"){
+					
                     echo"<th style='width:7%; text-align:center' data-sort-ignore='true'>
 			<form> <button type='button' class='btn btn-info btn-primary' onClick='Confirmar(" . $Bandeja['return']['idpaq'] . ");' value='Realizar Valija'>  Confirmar </button> </form> </th>";
+					}else{
+					echo"<th style='width:7%; text-align:center' data-sort-ignore='true'>
+			<form> <button type='button' class='btn btn-info btn-primary' onClick='Confirmar(" . $Bandeja['return']['idpaq'] . ");' value='Realizar Valija' disabled>  Confirmar </button> </form>  </th>";	
+					}
 			
                 }
                 if ($aux == "Recibidas") {

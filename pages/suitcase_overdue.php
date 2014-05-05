@@ -78,7 +78,7 @@ require_once("../core/Crypt/AES.php");
     }
     include("../views/suitcase_overdue.php");
 } catch (Exception $e) {
-    javaalert('Lo sentimos no hay conexion');
+    utf8_decode(javaalert('Lo sentimos no hay conexión'));
     iraURL('../pages/inbox.php');
 }
 ?>

@@ -126,8 +126,8 @@ if (!isset($Sedes)) {
                                 </tr>
                                 <tr>
                                     <td style="text-align:center">Sede</td>
-                                    <td style="text-align:center"><select onChange="areas();
-                                            direccion();" id="sede" name="sede" required  title="Seleccione la Sede a la que pertenece">
+                                    <td style="text-align:center"><select onChange="areas(); dire(); direccion();
+                                            " id="sede" name="sede" required  title="Seleccione la Sede a la que pertenece">
                                             <option value="" style="display:none">Seleccionar:</option>                                  
                                             <?php
                                             if (!isset($Sedes[0])) {
@@ -152,12 +152,19 @@ if (!isset($Sedes)) {
                                 </tr>
                                 <tr>
                                     <td style="text-align:center" >Dirección</td>
-                                    <td style="text-align:center"><textarea  style="width:500px;"   id="direccion1" name="direccion1" maxlength="2000"  style="width:800px" ></textarea></td>
+                                    <td style="text-align:center" >
+                                    
+                                    <textarea style="width:500px;"  id="direccion1" name="direccion1" maxlength="2000"  style="width:800px" >  </textarea>  
+                                     
+                                    </td>
                                 </tr>
                             </table>
                             <br>
                             <div class="span11" align="center"><button class="btn" id="crear" name="crear" type="submit">Guardar</button></div>
                             <br>
+                            
+                            <div id="dato">
+                            </div>
                         </form>  
                     </div>
                 </div>
@@ -174,6 +181,7 @@ if (!isset($Sedes)) {
         </script>
 
         <script>
+		 
             function areas() {
                 //posicion
                 var $selectedOption = $('#sede').find('option:selected');
@@ -191,8 +199,23 @@ if (!isset($Sedes)) {
 
 
             }
-            function direccion() {
-                document.forms.formulario.direccion1.value = document.forms.formulario.sede.value;
+            function dire() {
+                var $selectedOption = $('#sede').find('option:selected');
+                var id = $selectedOption.val();
+                $.ajax({
+                    type: "POST",
+                    url: "../ajax/headquarters_address.php",
+                    data: {'sed': id},
+                    dataType: "text",
+                    success: function(response) {
+                        $("dato").html(response);
+                    }
+
+                });
+            }
+			
+			 function direccion() {
+                document.forms.formulario.direccion1.value = document.forms.formulario.dsede.value;
             }
         </script>
         <script src="../js/footable.js" type="text/javascript"></script>

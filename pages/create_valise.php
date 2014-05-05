@@ -45,7 +45,7 @@ require_once("../core/Crypt/AES.php");
         iraURL('../pages/inbox.php');
     }
 } catch (Exception $e) {
-    javaalert('Lo sentimos no hay conexion');
+    utf8_decode(javaalert('Lo sentimos no hay conexión'));
     iraURL('../pages/inbox.php');
 }
 include("../views/create_valise.php");

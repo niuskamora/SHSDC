@@ -48,7 +48,7 @@ try {
     }
     include("../views/package_area.php");
 } catch (Exception $e) {
-    javaalert('Lo sentimos no hay conexion');
+    utf8_decode(javaalert('Lo sentimos no hay conexión'));
     iraURL('../pages/administration.php');
 }
 ?>

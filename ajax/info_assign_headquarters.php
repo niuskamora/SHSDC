@@ -84,7 +84,7 @@ require_once("../core/Crypt/AES.php");
             iraURL('../pages/assign_headquarters.php');
         }
     } catch (Exception $e) {
-        javaalert('Lo sentimos no hay conexion');
+        utf8_decode(javaalert('Lo sentimos no hay conexión'));
         iraURL('../index.php');
     } 
     if ($reg != 0) {

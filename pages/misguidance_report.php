@@ -70,7 +70,7 @@ try {
                      iraURL('../pages/misguidance_report.php');
                 }
             } catch (Exception $e) {
-                javaalert('Lo sentimos no hay conexion');
+                utf8_decode(javaalert('Lo sentimos no hay conexión'));
                 iraURL('../pages/administration.php');
             }
         } else {
@@ -101,7 +101,7 @@ try {
                     iraURL('../pages/administration.php');
                 }
             } catch (Exception $e) {
-                javaalert('Lo sentimos no hay conexion');
+                utf8_decode(javaalert('Lo sentimos no hay conexión'));
                 iraURL('../pages/administration.php');
             }
         } else {
@@ -110,7 +110,7 @@ try {
     }
     include("../views/misguidance_report.php");
 } catch (Exception $e) {
-    javaalert('Lo sentimos no hay conexion');
+    utf8_decode(javaalert('Lo sentimos no hay conexión'));
     iraURL('../pages/administration.php');
 }
 ?>
