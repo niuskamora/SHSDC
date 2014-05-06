@@ -144,11 +144,8 @@ try {
 				if (isset($envio) || isset($bandejaorigen) || isset($bandejaDestino) ) {
 					if ($envio == "1" && $bandejaorigen == "1" && $bandejaDestino == "1") {
 						if ($buzonPara["tipobuz"] == "1") {
-							javaalert("La correspondencia ha sido enviada, como el buzón es externo no tendra respuesta del paquete");
-						} else {
-							javaalert("La correspondencia ha sido enviada");
-						}
-						$usuario = array('idusu' => $_SESSION["Usuario"]["idusu"]);
+							
+							$usuario = array('idusu' => $_SESSION["Usuario"]["idusu"]);
 						$parametros = array('registroPaquete' => $paq,
 							'registroUsuario' => $usuario,
 							'registroSede' => $sede,
@@ -156,6 +153,25 @@ try {
 						$consumo = $client->call("registroSeguimiento",$parametros);
 						llenarLog(1, "Envio de Correspondencia", $_SESSION["Usuario"]["idusu"], $_SESSION["Sede"]["idsed"]);
 						echo"<script>window.open('../pages/proof_of_correspondence.php');</script>";
+						
+							javaalert("La correspondencia ha sido enviada, como el buzón es externo no tendra respuesta del paquete");
+							iraURL("../pages/send_correspondence.php");
+						} else {
+							$usuario = array('idusu' => $_SESSION["Usuario"]["idusu"]);
+						$parametros = array('registroPaquete' => $paq,
+							'registroUsuario' => $usuario,
+							'registroSede' => $sede,
+							'Caso' => "Envio");
+						$consumo = $client->call("registroSeguimiento",$parametros);
+						llenarLog(1, "Envio de Correspondencia", $_SESSION["Usuario"]["idusu"], $_SESSION["Sede"]["idsed"]);
+						echo"<script>window.open('../pages/proof_of_correspondence.php');</script>";
+						
+							javaalert("La correspondencia ha sido enviada");
+							iraURL("../pages/send_correspondence.php");
+							
+							
+						}
+						
 					} else {
 						javaalert("La correspondencia no ha podido ser enviada correctamente , por favor consulte con el administrador");
 					}
