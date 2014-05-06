@@ -140,6 +140,8 @@ if (isset($_POST["enviar"])) {
 					$consumo = $client->call("registroSeguimiento",$parametros);
                     llenarLog(1, "Envio de Respuesta de Correspondencia", $_SESSION["Usuario"]["idusu"], $_SESSION["Sede"]["idsed"]);
 					echo"<script>window.open('../pages/proof_of_correspondence.php');</script>";
+					javaalert("La correspondencia ha sido enviada");
+					iraURL("../pages/send_correspondence.php");
                 }
             }
 		   }else{
