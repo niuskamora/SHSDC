@@ -128,6 +128,9 @@ if (isset($_POST["reportarPaqExc"])) {
                         javaalert('Paquete Reportado y Reenviado');
                         llenarLog(7, "Paquete Excedente", $usuarioBitacora, $sede);
                         iraURL('../pages/breakdown_valise.php');
+					} elseif ($reportarPaqExc == 2) {
+						javaalert('El paquete ya fue entregado, no se puede reportar');
+                        iraURL('../pages/breakdown_valise.php');
                     } else {
                         javaalert('Paquete No Reportado y No Reenviado, verifique los datos');
                         iraURL('../pages/breakdown_valise.php');
@@ -183,6 +186,9 @@ if (isset($_POST["reportarValija"])) {
                 }
                 javaalert('Valija Reportada y Reenviada');
                 llenarLog(7, "Valija Erronea", $usuarioBitacora, $sede);
+                iraURL('../pages/breakdown_valise.php');
+			} elseif ($reportarValija == 2) {
+				javaalert('La valija ya fue entregada, no se puede reportar');
                 iraURL('../pages/breakdown_valise.php');
             } else {
                 javaalert('Valija No Reportada y No Reenviada, verifique los datos');
