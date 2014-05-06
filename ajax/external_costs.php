@@ -100,25 +100,24 @@ try {
             </table>
             <div class="span4" align="right"><b>Proveedor:</b> </div>
             <div class="span3" align="left">
-                <select name='proveedor' id='proveedor' required  title='Seleccione el Proveedor'>
+                <select onChange="proveedores();" name='proveedor' id='proveedor' required  title='Seleccione el Proveedor'>
                     <option value='' style='display:none'>Seleccionar:</option>
                     <?php
                     if (isset($resultadoProveedor[0])) {
                         $i = 0;
                         while (count($resultadoProveedor) > $i) {
-                            echo "<option value='" . utf8_encode($resultadoProveedor[$i]["nombrepro"]) . "' >" .utf8_encode($resultadoProveedor[$i]["nombrepro"]). "</option>";
+                            echo "<option value='" . $resultadoProveedor[$i]["idpro"] . "' >" .utf8_encode($resultadoProveedor[$i]["nombrepro"]). "</option>";
                             $i++;
                         }
                     } else {
-                        echo "<option value='" . utf8_encode($resultadoProveedor["nombrepro"]) . "' >" . utf8_encode($resultadoProveedor["nombrepro"]) . "</option>";
+                        echo "<option value='" . $resultadoProveedor["idpro"] . "' >" . utf8_encode($resultadoProveedor["nombrepro"]) . "</option>";
                     }
                     ?>
                 </select>
             </div>
             <br><br><br>
             <div class="span4" align="right"><b>Código del Proveedor:</b></div>
-            <div class="span3" align="left">
-                <input type="text" class="input-block-level" name="cProveedor" id="cProveedor" placeholder="Ej. 1234" title="Ingrese el código de Guía" autocomplete="off" required>
+            <div id="campos" class="span3" align="left">
             </div>
 
             <br><br><br>
@@ -150,8 +149,10 @@ try {
     <script>
         function Confirma() {
             var idpaq = '<?= $_POST['idpaq'] ?>';
-            var parametros = {
-                "idpaq": idpaq, "localizacion": $('#proveedor').val() + ':' + $('#cProveedor').val()
+               	var indice = document.formulario.proveedor.selectedIndex;
+				var NombreProveedor = document.formulario.proveedor.options[indice].text ;
+			var parametros = {
+                "idpaq": idpaq, "localizacion": NombreProveedor + ':' + $('#codProveedor').val()
             };
             $.ajax({
                 type: "POST",
@@ -177,6 +178,21 @@ try {
                 }
             });
         }
+		 function proveedores() {
+                    //posicion
+                    var $selectedOption = $('#proveedor').find('option:selected');
+                    var idpro = $selectedOption.val();
+                    $.ajax({
+                        type: "POST",
+                        url: "../ajax/provider.php",
+                        data: {'pro': idpro},
+                        dataType: "text",
+                        success: function(response) {
+                            $("#campos").html(response);
+							
+                        }
+                    });
+                }
     </script>
     <script type="text/javascript">
         $(function() {

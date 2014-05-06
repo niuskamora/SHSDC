@@ -28,7 +28,6 @@ try {
         iraURL('../pages/inbox.php');
     }
     $idPaquete = array('idPaquete' => $_POST['idpaq']);
-   // $Paquete = $client->ConsultarPaqueteXId($idPaquete);
 	$consumo = $client->call("consultarPaqueteXId",$idPaquete);
 	if ($consumo!="") {
 	$Paquete = $consumo['return'];   
