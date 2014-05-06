@@ -48,6 +48,5 @@ require_once("../core/Crypt/AES.php");
     if ($reg != 0) {
         echo '
 		
-		<input value='.$Bandeja['codigopro'].' type="text" class="input-block-level" name="codProveedor" id="codProveedor" placeholder="Ej. 1234" title="Ingrese el código de Guía" autocomplete="off" disabled>
-                                        <input type="hidden" value='.$Bandeja['codigopro'].' class="input-block-level" name="cProveedor" id="cProveedor" placeholder="Ej. 1234" title="Ingrese el código de Guía" autocomplete="off" required>';
+                                        <input type="text" value='.$Bandeja['codigopro'].' class="input-block-level" name="cProveedor" id="cProveedor" placeholder="Ej. 1234" title="Ingrese el código de Guía" autocomplete="off" required>';
 		    }

@@ -175,7 +175,7 @@ if ($usuario == "") {
                 killerSession();
             }
             function killerSession() {
-                setTimeout("window.open('../recursos/cerrarsesion.php','_top');", 300000);
+                setTimeout("window.open('../recursos/cerrarsesion.php','_top');", 600000);
             }
         </script>
     </body>

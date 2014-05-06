@@ -97,7 +97,7 @@ if ($org=="") {
                                 </tr>
                                 <tr>
                                     <td style="text-align:center">Codigo de sede:</td>
-                                    <td style="text-align:center"><input type="text" name="codigo" id="codigo" autocomplete="off" maxlength="4" size="30" title="Ingrese un número de teléfono" placeholder="Ej. 0212"   ></td>
+                                    <td style="text-align:center"><input type="text" name="codigo" id="codigo" autocomplete="off" maxlength="4" size="30" title="Ingrese un número de teléfono" placeholder="Ej. 0212"   required ></td>
                                 </tr>
                                 <tr>
                                     <td style="text-align:center">Tel&eacute;fono</td>

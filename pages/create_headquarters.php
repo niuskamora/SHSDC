@@ -50,7 +50,7 @@ try {
             $result = $client->call("consultarSedeExistente", $datos);
             if ($result['return'] == "0") {
                 $correcto = 0;
-							$codigo = utf8_decode($_POST["codigo"]);
+						$codigo = utf8_decode($_POST["codigo"]);
 						$datos = array('codigo' => $codigo);
 						$result = $client->call("consultarSedeCodigo", $datos);
 						if ($result['return'] == "0") {

@@ -96,8 +96,8 @@ if ($Ses=="") {
                                     <td style="text-align:center"><input type="tel" name="telefono" id="telefono" autocomplete="off" maxlength="50" size="30" title="Ingrese el número de teléfono" placeholder="Ej. 04269876543"   ></td>
                                 </tr>
                                 <tr>
-                                    <td style="text-align:center">C&oacute;digo <h6> en caso de mensajero  </h6></td>
-                                    <td style="text-align:center"><input type="text" name="codigo" id="codigo" autocomplete="off" maxlength="50" size="30" placeholder="Ej. 98654"  ></td>
+                                    <td style="text-align:center">C&oacute;digo </td>
+                                    <td style="text-align:center"><input type="text" name="codigo" id="codigo" autocomplete="off" maxlength="50" size="30" placeholder="Ej. 98654"  required ></td>
                                 </tr>
                                 <tr>
                                     <td style="text-align:center">Sede</td>
